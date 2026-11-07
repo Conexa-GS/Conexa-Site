@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" role="img" aria-label="Conelo: mercado" class="station-art"><defs>
+    <linearGradient id="orange-volume" x2=".3" y2="1"><stop stop-color="#ff9665"/><stop offset="1" stop-color="#ed613d"/></linearGradient>
+    <linearGradient id="green-volume" x2="1" y2="1"><stop stop-color="#397357"/><stop offset="1" stop-color="#174d38"/></linearGradient>
+    <linearGradient id="blue-volume" x2=".8" y2="1"><stop stop-color="#a9d4df"/><stop offset="1" stop-color="#6fa4b5"/></linearGradient>
+    <linearGradient id="skin-warm" x2="1" y2=".7"><stop stop-color="#df9b6c"/><stop offset="1" stop-color="#c87b54"/></linearGradient>
+    <linearGradient id="skin-deep" x2="1" y2="1"><stop stop-color="#b87655"/><stop offset="1" stop-color="#945037"/></linearGradient>
+    <linearGradient id="glass-volume" x2="1" y2="1"><stop stop-color="#daeee6"/><stop offset="1" stop-color="#91bec5"/></linearGradient>
+    <g id="leaf-mark"><path d="M-13 8Q-25-16-1-24Q17-7 3 10Q19-17 35-9Q36 16 7 20L-4 29Z" fill="currentColor"/></g>
+    <g id="veg-crate" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 28C-4 10-5-6 7-9C20-15 25 5 23 15C17-12 23-25 34-23C50-20 42 8 33 23C51-1 58 0 62 9L50 35" fill="#76a854"/>
+      <path d="M21 24L9 3M26 23L31-10M33 28L48 11" stroke="#477d48" stroke-width="2" fill="none"/>
+      <path d="M48 29L56-2Q62-8 68-1L76 29" fill="#f3a14d"/><path d="M61-3L56-17M63-4L70-19M64-2L78-12" stroke="#397357" stroke-width="4"/>
+      <circle cx="87" cy="17" r="18" fill="#ef7550"/><path d="M82 1L88 6L94 0M88 6V-3" stroke="#477d48" stroke-width="2.5" fill="none"/>
+      <path d="M0 27H109L104 81H7Z" fill="#c99555"/><path d="M3 30H108L105 76H7Z" fill="#e6b86f"/>
+      <path d="M10 40H100M11 54H99M13 68H97" stroke="#b68046" stroke-width="2"/><path d="M17 29V77M92 29V77" stroke="#f6d99d" stroke-width="8"/>
+      <rect x="38" y="35" width="33" height="8" rx="4" fill="#9d6d3b"/><path d="M0 27H109M7 80H104" stroke="#f6d99d" stroke-width="5"/>
+      <g fill="#a97545"><circle cx="17" cy="35" r="1.4"/><circle cx="92" cy="35" r="1.4"/><circle cx="17" cy="72" r="1.4"/><circle cx="92" cy="72" r="1.4"/></g>
+    </g>
+    <g id="head-farmer" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-31-28C-51-12-38 7-44 26C-54 48-27 57-14 43L26 42C47 41 47 15 34-2C40-39 14-52-8-45Z" fill="#213c32"/>
+      <path d="M-13 19L-15 46Q0 58 18 45L13 19" fill="#c47b53"/><path d="M-12 21L13 24L14 35Q-4 37-12 27" fill="#ad6246"/>
+      <path d="M-27-20C-24-43 18-42 29-18L26 6C25 24 12 34-2 30C-18 27-26 14-27-20" fill="url(#skin-warm)"/>
+      <path d="M-28-4C-45-18-43 11-26 11" fill="#da9464"/><path d="M-32-1Q-38-4-34 5" fill="none" stroke="#ab6145" stroke-width="2"/>
+      <path d="M-29-21Q-12-18-3-37Q6-25 29-22L28-35L-23-42Z" fill="#213c32"/>
+      <path d="M-12-10Q-7-13-2-10M12-10Q17-13 21-10" fill="none" stroke="#593f31" stroke-width="2.2"/>
+      <g class="eyes" fill="#263d32"><ellipse cx="-6" cy="-4" rx="2.2" ry="3"/><ellipse cx="17" cy="-4" rx="2.2" ry="3"/></g>
+      <path d="M7-4L10 6L5 8" fill="none" stroke="#af6549" stroke-width="1.7"/><ellipse cx="-14" cy="10" rx="5" ry="2.8" fill="#ed9b75"/>
+      <path d="M-5 15Q7 20 18 13Q9 30-5 15" fill="#fff9ec"/><circle cx="-29" cy="15" r="4.8" stroke="#f3c45e" stroke-width="2.8" fill="none"/>
+      <path d="M-34-35L-26-61Q-7-74 15-63L31-39Z" fill="#efc66f"/><path d="M-19-61Q-13-66 3-63L12-41H-25Z" fill="#ffdc8a"/>
+      <path d="M-33-42Q-3-48 27-43L31-35L-35-31Z" fill="#b97b43"/>
+      <path d="M-56-35Q-37-44-4-39Q29-44 49-35C63-20 22-17-4-21C-30-18-66-23-56-35" fill="#efc66f"/>
+      <path d="M-48-30Q-17-24 9-27Q34-29 45-30" fill="none" stroke="#dca953" stroke-width="2"/>
+    </g>
+    <g id="head-buyer" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-15 17L-17 45Q2 56 19 42L14 16" fill="#9b573c"/><path d="M-15 20Q-1 32 16 24L17 34Q-1 40-15 26" fill="#814431"/>
+      <path d="M-29-23Q-22-48 8-39Q32-37 29-11L27 11Q22 32 5 32Q-18 33-25 10Z" fill="url(#skin-deep)"/>
+      <path d="M-26-5C-44-18-42 12-25 11" fill="#ae6c4e"/><path d="M-31-1Q-36-4-33 5" stroke="#7e4634" stroke-width="2" fill="none"/>
+      <path d="M-29-3Q-39-8-34-25Q-45-42-27-47Q-24-60-11-53Q2-66 12-51Q30-58 32-42Q47-35 32-21Q16-16 8-28Q-5-16-23-23L-24-3Z" fill="#263c33"/>
+      <path d="M-22-40Q-18-47-10-43M3-48Q9-48 13-42" stroke="#49614e" stroke-width="2" fill="none"/>
+      <g class="eyes" fill="#273b32"><ellipse cx="-10" cy="-3" rx="2" ry="3"/><ellipse cx="17" cy="-3" rx="2" ry="3"/></g>
+      <g stroke="#223e33" stroke-width="2.6" fill="none"><rect x="-24" y="-13" width="25" height="21" rx="8"/><rect x="5" y="-13" width="25" height="21" rx="8"/><path d="M1-5H5M-24-6L-31-9"/></g>
+      <path d="M5 1L7 10L2 12" fill="none" stroke="#834832" stroke-width="1.5"/><path d="M-4 18Q8 23 20 15Q12 31-4 18" fill="#fff9ec"/>
+      <path d="M-23 16Q-19 31 0 35Q19 38 27 19Q23 40 5 42Q-19 40-23 16" fill="#263c33" opacity=".65"/>
+    </g>
+    <g id="head-driver" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M-15 19L-17 44Q0 55 19 43L14 18" fill="#ce895e"/><path d="M-15 21L15 25L16 33Q-2 38-15 29" fill="#ba714e"/>
+      <path d="M-29-24Q-10-43 24-25L28 4Q25 29 4 31Q-23 32-27 8Z" fill="#e3a474"/>
+      <path d="M-27-5Q-43-16-39 3Q-36 13-25 10" fill="#d99061"/><path d="M-32-2Q-37-4-33 4" stroke="#b87350" stroke-width="2" fill="none"/>
+      <path d="M-31-21L-23-23L-22-4L-29 2Z" fill="#3b4637"/>
+      <g class="eyes" fill="#273d32"><ellipse cx="-7" cy="-4" rx="2" ry="3"/><ellipse cx="16" cy="-4" rx="2" ry="3"/></g>
+      <path d="M-12-12L-3-13M12-13L21-11" stroke="#6b4b35" stroke-width="2" fill="none"/><path d="M6-4L9 6L5 8" stroke="#bb7752" stroke-width="1.5" fill="none"/>
+      <path d="M-9 15Q-2 6 5 12Q13 5 23 12Q21 20 6 17Q-3 22-9 15" fill="#3b4637"/><path d="M2 23Q8 26 13 22" stroke="#9e5f43" stroke-width="1.7" fill="none"/>
+      <path d="M-34-25Q-38-57-9-59Q24-61 29-28Z" fill="#397357"/><path d="M-9-57Q-21-47-18-28L-32-27Q-36-51-9-57" fill="#588b62"/>
+      <path d="M-35-29Q-9-33 30-30L47-24Q52-19 42-18L-34-20Z" fill="#174d38"/><path d="M-7-48L4-48L8-37L-6-37Z" fill="#d4eb88"/>
+    </g>
+    <g id="little-plant" stroke-linecap="round">
+      <path d="M1 0Q-7-45 9-80" fill="none" stroke="#397357" stroke-width="3"/>
+      <path d="M-2-16C-25-12-39-31-33-44C-11-44-1-33-2-16M1-39C20-32 35-49 31-64C12-63 3-53 1-39M7-63C-5-67-11-85-3-95C12-88 14-77 7-63" fill="#79a360"/>
+      <path d="M-3-19L-25-35M4-43L25-57" fill="none" stroke="#4d8050" stroke-width="1.5"/>
+      <path d="M-24-8H24L18 27Q0 32-18 27Z" fill="#de9a67"/><path d="M8-8H24L18 27Q11 30 6 29Z" fill="#c98053"/><rect x="-27" y="-13" width="54" height="10" rx="3" fill="#edb17c"/>
+    </g>
+    <g id="wheel-v3"><circle r="27" fill="#243e34"/><circle r="22" fill="#3b5549"/><circle r="16" fill="#c4d6cc"/><circle r="11" fill="#ecf1df"/>
+      <g stroke="#8ca69a" stroke-width="3" stroke-linecap="round"><path d="M0-11V-7M0 7V11M-11 0H-7M7 0H11M-8-8L-5-5M5 5L8 8M8-8L5-5M-5 5L-8 8"/></g><circle r="4" fill="#577567"/>
+    </g>
+    <g id="parcel"><path d="M0 8L32 0L61 10V49L29 58L0 46Z" fill="#e4b375"/><path d="M29 18L61 10V49L29 58Z" fill="#c99459"/><path d="M0 8L29 18L61 10L32 0Z" fill="#f0cb91"/><path d="M19 3L49 13V25L40 28V16L11 6Z" fill="#fff0c9"/><path d="M6 33L19 37M6 38L14 40" stroke="#b67f49" stroke-width="2"/></g>
+  </defs><style>.eyes{transform-box:fill-box;transform-origin:center;animation:blink 6.2s linear infinite}@keyframes blink{0%,42%,46%,100%{transform:scaleY(1)}44%{transform:scaleY(.05)}}/* V3 artwork: each gesture uses a local joint nested inside the placement.
+   Rotation never overwrites the SVG translation or scale. */
+.farmer-head,.buyer-head,.driver-head{transform-origin:0 35px;animation:character-look 7s ease-in-out infinite}
+.buyer-head{animation-name:buyer-look;animation-duration:8s}
+.driver-head{animation-name:driver-look;animation-duration:8.5s}
+.farmer-torso{transform-origin:253px 348px;animation:farmer-breathe 6s ease-in-out infinite}
+.buyer-torso{transform-origin:475px 352px;animation:buyer-breathe 7s ease-in-out infinite}
+.driver-body{transform-origin:169px 332px;animation:buyer-breathe 6.8s ease-in-out infinite}
+.farmer-arm{transform-origin:0 0;animation:welcome-arm 6s cubic-bezier(.45,0,.25,1) infinite}
+.farmer-hand{transform-origin:6px 10px;animation:welcome-hand 6s ease-in-out infinite}
+.buyer-phone{transform-origin:0 0;animation:phone-gesture 8s ease-in-out infinite}
+.buyer-arm{transform-origin:0 0;animation:resting-arm 7s ease-in-out infinite}
+.driver-gesture{transform-origin:193px 250px;animation:driver-gesture 8.5s ease-in-out infinite}
+.eyes{animation-duration:6.2s}.buyer .eyes{animation-delay:1.7s}.depot-person .eyes{animation-delay:3.1s}
+.plant-sway{animation-duration:7s}.connection-pin{animation:none}
+.cloud-one{animation-duration:15s}
+.art-label{font:800 12px "Trebuchet MS",Arial,sans-serif;letter-spacing:2.2px}
+.depot-station .place-label{left:16%;top:12%;font-size:10px;transform:rotate(-5deg)}
+.farm-station .place-label{left:12%;top:16%}
+.market-station .place-label{left:23%;top:13%}
+.route-layer #road-soft{opacity:.45}.route-layer #road-base{stroke:#d7dfbd}.route-layer #road-travelled{stroke:#a4ba85;opacity:.5}
+.place-label{font-weight:400;letter-spacing:.1px;color:#536d4d}
+.is-loaded .farmer-hand{animation-duration:4.8s}
+.is-delivered .buyer-head{animation-name:buyer-welcome}
+.portrait{box-shadow:inset 0 0 0 1px #174d3808}
+.art-paused .static-truck .truck-svg{overflow:visible}
+@keyframes character-look{0%,14%,72%,100%{transform:rotate(-2deg)}28%,53%{transform:rotate(3deg)}42%{transform:rotate(1deg)}}
+@keyframes buyer-look{0%,15%,90%,100%{transform:rotate(-3deg)}35%,60%{transform:rotate(-9deg)}74%{transform:rotate(1deg)}}
+@keyframes buyer-welcome{0%,100%{transform:rotate(-2deg)}40%,65%{transform:rotate(3deg)}}
+@keyframes driver-look{0%,100%{transform:rotate(-3deg)}38%,65%{transform:rotate(4deg)}}
+@keyframes farmer-breathe{0%,100%{transform:rotate(-.5deg) scaleY(1)}50%{transform:rotate(.5deg) scaleY(1.009)}}
+@keyframes buyer-breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.012)}}
+@keyframes welcome-arm{0%,15%,82%,100%{transform:rotate(3deg)}32%,64%{transform:rotate(-8deg)}45%{transform:rotate(-6deg)}}
+@keyframes welcome-hand{0%,20%,78%,100%{transform:rotate(0)}34%{transform:rotate(-15deg)}44%{transform:rotate(8deg)}54%{transform:rotate(-13deg)}64%{transform:rotate(5deg)}}
+@keyframes phone-gesture{0%,15%,90%,100%{transform:rotate(0)}35%,60%{transform:rotate(8deg)}74%{transform:rotate(2deg)}}
+@keyframes resting-arm{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2deg)}}
+@keyframes driver-gesture{0%,15%,85%,100%{transform:rotate(1deg)}40%,60%{transform:rotate(-7deg)}}
+@media(max-width:760px){.depot-station .place-label,.place-label{font-size:8px}.route-layer #road-soft{opacity:.3}}
+@media(prefers-reduced-motion:reduce){.station-art *{animation:none!important}}
+
+.wordmark{display:inline-flex;line-height:0;letter-spacing:normal}.wordmark svg{display:block;width:168px;height:auto}.header .wordmark{flex-shrink:0}.footer .wordmark svg{width:145px}@media(max-width:760px){.wordmark svg{width:140px}}
+</style>
+    <path d="M44 366C11 258 73 159 175 158C214 95 339 88 390 146C491 126 556 210 551 319C567 427 473 468 326 463C172 479 69 450 44 366" fill="#e6eee0"/>
+    <g fill="#cbded1"><path d="M79 328V192H114V168H149V200H176V328ZM435 331V178H467V150H493V186H524V331Z"/></g>
+    <g fill="#e8f0e5"><path d="M93 208H104V224H93ZM118 208H129V224H118ZM93 241H104V257H93ZM118 241H129V257H118ZM452 202H464V219H452ZM479 202H491V219H479ZM452 235H464V252H452ZM479 235H491V252H479Z"/></g>
+    <ellipse cx="325" cy="453" rx="212" ry="17" fill="#b6cdb9" opacity=".55"/>
+    <g class="market-building" stroke-linejoin="round">
+      <path d="M151 264H403V442H151Z" fill="#f1d6a0"/><path d="M403 264L441 279V431L403 442Z" fill="#d6b787"/>
+      <rect x="166" y="278" width="222" height="150" rx="3" fill="#ddbf89"/><rect x="174" y="289" width="123" height="127" rx="2" fill="url(#glass-volume)"/>
+      <path d="M180 354L235 294M212 403L291 317" stroke="#dcece2" stroke-width="8" opacity=".65"/><path d="M235 291V412M174 357H297" stroke="#fff2d3" stroke-width="5"/>
+      <path d="M316 427V309Q349 279 378 309V427Z" fill="#446f58"/><path d="M326 419V314Q349 293 368 314V419Z" fill="#2b5341"/><rect x="357" y="358" width="4" height="21" rx="2" fill="#edca85"/>
+      <rect x="171" y="408" width="130" height="12" rx="2" fill="#c89963"/><rect x="145" y="433" width="264" height="10" rx="3" fill="#d3b58a"/>
+      <path d="M137 276L165 217H394L420 276Z" fill="#fff2d6"/><path d="M165 217H199L183 276H137ZM231 217H264L261 276H222ZM297 217H329L340 276H300ZM362 217H394L420 276H379Z" fill="#f18154"/>
+      <path d="M137 275V289Q160 311 183 289V275M222 275V289Q242 311 261 289V275M300 275V289Q320 311 340 289V275M379 275V289Q400 311 420 289V275" fill="#e76e49"/>
+      <path d="M183 275V289Q203 311 222 289V275M261 275V289Q281 311 300 289V275M340 275V289Q360 311 379 289V275" fill="#f4e3c0"/>
+      <path d="M138 276H419" stroke="#b87850" stroke-width="2" opacity=".55"/><rect x="201" y="166" width="151" height="39" rx="8" fill="#fff4db"/><rect x="205" y="170" width="143" height="31" rx="6" fill="none" stroke="#d5b98a"/>
+      <text x="277" y="190" text-anchor="middle" class="art-label">MERCADO</text>
+      <g transform="translate(183 381) scale(.4)"><use href="#veg-crate"/></g><g transform="translate(240 381) scale(.4)"><use href="#veg-crate"/></g><path d="M174 421H300" stroke="#b48656" stroke-width="2"/>
+    </g>
+    <g class="buyer" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="475" cy="474" rx="60" ry="8" fill="#375d47" opacity=".14"/>
+      <path d="M449 344L438 404L434 454L457 458L477 391L481 348Z" fill="#284e3d"/><path d="M473 350L482 405L500 458L524 451L514 394L508 342Z" fill="#375f48"/>
+      <path d="M453 363L450 402M491 369L497 399" stroke="#517a5a" stroke-width="2" fill="none"/>
+      <path d="M434 450L456 454L455 468L433 476H410Q406 471 413 466L430 458Z" fill="#f7edd8"/><path d="M411 475H455" stroke="#37614a" stroke-width="4"/>
+      <path d="M500 451L520 447L524 460L541 467Q547 474 538 476H500Z" fill="#f7edd8"/><path d="M501 474H540" stroke="#37614a" stroke-width="4"/>
+      <g class="buyer-torso">
+        <path d="M450 234Q424 239 419 269L411 301L427 307L445 279Z" fill="#ad6a4c"/><path d="M449 230Q430 233 423 250L418 270L439 278L452 251Z" fill="#bedb80"/>
+        <path d="M448 231Q473 221 498 235L511 291L508 352L443 352L439 281Z" fill="#d4eb88"/>
+        <path d="M456 234L459 267H489L491 234L499 239L497 271L513 358Q473 373 436 358L450 270L447 237Z" fill="url(#orange-volume)"/>
+        <path d="M455 287H492V315Q476 324 455 315Z" fill="#e27246"/><path d="M459 290H488M446 345Q474 352 502 345" stroke="#f9b281" stroke-width="1.5" fill="none"/>
+        <circle cx="457" cy="269" r="2.7" fill="#ffe1a8"/><circle cx="491" cy="269" r="2.7" fill="#ffe1a8"/>
+        <g transform="translate(422 296)"><g class="buyer-phone"><path d="M-4 0L-17-18L-9-25L6-11L13-13L19-7L12 5Q3 12-4 0" fill="#b67652"/>
+          <rect x="-27" y="-52" width="24" height="42" rx="5" fill="#254e3c" transform="rotate(-12 -15 -31)"/><path d="M-22-43L-9-46L-3-21L-17-18Z" fill="#c8e0d0"/>
+          <path d="M-16-31L-12-28L-7-36" stroke="#518059" stroke-width="2" fill="none"/><path d="M-12-15L-17-26Q-16-31-12-27L-7-18L1-12L-2-5" fill="#b67652"/>
+        </g></g>
+        <g transform="translate(500 247)"><g class="buyer-arm"><path d="M-9-12Q9-8 16 11L24 34L10 44L-2 22Z" fill="#c4df85"/>
+          <path d="M14 33L27 35L32 61Q33 70 23 75L0 85L-7 74L15 61L9 42Z" fill="url(#skin-deep)"/><path d="M-2 73Q-11 71-15 77L-18 88Q-14 92-12 85L-7 83L-9 91Q-7 96-3 91L4 80" fill="#ae6b4c"/>
+        </g></g>
+        <g transform="translate(474 204) scale(.67)"><g class="buyer-head"><use href="#head-buyer"/></g></g>
+      </g>
+    </g>
+    <g id="market-supply" transform="translate(323 405) scale(.68)" opacity="0"><use href="#veg-crate"/></g>
+    <g class="plant-sway" transform="translate(113 426) scale(.8)"><use href="#little-plant"/></g>
+    <g transform="translate(403 153)"><g class="delivery-check"><circle r="25" fill="#397357"/><circle r="20" fill="none" stroke="#62956b"/><path d="M-10 0L-3 7L12-9" fill="none" stroke="#e2efa5" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></g></g>
+  </svg>

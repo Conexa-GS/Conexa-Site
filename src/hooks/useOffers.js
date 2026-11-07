@@ -1,0 +1,18 @@
+import { useCallback, useEffect, useState } from 'react'
+import { listCatalog, listOffers, saveOffer, deleteOffer } from '../services/offers'
+
+export function useOffers(session) {
+  const [state, setState] = useState({ offers: [], products: [], locations: [], loading: true, error: '' })
+  const [revision, setRevision] = useState(0)
+  const reload = useCallback(() => setRevision(value => value + 1), [])
+  useEffect(() => {
+    let active = true
+    Promise.all([listOffers(session), listCatalog(session)]).then(([offers, catalog]) => {
+      if (active) setState({ offers, ...catalog, loading: false, error: '' })
+    }).catch(error => { if (active) setState(previous => ({ ...previous, loading: false, error: error.message })) })
+    return () => { active = false }
+  }, [session, revision])
+  async function save(input, previous) { await saveOffer(session, input, previous); reload() }
+  async function remove(offer) { await deleteOffer(session, offer); reload() }
+  return { ...state, reload, save, remove }
+}

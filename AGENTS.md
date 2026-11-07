@@ -1,0 +1,12 @@
+# Conexa
+
+Leia `Conexa-specs/README.md`, `spec.md`, `business-rules.md` e `workflow.md` antes de alterar o projeto. O pedido explícito do usuário prevalece sobre propostas dos documentos.
+
+- Trabalhe em `feature/*`, criada a partir de `dev`. Nunca edite ou faça commits diretamente na `main`.
+- Use Conventional Commits. Preserve o trabalho existente.
+- Após a mudança, apresente o resultado para avaliação e peça autorização antes de subir/integrar na `dev`. Não promova para `main` por pressuposição.
+- Registre cada prompt solicitado e o uso real de IA em `IA.md`, seguindo as cinco seções de `Conexa-specs/workflow.md`. Não invente testes, prompts ou aprovação humana.
+- Preserve a identidade visual do piloto: creme, verde, laranja, marca vetorial e ilustrações locais.
+- Telas M2+ nesta primeira versão são prévias identificadas; não apresentá-las como operações persistidas.
+- Não declare M1 concluído sem verificar CRUD e RLS no Supabase real de demonstração.
+- Verificações locais: `npm run lint`, `npm test`, `npm run build`; confira telas em 360 px e desktop quando houver alteração de interface.

@@ -1,0 +1,60 @@
+# Modelo de dados proposto
+
+Proposta técnica, a converter em migrations versionadas. Não criar todas as tabelas no M1. Supabase/PostgreSQL é a persistência; serviços não podem contornar integridade financeira ou de estoque.
+
+## Convenções
+
+- IDs UUID; datas de auditoria em UTC; exibição em America/Sao_Paulo.
+- Preço unitário em centavos por unidade; quantidades em numeric com até três casas. Valores não negativos e quantidades estritamente positivas.
+- Arredondar cada valor de linha ao centavo mais próximo, metade para cima, usando aritmética decimal ou inteiros escalados; somar linhas já arredondadas. Exibir quantidade e unidade. Definir precisão e validar antes de gravar.
+- Totais financeiros calculados/validados no servidor; não confiar em total enviado pelo cliente.
+- Intervalo de disponibilidade com início <= fim; moeda BRL no MVP.
+- `archived_at` para arquivamento; `created_at` e `updated_at` nos cadastros.
+- Índices nas chaves estrangeiras, status e filtros de produto/região.
+
+## Entidades por marco
+
+| Entidade | Principais campos e relações | Marco |
+| --- | --- | --- |
+| participants | id, display_name, role (producer/buyer/carrier), city, region, is_demo | M1 |
+| products | id, name, unit (kg no primeiro cenário) | M1 |
+| offers | id, producer_id, product_id, quantity_total, unit_price_cents, minimum_net_unit_cents, available_from, available_until, pickup_location_id, status | M1 |
+| locations | id, city, region, display_address, latitude/longitude opcionais; localização fictícia identificada | M1 |
+| demands | id, buyer_id, product_id, quantity, desired_date, destination_id, status | M2 |
+| loads | id, buyer_id, status, version, scheduled_date, selected_quote_id opcional, subtotal_cents, freight_cents, platform_fee_cents=0, total_cents | M2/M3 |
+| load_items | id, load_id, demand_id, offer_id, quantity, snapshots de produto/unidade/preço/mínimo, gross_cents, net_cents | M2 |
+| reservations | id, load_item_id único, offer_id, quantity, expires_at, status (active/committed/released) | M2 |
+| confirmations | id, load_id, participant_id, proposal_version, decision, decided_at; único por participante/versão | M2/M3 |
+| vehicles | id, carrier_id, description, capacity_kg, vehicle_category, conservation_conditions | M3 |
+| transport_quotes | id, load_id, carrier_id, vehicle_id, source (carrier/producer_indication), indicated_by opcional, status, total_cents, expires_at, services_included, departure_time, load_version | M3 |
+| route_stops | id, load_id, position, location_id, kind (departure/pickup/destination/return), stop_minutes | M3 |
+| payment_attempts | id, load_id, proposal_version, amount_cents, status (pending/approved/declined/refunded), idempotency_key, is_simulated=true | M5 |
+| simulated_payouts | id, load_id, recipient_id, kind, amount_cents, status; único por carga/destinatário/tipo | M5 |
+| operation_events | id, load_id, participant_id, event_type, from_status, to_status, version, reason, created_at | M2+ |
+| delivery_occurrences | id, load_id, description, status, resolution, resolved_at | M5 |
+
+Dados da rota externa: consultar sob demanda; não persistir respostas, geocodificação, polylines ou estimativas de fornecedor sem verificar seus termos de uso e armazenamento. Cotação acordada e roteiro próprio podem ser registrados; não tratá-los como cópia de resposta externa.
+
+## Relações centrais
+
+Produtor 1:N ofertas. Comprador 1:N demandas/cargas. Carga 1:N itens. Cada item referencia uma oferta e uma demanda do mesmo comprador da carga. Carga 1:N cotações e 0:1 cotação selecionada. Cotação selecionada precisa pertencer à própria carga e à versão válida.
+
+## Saldo
+
+`livre = quantity_total - SUM(reservas active não expiradas) - SUM(reservas committed)`.
+
+Pagamento aprovado converte reserva ativa em comprometida na mesma transação; não criar um segundo desconto. Entrega preserva o compromisso no histórico. Cancelamento pré-transporte libera; arquivamento de oferta não libera compromissos.
+
+Não permitir reduzir quantity_total abaixo da soma reservada/comprometida. Reserva expirada nunca pode ser convertida em compromisso sem nova validação atômica.
+
+## Snapshots e integridade
+
+Guardar preço/mínimo acordados nos itens. Atualizar uma oferta não altera silenciosamente uma proposta existente. Validar `version` e aceites na confirmação. Ações dependentes de diversas linhas (reserva, aprovação, cancelamento, pagamento) são transacionais via RPC/função no banco ou serviço servidor.
+
+## Acesso no modo de demonstração
+
+Não usar seletor visual como identidade confiável. Plano técnico inicial: usuários fictícios previamente criados no Supabase Auth, um por participante, para o servidor/banco aplicar RLS; o seletor abre uma sessão de demonstração correspondente. Sem cadastro público de pessoas reais.
+
+Escolher e documentar o mecanismo de sessão antes do M1: credenciais de demo têm acesso deliberadamente limitado, ou função servidor cria a sessão. Nunca expor service_role. Se a configuração ainda não existir, oferecer apenas modo local explicitamente simulado; isso não completa o aceite do CRUD remoto.
+
+Políticas mínimas: produtor modifica suas ofertas; comprador modifica suas demandas; transportador modifica seus veículos/cotações. Comprador consulta ofertas publicadas; cada participante consulta cargas em que participa. Transições protegidas em funções com validação de identidade. Público não pode atualizar indiscriminadamente todos os registros. Testar RLS com identidades diferentes.
