@@ -6,7 +6,10 @@ import { homeFor } from './domain/profiles'
 import { ActionLink, EmptyState, Logo } from './components/ui'
 import Demo from './pages/Demo'
 import OffersPage from './features/offers/OffersPage'
-import { CompositionPage, DemandsPage, OperationPage, PaymentPage, ProducerProposals, TransportRequests, VehiclesPage } from './pages/Previews'
+import { OperationPage, PaymentPage, TransportRequests, VehiclesPage } from './pages/Previews'
+import DemandsPage from './features/demands/DemandsPage'
+import CompositionPage from './features/demands/CompositionPage'
+import ProducerProposals from './features/demands/ProducerProposals'
 import './App.css'
 const Landing = lazy(() => import('./components/Landing'))
 const routes = {
@@ -18,18 +21,21 @@ const routes = {
 }
 export default function App() {
   const path = useRouter(), auth = useDemoSession()
-  useEffect(() => { document.title = path === '/' ? 'Conexa — Do campo pra cidade. Mais juntos.' : `${path === '/demo' ? 'Escolha seu perfil' : routes[path]?.[1] || 'Página não encontrada'} · Conexa`; document.getElementById('conteudo')?.focus({ preventScroll: true }) }, [path])
+  const compositionId = path.match(/^\/comprador\/demandas\/([0-9a-f-]{36})\/composicao$/)?.[1]
+  const route = compositionId ? ['buyer', 'Compor demanda'] : routes[path]
+  useEffect(() => { document.title = path === '/' ? 'Conexa — Do campo pra cidade. Mais juntos.' : `${path === '/demo' ? 'Escolha seu perfil' : compositionId ? 'Compor demanda' : routes[path]?.[1] || 'Página não encontrada'} · Conexa`; document.getElementById('conteudo')?.focus({ preventScroll: true }) }, [path, compositionId])
   if (path === '/') return <Suspense fallback={<div className="initial-loading" role="status">Preparando o caminho…</div>}><Landing /></Suspense>
   if (path === '/demo') return <Demo auth={auth} />
-  if (!routes[path]) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Esse caminho ainda não existe." action={<ActionLink href="/">Voltar ao início</ActionLink>}>Confira o endereço ou retorne à página inicial.</EmptyState></div>
+  if (!route) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Esse caminho ainda não existe." action={<ActionLink href="/">Voltar ao início</ActionLink>}>Confira o endereço ou retorne à página inicial.</EmptyState></div>
   if (!auth.session) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Vamos escolher seu perfil?" action={<ActionLink href="/demo">Entrar na demonstração</ActionLink>}>Abra uma sessão fictícia para explorar este espaço.</EmptyState></div>
   const role = auth.session.role
   let page
-  if (routes[path][0] && routes[path][0] !== role) page = <EmptyState title="Cada perfil tem seu caminho." action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
+  if (route[0] && route[0] !== role) page = <EmptyState title="Cada perfil tem seu caminho." action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
   else if (path.endsWith('/ofertas')) page = <OffersPage key={auth.session.id} session={auth.session} />
-  else if (path === '/produtor/propostas') page = <ProducerProposals />
-  else if (path === '/comprador/demandas') page = <DemandsPage />
-  else if (path.endsWith('/composicao')) page = <CompositionPage />
+  else if (path === '/produtor/propostas') page = <ProducerProposals key={auth.session.id} session={auth.session} />
+  else if (path === '/comprador/demandas') page = <DemandsPage key={auth.session.id} session={auth.session} />
+  else if (compositionId) page = <CompositionPage key={compositionId} demandId={compositionId} />
+  else if (path.endsWith('/composicao')) page = <EmptyState title="Escolha uma demanda cadastrada." action={<ActionLink href="/comprador/demandas">Minhas demandas</ActionLink>}>A composição agora usa ofertas consultadas no Supabase.</EmptyState>
   else if (path === '/transportador/solicitacoes') page = <TransportRequests />
   else if (path === '/transportador/veiculos') page = <VehiclesPage />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
