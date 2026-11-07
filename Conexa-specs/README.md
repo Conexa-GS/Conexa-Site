@@ -25,6 +25,8 @@ Especificar → planejar → implementar uma fatia funcional → verificar os cr
 
 O primeiro marco é o CRUD de ofertas persistido no Supabase e consultado por um comprador fictício. O restante está especificado para evitar retrabalho, mas será implementado por etapas.
 
+Atualização em 07/11/2026: M1/M2/M3 concluídos por aceite do usuário. T20 aprovado explicitamente e promoção dev → main autorizada. M3 persiste veículos, indicações, cotações, totais e aceites no demo, com testes locais/remotos pelo Codex. O aceite não é apresentado como execução de testes visuais pelo agente; limites em `validation.md`. Próximo marco: M4/T21; M4+ continua em prévias. Ver `tasks.md` e D009/D010 em `decisions.md`.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.

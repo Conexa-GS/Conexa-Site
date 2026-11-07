@@ -1,5 +1,6 @@
 import { futureDate, today } from '../domain/offers'
 import { isRemote, supabase } from './supabase'
+import { m2 } from './m2'
 
 export const accounts = [
   { id: 'ana', name: 'Ana Oliveira', role: 'producer', label: 'Sítio Boa Semente', email: import.meta.env.VITE_DEMO_ANA_EMAIL || 'ana@conexa.invalid', art: 'produtora' },
@@ -35,7 +36,9 @@ export async function listOffers(session) {
   let query = supabase.from('offers').select('*, products(name, unit), participants!producer_id(display_name), locations(display_address)').eq('status', 'published').order('created_at', { ascending: false })
   if (session.role === 'producer') query = query.eq('producer_id', session.id)
   else query = query.gte('available_until', today())
-  return check(await query)
+  const offers = check(await query)
+  const balances = await m2('balances')
+  return offers.map(offer => ({ ...offer, quantity_free: balances.find(b => b.id === offer.id)?.quantity_free ?? 0 }))
 }
 export async function saveOffer(session, input, previous) {
   if (!isRemote) {
@@ -57,5 +60,16 @@ export async function deleteOffer(session, offer) {
     localOffers = localOffers.filter(o => o.id !== offer.id)
     return
   }
-  check(await supabase.from('offers').delete().eq('id', offer.id).eq('version', offer.version).select('id').single())
+  const result = await supabase.from('offers').delete().eq('id', offer.id).eq('version', offer.version).select('id').single()
+  if (result.error?.code === '23503') throw new Error('Oferta vinculada ao histórico. Use Arquivar para preservar os valores acordados.')
+  check(result)
+}
+
+export async function archiveOffer(session, offer) {
+  if (!isRemote) {
+    if (session.role !== 'producer' || offer.producer_id !== session.id) throw new Error('Apenas o responsável pode arquivar.')
+    localOffers = localOffers.map(o => o.id === offer.id ? { ...o, status: 'archived' } : o)
+    return
+  }
+  check(await supabase.from('offers').update({ status: 'archived' }).eq('id', offer.id).eq('version', offer.version).select('id').single())
 }

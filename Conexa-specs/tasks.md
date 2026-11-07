@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1 concluído por confirmação do usuário**, após corrigir as variáveis de ambiente e informar que validou e testou a aplicação. Aceite humano e limites da evidência registrados em `validation.md`; a validação remota não foi executada pelo Codex. Próximo marco: M2, começando por T13.
+Atualização de 07/11/2026: **M1, M2 e M3 concluídos por aceite do usuário**. T20 aprovado explicitamente (“pode aprovar o t20 e depois pode subir para a main”), com promoção dev → main autorizada. T17–T19 e API/banco de T20 verificados pelo Codex; aceite humano não é atribuído a testes visuais executados pelo agente. Próximo marco: M4/T21. Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
@@ -26,17 +26,25 @@ Definição de pronto M1: CRUD remoto funciona, comprador lê os mesmos registro
 
 ## M2 — Demanda e composição; depende de M1
 
-- [ ] T13 CRUD de demandas e candidatos compatíveis.
-- [ ] T14 Modelo de cargas/itens/reservas; snapshots e funções de reserva transacional.
-- [ ] T15 Seleção 30+20 kg, insuficiência, aceite/recusa e expiração.
-- [ ] T16 Verificar AC05–09/21, incluindo concorrência e liberação de saldo.
+- [x] T13 CRUD de demandas e candidatos compatíveis — serviços, domínio, formulário e migrations; CRUD remoto verificado pelo Codex em 07/11/2026.
+- [x] T14 Modelo de cargas/itens/reservas; snapshots e funções de reserva transacional — migrations M2, gateway RPC e RLS; testes locais e remotos pelo Codex em 07/11/2026.
+- [x] T15 Seleção 30+20 kg, insuficiência, aceite/recusa e expiração — comportamento de API local/remoto verificado pelo Codex em 07/11/2026; revisão visual em 360 px/desktop aprovada pelo usuário.
+- [x] T16 Verificar AC05–09/21, incluindo concorrência e liberação de saldo — domínio e banco passaram, incluindo concorrência real, Auth/RLS e liberação; usuário informou revisão em 360 px/desktop e autorizou aprovação em 07/11/2026. Sem relatório individual de teclado ou testes visuais observado pelo Codex; limites em `validation.md`.
+
+Entrega M2 na branch `feature/m2-demandas-composicao`, migrations `20261107213117_m2_demands_reservations.sql` e `20261107220459_m2_event_actor_index.sql`; testes `demands.test.js`, `m2-database.mjs` e `remote-m2.mjs`. Usuário autorizou publicação/integração na dev em 07/11/2026 (“pode aprovar”). Não informou procedimentos de revisão visual executados; T16 permanece aberto. M3 não iniciado.
+
+Atualização posterior de aceite: “acabei de revisasr em 360 px/desktop e pode aprovar”. Usuário responsável pela revisão visual e aprovação; T16 e M2 encerrados com base nesse relato e nas verificações técnicas acima. A pendência descrita no parágrafo anterior é histórica. M3 ainda não iniciado.
+
+Commits de implementação: `c9ba25c` (domínio, banco, serviços e testes) e `5bf018b` (interface, hooks e integração). Responsável pelas verificações relatadas: Codex, 07/11/2026.
 
 ## M3 — Transporte e financeiro; depende de M2
 
-- [ ] T17 Veículos, indicações e cotações com confirmação do transportador.
-- [ ] T18 Resumo por produtor e total do comprador; mínimos, taxa zero e frete separado.
-- [ ] T19 Aceites por versão e validação de capacidade/conservação/prazo.
-- [ ] T20 Verificar AC10–14/21.
+- [x] T17 Veículos, indicações e cotações com confirmação do transportador — gateway M3, RLS e interface; testes locais e API demo pelo Codex em 07/11/2026.
+- [x] T18 Resumo por produtor e total do comprador; mínimos, taxa zero e frete separado — centavos/snapshots, total persistido calculado no banco; R$330 e mínimos R$120/R$90 verificados.
+- [x] T19 Aceites por versão e validação de capacidade/conservação/prazo — seleção abre nova versão, quatro aceites finais, bloqueios no banco; testes locais e remotos.
+- [x] T20 Verificar AC10–14/21 — API e banco verificados pelo Codex; aceite explícito do usuário em 07/11/2026 encerra a tarefa. Não houve relatório de procedimentos visuais/teclado, nem nova execução visual pelo agente. AC14 usa cancelamento/remontagem explícitos, sem editor de coletas.
+
+Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_transport_finance.sql`, `20261107224534_m3_quote_compatibility.sql` e `20261107224716_m3_financial_totals.sql`. Testes `transport.test.js`, `m3-database.mjs` e `remote-m3.mjs`. Autorizações de migration/testes no demo dadas pelo usuário nesta interação; nenhum push/merge autorizado. M3 não declarado concluído.
 
 ## M4 — Rotas e inclusão; depende da composição e cotação
 

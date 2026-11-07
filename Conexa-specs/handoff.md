@@ -25,6 +25,6 @@ Valide M1 pelos AC01–04 e AC23. Registre procedimentos e resultados reais, atu
 
 ## Estado atual do pacote
 
-Atualização em 07/11/2026: este estado abaixo descreve a origem do planejamento. A primeira versão visual Conexa e os arquivos M1 estão agora preparados; consulte README, decisions.md e validation.md para o estado corrente. Supabase remoto e os marcos seguintes continuam pendentes. O pedido atual do usuário autoriza prévias navegáveis das demais páginas, conforme D005.
+Atualização em 07/11/2026: o texto abaixo descreve a origem do planejamento. M1/M2/M3 concluídos por aceite do usuário; T20 aprovado explicitamente e promoção dev → main autorizada. M3 e revisão de fluxo/listas implementados e integrados na dev; D009/D010 registram decisões. Próximo marco: M4/T21. M4+ segue como prévia. Não atribuir ao Codex testes visuais não executados; consulte tasks.md e validation.md. Não reaplicar migrations já registradas no projeto demo.
 
 Planejamento e especificação somente. Não há site implementado, migrations executadas, API de rotas configurada, repo criado, deploy ou Supabase provisionado por este trabalho.

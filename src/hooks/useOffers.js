@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { listCatalog, listOffers, saveOffer, deleteOffer } from '../services/offers'
+import { listCatalog, listOffers, saveOffer, deleteOffer, archiveOffer } from '../services/offers'
 
 export function useOffers(session) {
   const [state, setState] = useState({ offers: [], products: [], locations: [], loading: true, error: '' })
@@ -14,5 +14,6 @@ export function useOffers(session) {
   }, [session, revision])
   async function save(input, previous) { await saveOffer(session, input, previous); reload() }
   async function remove(offer) { await deleteOffer(session, offer); reload() }
-  return { ...state, reload, save, remove }
+  async function archive(offer) { await archiveOffer(session, offer); reload() }
+  return { ...state, reload, save, remove, archive }
 }

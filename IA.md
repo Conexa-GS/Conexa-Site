@@ -152,3 +152,203 @@ Autorizada a integração e publicação na `dev` da feature de diagnóstico e c
 ### Análise crítica
 
 A sincronização da `dev` prepara uma base comum para M2, preservando a versão estável na `main`. Atualizar branches não implementa funcionalidades pendentes nem substitui as validações de cada novo marco. O aceite M1 continua atribuído ao relato do usuário.
+
+## Interação 006 — Preparação da M2 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações e identificação de decisões pendentes; PowerShell e Git para inspeção do checkout e criação da feature. Skill Supabase consultada para orientar o trabalho futuro de persistência e permissões.
+
+### Interações realizadas
+
+Prompt integral do pedido: “vamos dar inicio a m2, verifique a documentação, siga o padrão de branch e commits, pergunte o que não ficou explicito”.
+
+Resposta representativa: leitura das especificações e conferência do repositório antes de implementar. Foram enviadas perguntas sobre entrega completa T13–T16 ou primeira fatia T13, prazo configurável de 24 horas e autorização para migration/testes remotos ou aplicação manual do SQL. Respostas ainda pendentes neste registro. Valores de ambiente fornecidos pelo editor não foram reproduzidos.
+
+### Aplicação no projeto
+
+Criada `feature/m2-demandas-composicao` a partir da `dev` local no commit `f376e7c`, com árvore de trabalho inicialmente limpa. Revisados documentação, rotas de prévia, serviço de ofertas, sessão demo, migration M1 e testes PostgreSQL locais. Nenhuma funcionalidade M2 implementada nesta preparação. Sem push ou integração.
+
+### Validação das respostas
+
+Conferidos `git status`, branches e referências locais de acompanhamento remoto; não houve fetch nesta interação. A primeira criação de branch foi impedida pelo sandbox; a tentativa com permissão elevada foi autorizada e concluída. Não foram executados testes de aplicação, interface ou Supabase remoto nesta etapa documental. M1 permanece descrito conforme o aceite humano anterior; M2 permanece aberto.
+
+### Análise crítica
+
+O planejamento define as regras centrais da M2, mas o prazo inicial de reserva ainda é proposta e a aplicação remota exige autorização específica. Esclarecer esses pontos antes de implementar evita transformar decisões técnicas propostas em requisitos aceitos. As prévias existentes não demonstram persistência, concorrência ou reservas reais.
+
+## Interação 007 — Implementação da M2 autorizada — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para implementação React/SQL, revisão e documentação. Skills Supabase e Supabase Postgres Best Practices para consulta de documentação oficial, funções, permissões, RLS e bloqueios. PowerShell, Node/npm, Git e CLI oficial Supabase para arquivos, migrations e verificações locais; MCP Supabase para inspeção, migrations, SQL, advisors e testes reais com sessões demo. Skill Computer Use consultada; ferramentas de navegador/computador tentadas sem conseguir acessar a interface. Documentação oficial consultada por web e busca Supabase; nenhum subagente utilizado.
+
+### Interações realizadas
+
+Respostas integrais do usuário às perguntas da interação 006: “M2 completa (T13–T16)”; “Sim, usar 24 horas”; “Autorizar migration e testes no projeto demo”.
+
+Resposta representativa: “Vou implementar a M2 completa, com reservas de 24 horas configuráveis e limitadas pela disponibilidade das ofertas. Também vou aplicar a migration e testar no Supabase demo, conforme sua autorização, e apresentar o resultado antes de subir ou integrar na dev.”
+
+### Aplicação no projeto
+
+CRUD de demandas; busca por produto/unidade/prazo; composição exata, insuficiência explícita, candidata sem reserva; envio transacional; prazo efetivo visível; aceite/recusa por versão; cancelamento com motivo e histórico. Snapshots preservam preços, mínimos e coletas; estoque reservado protegido e arquivo disponível. M3+ continua em prévias. Gateway público invoker e funções privilegiadas privadas validam identidade e ações; sem escrita REST direta em cargas/reservas/aceites. Serialização global das operações M2 é simplificação deliberada para o ambiente demo.
+
+Migrations geradas pela CLI e aplicadas no projeto demo autorizado; nomes locais alinhados às versões registradas pelo MCP. Seed ampliado com destino fictício derivado do comprador. Atualizados README, instruções e specs para distinguir M2 persistido de prévias posteriores. Commits locais: `c9ba25c` — `feat(m2): add transactional demands and producer reservations`; `5bf018b` — `feat(m2): connect demand composition and producer response screens`. Documentação consolidada em commit separado. Sem push/integração autorizados nesta interação.
+
+### Validação das respostas
+
+Codex executou lint, 9 testes de domínio, suites PostgreSQL locais M1/M2 e build, com sucesso após correções reais de ambiguidade PL/pgSQL e handler de arquivo. Build mantém aviso de bundle acima de 500 kB. Testes remotos com Supabase Auth real comprovaram CRUD, RLS, persistência após nova autenticação, duas submissões concorrentes (uma rejeitada sem reservas parciais), saldo 5 kg, snapshots, aceite, recusa, cancelamento, arquivo e expiração. Prazo da fixture de expiração antecipado via SQL administrativo apenas para teste. Fixtures removidas por UUID; conferência final preservou 3 ofertas anteriores e zero demandas/cargas de teste.
+
+Advisor identificou FK de ator sem índice, corrigida em migration complementar. Permanecem avisos herdados de `demo_role` e proteção de senha, além de informações de índices ainda não usados. Nenhuma credencial foi gravada em registros ou código. Changelog markdown não foi renderizado pelo web; documentação de funções/RLS e busca oficial Supabase foram consultadas.
+
+Desktop/360 px, teclado e fluxo visual M2 **não verificados**: host de navegador integrado indisponível e solicitação de acesso ao Firefox nativo expirou na ferramenta. Não confundir testes de API com interface validada; T16 e aceite integral permanecem pendentes. Nenhuma avaliação humana adicional foi inventada. Detalhes em `Conexa-specs/validation.md`.
+
+### Análise crítica
+
+A IA acelerou a entrega de domínio, interface e transações, mas testes detectaram erros que exigiram ajustes antes do uso remoto. Testar concorrência no Supabase e usar fixtures próprias oferece evidência mais forte de saldo consistente que mocks ou banco local com conexão única. Função transacional e snapshots reduzem divergência entre perfis; lock global simplifica o protótipo, com limitação clara de escala. O bloqueio de inspeção visual impede encerrar a M2 como integralmente validada. Aceite humano e autorização para integrar continuam necessários conforme AGENTS.md/workflow.md.
+
+## Interação 008 — Aprovação de integração M2 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell e Git para conferência, sincronização, commit documental e publicação/integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode aprovar”. Contexto: resposta ao pedido de autorização para subir e integrar a feature M2 na dev após apresentação dos resultados e da pendência visual.
+
+Resposta representativa: “Vou registrar sua aprovação e publicar/integrar a feature na dev. Vou manter a revisão visual como pendência, já que ela não foi executada pelo agente.”
+
+### Aplicação no projeto
+
+Autorização para publicar a feature `feature/m2-demandas-composicao` e integrá-la na dev, com registro documental em Conventional Commit antes da integração. Não autoriza promoção para main. Atualizados planejamento e validação para distinguir aprovação da integração de comprovação de revisão visual.
+
+### Validação das respostas
+
+Árvore inicialmente limpa, feature e commits M2 conferidos; `git fetch origin --prune` executado. Lint, 9 testes de domínio, suites PostgreSQL locais, build e testes remotos foram executados na implementação anterior; sem alteração funcional ou repetição desses testes nesta interação. Conferir igualdade entre referências local/remota da dev após publicação. O usuário não informou ter executado revisão visual; T16 permanece aberto.
+
+### Análise crítica
+
+A aprovação permite integrar o trabalho apresentado na dev, preservando os limites das evidências. Não transforma o bloqueio do navegador em verificação executada nem autoriza encerrar o marco integralmente. Main permanece fora desta autorização.
+
+## Interação 009 — Aceite visual e conclusão M2 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para atualização documental; PowerShell e Git para leitura, conferência, commit e sincronização do registro de aceite no fluxo feature → dev. Sem alteração funcional ou operação Supabase.
+
+### Interações realizadas
+
+Prompt integral: “acabei de revisasr em 360 px/desktop e pode aprovar”. Resposta representativa: registrar a aprovação da revisão visual, encerrar T16 e M2 e atribuir essa validação ao usuário.
+
+### Aplicação no projeto
+
+Criada `feature/m2-aceite-visual` a partir da dev. Atualizados tasks.md, validation.md, README principal e das specs e handoff para registrar M2 concluído e M3/T17 como próximo marco. Preservado o histórico do bloqueio de navegador e da aprovação anterior de integração. Registro segue o fluxo de publicação M2 na dev já autorizado; nenhuma promoção para main.
+
+### Validação das respostas
+
+O usuário afirmou ter revisado em 360 px/desktop e autorizou aprovação. A revisão visual foi relatada pelo usuário, não executada ou observada pelo Codex; não foram fornecidos resultados individuais de teclado ou dos fluxos, nem inventadas capturas. Conferência documental por `git diff --check`; sem novos testes de aplicação nesta alteração apenas documental. Permanecem válidas as evidências técnicas registradas na interação 007.
+
+### Análise crítica
+
+O relato e a aprovação humana encerram a pendência que mantinha T16 aberto. Isso não substitui auditoria completa de acessibilidade nem antecipa M3. Distinguir o relato do usuário dos testes do agente mantém o histórico fiel e permite avançar no planejamento.
+
+## Interação 010 — M3 transporte e financeiro — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex: leitura das especificações, implementação JavaScript/React/SQL, testes e documentação. Skills Sites (checkout local, sem publicação), Supabase e Postgres best practices para persistência/acesso; Computer Use consultada para revisão visual. Recursos: PowerShell, Git, Node/npm, ESLint, Vite, PGlite e plugin Supabase para inspeção, migrations e advisors. Documentação oficial de [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security) e [funções](https://supabase.com/docs/guides/database/functions) consultada. Nenhum subagente ou geração de imagens usado.
+
+### Interações realizadas
+
+Prompt integral do pedido: “vamos seguir para o m3, siga o padrão de branch e commits, pergunte o que não ficou claro”. O contexto de IDE listava `.env`, tasks.md, spec.md, README.md e plan.md; nenhum valor secreto foi reproduzido.
+
+Pergunta efetivamente feita: “Posso aplicar a migration do M3 e executar testes com dados fictícios no mesmo projeto Supabase demo configurado? A autorização registrada anteriormente era específica do M2.” Resposta integral: “Sim, autorizar migration e testes do M3 no demo”.
+
+Resposta representativa: “O M3 está definido em T17–T20: veículos, indicações e cotações, resumo financeiro por produtor e confirmações por versão.” O Codex informou a criação da feature, validação local/remota e bloqueio de revisão visual, sem atribuir aprovação ao usuário.
+
+### Aplicação no projeto
+
+Criada `feature/m3-transporte-financeiro` a partir de dev limpo. Implementados gateway M3 com funções privadas, RLS/permissões explícitas, veículos imutáveis, indicações pendentes, cotação manual completa, capacidade/conservação/prazo, totais calculados/persistidos no banco, seleção com nova versão e quatro aceites finais. Expiração/cancelamento M2 estendidos aos estados M3. Interface em `features/transport`, serviço, hook, domínio financeiro, navegação e links das propostas. M4/M5 continuam prévias; M3 termina antes do pagamento/agendamento. Decisões e limitações em D009. Nenhum push/merge/deploy realizado; commits locais seguem Conventional Commits.
+
+### Validação das respostas
+
+Codex executou lint, 10 testes unitários, build e suites PostgreSQL locais M1/M2/M3. API real com quatro contas Auth do demo verificou indicação, bloqueios por perfil/RLS, capacidade/conservação, validade e serviços, seleção/versão, total R$330 e mínimos R$120/R$90, quatro aceites finais, repetição, cancelamento e saldo liberado. Houve repetição do teste remoto após reforçar compatibilidade e persistência dos totais. Fixtures próprias: ofertas/demandas arquivadas, propostas canceladas, histórico/veículos de teste preservados. Relatório com IDs somente em arquivo local ignorado, sem credenciais. Testes negativos de peso desconhecido, mínimo adulterado, cotação já vencida e expiração na etapa final também executados localmente por manipulação administrativa das fixtures, não atribuídos a testes remotos.
+
+Migrations geradas pela CLI e aplicadas no projeto demo autorizado. Advisors não indicaram novo aviso de segurança M3; permaneceram os avisos anteriores de demo_role e proteção contra senhas vazadas e avisos informativos de índices não usados. Build tem aviso de bundle acima de 500 kB. Endpoint local respondeu HTTP 200. Browser host indisponível e acesso ao Firefox nativo bloqueado por falta de fiscalização de URLs; Computer Use encerrado. Desktop/360 px/teclado M3 **não verificados**, T20 e avaliação humana pendentes. Nenhuma aprovação humana de interface ou integração foi recebida.
+
+### Análise crítica
+
+O banco concentra identidade, valores e transições, impedindo confirmação indevida por requisição direta. Cotações manuais completas permitem avançar sem depender da API de rotas M4, com limitações explicitadas. Novos aceites após selecionar frete tornam o acordo final revisável. Imutabilidade/cancelamento-remontagem simplificam o protótipo, mas não substituem edição versionada futura. Conservação é declaração fictícia, não certificação. Testes de API não comprovam usabilidade; a revisão visual permanece necessária antes de encerrar M3. Não houve outra IA, pesquisa de campo, transporte ou pagamento real.
+
+## Interação 011 — Simplificar envio e organizar propostas — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para inspecionar fluxo existente, implementar ajustes React/JavaScript/CSS e documentar. Recursos: Git, PowerShell, Node/npm, ESLint, Vite e PGlite. Continuação do trabalho local com orientação da skill Sites já lida. Nenhum subagente, geração de imagens, deploy ou mudança remota no Supabase nesta revisão.
+
+### Interações realizadas
+
+Prompt integral: “achei nada intuitivo o processo de criar demanda -> aprovar nas minhas propostas e só depois o produtor receber a proposta, fora que precisa deixar separado as propostas novas e as arquivadas ou canceladas, podendo tambem derixar como oculto para diminuição da poluição visual”. Contexto de IDE: workflow.md, .env, tasks.md, spec.md e README.md; sem reprodução de valores secretos.
+
+Resposta representativa: “Vou deixar o fluxo como criar demanda → escolher produtores → enviar aos produtores, com o envio na própria composição.” O Codex informou que ocultar é preferência por participante/lista neste navegador, preservando operações e prazos, e manteve o trabalho na mesma feature ainda em avaliação. Não houve pedido ou recebimento de autorização de integração nesta interação.
+
+### Aplicação no projeto
+
+Demanda nova abre automaticamente a composição após salvar. O botão principal envia aos produtores usando as ações M2 existentes, sem envio posterior em Minhas propostas. Rascunho preservado em falha permite reenvio com mesmo UUID; perda de resposta de envio é conferida no banco pela consulta existente, e gravação incerta é recuperada para revisão. Rascunhos anteriores podem ser retomados; propostas já enviadas não permitem criar outra silenciosamente.
+
+Componente RecordList em demandas, propostas e transporte: Ativas por padrão, Histórico separado e Ocultas com reexibição. Novas para responder separadas de Em andamento no produtor. Ocultar guarda apenas UUIDs de preferência em localStorage por participante/lista, sem alterar Supabase, cancelamento ou reservas. Ajustados textos, passos e ações conforme estágio; edição de demanda vinculada deixa de ser oferecida. Decisão D010 e fluxos/README atualizados. Continuação em `feature/m3-transporte-financeiro`, originada de dev na interação anterior, sem integrar trabalho não aprovado.
+
+### Validação das respostas
+
+Codex executou lint (passou após retirar export auxiliar incompatível com Fast Refresh), 14 testes unitários, suites PGlite M1/M2/M3 e build. Quatro testes de envio verificaram gravação→envio, preservação/reuso do rascunho em falha, recuperação de resposta perdida após commit e gravação incerta recuperada sem envio automático. Esses quatro testes usam API simulada; não representam nova execução no demo remoto. Build mantém aviso de bundle acima de 500 kB. `git diff --check` sem problemas de whitespace; Git informa conversão de fim de linha LF/CRLF conforme configuração existente.
+
+Nenhuma nova migration, requisição remota de teste ou nova tentativa de navegador nesta revisão. Revisão desktop/360 px/teclado segue pendente pelo bloqueio de navegador previamente observado; não foi inventada aprovação humana. Sem push/merge/deploy.
+
+### Análise crítica
+
+O envio fica no contexto em que o comprador escolhe os produtores, reduzindo a troca de telas. Separar histórico e ocultar cartões reduz a lista inicial sem apagar a rastreabilidade. Ocultar é reversível e não suspende prazos; a preferência não sincroniza entre dispositivos. O envio continua com duas chamadas: falhas preservam rascunho em vez de alegar transação única ou sucesso falso. Os testes verificam recuperação, mas a nova organização e clareza dos textos ainda precisam da avaliação visual do usuário.
+
+## Interação 012 — Autorização de integração M3 na dev — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização e integrar a feature; Git e PowerShell para conferir branches, sincronizar referências e executar integração/publicação na dev. Sem alteração funcional, migration, teste remoto ou deploy nesta interação.
+
+### Interações realizadas
+
+Prompt integral: “pode integrar”. Contexto: resposta ao pedido de autorização para integrar na dev a feature M3 com o ajuste de fluxo e organização das listas. Resposta representativa: “Vou registrar sua autorização, conferir o estado das branches e integrar a feature na dev, seguindo o workflow do projeto.”
+
+### Aplicação no projeto
+
+Autorizada a integração de `feature/m3-transporte-financeiro`, com commits `3018a85`, `6963a18` e `6d46cc6`, na dev. Registro documental preparado na feature antes da integração. A autorização não promove nada para main nem autoriza deploy. Histórico anterior de pendências preservado.
+
+### Validação das respostas
+
+Checkout limpo antes da alteração; `git fetch origin` confirmou dev local e remota sincronizadas e os três commits da feature ainda não integrados. Verificação documental por `git diff --check`. Sem novos testes de aplicação: última revisão passou em lint, 14 testes unitários, suites PGlite M1/M2/M3 e build, conforme interação 011. O usuário autorizou integrar; não relatou procedimentos de revisão em 360 px/desktop ou teclado, por isso T20 permanece aberto. O resultado efetivo da integração/publicação é conferido pelo Git e informado na resposta desta interação.
+
+### Análise crítica
+
+A autorização permite integrar o trabalho apresentado preservando o fluxo de branches. Integração não comprova testes visuais não relatados nem encerra automaticamente M3. Manter essa distinção evita transformar uma aprovação de Git em evidência de usabilidade.
+
+## Interação 013 — Aceite T20 e promoção para main — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar aceite/autorizações e atualizar documentação; Git e PowerShell para conferir referências, integrar e publicar branches. Sem outra IA, alteração funcional, migration, testes remotos ou deploy.
+
+### Interações realizadas
+
+Prompt integral: “pode aprovar o t20 e depois pode subir para a main”. Resposta representativa: “Vou registrar seu aceite do T20 e conferir a sincronização das branches antes de promover a dev para a main, como você autorizou.” Nenhum relato individual de testes visuais foi fornecido.
+
+### Aplicação no projeto
+
+Criada `feature/m3-aceite-t20` a partir de dev para atualizar tasks.md, validações, README, handoff, AGENTS.md e este registro. T20 e M3 encerrados por aceite explícito do usuário; próximo marco M4/T21. Integração documental na dev e promoção/publicação da dev para main autorizadas neste pedido, preservando histórico. Não desenvolver arquivos diretamente na main; nela somente integração Git autorizada.
+
+### Validação das respostas
+
+Estado inicial limpo e dev sincronizada com origin/dev em `0a786f4`; referências remotas atualizadas por fetch. Main possui merge anterior próprio, a preservar na promoção. Conferência de documentação por `git diff --check` e conferência Git após integração/publicação. Sem novos testes de aplicação para mudança documental: permanecem os 14 testes unitários, suites PGlite, lint e build aprovados na revisão anterior e testes remotos M3 registrados na interação 010. Não inventados testes visuais em 360 px/desktop/teclado ou observação do Codex; encerramento decorre do aceite do usuário.
+
+### Análise crítica
+
+O aceite explícito encerra a pendência de avaliação e autoriza promover o marco. Preservar o histórico dos bloqueios e a origem humana da aprovação evita confundir encerramento da tarefa com procedimentos técnicos não observados. A publicação Git na main não representa deploy, cobrança, transporte real ou avanço automático no M4.
