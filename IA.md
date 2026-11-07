@@ -206,3 +206,27 @@ Desktop/360 px, teclado e fluxo visual M2 **não verificados**: host de navegado
 ### Análise crítica
 
 A IA acelerou a entrega de domínio, interface e transações, mas testes detectaram erros que exigiram ajustes antes do uso remoto. Testar concorrência no Supabase e usar fixtures próprias oferece evidência mais forte de saldo consistente que mocks ou banco local com conexão única. Função transacional e snapshots reduzem divergência entre perfis; lock global simplifica o protótipo, com limitação clara de escala. O bloqueio de inspeção visual impede encerrar a M2 como integralmente validada. Aceite humano e autorização para integrar continuam necessários conforme AGENTS.md/workflow.md.
+
+## Interação 008 — Aprovação de integração M2 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell e Git para conferência, sincronização, commit documental e publicação/integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode aprovar”. Contexto: resposta ao pedido de autorização para subir e integrar a feature M2 na dev após apresentação dos resultados e da pendência visual.
+
+Resposta representativa: “Vou registrar sua aprovação e publicar/integrar a feature na dev. Vou manter a revisão visual como pendência, já que ela não foi executada pelo agente.”
+
+### Aplicação no projeto
+
+Autorização para publicar a feature `feature/m2-demandas-composicao` e integrá-la na dev, com registro documental em Conventional Commit antes da integração. Não autoriza promoção para main. Atualizados planejamento e validação para distinguir aprovação da integração de comprovação de revisão visual.
+
+### Validação das respostas
+
+Árvore inicialmente limpa, feature e commits M2 conferidos; `git fetch origin --prune` executado. Lint, 9 testes de domínio, suites PostgreSQL locais, build e testes remotos foram executados na implementação anterior; sem alteração funcional ou repetição desses testes nesta interação. Conferir igualdade entre referências local/remota da dev após publicação. O usuário não informou ter executado revisão visual; T16 permanece aberto.
+
+### Análise crítica
+
+A aprovação permite integrar o trabalho apresentado na dev, preservando os limites das evidências. Não transforma o bloqueio do navegador em verificação executada nem autoriza encerrar o marco integralmente. Main permanece fora desta autorização.
