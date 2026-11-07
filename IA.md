@@ -193,7 +193,7 @@ Resposta representativa: “Vou implementar a M2 completa, com reservas de 24 ho
 
 CRUD de demandas; busca por produto/unidade/prazo; composição exata, insuficiência explícita, candidata sem reserva; envio transacional; prazo efetivo visível; aceite/recusa por versão; cancelamento com motivo e histórico. Snapshots preservam preços, mínimos e coletas; estoque reservado protegido e arquivo disponível. M3+ continua em prévias. Gateway público invoker e funções privilegiadas privadas validam identidade e ações; sem escrita REST direta em cargas/reservas/aceites. Serialização global das operações M2 é simplificação deliberada para o ambiente demo.
 
-Migrations geradas pela CLI e aplicadas no projeto demo autorizado; nomes locais alinhados às versões registradas pelo MCP. Seed ampliado com destino fictício derivado do comprador. Atualizados README, instruções e specs para distinguir M2 persistido de prévias posteriores. Commits locais devem seguir Conventional Commits; sem push/integração autorizados nesta interação.
+Migrations geradas pela CLI e aplicadas no projeto demo autorizado; nomes locais alinhados às versões registradas pelo MCP. Seed ampliado com destino fictício derivado do comprador. Atualizados README, instruções e specs para distinguir M2 persistido de prévias posteriores. Commits locais: `c9ba25c` — `feat(m2): add transactional demands and producer reservations`; `5bf018b` — `feat(m2): connect demand composition and producer response screens`. Documentação consolidada em commit separado. Sem push/integração autorizados nesta interação.
 
 ### Validação das respostas
 

@@ -2,6 +2,12 @@
 
 Interfaces abaixo são contratos lógicos, não endpoints de backend já implementados. CRUD simples usa cliente Supabase com RLS. Operações compostas usam funções transacionais; rotas externas usam servidor.
 
+## Implementação M2 — 07/11/2026
+
+`src/services/m2.js` usa `supabase.rpc('m2', { action, payload })`. O gateway é `security invoker`; a função privada valida sessão, papel, propriedade, versão, estado e saldo. Ações: `list`, `balances`, `save_demand`, `remove_demand`, `archive_demand`, `candidates`, `draft`, `submit`, `respond`, `cancel`. `draft` recebe `{id: demandId, items: [{offer_id, quantity}], hours}`; ações de proposta recebem `{id: loadId, version}`; resposta adiciona `decision` accepted/rejected e cancelamento exige `reason`.
+
+Os nomes abaixo seguem como contratos lógicos. A implementação M2 usa esse único gateway, lança erros traduzidos pelo serviço e retorna JSON. `save_demand` recebe `{product_id,quantity,destination_id,desired_date,id?,version?}`. `list` retorna demandas do comprador e propostas visíveis ao participante, itens em snapshot, confirmações e histórico. Produtor vê somente seus itens e não vê rascunhos. `balances` retorna somente id e saldo de ofertas que o perfil pode consultar. Não há endpoint M2 para editar carga: cancelar e remontar preserva os aceites/snapshots anteriores.
+
 ## Padrões
 
 - IDs string UUID; quantidade decimal válida até três casas; moeda em centavos inteiros; timestamps ISO 8601.

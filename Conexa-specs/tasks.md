@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1 concluído por confirmação do usuário**, após corrigir as variáveis de ambiente e informar que validou e testou a aplicação. Aceite humano e limites da evidência registrados em `validation.md`; a validação remota não foi executada pelo Codex. Próximo marco: M2, começando por T13.
+Atualização de 07/11/2026: **M1 concluído por confirmação do usuário**. M2 implementado e verificado por API no Supabase demo pelo Codex; revisão visual em 360 px/desktop e avaliação humana ainda pendentes. Não encerrar o marco integralmente antes dessa revisão. Evidências em `validation.md`.
 
 ## M0 — Preparação
 
@@ -26,10 +26,14 @@ Definição de pronto M1: CRUD remoto funciona, comprador lê os mesmos registro
 
 ## M2 — Demanda e composição; depende de M1
 
-- [ ] T13 CRUD de demandas e candidatos compatíveis.
-- [ ] T14 Modelo de cargas/itens/reservas; snapshots e funções de reserva transacional.
-- [ ] T15 Seleção 30+20 kg, insuficiência, aceite/recusa e expiração.
-- [ ] T16 Verificar AC05–09/21, incluindo concorrência e liberação de saldo.
+- [x] T13 CRUD de demandas e candidatos compatíveis — serviços, domínio, formulário e migrations; CRUD remoto verificado pelo Codex em 07/11/2026.
+- [x] T14 Modelo de cargas/itens/reservas; snapshots e funções de reserva transacional — migrations M2, gateway RPC e RLS; testes locais e remotos pelo Codex em 07/11/2026.
+- [x] T15 Seleção 30+20 kg, insuficiência, aceite/recusa e expiração — interface e regras preparadas; comportamento de API local/remoto verificado pelo Codex em 07/11/2026; revisão visual pendente.
+- [ ] T16 Verificar AC05–09/21, incluindo concorrência e liberação de saldo — verificações de domínio e banco passaram, incluindo concorrência real, Auth/RLS e liberação; falta percorrer a interface e conferir 360 px/desktop (AC23 transversal). Bloqueio do navegador em `validation.md`.
+
+Entrega M2 na branch `feature/m2-demandas-composicao`, migrations `20261107213117_m2_demands_reservations.sql` e `20261107220459_m2_event_actor_index.sql`; testes `demands.test.js`, `m2-database.mjs` e `remote-m2.mjs`. Avaliação humana e autorização para push/integração ainda pendentes. M3 não iniciado.
+
+Commits de implementação: `c9ba25c` (domínio, banco, serviços e testes) e `5bf018b` (interface, hooks e integração). Responsável pelas verificações relatadas: Codex, 07/11/2026.
 
 ## M3 — Transporte e financeiro; depende de M2
 

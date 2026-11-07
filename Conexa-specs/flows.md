@@ -16,7 +16,9 @@
 | /operacoes/:id | Roteiro, cotações, valores, confirmações e histórico conforme perfil |
 | /operacoes/:id/pagamento | Resumo e controles de simulação para comprador |
 
-Não criar páginas vazias para representar funcionalidade concluída. No M1, implementar apenas entrada, CRUD e consulta de ofertas.
+Não criar páginas vazias para representar funcionalidade concluída. M2 agora implementa demandas, composição e propostas dos produtores; operação/transporte/pagamento de exemplo continuam como prévias independentes.
+
+Fluxo M2 implementado: comprador cadastra demanda → abre composição pelo UUID da demanda → seleciona quantidades exatas e prazo → salva candidata sem reserva → envia pela lista de propostas → banco reserva atomicamente → cada produtor responde no próprio perfil. Ambos aceitam: aguarda cotação (M3 ainda pendente); recusa: cancela toda a proposta e libera reservas. Comprador pode cancelar com motivo e remontar. Demanda só permite uma proposta ativa. Listas atualizam a cada 30 segundos, ao recuperar foco ou pelo botão Atualizar; toda ação revalida no servidor.
 
 ## Cenário-base demonstrativo
 
