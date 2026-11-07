@@ -25,7 +25,7 @@ Especificar → planejar → implementar uma fatia funcional → verificar os cr
 
 O primeiro marco é o CRUD de ofertas persistido no Supabase e consultado por um comprador fictício. O restante está especificado para evitar retrabalho, mas será implementado por etapas.
 
-Atualização em 07/11/2026: M1/M2 concluídos; M3 implementado na feature, com veículos, indicações, cotações manuais completas, totais individuais e aceites finais por versão persistidos no demo autorizado. Testes locais e remotos realizados pelo Codex; revisão visual/teclado em 360 px/desktop pendente por bloqueio da ferramenta. T20 e aceite do M3 permanecem abertos. M4+ continua em prévias. Ver `validation.md`, `tasks.md` e D009 em `decisions.md`.
+Atualização em 07/11/2026: M1/M2/M3 concluídos por aceite do usuário. T20 aprovado explicitamente e promoção dev → main autorizada. M3 persiste veículos, indicações, cotações, totais e aceites no demo, com testes locais/remotos pelo Codex. O aceite não é apresentado como execução de testes visuais pelo agente; limites em `validation.md`. Próximo marco: M4/T21; M4+ continua em prévias. Ver `tasks.md` e D009/D010 em `decisions.md`.
 
 ## Origem e precedência
 

@@ -25,6 +25,6 @@ Valide M1 pelos AC01–04 e AC23. Registre procedimentos e resultados reais, atu
 
 ## Estado atual do pacote
 
-Atualização em 07/11/2026: o texto abaixo descreve a origem do planejamento. M1/M2 concluídos. M3 implementado na branch `feature/m3-transporte-financeiro` e validado localmente e por API no demo autorizado. T20 permanece aberto pela revisão de interface em 360 px/desktop e teclado. D009 registra decisões M3. Próximo passo é avaliar M3 e autorizar eventual integração na dev; M4+ segue como prévia. Consulte tasks.md e validation.md antes de continuar. Não reaplicar migrations já registradas no projeto demo.
+Atualização em 07/11/2026: o texto abaixo descreve a origem do planejamento. M1/M2/M3 concluídos por aceite do usuário; T20 aprovado explicitamente e promoção dev → main autorizada. M3 e revisão de fluxo/listas implementados e integrados na dev; D009/D010 registram decisões. Próximo marco: M4/T21. M4+ segue como prévia. Não atribuir ao Codex testes visuais não executados; consulte tasks.md e validation.md. Não reaplicar migrations já registradas no projeto demo.
 
 Planejamento e especificação somente. Não há site implementado, migrations executadas, API de rotas configurada, repo criado, deploy ou Supabase provisionado por este trabalho.

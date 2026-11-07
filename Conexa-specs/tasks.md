@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1 e M2 concluídos; M3 implementado, com integração na dev autorizada** pelo usuário (“pode integrar”), incluindo o ajuste de envio/listas. T17–T19 implementados e verificados localmente e por API no Supabase demo. T20 permanece aberto: a autorização não veio acompanhada de relato de revisão visual em 360 px/desktop e teclado. Evidências e limites em `validation.md`.
+Atualização de 07/11/2026: **M1, M2 e M3 concluídos por aceite do usuário**. T20 aprovado explicitamente (“pode aprovar o t20 e depois pode subir para a main”), com promoção dev → main autorizada. T17–T19 e API/banco de T20 verificados pelo Codex; aceite humano não é atribuído a testes visuais executados pelo agente. Próximo marco: M4/T21. Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
@@ -42,7 +42,7 @@ Commits de implementação: `c9ba25c` (domínio, banco, serviços e testes) e `5
 - [x] T17 Veículos, indicações e cotações com confirmação do transportador — gateway M3, RLS e interface; testes locais e API demo pelo Codex em 07/11/2026.
 - [x] T18 Resumo por produtor e total do comprador; mínimos, taxa zero e frete separado — centavos/snapshots, total persistido calculado no banco; R$330 e mínimos R$120/R$90 verificados.
 - [x] T19 Aceites por versão e validação de capacidade/conservação/prazo — seleção abre nova versão, quatro aceites finais, bloqueios no banco; testes locais e remotos.
-- [ ] T20 Verificar AC10–14/21 — API e banco verificados; falta avaliação visual/teclado de AC23 em 360 px/desktop. AC14 usa cancelamento/remontagem explícitos, sem editor de coletas.
+- [x] T20 Verificar AC10–14/21 — API e banco verificados pelo Codex; aceite explícito do usuário em 07/11/2026 encerra a tarefa. Não houve relatório de procedimentos visuais/teclado, nem nova execução visual pelo agente. AC14 usa cancelamento/remontagem explícitos, sem editor de coletas.
 
 Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_transport_finance.sql`, `20261107224534_m3_quote_compatibility.sql` e `20261107224716_m3_financial_totals.sql`. Testes `transport.test.js`, `m3-database.mjs` e `remote-m3.mjs`. Autorizações de migration/testes no demo dadas pelo usuário nesta interação; nenhum push/merge autorizado. M3 não declarado concluído.
 

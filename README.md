@@ -54,7 +54,7 @@ M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais 
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita acesso por participante. Produto, locais, preço/mínimo, datas, precisão, papel, versão e saldo são verificados no banco. Ofertas vinculadas preservam snapshots; excluir exige ausência de vínculos, e arquivar mantém o histórico.
 
-**M1 e M2 concluídos; M3 implementado, com integração na dev autorizada em 07/11/2026.** Inclui o ajuste de envio direto e separação/ocultação de listas. T17–T19 verificados localmente e por API no Supabase demo. T20 permanece aberto pela revisão visual/teclado em 360 px/desktop, bloqueada na ferramenta e sem novo relato de execução pelo usuário; evidências e limites em [validation.md](Conexa-specs/validation.md).
+**M1, M2 e M3 concluídos por aceite do usuário em 07/11/2026.** T20 aprovado explicitamente e promoção dev → main autorizada. Inclui envio direto e separação/ocultação de listas. Verificações locais e de API no Supabase demo pelo Codex; o aceite humano não é apresentado como teste visual executado pelo agente. Próximo marco: M4/T21. Evidências e limites em [validation.md](Conexa-specs/validation.md).
 
 ## Experimentar a M2
 

@@ -330,3 +330,25 @@ Checkout limpo antes da alteração; `git fetch origin` confirmou dev local e re
 ### Análise crítica
 
 A autorização permite integrar o trabalho apresentado preservando o fluxo de branches. Integração não comprova testes visuais não relatados nem encerra automaticamente M3. Manter essa distinção evita transformar uma aprovação de Git em evidência de usabilidade.
+
+## Interação 013 — Aceite T20 e promoção para main — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar aceite/autorizações e atualizar documentação; Git e PowerShell para conferir referências, integrar e publicar branches. Sem outra IA, alteração funcional, migration, testes remotos ou deploy.
+
+### Interações realizadas
+
+Prompt integral: “pode aprovar o t20 e depois pode subir para a main”. Resposta representativa: “Vou registrar seu aceite do T20 e conferir a sincronização das branches antes de promover a dev para a main, como você autorizou.” Nenhum relato individual de testes visuais foi fornecido.
+
+### Aplicação no projeto
+
+Criada `feature/m3-aceite-t20` a partir de dev para atualizar tasks.md, validações, README, handoff, AGENTS.md e este registro. T20 e M3 encerrados por aceite explícito do usuário; próximo marco M4/T21. Integração documental na dev e promoção/publicação da dev para main autorizadas neste pedido, preservando histórico. Não desenvolver arquivos diretamente na main; nela somente integração Git autorizada.
+
+### Validação das respostas
+
+Estado inicial limpo e dev sincronizada com origin/dev em `0a786f4`; referências remotas atualizadas por fetch. Main possui merge anterior próprio, a preservar na promoção. Conferência de documentação por `git diff --check` e conferência Git após integração/publicação. Sem novos testes de aplicação para mudança documental: permanecem os 14 testes unitários, suites PGlite, lint e build aprovados na revisão anterior e testes remotos M3 registrados na interação 010. Não inventados testes visuais em 360 px/desktop/teclado ou observação do Codex; encerramento decorre do aceite do usuário.
+
+### Análise crítica
+
+O aceite explícito encerra a pendência de avaliação e autoriza promover o marco. Preservar o histórico dos bloqueios e a origem humana da aprovação evita confundir encerramento da tarefa com procedimentos técnicos não observados. A publicação Git na main não representa deploy, cobrança, transporte real ou avanço automático no M4.
