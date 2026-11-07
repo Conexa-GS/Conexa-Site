@@ -28,4 +28,6 @@ from public.locations where id='20000000-0000-4000-8000-000000000001'
 union all select '30000000-0000-4000-8000-000000000002', owner_id, '10000000-0000-4000-8000-000000000001', id,25,500,450,(now() at time zone 'America/Sao_Paulo')::date,(now() at time zone 'America/Sao_Paulo')::date+14
 from public.locations where id='20000000-0000-4000-8000-000000000002'
 on conflict do nothing;
+insert into public.locations(owner_id,display_address)
+select id,'Restaurante Raiz · destino fictício' from public.participants p where role='buyer' and is_demo and not exists(select 1 from public.locations l where l.owner_id=p.id);
 commit;

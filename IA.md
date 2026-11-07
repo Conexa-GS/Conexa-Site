@@ -176,3 +176,33 @@ Conferidos `git status`, branches e referências locais de acompanhamento remoto
 ### Análise crítica
 
 O planejamento define as regras centrais da M2, mas o prazo inicial de reserva ainda é proposta e a aplicação remota exige autorização específica. Esclarecer esses pontos antes de implementar evita transformar decisões técnicas propostas em requisitos aceitos. As prévias existentes não demonstram persistência, concorrência ou reservas reais.
+
+## Interação 007 — Implementação da M2 autorizada — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para implementação React/SQL, revisão e documentação. Skills Supabase e Supabase Postgres Best Practices para consulta de documentação oficial, funções, permissões, RLS e bloqueios. PowerShell, Node/npm, Git e CLI oficial Supabase para arquivos, migrations e verificações locais; MCP Supabase para inspeção, migrations, SQL, advisors e testes reais com sessões demo. Skill Computer Use consultada; ferramentas de navegador/computador tentadas sem conseguir acessar a interface. Documentação oficial consultada por web e busca Supabase; nenhum subagente utilizado.
+
+### Interações realizadas
+
+Respostas integrais do usuário às perguntas da interação 006: “M2 completa (T13–T16)”; “Sim, usar 24 horas”; “Autorizar migration e testes no projeto demo”.
+
+Resposta representativa: “Vou implementar a M2 completa, com reservas de 24 horas configuráveis e limitadas pela disponibilidade das ofertas. Também vou aplicar a migration e testar no Supabase demo, conforme sua autorização, e apresentar o resultado antes de subir ou integrar na dev.”
+
+### Aplicação no projeto
+
+CRUD de demandas; busca por produto/unidade/prazo; composição exata, insuficiência explícita, candidata sem reserva; envio transacional; prazo efetivo visível; aceite/recusa por versão; cancelamento com motivo e histórico. Snapshots preservam preços, mínimos e coletas; estoque reservado protegido e arquivo disponível. M3+ continua em prévias. Gateway público invoker e funções privilegiadas privadas validam identidade e ações; sem escrita REST direta em cargas/reservas/aceites. Serialização global das operações M2 é simplificação deliberada para o ambiente demo.
+
+Migrations geradas pela CLI e aplicadas no projeto demo autorizado; nomes locais alinhados às versões registradas pelo MCP. Seed ampliado com destino fictício derivado do comprador. Atualizados README, instruções e specs para distinguir M2 persistido de prévias posteriores. Commits locais devem seguir Conventional Commits; sem push/integração autorizados nesta interação.
+
+### Validação das respostas
+
+Codex executou lint, 9 testes de domínio, suites PostgreSQL locais M1/M2 e build, com sucesso após correções reais de ambiguidade PL/pgSQL e handler de arquivo. Build mantém aviso de bundle acima de 500 kB. Testes remotos com Supabase Auth real comprovaram CRUD, RLS, persistência após nova autenticação, duas submissões concorrentes (uma rejeitada sem reservas parciais), saldo 5 kg, snapshots, aceite, recusa, cancelamento, arquivo e expiração. Prazo da fixture de expiração antecipado via SQL administrativo apenas para teste. Fixtures removidas por UUID; conferência final preservou 3 ofertas anteriores e zero demandas/cargas de teste.
+
+Advisor identificou FK de ator sem índice, corrigida em migration complementar. Permanecem avisos herdados de `demo_role` e proteção de senha, além de informações de índices ainda não usados. Nenhuma credencial foi gravada em registros ou código. Changelog markdown não foi renderizado pelo web; documentação de funções/RLS e busca oficial Supabase foram consultadas.
+
+Desktop/360 px, teclado e fluxo visual M2 **não verificados**: host de navegador integrado indisponível e solicitação de acesso ao Firefox nativo expirou na ferramenta. Não confundir testes de API com interface validada; T16 e aceite integral permanecem pendentes. Nenhuma avaliação humana adicional foi inventada. Detalhes em `Conexa-specs/validation.md`.
+
+### Análise crítica
+
+A IA acelerou a entrega de domínio, interface e transações, mas testes detectaram erros que exigiram ajustes antes do uso remoto. Testar concorrência no Supabase e usar fixtures próprias oferece evidência mais forte de saldo consistente que mocks ou banco local com conexão única. Função transacional e snapshots reduzem divergência entre perfis; lock global simplifica o protótipo, com limitação clara de escala. O bloqueio de inspeção visual impede encerrar a M2 como integralmente validada. Aceite humano e autorização para integrar continuam necessários conforme AGENTS.md/workflow.md.
