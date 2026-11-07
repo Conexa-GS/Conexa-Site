@@ -34,18 +34,19 @@ npm run preview
 | Propostas do produtor | `/produtor/propostas` | Aceite/recusa persistidos, prazo e valores acordados |
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
 | Composição | `/comprador/demandas/:id/composicao` | Busca compatível, seleção e candidata; envio cria reservas atômicas |
-| Solicitações e veículos | `/transportador/solicitacoes`, `/transportador/veiculos` | Prévias visuais |
+| Solicitações e veículos | `/transportador/solicitacoes`, `/transportador/veiculos` | M3: cadastro de veículos e cotações persistidas |
+| Transporte e valores | `/operacoes` | M3: indicações, cotação, mínimos e aceites finais por versão |
 | Operação e valores | `/operacoes/exemplo` | Roteiro textual e resumo fictício |
 | Pagamento | `/operacoes/exemplo/pagamento` | Prévia de mensagens, sem cobrar/agendar |
 
 O acesso a cada espaço exige selecionar um participante fictício. Ao recarregar, selecione o perfil novamente. Não representa autenticação segura de produção.
 
-M2 usa as ofertas do Supabase para demandas, composição e reservas. Transporte, operação de exemplo e pagamento permanecem como prévias independentes (M3–M5). Sem Supabase, M2 explica a falta de configuração e não simula gravação.
+M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3 explicam a falta de configuração e não simulam gravação.
 
 ## Conectar o Supabase de demonstração
 
-1. Escolher um projeto de demonstração do grupo. O projeto demo configurado já recebeu as migrations M2 mediante autorização explícita em 07/11/2026; não reaplicá-las nele.
-2. Em instalação nova, aplicar os arquivos SQL de `supabase/migrations` em ordem de nome (M1, M2 e índice complementar). Em projeto M1 existente, aplicar apenas M2 e complemento.
+1. Escolher um projeto de demonstração do grupo. O projeto demo configurado já recebeu as migrations M1–M3 mediante autorização explícita em 07/11/2026; não reaplicá-las nele.
+2. Em instalação nova, aplicar os arquivos SQL de `supabase/migrations` em ordem de nome. Em projeto existente, aplicar apenas migrations ausentes conforme histórico; M3 tem a migration principal e complementos de compatibilidade/totais.
 3. Criar no Supabase Auth os quatro usuários fictícios listados em `.env.example`, com emails confirmados e uma senha pública descartável exclusiva da demonstração. Sem contas pessoais ou credenciais de produção.
 4. Executar `supabase/seed.sql`. O seed associa os UUIDs reais do Auth aos participantes e publica as ofertas iniciais. Ajustar o mapeamento do seed se alterar os emails.
 5. Copiar `.env.example` para `.env.local`; preencher URL, chave pública/publishable e senha fictícia de demo. Reiniciar o Vite. Variáveis `VITE_` vão para o navegador: nunca usar `service_role` ou segredo administrativo.
@@ -53,7 +54,7 @@ M2 usa as ofertas do Supabase para demandas, composição e reservas. Transporte
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita acesso por participante. Produto, locais, preço/mínimo, datas, precisão, papel, versão e saldo são verificados no banco. Ofertas vinculadas preservam snapshots; excluir exige ausência de vínculos, e arquivar mantém o histórico.
 
-**M1 e M2 concluídos em 07/11/2026.** M2 verificado por API no Supabase real pelo Codex, incluindo concorrência, e aprovado pelo usuário após revisão visual relatada em 360 px/desktop. T16 encerrado; próximo marco: M3/T17 (veículos, indicações e cotações). A revisão visual não foi executada pelo Codex; evidências e limites em [validation.md](Conexa-specs/validation.md).
+**M1 e M2 concluídos; M3 implementado e em avaliação em 07/11/2026.** T17–T19 verificados localmente e por API no Supabase demo. T20 permanece aberto pela revisão visual/teclado em 360 px/desktop, bloqueada na ferramenta. Sem aprovação de integração na dev; evidências e limites em [validation.md](Conexa-specs/validation.md).
 
 ## Experimentar a M2
 
@@ -65,11 +66,23 @@ Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma 
 
 O cenário 30 kg Ana + 20 kg João para 50 kg deixa 5 kg de João livres quando as ofertas iniciais estão disponíveis e não comprometidas. Cadastros já vinculados não são apagados fisicamente. Demanda vinculada deve ser arquivada/substituída; cancele antes a proposta ativa. Não existe conversão implícita de caixas para kg.
 
-`npm run test:db` verifica M1/M2 em PostgreSQL local PGlite com identidade simulada. `node tests/remote-m2.mjs` cria fixtures próprias **somente no projeto demo autorizado**, usando `.env` sem imprimir credenciais; o relatório local em `artifacts/m2-remote.local.json` lista UUIDs para limpeza administrativa restrita a essas fixtures. A etapa `--verify-expiration` requer antecipar administrativamente o prazo da carga indicada no relatório, sem alterar operações de outras pessoas. O teste não executa limpeza administrativa automática nem substitui revisão de interface. Nesta entrega, fixtures foram removidas e as três ofertas anteriores preservadas.
+`npm run test:db` verifica M1–M3 em PostgreSQL local PGlite com identidade simulada. `node tests/remote-m2.mjs` cria fixtures próprias **somente no projeto demo autorizado**, usando `.env` sem imprimir credenciais; o relatório local em `artifacts/m2-remote.local.json` lista UUIDs para limpeza administrativa restrita a essas fixtures. A etapa `--verify-expiration` requer antecipar administrativamente o prazo da carga indicada no relatório, sem alterar operações de outras pessoas. O teste não executa limpeza administrativa automática nem substitui revisão de interface. Na entrega M2, fixtures foram removidas e as três ofertas anteriores preservadas.
 
-## Organização
+## Experimentar o M3
 
-`src/components` contém layout e elementos compartilhados; `pages` reúne entrada e prévias M3+; `features/offers` e `features/demands` contêm os fluxos M1/M2; `hooks` coordena sessão e consultas; `services` isola Supabase e demonstração local; `domain` mantém validações e dinheiro; `pilot` preserva o estudo fornecido. Os vetores locais ficam em `public/assets`.
+1. Complete o aceite de fornecimento M2 nos dois produtores. Acesse **Transporte e valores** em `/operacoes`.
+2. Como produtor, indique transportador fictício e preço opcionalmente. A indicação permanece pendente; não pode ser selecionada como cotação.
+3. Como transportador, cadastre veículo em **Meus veículos**. Em **Solicitações**, preencha veículo, saída fictícia, conservação exigida, datas/validade, preço final e retorno opcional. Confirme cobertura de combustível, pedágios, todas as coletas, descarga e retorno acordado. A validade não ultrapassa a reserva. Capacidade insuficiente ou conservação incompatível bloqueiam a confirmação.
+4. Como comprador, selecione uma cotação confirmada. Isso abre nova versão; confira alimentos, frete separado, taxa zero, total e mínimos individuais. Cada produtor, comprador e transportador selecionado confirma as condições finais pelo próprio perfil.
+5. Quatro aceites levam a **Aceites completos · pagamento futuro (M5)**. Nenhum transporte é agendado. Para mudar itens/coletas/datas/frete, cancele com motivo e remonte: reservas são liberadas e aceites antigos permanecem no histórico.
+
+Distâncias/tempos não são calculados; pedágio individual a confirmar, coberto pelo frete fechado. Condições são declarações fictícias, sem certificado sanitário. Veículos e cotações são imutáveis nesta etapa para preservar o acordado.
+
+`npm run test:db` inclui M3. `node tests/remote-m3.mjs` usa `.env` e cria fixtures próprias somente no demo autorizado. Ofertas/demanda de teste são arquivadas após cancelamento; histórico e veículos fictícios de teste permanecem. IDs/resultados locais: `artifacts/m3-remote.local.json` (ignorado no Git). Não executar fora do demo nem tratar o teste por API como revisão visual.
+
+## Organização do código
+
+`src/components` contém layout e elementos compartilhados; `pages` reúne entrada e prévias; `features/offers`, `features/demands` e `features/transport` contêm os fluxos M1–M3; `hooks` coordena sessão e consultas; `services` isola Supabase e demonstração local; `domain` mantém validações e dinheiro; `pilot` preserva o estudo fornecido. Os vetores locais ficam em `public/assets`.
 
 Tailwind está integrado pelo plugin Vite, com utilitários nas telas. O CSS original foi mantido e estendido para preservar a identidade visual. Não há dependência de fontes, imagens ou APIs de mapas externas para a avaliação local.
 

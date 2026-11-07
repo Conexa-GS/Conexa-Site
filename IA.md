@@ -252,3 +252,31 @@ O usuário afirmou ter revisado em 360 px/desktop e autorizou aprovação. A rev
 ### Análise crítica
 
 O relato e a aprovação humana encerram a pendência que mantinha T16 aberto. Isso não substitui auditoria completa de acessibilidade nem antecipa M3. Distinguir o relato do usuário dos testes do agente mantém o histórico fiel e permite avançar no planejamento.
+
+## Interação 010 — M3 transporte e financeiro — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex: leitura das especificações, implementação JavaScript/React/SQL, testes e documentação. Skills Sites (checkout local, sem publicação), Supabase e Postgres best practices para persistência/acesso; Computer Use consultada para revisão visual. Recursos: PowerShell, Git, Node/npm, ESLint, Vite, PGlite e plugin Supabase para inspeção, migrations e advisors. Documentação oficial de [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security) e [funções](https://supabase.com/docs/guides/database/functions) consultada. Nenhum subagente ou geração de imagens usado.
+
+### Interações realizadas
+
+Prompt integral do pedido: “vamos seguir para o m3, siga o padrão de branch e commits, pergunte o que não ficou claro”. O contexto de IDE listava `.env`, tasks.md, spec.md, README.md e plan.md; nenhum valor secreto foi reproduzido.
+
+Pergunta efetivamente feita: “Posso aplicar a migration do M3 e executar testes com dados fictícios no mesmo projeto Supabase demo configurado? A autorização registrada anteriormente era específica do M2.” Resposta integral: “Sim, autorizar migration e testes do M3 no demo”.
+
+Resposta representativa: “O M3 está definido em T17–T20: veículos, indicações e cotações, resumo financeiro por produtor e confirmações por versão.” O Codex informou a criação da feature, validação local/remota e bloqueio de revisão visual, sem atribuir aprovação ao usuário.
+
+### Aplicação no projeto
+
+Criada `feature/m3-transporte-financeiro` a partir de dev limpo. Implementados gateway M3 com funções privadas, RLS/permissões explícitas, veículos imutáveis, indicações pendentes, cotação manual completa, capacidade/conservação/prazo, totais calculados/persistidos no banco, seleção com nova versão e quatro aceites finais. Expiração/cancelamento M2 estendidos aos estados M3. Interface em `features/transport`, serviço, hook, domínio financeiro, navegação e links das propostas. M4/M5 continuam prévias; M3 termina antes do pagamento/agendamento. Decisões e limitações em D009. Nenhum push/merge/deploy realizado; commits locais seguem Conventional Commits.
+
+### Validação das respostas
+
+Codex executou lint, 10 testes unitários, build e suites PostgreSQL locais M1/M2/M3. API real com quatro contas Auth do demo verificou indicação, bloqueios por perfil/RLS, capacidade/conservação, validade e serviços, seleção/versão, total R$330 e mínimos R$120/R$90, quatro aceites finais, repetição, cancelamento e saldo liberado. Houve repetição do teste remoto após reforçar compatibilidade e persistência dos totais. Fixtures próprias: ofertas/demandas arquivadas, propostas canceladas, histórico/veículos de teste preservados. Relatório com IDs somente em arquivo local ignorado, sem credenciais. Testes negativos de peso desconhecido, mínimo adulterado, cotação já vencida e expiração na etapa final também executados localmente por manipulação administrativa das fixtures, não atribuídos a testes remotos.
+
+Migrations geradas pela CLI e aplicadas no projeto demo autorizado. Advisors não indicaram novo aviso de segurança M3; permaneceram os avisos anteriores de demo_role e proteção contra senhas vazadas e avisos informativos de índices não usados. Build tem aviso de bundle acima de 500 kB. Endpoint local respondeu HTTP 200. Browser host indisponível e acesso ao Firefox nativo bloqueado por falta de fiscalização de URLs; Computer Use encerrado. Desktop/360 px/teclado M3 **não verificados**, T20 e avaliação humana pendentes. Nenhuma aprovação humana de interface ou integração foi recebida.
+
+### Análise crítica
+
+O banco concentra identidade, valores e transições, impedindo confirmação indevida por requisição direta. Cotações manuais completas permitem avançar sem depender da API de rotas M4, com limitações explicitadas. Novos aceites após selecionar frete tornam o acordo final revisável. Imutabilidade/cancelamento-remontagem simplificam o protótipo, mas não substituem edição versionada futura. Conservação é declaração fictícia, não certificação. Testes de API não comprovam usabilidade; a revisão visual permanece necessária antes de encerrar M3. Não houve outra IA, pesquisa de campo, transporte ou pagamento real.

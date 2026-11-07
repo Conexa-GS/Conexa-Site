@@ -10,6 +10,16 @@ Os nomes abaixo seguem como contratos lógicos. A implementação M2 usa esse ú
 
 ## Padrões
 
+### Implementação M3 — 07/11/2026
+
+`src/services/m3.js` usa `supabase.rpc('m3', {action,payload})`; gateway público invoker e função privada com identidade, papel, propriedade, versão e estado validados. Ações: `list`, `save_vehicle`, `indicate`, `quote`, `select_quote`, `confirm`. Payload de proposta: `{id:loadId,version}`. `indicate` adiciona `{carrier_id,total_cents}`; `select_quote` adiciona `{quote_id}`; `confirm` registra aceite final da versão selecionada. Cancelamento reutiliza `m2('cancel', ...)`, estendido aos estados M3.
+
+`save_vehicle` recebe `{description,capacity_kg,vehicle_category,conservation_conditions}`. Veículos são imutáveis no M3 para preservar condições cotadas; outro cadastro representa outras condições. Conservação: `ambient` ou `refrigerated`, declarada pelo transportador e aceita na versão final, sem certificação sanitária. Peso conhecido vem exclusivamente de itens em kg.
+
+`quote` recebe `{id,version,vehicle_id,indication_id?,total_cents,departure_address,departure_time,delivery_time,expires_at,conservation_required,services_included,return_address?}`. Os quatro serviços `fuel,tolls,pickups,unloading` devem ser `true`: frete manual final cobre todos, inclusive eventual retorno acordado. Validade futura limitada à reserva; saída futura; entrega na data da carga. Condições e capacidade incompatíveis impedem publicar/selecionar/ratificar. Sem editor de cotação: cancelar/remontar para alterar roteiro/preço/data.
+
+`list` retorna `{vehicles,carriers,loads}` com itens, cotações, aceites e eventos; produtor recebe apenas seus itens. Transportador consulta cargas abertas a cotação e histórico em que cotou/foi indicado, com suas próprias cotações. Nenhuma escrita REST direta é concedida. Seleção incrementa versão e copia cotação imutável; aceites anteriores ficam no histórico. Trigger calcula `subtotal_cents`, `freight_cents`, `platform_fee_cents=0` e `total_cents` no banco. Sem cotação selecionada, frete/total são nulos.
+
 - IDs string UUID; quantidade decimal válida até três casas; moeda em centavos inteiros; timestamps ISO 8601.
 - Resultado: `{ data, error }`; erro com `code`, `message` em português e `fieldErrors` quando aplicável.
 - Códigos: VALIDATION_ERROR, FORBIDDEN, NOT_FOUND, INSUFFICIENT_STOCK, INVALID_STATE, EXPIRED_PROPOSAL, VERSION_CONFLICT, EXTERNAL_UNAVAILABLE.

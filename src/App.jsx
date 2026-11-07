@@ -6,7 +6,8 @@ import { homeFor } from './domain/profiles'
 import { ActionLink, EmptyState, Logo } from './components/ui'
 import Demo from './pages/Demo'
 import OffersPage from './features/offers/OffersPage'
-import { OperationPage, PaymentPage, TransportRequests, VehiclesPage } from './pages/Previews'
+import { OperationPage, PaymentPage } from './pages/Previews'
+import TransportPage from './features/transport/TransportPage'
 import DemandsPage from './features/demands/DemandsPage'
 import CompositionPage from './features/demands/CompositionPage'
 import ProducerProposals from './features/demands/ProducerProposals'
@@ -18,6 +19,7 @@ const routes = {
   '/comprador/demandas/exemplo/composicao': ['buyer', 'Composição de exemplo'],
   '/transportador/solicitacoes': ['carrier', 'Solicitações'], '/transportador/veiculos': ['carrier', 'Meus veículos'],
   '/operacoes/exemplo': [null, 'Operação de exemplo'], '/operacoes/exemplo/pagamento': ['buyer', 'Pagamento de exemplo'],
+  '/operacoes': [null, 'Transporte e confirmações'],
 }
 export default function App() {
   const path = useRouter(), auth = useDemoSession()
@@ -36,8 +38,8 @@ export default function App() {
   else if (path === '/comprador/demandas') page = <DemandsPage key={auth.session.id} session={auth.session} />
   else if (compositionId) page = <CompositionPage key={compositionId} demandId={compositionId} />
   else if (path.endsWith('/composicao')) page = <EmptyState title="Escolha uma demanda cadastrada." action={<ActionLink href="/comprador/demandas">Minhas demandas</ActionLink>}>A composição agora usa ofertas consultadas no Supabase.</EmptyState>
-  else if (path === '/transportador/solicitacoes') page = <TransportRequests />
-  else if (path === '/transportador/veiculos') page = <VehiclesPage />
+  else if (path === '/transportador/solicitacoes' || path === '/operacoes') page = <TransportPage key={`${auth.session.id}-transport`} session={auth.session} />
+  else if (path === '/transportador/veiculos') page = <TransportPage key={`${auth.session.id}-vehicles`} session={auth.session} vehiclesOnly />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
   else page = <OperationPage role={role} />
   return <AppLayout session={auth.session} path={path} leave={async () => { await auth.leave(); navigate('/demo') }}>{page}</AppLayout>

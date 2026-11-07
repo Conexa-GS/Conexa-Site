@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1 e M2 concluídos**. M2 verificado por API no Supabase demo pelo Codex e aprovado pelo usuário após revisão visual em 360 px/desktop relatada nesta conversa. T16 encerrado; próximo marco: M3, começando por T17. Evidências e limites em `validation.md`.
+Atualização de 07/11/2026: **M1 e M2 concluídos; M3 implementado, em avaliação**. T17–T19 implementados e verificados localmente e por API no Supabase demo. T20 permanece aberto pela revisão visual em 360 px/desktop e teclado. Integração na dev depende de autorização após avaliação. Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
@@ -39,10 +39,12 @@ Commits de implementação: `c9ba25c` (domínio, banco, serviços e testes) e `5
 
 ## M3 — Transporte e financeiro; depende de M2
 
-- [ ] T17 Veículos, indicações e cotações com confirmação do transportador.
-- [ ] T18 Resumo por produtor e total do comprador; mínimos, taxa zero e frete separado.
-- [ ] T19 Aceites por versão e validação de capacidade/conservação/prazo.
-- [ ] T20 Verificar AC10–14/21.
+- [x] T17 Veículos, indicações e cotações com confirmação do transportador — gateway M3, RLS e interface; testes locais e API demo pelo Codex em 07/11/2026.
+- [x] T18 Resumo por produtor e total do comprador; mínimos, taxa zero e frete separado — centavos/snapshots, total persistido calculado no banco; R$330 e mínimos R$120/R$90 verificados.
+- [x] T19 Aceites por versão e validação de capacidade/conservação/prazo — seleção abre nova versão, quatro aceites finais, bloqueios no banco; testes locais e remotos.
+- [ ] T20 Verificar AC10–14/21 — API e banco verificados; falta avaliação visual/teclado de AC23 em 360 px/desktop. AC14 usa cancelamento/remontagem explícitos, sem editor de coletas.
+
+Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_transport_finance.sql`, `20261107224534_m3_quote_compatibility.sql` e `20261107224716_m3_financial_totals.sql`. Testes `transport.test.js`, `m3-database.mjs` e `remote-m3.mjs`. Autorizações de migration/testes no demo dadas pelo usuário nesta interação; nenhum push/merge autorizado. M3 não declarado concluído.
 
 ## M4 — Rotas e inclusão; depende da composição e cotação
 

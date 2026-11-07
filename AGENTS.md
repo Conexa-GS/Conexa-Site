@@ -7,6 +7,6 @@ Leia `Conexa-specs/README.md`, `spec.md`, `business-rules.md` e `workflow.md` an
 - Após a mudança, apresente o resultado para avaliação e peça autorização antes de subir/integrar na `dev`. Não promova para `main` por pressuposição.
 - Registre cada prompt solicitado e o uso real de IA em `IA.md`, seguindo as cinco seções de `Conexa-specs/workflow.md`. Não invente testes, prompts ou aprovação humana.
 - Preserve a identidade visual do piloto: creme, verde, laranja, marca vetorial e ilustrações locais.
-- M2 usa demandas, composição, reservas e respostas persistidas no Supabase; M3+ continua como prévias identificadas. Não apresentar transporte/pagamento de exemplo como operações ativas.
+- M2 e M3 usam demandas, composição, reservas, transporte e confirmações persistidas no Supabase demo. M3 aguarda avaliação visual; M4+ continua como prévias identificadas. Não apresentar transporte/pagamento de exemplo como operações ativas.
 - Não declare M1 concluído sem verificar CRUD e RLS no Supabase real de demonstração.
 - Verificações locais: `npm run lint`, `npm test`, `npm run build`; confira telas em 360 px e desktop quando houver alteração de interface.

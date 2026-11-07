@@ -16,9 +16,11 @@
 | /operacoes/:id | Roteiro, cotações, valores, confirmações e histórico conforme perfil |
 | /operacoes/:id/pagamento | Resumo e controles de simulação para comprador |
 
-Não criar páginas vazias para representar funcionalidade concluída. M2 agora implementa demandas, composição e propostas dos produtores; operação/transporte/pagamento de exemplo continuam como prévias independentes.
+Não criar páginas vazias para representar funcionalidade concluída. M2 implementa demandas, composição e propostas. M3 usa `/operacoes` como lista de transporte/valores/aceites conforme perfil; solicitações e veículos são persistidos. `/operacoes/exemplo` e pagamento de exemplo continuam prévias independentes de M4/M5.
 
-Fluxo M2 implementado: comprador cadastra demanda → abre composição pelo UUID da demanda → seleciona quantidades exatas e prazo → salva candidata sem reserva → envia pela lista de propostas → banco reserva atomicamente → cada produtor responde no próprio perfil. Ambos aceitam: aguarda cotação (M3 ainda pendente); recusa: cancela toda a proposta e libera reservas. Comprador pode cancelar com motivo e remontar. Demanda só permite uma proposta ativa. Listas atualizam a cada 30 segundos, ao recuperar foco ou pelo botão Atualizar; toda ação revalida no servidor.
+Fluxo M3: fornecimentos aceitos → produtor pode indicar transportador e preço → transportador cadastra veículo e confirma cotação completa própria ou vinculada à indicação → comprador seleciona cotação → banco cria snapshot de cotação e nova versão da proposta → cada produtor, comprador e transportador selecionado confirma novamente → `awaiting_payment`. Nada é pago/agendado no M3. Capacidade, peso, conservação e validade são verificados no banco. Mudanças relevantes exigem cancelamento/remontagem, preservando histórico e liberando reservas. O roteiro manual deriva da saída informada, itens em ordem de UUID, destino e retorno opcional; não há rota externa nem distância/tempo inventados.
+
+Fluxo M2 implementado: comprador cadastra demanda → abre composição pelo UUID da demanda → seleciona quantidades exatas e prazo → salva candidata sem reserva → envia pela lista de propostas → banco reserva atomicamente → cada produtor responde no próprio perfil. Ambos aceitam: aguarda cotação no M3; recusa: cancela toda a proposta e libera reservas. Comprador pode cancelar com motivo e remontar. Demanda só permite uma proposta ativa. Listas atualizam a cada 30 segundos, ao recuperar foco ou pelo botão Atualizar; toda ação revalida no servidor.
 
 ## Cenário-base demonstrativo
 
