@@ -53,7 +53,7 @@ M2 usa as ofertas do Supabase para demandas, composição e reservas. Transporte
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita acesso por participante. Produto, locais, preço/mínimo, datas, precisão, papel, versão e saldo são verificados no banco. Ofertas vinculadas preservam snapshots; excluir exige ausência de vínculos, e arquivar mantém o histórico.
 
-**M1 concluído por confirmação do usuário em 07/11/2026. M2 implementado e verificado por API no Supabase real pelo Codex**, incluindo concorrência. A revisão visual M2 em 360 px/desktop está pendente por bloqueio do acesso ao navegador; o marco não foi encerrado integralmente nem aprovado pelo usuário. Evidências e limites em [validation.md](Conexa-specs/validation.md).
+**M1 e M2 concluídos em 07/11/2026.** M2 verificado por API no Supabase real pelo Codex, incluindo concorrência, e aprovado pelo usuário após revisão visual relatada em 360 px/desktop. T16 encerrado; próximo marco: M3/T17 (veículos, indicações e cotações). A revisão visual não foi executada pelo Codex; evidências e limites em [validation.md](Conexa-specs/validation.md).
 
 ## Experimentar a M2
 

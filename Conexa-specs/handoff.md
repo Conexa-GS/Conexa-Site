@@ -25,6 +25,6 @@ Valide M1 pelos AC01–04 e AC23. Registre procedimentos e resultados reais, atu
 
 ## Estado atual do pacote
 
-Atualização em 07/11/2026: o texto abaixo descreve a origem do planejamento. M1 recebeu aceite humano; M2 foi implementado e testado por API no Supabase demo, com concorrência e RLS reais, mas revisão visual em 360 px/desktop ainda está pendente por bloqueio de ferramentas. D008 substitui a condição de prévia da M2; M3+ continua ilustrativo. Consulte tasks.md e validation.md antes de continuar. Não reaplicar migrations já registradas no projeto demo.
+Atualização em 07/11/2026: o texto abaixo descreve a origem do planejamento. M1 recebeu aceite humano; M2 foi implementado e testado por API no Supabase demo, com concorrência e RLS reais. O usuário relatou revisão visual em 360 px/desktop e aprovou o marco; M2/T16 concluídos. Próximo passo: M3/T17. D008 substitui a condição de prévia da M2; M3+ continua ilustrativo. Consulte tasks.md e validation.md antes de continuar. Não reaplicar migrations já registradas no projeto demo.
 
 Planejamento e especificação somente. Não há site implementado, migrations executadas, API de rotas configurada, repo criado, deploy ou Supabase provisionado por este trabalho.

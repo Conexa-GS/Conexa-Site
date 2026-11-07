@@ -25,7 +25,7 @@ Especificar → planejar → implementar uma fatia funcional → verificar os cr
 
 O primeiro marco é o CRUD de ofertas persistido no Supabase e consultado por um comprador fictício. O restante está especificado para evitar retrabalho, mas será implementado por etapas.
 
-Atualização M2 em 07/11/2026: demandas, composição, reservas e respostas implementadas e verificadas por API no Supabase demo. Revisão visual em 360 px/desktop ainda pendente por indisponibilidade do acesso ao navegador; não considerar a entrega integralmente aceita. M3+ permanece em prévias. Ver `validation.md` e D008 em `decisions.md`.
+Atualização M2 em 07/11/2026: demandas, composição, reservas e respostas implementadas e verificadas por API no Supabase demo pelo Codex. Usuário relatou revisão visual em 360 px/desktop e aprovou; M2/T16 concluídos. Próximo marco: M3/T17. M3+ permanece em prévias. Ver evidências e limites em `validation.md` e D008 em `decisions.md`.
 
 ## Origem e precedência
 

@@ -230,3 +230,25 @@ Autorização para publicar a feature `feature/m2-demandas-composicao` e integr�
 ### Análise crítica
 
 A aprovação permite integrar o trabalho apresentado na dev, preservando os limites das evidências. Não transforma o bloqueio do navegador em verificação executada nem autoriza encerrar o marco integralmente. Main permanece fora desta autorização.
+
+## Interação 009 — Aceite visual e conclusão M2 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para atualização documental; PowerShell e Git para leitura, conferência, commit e sincronização do registro de aceite no fluxo feature → dev. Sem alteração funcional ou operação Supabase.
+
+### Interações realizadas
+
+Prompt integral: “acabei de revisasr em 360 px/desktop e pode aprovar”. Resposta representativa: registrar a aprovação da revisão visual, encerrar T16 e M2 e atribuir essa validação ao usuário.
+
+### Aplicação no projeto
+
+Criada `feature/m2-aceite-visual` a partir da dev. Atualizados tasks.md, validation.md, README principal e das specs e handoff para registrar M2 concluído e M3/T17 como próximo marco. Preservado o histórico do bloqueio de navegador e da aprovação anterior de integração. Registro segue o fluxo de publicação M2 na dev já autorizado; nenhuma promoção para main.
+
+### Validação das respostas
+
+O usuário afirmou ter revisado em 360 px/desktop e autorizou aprovação. A revisão visual foi relatada pelo usuário, não executada ou observada pelo Codex; não foram fornecidos resultados individuais de teclado ou dos fluxos, nem inventadas capturas. Conferência documental por `git diff --check`; sem novos testes de aplicação nesta alteração apenas documental. Permanecem válidas as evidências técnicas registradas na interação 007.
+
+### Análise crítica
+
+O relato e a aprovação humana encerram a pendência que mantinha T16 aberto. Isso não substitui auditoria completa de acessibilidade nem antecipa M3. Distinguir o relato do usuário dos testes do agente mantém o histórico fiel e permite avançar no planejamento.

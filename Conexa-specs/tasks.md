@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1 concluído por confirmação do usuário**. M2 implementado e verificado por API no Supabase demo pelo Codex; usuário aprovou sua integração na dev. Revisão visual em 360 px/desktop ainda sem evidência registrada; T16 permanece aberto. Evidências em `validation.md`.
+Atualização de 07/11/2026: **M1 e M2 concluídos**. M2 verificado por API no Supabase demo pelo Codex e aprovado pelo usuário após revisão visual em 360 px/desktop relatada nesta conversa. T16 encerrado; próximo marco: M3, começando por T17. Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
@@ -28,10 +28,12 @@ Definição de pronto M1: CRUD remoto funciona, comprador lê os mesmos registro
 
 - [x] T13 CRUD de demandas e candidatos compatíveis — serviços, domínio, formulário e migrations; CRUD remoto verificado pelo Codex em 07/11/2026.
 - [x] T14 Modelo de cargas/itens/reservas; snapshots e funções de reserva transacional — migrations M2, gateway RPC e RLS; testes locais e remotos pelo Codex em 07/11/2026.
-- [x] T15 Seleção 30+20 kg, insuficiência, aceite/recusa e expiração — interface e regras preparadas; comportamento de API local/remoto verificado pelo Codex em 07/11/2026; revisão visual pendente.
-- [ ] T16 Verificar AC05–09/21, incluindo concorrência e liberação de saldo — verificações de domínio e banco passaram, incluindo concorrência real, Auth/RLS e liberação; falta percorrer a interface e conferir 360 px/desktop (AC23 transversal). Bloqueio do navegador em `validation.md`.
+- [x] T15 Seleção 30+20 kg, insuficiência, aceite/recusa e expiração — comportamento de API local/remoto verificado pelo Codex em 07/11/2026; revisão visual em 360 px/desktop aprovada pelo usuário.
+- [x] T16 Verificar AC05–09/21, incluindo concorrência e liberação de saldo — domínio e banco passaram, incluindo concorrência real, Auth/RLS e liberação; usuário informou revisão em 360 px/desktop e autorizou aprovação em 07/11/2026. Sem relatório individual de teclado ou testes visuais observado pelo Codex; limites em `validation.md`.
 
 Entrega M2 na branch `feature/m2-demandas-composicao`, migrations `20261107213117_m2_demands_reservations.sql` e `20261107220459_m2_event_actor_index.sql`; testes `demands.test.js`, `m2-database.mjs` e `remote-m2.mjs`. Usuário autorizou publicação/integração na dev em 07/11/2026 (“pode aprovar”). Não informou procedimentos de revisão visual executados; T16 permanece aberto. M3 não iniciado.
+
+Atualização posterior de aceite: “acabei de revisasr em 360 px/desktop e pode aprovar”. Usuário responsável pela revisão visual e aprovação; T16 e M2 encerrados com base nesse relato e nas verificações técnicas acima. A pendência descrita no parágrafo anterior é histórica. M3 ainda não iniciado.
 
 Commits de implementação: `c9ba25c` (domínio, banco, serviços e testes) e `5bf018b` (interface, hooks e integração). Responsável pelas verificações relatadas: Codex, 07/11/2026.
 
