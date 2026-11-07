@@ -152,3 +152,27 @@ Autorizada a integração e publicação na `dev` da feature de diagnóstico e c
 ### Análise crítica
 
 A sincronização da `dev` prepara uma base comum para M2, preservando a versão estável na `main`. Atualizar branches não implementa funcionalidades pendentes nem substitui as validações de cada novo marco. O aceite M1 continua atribuído ao relato do usuário.
+
+## Interação 006 — Preparação da M2 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações e identificação de decisões pendentes; PowerShell e Git para inspeção do checkout e criação da feature. Skill Supabase consultada para orientar o trabalho futuro de persistência e permissões.
+
+### Interações realizadas
+
+Prompt integral do pedido: “vamos dar inicio a m2, verifique a documentação, siga o padrão de branch e commits, pergunte o que não ficou explicito”.
+
+Resposta representativa: leitura das especificações e conferência do repositório antes de implementar. Foram enviadas perguntas sobre entrega completa T13–T16 ou primeira fatia T13, prazo configurável de 24 horas e autorização para migration/testes remotos ou aplicação manual do SQL. Respostas ainda pendentes neste registro. Valores de ambiente fornecidos pelo editor não foram reproduzidos.
+
+### Aplicação no projeto
+
+Criada `feature/m2-demandas-composicao` a partir da `dev` local no commit `f376e7c`, com árvore de trabalho inicialmente limpa. Revisados documentação, rotas de prévia, serviço de ofertas, sessão demo, migration M1 e testes PostgreSQL locais. Nenhuma funcionalidade M2 implementada nesta preparação. Sem push ou integração.
+
+### Validação das respostas
+
+Conferidos `git status`, branches e referências locais de acompanhamento remoto; não houve fetch nesta interação. A primeira criação de branch foi impedida pelo sandbox; a tentativa com permissão elevada foi autorizada e concluída. Não foram executados testes de aplicação, interface ou Supabase remoto nesta etapa documental. M1 permanece descrito conforme o aceite humano anterior; M2 permanece aberto.
+
+### Análise crítica
+
+O planejamento define as regras centrais da M2, mas o prazo inicial de reserva ainda é proposta e a aplicação remota exige autorização específica. Esclarecer esses pontos antes de implementar evita transformar decisões técnicas propostas em requisitos aceitos. As prévias existentes não demonstram persistência, concorrência ou reservas reais.
