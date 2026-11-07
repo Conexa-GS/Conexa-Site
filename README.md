@@ -58,13 +58,15 @@ Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma 
 
 ## Experimentar a M2
 
-1. Entre como comprador em `/demo`, crie uma demanda e abra **Buscar e compor**.
-2. Selecione quantidades que atendam exatamente a demanda. A insuficiência não reduz a necessidade automaticamente. Salve a candidata (ainda sem reserva).
-3. Na lista de propostas, envie aos produtores: o banco verifica saldo e reserva todos os itens na mesma transação. Padrão 24h, configurável de 1 a 168h, limitado pela disponibilidade e data desejada. O prazo efetivo aparece em horário de São Paulo.
+1. Entre como comprador em `/demo` e clique em **Nova demanda**. **Continuar: escolher produtores** salva a necessidade e abre automaticamente a composição.
+2. Selecione quantidades que atendam exatamente a demanda. A insuficiência não reduz a necessidade automaticamente. Revise valores e prazo e clique em **Enviar proposta aos produtores** nessa mesma tela.
+3. O serviço salva a candidata e a envia; o banco verifica saldo e reserva todos os itens na mesma transação do envio. Não há aprovação intermediária em Minhas propostas. Em falha, o rascunho é preservado para reenvio pelo mesmo UUID, sem duplicar proposta. Padrão 24h, configurável de 1 a 168h, limitado pela disponibilidade e data desejada. O prazo efetivo aparece em horário de São Paulo.
 4. Troque para cada produtor, abra **Propostas recebidas** e aceite ou recuse. Todos aceitam: aguarda cotação, sem agendamento/pagamento. Recusa ou cancelamento pelo comprador libera toda a reserva; remonte outra proposta para ajustar valores ou itens.
 5. Reservas vencidas deixam de consumir saldo imediatamente; status e histórico são atualizados na próxima chamada M2. As listas atualizam a cada 30 segundos, ao recuperar foco ou por **Atualizar**.
 
 O cenário 30 kg Ana + 20 kg João para 50 kg deixa 5 kg de João livres quando as ofertas iniciais estão disponíveis e não comprometidas. Cadastros já vinculados não são apagados fisicamente. Demanda vinculada deve ser arquivada/substituída; cancele antes a proposta ativa. Não existe conversão implícita de caixas para kg.
+
+Demandas, propostas e transporte abrem em **Ativas**; canceladas, expiradas e arquivadas ficam no **Histórico**. No produtor, as novas propostas para responder aparecem primeiro. **Ocultar da lista** envia o cartão para **Ocultas**, onde pode ser reexibido. Essa preferência é local por participante e por lista; não cancela proposta nem altera reserva/prazo ou dados no Supabase.
 
 `npm run test:db` verifica M1–M3 em PostgreSQL local PGlite com identidade simulada. `node tests/remote-m2.mjs` cria fixtures próprias **somente no projeto demo autorizado**, usando `.env` sem imprimir credenciais; o relatório local em `artifacts/m2-remote.local.json` lista UUIDs para limpeza administrativa restrita a essas fixtures. A etapa `--verify-expiration` requer antecipar administrativamente o prazo da carga indicada no relatório, sem alterar operações de outras pessoas. O teste não executa limpeza administrativa automática nem substitui revisão de interface. Na entrega M2, fixtures foram removidas e as três ofertas anteriores preservadas.
 

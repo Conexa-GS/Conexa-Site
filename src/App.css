@@ -38,3 +38,14 @@
 .m3-quote, .m3-money { border: 1px solid var(--line, #d8deca); border-radius: 1rem; padding: 1rem; margin-block: 1rem; overflow-wrap: anywhere; }
 .m3-route { padding-left: 1.4rem; overflow-wrap: anywhere; }
 .m3-form button { justify-self: start; max-width: 100%; white-space: normal; }
+.record-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: 1rem .5rem; }
+.record-filter { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid #b9c5ac; border-radius: 999px; background: transparent; color: #23432d; padding: .65rem .9rem; font: inherit; cursor: pointer; }
+.record-filter[aria-pressed="true"] { background: #23432d; color: #fff8e9; }
+.record-filter span { font-size: .85em; }
+.record-entry { margin-block: 1.5rem; }
+.record-entry > .wide-card { margin-top: .4rem; }
+.record-visibility { display: flex; justify-content: flex-end; }
+.record-section-title { margin-top: 1.5rem; }
+.demand-steps { display: flex; flex-wrap: wrap; gap: .7rem 1.4rem; padding: 0; list-style: none; margin-bottom: 1.5rem; font-size: .9rem; }
+.demand-steps li { padding: .6rem .8rem; background: #f0eddf; border-radius: .7rem; }
+.demand-steps [aria-current="step"] { background: #23432d; color: #fff8e9; }

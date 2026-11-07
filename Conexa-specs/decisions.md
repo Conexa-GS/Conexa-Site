@@ -54,6 +54,12 @@ Conservação declarada explicitamente pelo transportador (`ambient`/`refrigerat
 
 Arquivos: migrations M3, `features/transport`, domínio/serviço/hook, integração de rotas internas e testes. Testes locais e remotos executados; revisão visual bloqueada pelo suporte de navegador da ferramenta. T20 e autorização de integração pendentes.
 
+## D010 — Envio direto e organização das listas — implementada, avaliação pendente — 07/11/2026
+
+Origem: avaliação do usuário sobre o caminho demanda → proposta → envio e a poluição de registros cancelados/arquivados. Ajuste da feature M3 ainda não integrada, sem criar outra feature a partir de trabalho pendente. Cadastro de demanda abre automaticamente a composição; envio passa a ocorrer nessa tela, usando as ações `draft` e `submit` existentes. Minhas propostas acompanha respostas; não exige aprovação intermediária. Duas ações continuam separadas no banco, mas falha preserva a candidata para reenvio com mesmo UUID; perda de resposta após envio é conferida por consulta. Não foi criada migration nem alterada regra de estoque/aceite.
+
+Listas de demandas, propostas e transporte mostram Ativas por padrão, com Histórico e Ocultas acessíveis por filtros e contagens. Produtor separa novas propostas sem resposta das em andamento. Ocultar é preferência reversível de visualização no navegador, isolada por participante e lista; não é arquivamento/cancelamento no banco. Ocultas mantém aviso de prazos/reservas ativos. Só UUIDs de preferências ficam em localStorage; cadastros continuam no Supabase. Indisponibilidade de storage limita preferência à sessão. Avaliação visual em 360 px/desktop e teclado ainda pendente pelo bloqueio de navegador já registrado.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

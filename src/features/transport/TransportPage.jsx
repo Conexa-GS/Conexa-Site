@@ -5,6 +5,7 @@ import { conservationLabel, financialSummary } from '../../domain/transport'
 import { useM3 } from '../../hooks/useM3'
 import { m3 } from '../../services/m3'
 import { m2, statusLabel, timestampLabel } from '../../services/m2'
+import RecordList from '../../components/RecordList'
 
 const conditions = <><option value="ambient">Ambiente protegido</option><option value="refrigerated">Refrigerado</option></>
 function Field({ label, children }) { return <label className="field"><span>{label}</span>{children}</label> }
@@ -52,7 +53,7 @@ export default function TransportPage({ session, vehiclesOnly = false }) {
       <form className="wide-card m3-form" onSubmit={e => { e.preventDefault(); submit('save_vehicle', Object.fromEntries(new FormData(e.currentTarget)), e.currentTarget) }}><h3>Cadastrar veículo fictício</h3>
         <Field label="Descrição"><input name="description" required maxLength={120} /></Field><Field label="Categoria do veículo"><input name="vehicle_category" required maxLength={80} /></Field><Field label="Capacidade em kg"><input name="capacity_kg" type="number" min="0.001" max="1000000" step="0.001" required /></Field><Field label="Conservação disponível"><select name="conservation_conditions">{conditions}</select></Field><button className="button" disabled={pending}>Salvar veículo</button>
       </form>{!state.vehicles.length && <EmptyState title="Cadastre seu primeiro veículo.">Capacidade e conservação serão verificadas antes da aprovação.</EmptyState>}{state.vehicles.map(v => <article className="wide-card" key={v.id}><h3>{v.description}</h3><p>{v.vehicle_category} · {quantity(v.capacity_kg)} kg · {conservationLabel(v.conservation_conditions)}</p><p>Cadastro preservado no histórico; para outras condições, cadastre outro veículo.</p></article>)}
-    </> : <>{!state.loads.length && <EmptyState title="As próximas conexões aparecem aqui.">As propostas chegam após o envio e o aceite dos fornecimentos.</EmptyState>}{state.loads.map(load => {
+    </> : <RecordList records={state.loads} scope="transport" participantId={session.id} label="Propostas de transporte" renderRecord={load => {
       const selected = load.quotes.find(q => q.id === load.selected_quote_id)
       const confirmed = load.confirmations.some(c => c.participant_id === session.id && c.proposal_version === load.version && c.decision === 'accepted')
       const participant = session.role !== 'carrier' || selected?.carrier_id === session.id
@@ -67,6 +68,6 @@ export default function TransportPage({ session, vehiclesOnly = false }) {
         {session.role === 'buyer' && ['awaiting_quotes','awaiting_final_approval','awaiting_payment'].includes(load.status) && <form className="m3-form" onSubmit={e => { e.preventDefault(); submit('cancel', { id: load.id, version: load.version, reason: new FormData(e.currentTarget).get('reason') }, e.currentTarget) }}><p>Mudanças no roteiro, preço, datas ou itens exigem cancelar e remontar; os aceites anteriores ficam no histórico.</p><Field label="Motivo do cancelamento"><input name="reason" required maxLength={500} /></Field><button className="button button-outline" disabled={pending}>Cancelar proposta e liberar reservas</button></form>}
         <details><summary>Histórico e aceites</summary><p>{load.confirmations.filter(c => c.proposal_version === load.version && c.decision === 'accepted').length} aceite(s) nesta versão.</p><ol>{load.events.map(event => <li key={event.id}>{timestampLabel(event.created_at)} · {event.event}</li>)}</ol></details>
       </article>
-    })}</>}
+    }} />}
   </>
 }

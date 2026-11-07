@@ -280,3 +280,31 @@ Migrations geradas pela CLI e aplicadas no projeto demo autorizado. Advisors nã
 ### Análise crítica
 
 O banco concentra identidade, valores e transições, impedindo confirmação indevida por requisição direta. Cotações manuais completas permitem avançar sem depender da API de rotas M4, com limitações explicitadas. Novos aceites após selecionar frete tornam o acordo final revisável. Imutabilidade/cancelamento-remontagem simplificam o protótipo, mas não substituem edição versionada futura. Conservação é declaração fictícia, não certificação. Testes de API não comprovam usabilidade; a revisão visual permanece necessária antes de encerrar M3. Não houve outra IA, pesquisa de campo, transporte ou pagamento real.
+
+## Interação 011 — Simplificar envio e organizar propostas — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para inspecionar fluxo existente, implementar ajustes React/JavaScript/CSS e documentar. Recursos: Git, PowerShell, Node/npm, ESLint, Vite e PGlite. Continuação do trabalho local com orientação da skill Sites já lida. Nenhum subagente, geração de imagens, deploy ou mudança remota no Supabase nesta revisão.
+
+### Interações realizadas
+
+Prompt integral: “achei nada intuitivo o processo de criar demanda -> aprovar nas minhas propostas e só depois o produtor receber a proposta, fora que precisa deixar separado as propostas novas e as arquivadas ou canceladas, podendo tambem derixar como oculto para diminuição da poluição visual”. Contexto de IDE: workflow.md, .env, tasks.md, spec.md e README.md; sem reprodução de valores secretos.
+
+Resposta representativa: “Vou deixar o fluxo como criar demanda → escolher produtores → enviar aos produtores, com o envio na própria composição.” O Codex informou que ocultar é preferência por participante/lista neste navegador, preservando operações e prazos, e manteve o trabalho na mesma feature ainda em avaliação. Não houve pedido ou recebimento de autorização de integração nesta interação.
+
+### Aplicação no projeto
+
+Demanda nova abre automaticamente a composição após salvar. O botão principal envia aos produtores usando as ações M2 existentes, sem envio posterior em Minhas propostas. Rascunho preservado em falha permite reenvio com mesmo UUID; perda de resposta de envio é conferida no banco pela consulta existente, e gravação incerta é recuperada para revisão. Rascunhos anteriores podem ser retomados; propostas já enviadas não permitem criar outra silenciosamente.
+
+Componente RecordList em demandas, propostas e transporte: Ativas por padrão, Histórico separado e Ocultas com reexibição. Novas para responder separadas de Em andamento no produtor. Ocultar guarda apenas UUIDs de preferência em localStorage por participante/lista, sem alterar Supabase, cancelamento ou reservas. Ajustados textos, passos e ações conforme estágio; edição de demanda vinculada deixa de ser oferecida. Decisão D010 e fluxos/README atualizados. Continuação em `feature/m3-transporte-financeiro`, originada de dev na interação anterior, sem integrar trabalho não aprovado.
+
+### Validação das respostas
+
+Codex executou lint (passou após retirar export auxiliar incompatível com Fast Refresh), 14 testes unitários, suites PGlite M1/M2/M3 e build. Quatro testes de envio verificaram gravação→envio, preservação/reuso do rascunho em falha, recuperação de resposta perdida após commit e gravação incerta recuperada sem envio automático. Esses quatro testes usam API simulada; não representam nova execução no demo remoto. Build mantém aviso de bundle acima de 500 kB. `git diff --check` sem problemas de whitespace; Git informa conversão de fim de linha LF/CRLF conforme configuração existente.
+
+Nenhuma nova migration, requisição remota de teste ou nova tentativa de navegador nesta revisão. Revisão desktop/360 px/teclado segue pendente pelo bloqueio de navegador previamente observado; não foi inventada aprovação humana. Sem push/merge/deploy.
+
+### Análise crítica
+
+O envio fica no contexto em que o comprador escolhe os produtores, reduzindo a troca de telas. Separar histórico e ocultar cartões reduz a lista inicial sem apagar a rastreabilidade. Ocultar é reversível e não suspende prazos; a preferência não sincroniza entre dispositivos. O envio continua com duas chamadas: falhas preservam rascunho em vez de alegar transação única ou sucesso falso. Os testes verificam recuperação, mas a nova organização e clareza dos textos ainda precisam da avaliação visual do usuário.

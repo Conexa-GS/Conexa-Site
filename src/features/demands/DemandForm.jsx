@@ -16,16 +16,16 @@ export default function DemandForm({ previous, catalog, close }) {
     setErrors(result.errors)
     if (Object.keys(result.errors).length) { document.getElementById(`d-${Object.keys(result.errors)[0]}`)?.focus(); return }
     setPending(true); setError('')
-    try { await m2('save_demand', { ...result.data, ...(previous ? { id: previous.id, version: previous.version } : {}) }); close(true) }
+    try { const saved = await m2('save_demand', { ...result.data, ...(previous ? { id: previous.id, version: previous.version } : {}) }); close(saved) }
     catch (failure) { setError(failure.message) }
     finally { setPending(false) }
   }
   const field = (name, label, children) => <label className="field" htmlFor={`d-${name}`}><span>{label}</span>{children}{errors[name] && <small className="field-error" id={`d-${name}-error`}>{errors[name]}</small>}</label>
   const props = name => ({ id: `d-${name}`, name, value: input[name], onChange: change, 'aria-invalid': Boolean(errors[name]), 'aria-describedby': errors[name] ? `d-${name}-error` : undefined })
-  return <Modal title={previous ? 'Editar demanda.' : 'Uma nova demanda.'} onClose={() => { if (!pending) close() }}><p className="form-intro">Registrar uma necessidade ainda não reserva alimentos nem confirma uma compra.</p><form onSubmit={submit} noValidate><div className="form-grid">
+  return <Modal title={previous ? 'Editar demanda.' : '1. O que você precisa?'} onClose={() => { if (!pending) close() }}><p className="form-intro">{previous ? 'Revise os dados da sua demanda.' : 'Depois, você escolhe os produtores e envia a proposta. Os alimentos só são reservados no envio.'}</p><form onSubmit={submit} noValidate><div className="form-grid">
     {field('product_id', 'Alimento e unidade', <select {...props('product_id')}><option value="">Selecione</option>{catalog.products.map(p => <option key={p.id} value={p.id}>{p.name} · {p.unit}</option>)}</select>)}
     {field('quantity', 'Quantidade (kg)', <input {...props('quantity')} inputMode="decimal" placeholder="Ex.: 50" />)}
     {field('desired_date', 'Data desejada', <input {...props('desired_date')} type="date" min={today()} />)}
     {field('destination_id', 'Destino fictício', <select {...props('destination_id')}><option value="">Selecione</option>{catalog.locations.map(l => <option key={l.id} value={l.id}>{l.display_address}</option>)}</select>)}
-  </div>{error && <ErrorNotice>{error} Seus dados foram preservados.</ErrorNotice>}<div className="form-actions"><button type="button" className="button button-outline" disabled={pending} onClick={() => close()}>Cancelar</button><button className="button" disabled={pending}>{pending ? 'Salvando…' : 'Salvar demanda'}</button></div></form></Modal>
+  </div>{error && <ErrorNotice>{error} Seus dados foram preservados.</ErrorNotice>}<div className="form-actions"><button type="button" className="button button-outline" disabled={pending} onClick={() => close()}>Cancelar</button><button className="button" disabled={pending}>{pending ? 'Salvando…' : previous ? 'Salvar alterações' : 'Continuar: escolher produtores'}</button></div></form></Modal>
 }
