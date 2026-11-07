@@ -308,3 +308,25 @@ Nenhuma nova migration, requisição remota de teste ou nova tentativa de navega
 ### Análise crítica
 
 O envio fica no contexto em que o comprador escolhe os produtores, reduzindo a troca de telas. Separar histórico e ocultar cartões reduz a lista inicial sem apagar a rastreabilidade. Ocultar é reversível e não suspende prazos; a preferência não sincroniza entre dispositivos. O envio continua com duas chamadas: falhas preservam rascunho em vez de alegar transação única ou sucesso falso. Os testes verificam recuperação, mas a nova organização e clareza dos textos ainda precisam da avaliação visual do usuário.
+
+## Interação 012 — Autorização de integração M3 na dev — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização e integrar a feature; Git e PowerShell para conferir branches, sincronizar referências e executar integração/publicação na dev. Sem alteração funcional, migration, teste remoto ou deploy nesta interação.
+
+### Interações realizadas
+
+Prompt integral: “pode integrar”. Contexto: resposta ao pedido de autorização para integrar na dev a feature M3 com o ajuste de fluxo e organização das listas. Resposta representativa: “Vou registrar sua autorização, conferir o estado das branches e integrar a feature na dev, seguindo o workflow do projeto.”
+
+### Aplicação no projeto
+
+Autorizada a integração de `feature/m3-transporte-financeiro`, com commits `3018a85`, `6963a18` e `6d46cc6`, na dev. Registro documental preparado na feature antes da integração. A autorização não promove nada para main nem autoriza deploy. Histórico anterior de pendências preservado.
+
+### Validação das respostas
+
+Checkout limpo antes da alteração; `git fetch origin` confirmou dev local e remota sincronizadas e os três commits da feature ainda não integrados. Verificação documental por `git diff --check`. Sem novos testes de aplicação: última revisão passou em lint, 14 testes unitários, suites PGlite M1/M2/M3 e build, conforme interação 011. O usuário autorizou integrar; não relatou procedimentos de revisão em 360 px/desktop ou teclado, por isso T20 permanece aberto. O resultado efetivo da integração/publicação é conferido pelo Git e informado na resposta desta interação.
+
+### Análise crítica
+
+A autorização permite integrar o trabalho apresentado preservando o fluxo de branches. Integração não comprova testes visuais não relatados nem encerra automaticamente M3. Manter essa distinção evita transformar uma aprovação de Git em evidência de usabilidade.

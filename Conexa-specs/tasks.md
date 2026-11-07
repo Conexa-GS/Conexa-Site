@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1 e M2 concluídos; M3 implementado, em avaliação**. T17–T19 implementados e verificados localmente e por API no Supabase demo. T20 permanece aberto pela revisão visual em 360 px/desktop e teclado. Integração na dev depende de autorização após avaliação. Evidências e limites em `validation.md`.
+Atualização de 07/11/2026: **M1 e M2 concluídos; M3 implementado, com integração na dev autorizada** pelo usuário (“pode integrar”), incluindo o ajuste de envio/listas. T17–T19 implementados e verificados localmente e por API no Supabase demo. T20 permanece aberto: a autorização não veio acompanhada de relato de revisão visual em 360 px/desktop e teclado. Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
