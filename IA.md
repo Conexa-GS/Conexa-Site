@@ -78,3 +78,77 @@ Build, lint, sete testes de domínio e testes PostgreSQL locais passaram na impl
 
 ### Análise crítica
 A autorização permite publicar a versão avaliada, mas não transforma a demonstração local em backend remoto validado. O Git precisou de execução fora do sandbox por bloqueio de escrita nos metadados.
+
+## Interação 003 — Diagnóstico e próximos passos — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para revisão da documentação, código React, serviços, SQL e testes. PowerShell, Git e Node/npm para inspeção e verificações locais. Skill Supabase consultada para orientar a revisão da integração e das permissões; não houve implementação ou operação remota.
+
+### Interações realizadas
+
+Prompt integral do pedido: “leia todo o projeto e veja qual é o proximo passo para continuar a aplicação e fale o que precisa ser feito para seguir”.
+
+Resposta representativa: “Encontrei um ponto concreto: o `.env` usa `NEXT_PUBLIC_SUPABASE_*`, mas o código Vite lê `VITE_SUPABASE_*`. Com essa configuração, a aplicação continua no modo local, mesmo com URL e chave preenchidas.”
+
+### Aplicação no projeto
+
+Análise do estado atual e recomendação de concluir M1 antes de M2: corrigir os nomes das variáveis de ambiente, conferir projeto demo, Auth, migration e seed, e verificar CRUD remoto/RLS pelos critérios AC01–04 e AC23. Demandas, composição, transporte e pagamento continuam como prévias. Nenhuma funcionalidade ou configuração foi alterada. Registro preparado na branch `feature/diagnostico-proximos-passos`, criada a partir de `origin/dev`; nenhuma integração ou publicação realizada.
+
+### Validação das respostas
+
+Executados pelo Codex: `npm.cmd run lint`, `npm.cmd test` (7 testes passaram), `npm.cmd run test:db` (PGlite com identidade simulada) e `npm.cmd run build`, todos com sucesso. O comando `npm` inicialmente foi bloqueado pela política de scripts do PowerShell; `npm.cmd` executou os mesmos scripts sem alterar a política. O `.env` foi inspecionado sem exibir seus valores. Supabase remoto, deploy, navegador, teclado e layout não foram verificados nesta interação. A avaliação humana permanece pendente.
+
+### Análise crítica
+
+A revisão identificou uma divergência de configuração que mantém o modo local ativo e confirmou a integridade dos checks locais. Testes locais não comprovam Auth real, persistência ou RLS no Supabase. A existência de URL e chave não comprova que tabelas, contas e seed estejam provisionados. A documentação de passagem e o README contêm estados históricos que precisam ser reconciliados com o Git e com as próximas evidências remotas; não foram tratados como confirmação do ambiente atual.
+
+## Interação 004 — Aceite humano do M1 — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para atualização documental; PowerShell e Git para leitura e conferência das alterações. Sem operação remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral do pedido: “Corrigi os nomes, validei e testei, podemos seguir, pode marcar como concluido”. O contexto do editor mostrava a configuração com os nomes `VITE_` corrigidos; seus valores não são registrados.
+
+Resposta representativa: “Vou marcar o M1 como concluído com base na sua confirmação, registrando que a validação remota foi feita por você. Também vou atualizar as pendências para indicar o M2 como próximo marco.”
+
+### Aplicação no projeto
+
+Atualizados `Conexa-specs/tasks.md`, `Conexa-specs/validation.md` e README para registrar o aceite do M1 pelo usuário, encerrar T07/T11/T12 e indicar T13 (CRUD de demandas) como próximo passo. Preservado o histórico das verificações locais. Sem alteração funcional, commit, push ou merge nesta interação.
+
+### Validação das respostas
+
+O usuário afirmou ter corrigido a configuração, validado e testado, e autorizou expressamente marcar o marco como concluído. Não forneceu resultados individuais por critério; não foram inventados procedimentos, logs ou testes remotos executados pelo Codex. A atualização é documental, sem nova verificação de interface ou banco remoto pelo agente.
+
+Após a atualização, o Codex executou `git diff --check`, `npm.cmd run lint`, `npm.cmd test` (7 testes passaram) e `npm.cmd run build`, todos sem falha. O build emitiu aviso de chunk acima de 500 kB; isso não impediu sua conclusão.
+
+### Análise crítica
+
+O aceite humano permite atualizar o planejamento e seguir para M2. A documentação distingue esse relato das verificações automatizadas locais e preserva a limitação de não haver evidências remotas detalhadas anexadas. A configuração e as funcionalidades permanecem sob responsabilidade de validação no ambiente utilizado pelo grupo.
+
+## Interação 005 — Integração da documentação na dev — 07/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para conferência e atualização dos registros; PowerShell e Git para inspeção, commit, sincronização e integração autorizada.
+
+### Interações realizadas
+
+Prompt integral: “pode ir para a dev, aproveita e ja faça todas as alterações de merge para ter o projeto 100% atualizado para as proximas alterações”.
+
+Resposta representativa: “Vou conferir as branches locais e remotas, registrar sua autorização e integrar a atualização na `dev`, deixando o repositório pronto para a próxima feature.”
+
+### Aplicação no projeto
+
+Autorizada a integração e publicação na `dev` da feature de diagnóstico e conclusão documental do M1. README e registro de validação ajustados para distinguir o histórico da transferência inicial do estado atual do Git. Fluxo previsto: commit Conventional Commits na feature, publicação da feature e integração/publicação na `dev`. A solicitação não autoriza promoção adicional para `main`.
+
+### Validação das respostas
+
+`git fetch origin --prune` executado; referências remotas de `main`, `dev` e da primeira feature apontavam para `aa7ce74`, sem divergência entre `origin/main` e `origin/dev`. Alterações existentes de IA.md preservadas; `.env` fora do conjunto de arquivos da entrega. Lint, sete testes de domínio e build passaram na interação anterior. A conferência final da integração deve comparar as referências local e remota da `dev` e verificar a árvore de trabalho limpa. Sem nova execução de Supabase remoto ou avaliação humana adicional nesta interação.
+
+### Análise crítica
+
+A sincronização da `dev` prepara uma base comum para M2, preservando a versão estável na `main`. Atualizar branches não implementa funcionalidades pendentes nem substitui as validações de cada novo marco. O aceite M1 continua atribuído ao relato do usuário.

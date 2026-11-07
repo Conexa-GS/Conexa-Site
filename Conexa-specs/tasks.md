@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: primeira versão preparada em área temporária e transferida após conferir `feature/primeira-versao-conexa` ativa. Evidências em `validation.md`. Check local não significa aceite remoto. M1 permanece aberto.
+Atualização de 07/11/2026: **M1 concluído por confirmação do usuário**, após corrigir as variáveis de ambiente e informar que validou e testou a aplicação. Aceite humano e limites da evidência registrados em `validation.md`; a validação remota não foi executada pelo Codex. Próximo marco: M2, começando por T13.
 
 ## M0 — Preparação
 
@@ -11,14 +11,16 @@ Atualização de 07/11/2026: primeira versão preparada em área temporária e t
 
 ## M1 — Primeira fatia: ofertas
 
-- [x] T05 Migrations de participantes, produtos, localizações e ofertas com checks, FKs e RLS — arquivos e teste PostgreSQL local; aplicação remota pendente.
-- [x] T06 Seed de dois produtores, comprador e transportador fictícios; datas relativas à execução — arquivo e repetição local verificados; Auth remoto pendente.
-- [ ] T07 Sessões demo e seleção de perfil, com acesso limitado pelo banco.
-- [x] T08 Serviço de ofertas e hooks useOffers/useDemoSession — código preparado, sem alegação de teste remoto.
-- [x] T09 Formulário validado e lista do produtor: criar, editar e excluir oferta sem vínculos — verificado em modo local.
-- [x] T10 Consulta de ofertas pelo comprador, sem duplicar dados — verificado em modo local.
-- [ ] T11 Carregamento, erro, vazio e confirmação de exclusão; revisão em celular e teclado.
-- [ ] T12 Verificar AC01–04/23, persistência após reload e proteção entre participantes; registrar evidências e limitações.
+- [x] T05 Migrations de participantes, produtos, localizações e ofertas com checks, FKs e RLS — arquivos e teste PostgreSQL local; aceite remoto conforme confirmação do usuário.
+- [x] T06 Seed de dois produtores, comprador e transportador fictícios; datas relativas à execução — arquivo e repetição local verificados; aceite remoto conforme confirmação do usuário.
+- [x] T07 Sessões demo e seleção de perfil, com acesso limitado pelo banco — aceite conforme confirmação do usuário.
+- [x] T08 Serviço de ofertas e hooks useOffers/useDemoSession — código preparado e incluído no aceite do M1 pelo usuário.
+- [x] T09 Formulário validado e lista do produtor: criar, editar e excluir oferta sem vínculos — verificação local e aceite do M1 pelo usuário.
+- [x] T10 Consulta de ofertas pelo comprador, sem duplicar dados — verificação local e aceite do M1 pelo usuário.
+- [x] T11 Carregamento, erro, vazio e confirmação de exclusão; revisão em celular e teclado — aceite conforme confirmação do usuário, sem relatório individual dos procedimentos.
+- [x] T12 Verificar AC01–04/23, persistência após reload e proteção entre participantes; registrar evidências e limitações — M1 aceito pelo usuário; fonte e limitações em `validation.md`.
+
+Registro de conclusão T05–T12: 07/11/2026; responsável pelo aceite informado: usuário nesta conversa; arquivos: migration/seed, serviços/hooks e interface de ofertas existentes. Resultado: autorização explícita para marcar M1 concluído após validação e testes relatados. Não foram fornecidos logs ou resultados individuais por critério, nem realizada nova verificação remota pelo Codex. Sem novo commit nesta atualização documental.
 
 Definição de pronto M1: CRUD remoto funciona, comprador lê os mesmos registros, configuração é reproduzível e dados são fictícios. Build passando sozinho não comprova esse marco.
 

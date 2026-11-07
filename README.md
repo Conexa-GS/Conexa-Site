@@ -53,7 +53,7 @@ As páginas posteriores a ofertas foram solicitadas para avaliação do design. 
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita alterações ao produtor dono. Produto, local de coleta, preço/mínimo, datas, precisão, papel e versão são verificados no banco. Ainda não existem reservas ou histórico vinculado; antes de M2, ampliar integridade e arquivamento conforme as specs.
 
-**M1 remoto permanece pendente:** migration e seed foram verificados em PostgreSQL local com identidade simulada, mas ainda não foram executados em Supabase real. Build ou mock não comprovam esse aceite.
+**M1 concluído por confirmação do usuário em 07/11/2026:** após corrigir os nomes das variáveis para `VITE_SUPABASE_URL` e `VITE_SUPABASE_PUBLISHABLE_KEY`, o usuário informou que validou e testou a aplicação e autorizou encerrar o marco. A validação remota foi relatada pelo usuário, sem logs individuais por critério; não foi executada pelo Codex. Evidências e limites em [validation.md](Conexa-specs/validation.md). Próximo passo: M2, começando pelo CRUD de demandas (T13), seguido de composição e reservas transacionais.
 
 ## Organização
 
@@ -67,7 +67,7 @@ Documentos: [specs](Conexa-specs/README.md), [decisões](Conexa-specs/decisions.
 
 Fluxo obrigatório: `feature/*` → `dev` → `main`. Nunca desenvolver diretamente na main. Commits seguem Conventional Commits. A versão de feature deve ser apresentada para avaliação; push/integração na dev depende de aprovação do usuário após a avaliação. Regras em [workflow.md](Conexa-specs/workflow.md).
 
-O sandbox desta sessão bloqueou a criação de branches. O usuário criou `dev` e ativou `feature/primeira-versao-conexa` pelo terminal do VS Code; a branch foi conferida antes da transferência dos arquivos preparados. O histórico da main foi preservado. A versão continua na feature para avaliação, sem integração na dev.
+A primeira versão foi publicada nas branches remotas `dev` e `main`, conforme autorização registrada em `IA.md`. A atualização documental do aceite M1 foi preparada em `feature/diagnostico-proximos-passos`; em 07/11/2026, o usuário autorizou sua integração e publicação na `dev`. Novas features devem partir da `dev` atualizada. Essa autorização não promove a atualização documental para `main`.
 
 ## Publicação
 
