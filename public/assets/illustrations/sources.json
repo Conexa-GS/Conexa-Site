@@ -1,0 +1,173 @@
+{
+  "description": "Referências fornecidas pelo usuário em F:/ref. Conversão WebP e redimensionamento; arte preservada, sem geração de imagens.",
+  "assets": [
+    {
+      "asset": "truck-empty.webp",
+      "source": "Caminhão de entrega verde em movimento-1.png",
+      "width": 1200,
+      "height": 600,
+      "bytes": 69330
+    },
+    {
+      "asset": "road-depot.webp",
+      "source": "Caminhão de Entregas na Estrada-2.png",
+      "width": 1000,
+      "height": 500,
+      "bytes": 32294
+    },
+    {
+      "asset": "road-city.webp",
+      "source": "Caminhão de Entregas no Centro de Distribuição-7.png",
+      "width": 1000,
+      "height": 500,
+      "bytes": 113518
+    },
+    {
+      "asset": "truck-loaded.webp",
+      "source": "Caminhão de Hortifruti em Movimento-2.png",
+      "width": 1200,
+      "height": 600,
+      "bytes": 82332
+    },
+    {
+      "asset": "road-collection.webp",
+      "source": "Carregamento Rural em Movimento-10.png",
+      "width": 1000,
+      "height": 500,
+      "bytes": 121666
+    },
+    {
+      "asset": "road-arrival.webp",
+      "source": "Entrega de Hortifruti ao Campo-6",
+      "width": 1000,
+      "height": 500,
+      "bytes": 36726
+    },
+    {
+      "asset": "road-country.webp",
+      "source": "Entrega rural colorida com caminhão e armazém-3.png",
+      "width": 1000,
+      "height": 500,
+      "bytes": 104248
+    },
+    {
+      "asset": "driver-delivery.webp",
+      "source": "Entregador Caminhando com Produtos Frescos-8.png",
+      "width": 900,
+      "height": 600,
+      "bytes": 75860
+    },
+    {
+      "asset": "driver-farm.webp",
+      "source": "Entregador na Fazenda, Rumo ao Mercado-1.png",
+      "width": 1000,
+      "height": 667,
+      "bytes": 82626
+    },
+    {
+      "asset": "driver-wave.webp",
+      "source": "Entregador Saudando na Fazenda-5.png",
+      "width": 900,
+      "height": 600,
+      "bytes": 65858
+    },
+    {
+      "asset": "farm.webp",
+      "source": "Fazenda Colorida com Agricultora e Colheita.png",
+      "width": 1100,
+      "height": 744,
+      "bytes": 104932
+    },
+    {
+      "asset": "farmer-rest.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_38_06-1.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 22746
+    },
+    {
+      "asset": "carrier-rest.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_38_17-2.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 25634
+    },
+    {
+      "asset": "buyer-rest.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_38_24-3.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 23828
+    },
+    {
+      "asset": "farmer-walk.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_38_44-1.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 24076
+    },
+    {
+      "asset": "farmer-talk.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_38_53-2.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 23088
+    },
+    {
+      "asset": "buyer-walk.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_39_01-3.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 23308
+    },
+    {
+      "asset": "buyer-talk.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_39_06-4.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 24486
+    },
+    {
+      "asset": "carrier-walk.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_39_10-5.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 24750
+    },
+    {
+      "asset": "carrier-talk.webp",
+      "source": "Imagem do ChatGPT 7 de nov. de 2026, 23_39_14-6.png",
+      "width": 560,
+      "height": 747,
+      "bytes": 21480
+    },
+    {
+      "asset": "warehouse.webp",
+      "source": "Logística de Hortaliças no Armazém-9.png",
+      "width": 1100,
+      "height": 550,
+      "bytes": 43560
+    },
+    {
+      "asset": "route.webp",
+      "source": "Rota do Campo à Mesa.png",
+      "width": 1000,
+      "height": 563,
+      "bytes": 82658
+    },
+    {
+      "asset": "community.webp",
+      "source": "Três histórias da cadeia alimentar-4.png",
+      "width": 1200,
+      "height": 400,
+      "bytes": 47968
+    },
+    {
+      "asset": "market.webp",
+      "source": "Vendedor Alegre na Feira de Hortaliças.png",
+      "width": 1100,
+      "height": 733,
+      "bytes": 78330
+    }
+  ]
+}

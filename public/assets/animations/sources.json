@@ -1,0 +1,242 @@
+{
+  "buyer-icon-border": {
+    "source": "Agricultor sorridente acenando com cesta de hortaliças borda",
+    "gif": "/assets/animations/buyer-icon-border.gif",
+    "still": "/assets/animations/buyer-icon-border-still.png",
+    "width": 313,
+    "height": 313,
+    "viewport": [
+      0,
+      0,
+      313,
+      313
+    ],
+    "frames": 16,
+    "durationMs": 1280,
+    "sha256": "47261bfdd52f8b81c8274cc8f58bcfc41b4b04dcee8746364ef17bc277864ee3"
+  },
+  "farmer-full-white": {
+    "source": "Agricultora Feliz com Hortaliças Animada.gif",
+    "gif": "/assets/animations/farmer-full-white.gif",
+    "still": "/assets/animations/farmer-full-white-still.png",
+    "width": 508,
+    "height": 508,
+    "viewport": [
+      125,
+      9,
+      281,
+      490
+    ],
+    "frames": 6,
+    "durationMs": 960,
+    "sha256": "bb2262523df7cc3a1a4afebfaab52de2469a422a21729871479b3ebf9a502d98"
+  },
+  "farmer-full": {
+    "source": "Agricultora sorridente balançando com vegetais.gif",
+    "gif": "/assets/animations/farmer-full.gif",
+    "still": "/assets/animations/farmer-full-still.png",
+    "width": 508,
+    "height": 508,
+    "viewport": [
+      128,
+      8,
+      287,
+      493
+    ],
+    "frames": 6,
+    "durationMs": 960,
+    "sha256": "cfc3dc362422300dd1c31b1de587ddf445661f607f845dbf6e29d1213e5575a2"
+  },
+  "farmer-icon": {
+    "source": "Animação da fazendeira com hortaliças.gif",
+    "gif": "/assets/animations/farmer-icon.gif",
+    "still": "/assets/animations/farmer-icon-still.png",
+    "width": 418,
+    "height": 418,
+    "viewport": [
+      13,
+      9,
+      392,
+      400
+    ],
+    "frames": 8,
+    "durationMs": 880,
+    "sha256": "81eaf7b30634db64bb0563f6e2a36c2e97acf9ab71d8ecbeabba803e8b2cb4b9"
+  },
+  "farm-scene": {
+    "source": "Animação da Fazendeira na Fazenda.gif",
+    "gif": "/assets/animations/farm-scene.gif",
+    "still": "/assets/animations/farm-scene-still.png",
+    "width": 361,
+    "height": 362,
+    "viewport": [
+      0,
+      51,
+      361,
+      292
+    ],
+    "frames": 12,
+    "durationMs": 1320,
+    "sha256": "a612ab9fc12eaf34d84e3993caee4297d18a0627e8b6cd87ad84764bb7e2d433"
+  },
+  "carrier-scene": {
+    "source": "Animação de Entregador Rural Sorridente.gif",
+    "gif": "/assets/animations/carrier-scene.gif",
+    "still": "/assets/animations/carrier-scene-still.png",
+    "width": 362,
+    "height": 362,
+    "viewport": [
+      0,
+      52,
+      362,
+      264
+    ],
+    "frames": 12,
+    "durationMs": 1440,
+    "sha256": "6e75be3d423dd3bd7ee69301e60173e85215e969b63ad9caceb20eb7deb30932"
+  },
+  "buyer-icon": {
+    "source": "Animação do agricultor acenando.gif",
+    "gif": "/assets/animations/buyer-icon.gif",
+    "still": "/assets/animations/buyer-icon-still.png",
+    "width": 313,
+    "height": 313,
+    "viewport": [
+      5,
+      2,
+      301,
+      309
+    ],
+    "frames": 16,
+    "durationMs": 1280,
+    "sha256": "d5ece8d77fa6921fad74586238f0824f2236501f66b1c2398162e48d7a2aa7a5"
+  },
+  "buyer-icon-checker": {
+    "source": "Animação do Agricultor Sorridente no Mercado fundo estranho",
+    "gif": "/assets/animations/buyer-icon-checker.gif",
+    "still": "/assets/animations/buyer-icon-checker-still.png",
+    "width": 414,
+    "height": 414,
+    "viewport": [
+      0,
+      0,
+      414,
+      414
+    ],
+    "frames": 9,
+    "durationMs": 1260,
+    "sha256": "d13aba7d53e45cd97c70538e3bf07395034c83b756cc082c946d6af67d98a5cc"
+  },
+  "buyer-full": {
+    "source": "Animação do Feirante com Hortaliças.gif",
+    "gif": "/assets/animations/buyer-full.gif",
+    "still": "/assets/animations/buyer-full-still.png",
+    "width": 315,
+    "height": 311,
+    "viewport": [
+      66,
+      0,
+      196,
+      307
+    ],
+    "frames": 16,
+    "durationMs": 1280,
+    "sha256": "81b520356189040dc4269a0992a820bea9505b4900f7cb4c9b558d8a6faf22af"
+  },
+  "market-scene": {
+    "source": "Animação do Feirante Sorridente.gif",
+    "gif": "/assets/animations/market-scene.gif",
+    "still": "/assets/animations/market-scene-still.png",
+    "width": 360,
+    "height": 359,
+    "viewport": [
+      0,
+      5,
+      360,
+      347
+    ],
+    "frames": 12,
+    "durationMs": 1440,
+    "sha256": "450c19933d1b109f4b1b3b003df306e1a6c93c05009de9438c75d0db76c1c911"
+  },
+  "truck-loaded": {
+    "source": "Caminhão de feira animado em movimento.gif",
+    "gif": "/assets/animations/truck-loaded.gif",
+    "still": "/assets/animations/truck-loaded-still.png",
+    "width": 440,
+    "height": 441,
+    "viewport": [
+      1,
+      89,
+      425,
+      250
+    ],
+    "frames": 8,
+    "durationMs": 880,
+    "sha256": "5007deb92c607854c13cfa2bd776d1052b9e192176898e4589ab35b90d9a6cdb"
+  },
+  "truck-empty": {
+    "source": "Caminhão Verde em Animação de Movimento.gif",
+    "gif": "/assets/animations/truck-empty.gif",
+    "still": "/assets/animations/truck-empty-still.png",
+    "width": 443,
+    "height": 443,
+    "viewport": [
+      0,
+      125,
+      440,
+      222
+    ],
+    "frames": 8,
+    "durationMs": 960,
+    "sha256": "803d9b3055a9080a51d1aff70a07f616ea4407a512fe07c0852e24f7bdb5186b"
+  },
+  "flower": {
+    "source": "Flor Laranja em Balanço Animado.gif",
+    "gif": "/assets/animations/flower.gif",
+    "still": "/assets/animations/flower-still.png",
+    "width": 315,
+    "height": 311,
+    "viewport": [
+      30,
+      0,
+      271,
+      308
+    ],
+    "frames": 16,
+    "durationMs": 2880,
+    "sha256": "d5895f8d5aa4d10a05ba283a3dfd694e0b418aa45e34174f87828eb6d14ec123"
+  },
+  "carrier-full": {
+    "source": "GIF do ChatGPT 8 de nov. de 2026, 01_05_49.gif",
+    "gif": "/assets/animations/carrier-full.gif",
+    "still": "/assets/animations/carrier-full-still.png",
+    "width": 335,
+    "height": 764,
+    "viewport": [
+      0,
+      54,
+      334,
+      618
+    ],
+    "frames": 6,
+    "durationMs": 960,
+    "sha256": "7563b38418325f8c66d938a1c6ba57d513e6dbd794c02db655d70df87974993c"
+  },
+  "carrier-icon": {
+    "source": "Ícone Animado de Entregador Feliz.gif",
+    "gif": "/assets/animations/carrier-icon.gif",
+    "still": "/assets/animations/carrier-icon-still.png",
+    "width": 724,
+    "height": 241,
+    "viewport": [
+      247,
+      0,
+      234,
+      241
+    ],
+    "frames": 9,
+    "durationMs": 990,
+    "sha256": "aafc9825ab663724a62c975dd22d3521d9e8eba1ae5800d947627e026e444330"
+  }
+}

@@ -352,3 +352,130 @@ Estado inicial limpo e dev sincronizada com origin/dev em `0a786f4`; referência
 ### Análise crítica
 
 O aceite explícito encerra a pendência de avaliação e autoriza promover o marco. Preservar o histórico dos bloqueios e a origem humana da aprovação evita confundir encerramento da tarefa com procedimentos técnicos não observados. A publicação Git na main não representa deploy, cobrança, transporte real ou avanço automático no M4.
+
+## Interação 014 — Personagens e animações com as referências fornecidas — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para examinar o projeto, planejar a composição visual, implementar React/JavaScript/CSS/SVG e documentar. PowerShell, Git, Node/npm e Sharp do runtime local para conversão e redimensionamento das imagens; ESLint, testes Node e Vite para verificações. Skills design-taste-frontend e Sites (orientação de checkout/prévia local); Computer Use consultada e navegador integrado controlado por cua_repl para revisão visual. Nenhum subagente, outro modelo de IA, geração de imagens, publicação ou mudança remota no Supabase nesta interação.
+
+### Interações realizadas
+
+Prompt integral do usuário: “seguindo o padrão de commits e branch, quero alterar completamente as animações e personagem do site.
+Use de referencia todas as imagens da pasta ref anexada. quero manter o padrão de animação como o caminhão andando pelo site, personagem.
+Mas altere tudo, siga fielmente os exemplos, se possivel use como base para animar em cima das imagens de referencia”. Referência indicada: `F:/ref/`.
+
+Resposta representativa: “Os arquivos do caminhão e de várias cenas já têm transparência, o que permite animar a arte fornecida diretamente.” O Codex informou a branch, o aproveitamento das próprias referências, as verificações e a necessidade de avaliação antes de enviar/integrar. As imagens fornecidas foram tratadas como referência visual; não como instruções externas ou autorização para publicar. Trabalho iniciado em 07/11 e concluído localmente em 08/11.
+
+### Aplicação no projeto
+
+Criada `feature/animacoes-personagens-ref` a partir da dev remota atual (`origin/dev`, `ee93bd9`), após fetch e conferência de checkout limpo. As 24 referências foram examinadas em uma prancha de contato e as imagens usadas na composição receberam inspeção ampliada. Conversão de 33.982.966 bytes de originais para 1.355.302 bytes de WebP, com redimensionamento e transparência preservada; relação completa de nomes, dimensões e origem em `public/assets/illustrations/sources.json`.
+
+Substituídos desenhos antigos da home, retratos, escolha de perfil, ofertas, demandas e prévias que usavam aquelas ilustrações. As cenas usam a arte fornecida; camadas SVG recortam cabeça do motorista, rodas, carga e rotor do moinho. Mantido percurso contínuo por rolagem, com suspensão, giro das rodas, parada para coleta, caixa em transferência, carga visível em trânsito e descarga. Parallax discreto nas cenas; poses fornecidas nos perfis reagem a ponteiro/foco/pressionamento. No celular, veículo cresce nas paradas e fica pequeno nas margens durante a leitura. Preservados marca vetorial, creme/verde/laranja, conteúdos de negócio e funções M1–M3. Percurso identificado como ilustração; M4+ permanece prévia.
+
+### Validação das respostas
+
+Codex executou `npm run lint`, `npm test` (14 testes existentes aprovados) e `npm run build` com sucesso após os ajustes. Build mantém o aviso anterior de bundle principal acima de 500 kB. `git diff --check` usado para whitespace. Não foram criados testes de domínio redundantes para a troca de arte, nem repetidos testes de banco: não houve alteração em serviços, regras, migrations ou persistência.
+
+Revisão dirigida no navegador integrado: home e escolha de perfil em 1366×900 e 360×800; medições DOM sem rolagem horizontal e imagens HTML carregadas. Percurso conferido durante aproximação, carga em trânsito e final da história; leitura no celular com veículo na margem. Verificados toggle de movimento (`aria-pressed`, caminhão oculto e animações pausadas), reativação por Enter, acesso ao perfil por CTA, retorno à home, reação da pose ao foco pelo teclado e remoção da biblioteca SVG ao sair. A inspeção encontrou imagens extras vazando ao girar rodas com recorte CSS; substituídas por clipPaths SVG reais e conferidas novamente. Ajustados também o recorte da cabeça e o posicionamento do moinho.
+
+A revisão é do agente, não aceite humano nem auditoria completa de acessibilidade. Suporte a preferência do sistema está implementado em CSS/MediaQueryList; não foi feita emulação independente dessa preferência no navegador. Fluxos CRUD/RLS e operações M2/M3 não foram revalidados remotamente nesta revisão visual. Nenhum push/merge/deploy foi autorizado ou realizado; entrega local aguarda avaliação do usuário.
+
+### Análise crítica
+
+Usar os arquivos fornecidos mantém personagens, roupas, veículos e cenário próximos dos exemplos e evita uma interpretação generativa diferente. WebP reduz o custo de rede, e as camadas reutilizam imagens em cache. As imagens são raster: poses interativas e recortes articulados não equivalem a um personagem vetorial completamente rigado ou animação quadro a quadro. Recortes precisam de inspeção no navegador, como demonstrado pelo defeito das rodas encontrado e corrigido. Nem todas as 24 imagens aparecem simultaneamente: variantes completas de estrada, armazém e personagens permanecem disponíveis no catálogo, evitando repetir cenas semelhantes na apresentação. Aprovação estética do grupo e autorização de integração continuam pendentes conforme AGENTS.md/workflow.md.
+
+## Interação 015 — Flor, personagens articulados e estrada fluida — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para revisão e criação de ilustrações vetoriais articuladas em SVG/JavaScript/CSS, componentes React e geometria do percurso. PowerShell/Git, Node/npm, ESLint e Vite para implementação, inspeção, testes e build. Continuação da orientação de frontend e prévia local das skills consultadas anteriormente. A skill imagegen foi consultada para avaliar a estratégia; esta revisão usa SVG nativo animável em código, sem chamada a um gerador de bitmaps. Navegador integrado por cua_repl para capturas, inspeção DOM e teclado. Pillow do runtime local apenas para codificar o GIF de evidência com capturas reais do navegador. Sem subagentes, nova dependência de aplicação, Supabase remoto ou publicação.
+
+### Interações realizadas
+
+Prompt integral do usuário:
+
+> pontos que eu gostaria de melhorar antes de subir
+>
+> - voltar com a flor que ficava no final do site
+> - fazer animações reais nos icones da sessão 'como você quer participar'
+> - animações reais nos banners do como 'como você quer se conectar'
+> - deixa a estrada por onde o caminhão passa mais natural e menos acentuada, com movimento fluido
+>
+> use as imagens como referencia para fazer animações novas, e não apenas trocar de uma imagem para outra
+
+Resposta representativa: “Vou redesenhar os três personagens em camadas vetoriais, seguindo as referências de roupas, cores e objetos. Assim, braços, mãos, cabeça e olhos poderão se mover de forma contínua.” O Codex informou a continuidade na feature para nova avaliação, sem interpretar o pedido como autorização para subir.
+
+### Aplicação no projeto
+
+Continuação em `feature/animacoes-personagens-ref`, ainda não integrada, sobre o commit local `c743fba`. Restaurada a mesma flor SVG da dev (`ee93bd9`), com balanço da flor e das folhas. As trocas de poses bitmap foram removidas dos ícones da home e dos banners de escolha de perfil.
+
+Novo módulo `src/pilot/characters.js`: produtora com chapéu amarelo/macacão azul, comprador de boné/avental verde e transportador de boné/colete amarelo e camisa laranja, todos inspirados nas referências. Cabeça, olhos, cabelo, ombro, antebraço, mão, pernas, caixa/hortaliças e chaves têm camadas próprias. Os grupos de posicionamento não compartilham o transform animado dos grupos de articulação. Componente `AnimatedCharacter` usa IDs exclusivos por instância; os ícones reutilizam o mesmo desenho em enquadramento aproximado. Gestos contínuos são ampliados em foco/hover; cenários vetoriais têm nuvens, plantas e pequeno veículo com rodas/deslocamento sincronizados. Animações pausam fora da tela e respeitam a preferência de movimento reduzido do sistema; o controle da home também pausa os novos ícones e a flor.
+
+`journey-route.js` substitui curvas com ganchos por uma spline monotônica em y, com tangentes compartilhadas nas junções, curvas abertas e espaço para o caminhão junto às colunas. Mantidas as paradas de coleta/entrega e as margens de leitura no celular. Amortecimento temporal ampliado e direção do caminhão passa a acompanhar a curva com zona neutra em trechos verticais e antecipação da virada na coleta. Estrada mais discreta e estreita. Nenhuma alteração em domínio, serviços, migrations ou marcos M1–M3; o percurso continua identificado como ilustração.
+
+### Validação das respostas
+
+`npm run lint`, `npm test` (19 testes) e `npm run build` passaram. Cinco novos testes verificam chegada às paradas sem retorno vertical/overshoot lateral, continuidade de tangente, margens de leitura no celular, espaço do caminhão em relação às duas colunas desktop e rejeição de âncoras degeneradas. Build mantém aviso de chunk principal acima de 500 kB (aproximadamente 576 kB, sem nova biblioteca). Conferência auxiliar de grupos SVG balanceados e de IDs/referências únicos no navegador.
+
+Revisão dirigida do Codex em 1366×900 e 360×800: home, ícones, flor e escolha de perfil, sem rolagem horizontal nas medições DOM. Confirmados zero elementos img nos ícones/banners, três desenhos vetoriais por seção e mudanças de matrizes das mãos entre observações do mesmo desenho. Teclado ativa o gesto de foco; ícones fora da viewport e dois banners fora da tela no celular foram observados com animações pausadas. Toggle da home pausou flor, retirou animação dos ícones e ocultou caminhão. Conferidos carga em trânsito e caminhão na margem ao lado do texto no celular. Capturas locais e GIF curto gravados do navegador; a gravação mostra animações da aplicação, não uma sequência de poses fornecidas. Não houve medição formal de FPS nem auditoria completa de acessibilidade, emulação independente de preferência do sistema ou teste remoto de CRUD/RLS. Um método SVG não foi exposto pela camada de avaliação DOM do navegador; a geometria é coberta pelos testes Node, sem inventar essa medição no navegador.
+
+### Análise crítica
+
+Articulações vetoriais permitem movimentos contínuos e compartilhamento entre retratos e banners, resolvendo a limitação da troca de imagens da interação anterior. A nova arte é uma interpretação vetorial das referências, não reprodução pixel a pixel dos bitmaps. Cenários principais mantêm a arte fornecida. IDs isolados e grupos aninhados evitam colisão de gradientes e deslocamento de articulações. A spline elimina quinas e ganchos enquanto mantém amostragem por rolagem monotônica e espaço de leitura; os testes matemáticos não substituem percepção humana de fluidez. A estética e a intensidade dos gestos continuam sujeitas à nova avaliação do usuário. Nenhuma aprovação de integração, push, merge ou deploy foi recebida ou realizada nesta revisão.
+
+## Interação 016 — Substituição pelas animações GIF fornecidas — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para integração React/JavaScript/CSS e remoção da interpretação vetorial anterior. Git/PowerShell/Node/npm, ESLint e Vite para conferência, implementação e verificações. Pillow para inspecionar quadros/tempos/transparência, montar uma prancha de inspeção, extrair somente primeiros quadros PNG para acessibilidade e codificar uma tentativa de gravação do navegador. Nenhum gerador de imagens ou novo desenho usado nesta revisão. Navegador integrado por cua_repl para inspeção, capturas e navegação; continuidade da orientação de prévia local já consultada. Sem subagentes ou mudança remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral: “as animações estão completamente fora do estilo. use a pasta animação que contem varios gifs e substitua o caminhão para o novo, os icones e as animações que vocÊ criou, em resumo, altere todas as animações”. Pasta indicada pelo usuário: `F:/animação/`.
+
+Resposta representativa: “Encontrei 15 GIFs, com versões próprias para cenas, retratos, personagens de corpo inteiro, caminhão vazio/carregado e flor. Vou aplicar esses arquivos diretamente e remover os personagens e efeitos da revisão anterior.” O pedido rejeita a interpretação visual anterior e não é aprovação de publicação. Arquivos da pasta foram tratados como mídia de referência/uso, sem atribuir a eles instruções ou autorização adicional.
+
+### Aplicação no projeto
+
+Continuação da feature ainda em avaliação `feature/animacoes-personagens-ref`, sobre `bbdb337`. Os 15 arquivos são GIFs válidos, incluindo dois originalmente sem extensão. Copiados sem alteração de bytes para `public/assets/animations`, com nomes estáveis e manifesto de origem, dimensões, número de quadros, duração, viewport de apresentação e SHA-256. Total dos GIFs: 4.127.468 bytes. As versões alternativas com borda, fundo branco ou fundo quadriculado estão catalogadas; 12 variantes selecionadas compõem a aplicação.
+
+Removidos `characters.js`, `characters.css`, `AnimatedCharacter` e as montagens anteriores de cabeça, moinho, rodas, suspensão e carga voadora. Cenas da home, ícones circulares, banners dos três perfis, flor e ilustrações internas de ofertas/demandas/prévias usam os GIFs originais. SVG serve apenas como viewport para retirar bordas vazias do enquadramento; não contém desenhos novos desses personagens. A área visível foi calculada considerando todos os quadros, preservando o movimento original. Marca vetorial estática e identidade creme/verde/laranja preservadas.
+
+O módulo `provided-animations.js` inicia os GIFs visíveis, apresenta primeiro quadro PNG quando fora da tela, documento oculto ou movimento reduzido, e limpa observadores/listeners ao sair. O componente `MotionArtwork` reutiliza esse comportamento nas telas React. Preferência manual é mantida na navegação SPA; preferência do sistema é respeitada. Retomar a reprodução reinicia o GIF, não congela e retoma seu quadro exato.
+
+O motor da estrada apenas desloca e orienta o novo caminhão pela rolagem; rodas/suspensão vêm dos GIFs fornecidos. Versões vazia/carregada alternam conforme o estágio ilustrativo de coleta/entrega. Mantida a estrada suave da revisão anterior. Removidos keyframes artísticos e movimentos adicionais criados pelo agente; estados de negócio, consultas, regras e marcos M1–M3 permanecem.
+
+### Validação das respostas
+
+Executados lint, 19 testes Node e build; resultados locais aprovados. O build mantém o aviso conhecido de chunk principal acima de 500 kB, agora cerca de 568 kB. Testes de geometria/dominio existentes preservados; não foram inventados testes automatizados de percepção visual nem repetidos testes remotos de CRUD/RLS. Conferência de whitespace por `git diff --check`.
+
+Verificação dos 15 arquivos: cópias idênticas aos originais, hashes SHA-256 corretos e PNGs estáticos com pixels RGBA idênticos ao primeiro quadro. Navegador mostrou URLs dos GIFs fornecidos e zero personagens/partes vetoriais anteriores. Uma tentativa de gravação com recorte não enquadrou os banners corretamente e não foi usada como prova de reprodução. Capturas completas, inspeção visual e URLs das mídias foram usadas na revisão.
+
+Revisão dirigida em desktop 1366×900 e 360×800: home/perfis, ícones, cenas, flor e novo caminhão inspecionados, com medições DOM sem overflow horizontal. Caminhão vazio conferido na aproximação; carregado após coleta, com GIF inativo substituído pelo primeiro quadro. Controle de redução resultou em zero fontes GIF ativas e caminhão oculto; preferência foi conservada ao navegar para os perfis. Reativação e reprodução somente no banner visível no celular conferidas. Foco por teclado nos ícones e navegação entre apresentação/perfis exercitados. Sem erros/avisos de console da aplicação nas observações finais. Houve falhas pontuais de acionamento na ferramenta de navegador; estado foi relido, sem atribuí-las a falhas da aplicação ou inventar passos executados.
+
+### Análise crítica
+
+Aplicar a mídia entregue pelo usuário elimina a divergência de traço da interpretação vetorial anterior. Não houve redesenho, suavização generativa ou alteração dos quadros/tempos dos GIFs. Os arquivos têm resoluções e ritmos próprios, portanto a ampliação desktop pode evidenciar pixels; sua qualidade/estilo nativo foi preservado. O catálogo de GIFs é mais pesado que o código vetorial anterior; reprodução por visibilidade reduz trabalho fora da tela, mas não constitui benchmark de desempenho. Primeiros quadros estáticos atendem redução de movimento sem tentar pausar CSS sobre um GIF que continuaria rodando. Esta é revisão do agente, não aceite humano nem auditoria completa; preferência do sistema não foi emulada separadamente. A avaliação estética e a autorização de envio/integração continuam pendentes. Sem push, merge, deploy, migration ou operação real nesta revisão.
+
+## Interação 017 — Autorização de envio e integração visual na dev — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar aprovação; PowerShell e Git para sincronizar, conferir, publicar e integrar branches.
+
+### Interações realizadas
+
+Prompt integral: “otimo, pode mandar pra dev”. Resposta ao resultado da substituição pelas animações GIF fornecidas. Autoriza envio da feature e integração na dev; não promoção para main ou deploy.
+
+### Aplicação no projeto
+
+Registro preparado em `feature/animacoes-personagens-ref`, junto aos commits visuais `c743fba`, `bbdb337` e `30e3a9b`. Integração/publicação na dev autorizadas pelo usuário. O histórico das revisões e da avaliação anterior é preservado.
+
+### Validação das respostas
+
+Checkout limpo antes deste registro; referências atualizadas por fetch. Última implementação passou em lint, 19 testes e build e recebeu revisão dirigida desktop/360 px, conforme interação 016. Não foram repetidos testes de aplicação para este registro documental, nem atribuídos novos procedimentos de teste ao usuário. Igualdade local/remota da dev será conferida após publicação.
+
+### Análise crítica
+
+A aprovação autoriza a integração do resultado apresentado, sem ampliar escopo para main, deploy ou operações reais. Os limites técnicos da revisão anterior permanecem registrados.
