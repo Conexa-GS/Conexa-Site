@@ -594,3 +594,25 @@ Checkout limpo no início; `git fetch origin --prune` concluído. Dev local e re
 A autorização permite compartilhar a primeira fatia na dev mantendo sua condição de prévia e suas pendências. Publicar o código da migration no Git não significa aplicá-la no Supabase nem comprova deploy. As validações remotas e a integração externa continuam pendentes; a main fica fora desta autorização.
 
 Resultado efetivo desta interação: autorização registrada em `8beedec`; integração **local** na dev concluída pelo merge `9100107`, sem conflitos. A revisão automática de aprovação rejeitou o push da feature por considerar o destino GitHub externo não verificado e exigir autorização explícita para destino e conteúdo. Foram conferidos `.git/config`, URL de push e `git ls-remote`: origin é `https://github.com/Conexa-GS/Conexa-Site.git`, dev remota em `10feab7`, mesma base da feature. Revisados os nomes dos 26 arquivos alterados; `.env` não é rastreado e a busca por padrões de credenciais no conteúdo desses arquivos não retornou correspondências. Essas verificações não substituem uma auditoria de segredos. Uma nova tentativa direta, com essas evidências na justificativa, também foi rejeitada: a revisão exigiu confirmação explícita do usuário para publicar esse conteúdo nesse destino. Nenhum push foi executado e nenhuma alternativa de envio foi usada. A publicação permanece pendente dessa confirmação; origin/dev continua em `10feab7`. Main local/remota preservadas em `306fa59`. Este complemento documental é preparado na feature e incorporado localmente à dev; sem novos testes de aplicação, pois não altera o código já validado.
+
+## Interação 022 — Confirmação explícita do envio da M4 ao GitHub — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a confirmação; PowerShell e Git para atualizar referências, registrar a autorização na feature, incorporar o registro à dev e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “sim pode enviar para a dev”. Resposta à pergunta explícita: “Autoriza enviar os commits da M4 — código, migration, testes e documentação — para as branches feature/m4-rotas-inclusao e dev de Conexa-GS/Conexa-Site?”, com o destino informado como `https://github.com/Conexa-GS/Conexa-Site`. Confirma o conteúdo e o destino exigidos pela revisão automática anterior. Resposta representativa: “Vou publicar os commits autorizados em feature/m4-rotas-inclusao e dev no repositório Conexa-GS/Conexa-Site, depois conferir se a dev local e a remota coincidem.”
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-rotas-inclusao`, preservando o merge local `9100107` e o registro do bloqueio `89bc729`. Publicação autorizada exclusivamente das branches da M4 e dev no origin já configurado. Nenhum push forçado, alteração da main, aplicação de migration no demo, ativação de API paga ou deploy incluído nesta confirmação.
+
+### Validação das respostas
+
+Checkout limpo e fetch concluído no início. Dev local e feature coincidem em `89bc729`; dev remota continua na base `10feab7`, sem novos commits concorrentes. Main local/remota coincidem em `306fa59`. Sem código de aplicação alterado nesta confirmação; mantidas as verificações da interação 020, sem repetir testes nem atribuir novos procedimentos ao usuário. O retorno do push e a leitura dos hashes remotos serão usados para confirmar o envio.
+
+### Análise crítica
+
+A confirmação responde especificamente ao bloqueio de destino e conteúdo, permitindo retomar a publicação normal no Git. Ela não resolve as pendências técnicas da M4 nem comprova aplicação no Supabase ou deploy. A feature mantém os limites e a identificação de prévia já apresentados.
