@@ -352,3 +352,35 @@ Estado inicial limpo e dev sincronizada com origin/dev em `0a786f4`; referência
 ### Análise crítica
 
 O aceite explícito encerra a pendência de avaliação e autoriza promover o marco. Preservar o histórico dos bloqueios e a origem humana da aprovação evita confundir encerramento da tarefa com procedimentos técnicos não observados. A publicação Git na main não representa deploy, cobrança, transporte real ou avanço automático no M4.
+
+## Interação 014 — Personagens e animações com as referências fornecidas — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para examinar o projeto, planejar a composição visual, implementar React/JavaScript/CSS/SVG e documentar. PowerShell, Git, Node/npm e Sharp do runtime local para conversão e redimensionamento das imagens; ESLint, testes Node e Vite para verificações. Skills design-taste-frontend e Sites (orientação de checkout/prévia local); Computer Use consultada e navegador integrado controlado por cua_repl para revisão visual. Nenhum subagente, outro modelo de IA, geração de imagens, publicação ou mudança remota no Supabase nesta interação.
+
+### Interações realizadas
+
+Prompt integral do usuário: “seguindo o padrão de commits e branch, quero alterar completamente as animações e personagem do site.
+Use de referencia todas as imagens da pasta ref anexada. quero manter o padrão de animação como o caminhão andando pelo site, personagem.
+Mas altere tudo, siga fielmente os exemplos, se possivel use como base para animar em cima das imagens de referencia”. Referência indicada: `F:/ref/`.
+
+Resposta representativa: “Os arquivos do caminhão e de várias cenas já têm transparência, o que permite animar a arte fornecida diretamente.” O Codex informou a branch, o aproveitamento das próprias referências, as verificações e a necessidade de avaliação antes de enviar/integrar. As imagens fornecidas foram tratadas como referência visual; não como instruções externas ou autorização para publicar. Trabalho iniciado em 07/11 e concluído localmente em 08/11.
+
+### Aplicação no projeto
+
+Criada `feature/animacoes-personagens-ref` a partir da dev remota atual (`origin/dev`, `ee93bd9`), após fetch e conferência de checkout limpo. As 24 referências foram examinadas em uma prancha de contato e as imagens usadas na composição receberam inspeção ampliada. Conversão de 33.982.966 bytes de originais para 1.355.302 bytes de WebP, com redimensionamento e transparência preservada; relação completa de nomes, dimensões e origem em `public/assets/illustrations/sources.json`.
+
+Substituídos desenhos antigos da home, retratos, escolha de perfil, ofertas, demandas e prévias que usavam aquelas ilustrações. As cenas usam a arte fornecida; camadas SVG recortam cabeça do motorista, rodas, carga e rotor do moinho. Mantido percurso contínuo por rolagem, com suspensão, giro das rodas, parada para coleta, caixa em transferência, carga visível em trânsito e descarga. Parallax discreto nas cenas; poses fornecidas nos perfis reagem a ponteiro/foco/pressionamento. No celular, veículo cresce nas paradas e fica pequeno nas margens durante a leitura. Preservados marca vetorial, creme/verde/laranja, conteúdos de negócio e funções M1–M3. Percurso identificado como ilustração; M4+ permanece prévia.
+
+### Validação das respostas
+
+Codex executou `npm run lint`, `npm test` (14 testes existentes aprovados) e `npm run build` com sucesso após os ajustes. Build mantém o aviso anterior de bundle principal acima de 500 kB. `git diff --check` usado para whitespace. Não foram criados testes de domínio redundantes para a troca de arte, nem repetidos testes de banco: não houve alteração em serviços, regras, migrations ou persistência.
+
+Revisão dirigida no navegador integrado: home e escolha de perfil em 1366×900 e 360×800; medições DOM sem rolagem horizontal e imagens HTML carregadas. Percurso conferido durante aproximação, carga em trânsito e final da história; leitura no celular com veículo na margem. Verificados toggle de movimento (`aria-pressed`, caminhão oculto e animações pausadas), reativação por Enter, acesso ao perfil por CTA, retorno à home, reação da pose ao foco pelo teclado e remoção da biblioteca SVG ao sair. A inspeção encontrou imagens extras vazando ao girar rodas com recorte CSS; substituídas por clipPaths SVG reais e conferidas novamente. Ajustados também o recorte da cabeça e o posicionamento do moinho.
+
+A revisão é do agente, não aceite humano nem auditoria completa de acessibilidade. Suporte a preferência do sistema está implementado em CSS/MediaQueryList; não foi feita emulação independente dessa preferência no navegador. Fluxos CRUD/RLS e operações M2/M3 não foram revalidados remotamente nesta revisão visual. Nenhum push/merge/deploy foi autorizado ou realizado; entrega local aguarda avaliação do usuário.
+
+### Análise crítica
+
+Usar os arquivos fornecidos mantém personagens, roupas, veículos e cenário próximos dos exemplos e evita uma interpretação generativa diferente. WebP reduz o custo de rede, e as camadas reutilizam imagens em cache. As imagens são raster: poses interativas e recortes articulados não equivalem a um personagem vetorial completamente rigado ou animação quadro a quadro. Recortes precisam de inspeção no navegador, como demonstrado pelo defeito das rodas encontrado e corrigido. Nem todas as 24 imagens aparecem simultaneamente: variantes completas de estrada, armazém e personagens permanecem disponíveis no catálogo, evitando repetir cenas semelhantes na apresentação. Aprovação estética do grupo e autorização de integração continuam pendentes conforme AGENTS.md/workflow.md.

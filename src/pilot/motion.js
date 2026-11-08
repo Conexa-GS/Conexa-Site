@@ -1,5 +1,5 @@
-/* Conexa motion study 03. Native scroll drives a continuous route through the
-   actual page. A time-based low-pass filter smooths the vehicle, never scroll. */
+/* Reference artwork follows a reversible, scroll-driven collection journey.
+   Frame work stops when the vehicle settles or the page leaves the viewport. */
 export function mountMotion() {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -19,7 +19,7 @@ export function mountMotion() {
   let reduced = preference.matches, metrics, samples = [], total = 1;
   let target = { distance: 0, load: 0, unload: 0 }, state = { distance: 0, load: 0, unload: 0 };
   let frame = 0, resizeFrame = 0, previousTime = 0, speed = 0, face = -1, initialised = false, previousStage = -1;
-  const staticTrucks = [];
+  let scenePositions = [];
 
   function pin(el, base) {
     const rect = el.getBoundingClientRect();
@@ -74,11 +74,14 @@ export function mountMotion() {
       return { y: point.y, length };
     });
     metrics.farmDistance = distanceAtY(farm.y);
+    scenePositions = stations.map(el => {
+      const bounds = el.getBoundingClientRect();
+      return { el, center: bounds.top + scrollY + bounds.height / 2 };
+    });
     rig.style.width = `${320 * scale}px`;
     rig.style.height = `${200 * scale}px`;
     flight.style.width = `${96 * scale}px`; flight.style.height = `${98 * scale}px`;
     $('road-travelled').style.strokeDasharray = `${total} ${total}`;
-    positionStaticTrucks();
     updateTarget();
     // No long catch-up after resizing, changing motion preference or first load.
     state = { ...target }; speed = 0;
@@ -108,13 +111,17 @@ export function mountMotion() {
       }
     }
     target = { distance, load, unload };
+    scenePositions.forEach(({el, center}) => {
+      const offset = reduced ? 0 : clamp((scrollY + innerHeight / 2 - center) * .025, -9, 9);
+      el.style.setProperty('--scene-offset', `${offset.toFixed(2)}px`);
+    });
     const inStory = scrollY > metrics.top + 150 && scrollY < metrics.top + metrics.height - innerHeight * .3;
     $('trip-label').textContent = unload > .98 ? 'Entrega concluída.' : unload > .01 ? 'Chegando ao mercado.' : load > .98 ? 'A colheita segue viagem.' : load > .01 ? 'Coletando os alimentos.' : 'A caminho de quem produz.';
     document.querySelector('.journey-indicator').classList.toggle('is-visible', inStory && !reduced);
     const stage = unload > .98 ? 3 : load > .98 ? 2 : load > .01 ? 1 : 0;
     if (stage !== previousStage) {
       previousStage = stage;
-      $('trip-announcement').textContent = [
+      $('trip-announcement').textContent = 'Na história ilustrada: ' + [
         'O caminhão segue da transportadora para o produtor.', 'Coleta dos alimentos com a produtora.',
         'Alimentos coletados. Próxima parada: mercado.', 'Alimentos entregues ao mercado.'
       ][stage];
@@ -128,7 +135,7 @@ export function mountMotion() {
     // On narrow screens the truck becomes a small travelling accent in the
     // reading margins, then grows back into the illustration at each stop.
     const proximity = Math.max(...[metrics.depot, metrics.farm, metrics.market].map(p => 1 - smooth((Math.abs(point.y - p.y) - 12) / 70)));
-    const scale = metrics.mobile ? lerp(.22, metrics.scale, proximity) : metrics.scale;
+    const scale = metrics.mobile ? lerp(.06, metrics.scale, proximity) : metrics.scale;
     const scaleRatio = scale / metrics.scale;
     const ahead = route.getPointAtLength(Math.min(total, state.distance + 8));
     const behind = route.getPointAtLength(Math.max(0, state.distance - 8));
@@ -141,15 +148,15 @@ export function mountMotion() {
     const pitch = reduced ? 0 : clamp(dx / 9, -1, 1) * speed * 1.2 + Math.sin(time / 145) * speed * .35;
     const vehicleX = metrics.mobile ? clamp(point.x, 160 * scale + 4, metrics.width - 160 * scale - 4) : point.x;
     rig.style.transform = `translate3d(${vehicleX - 160 * scale}px,${point.y - 170 * scale}px,0) scale(${scaleRatio})`;
-    rig.style.opacity = '1';
+    // The opening illustration already contains a parked vehicle. Introduce
+    // the travelling truck only once its journey starts, avoiding duplicates.
+    rig.style.opacity = String(smooth(state.distance / 65));
     facingNode.setAttribute('transform', `scale(${face} 1)`);
     suspension.setAttribute('transform', `translate(0 ${bounce}) rotate(${pitch} 0 -15)`);
-    wheels.forEach(wheel => wheel.setAttribute('transform', `rotate(${state.distance / (27 * scale) * 180 / Math.PI})`));
+    wheels.forEach(wheel => wheel.setAttribute('transform', `rotate(${state.distance / (20 * scale) * 180 / Math.PI * (face < 0 ? -1 : 1)})`));
     shadow.setAttribute('rx', String(142 - speed * 5));
     $('speed-strokes').setAttribute('opacity', String(speed * .65));
     cargo.setAttribute('opacity', String(state.load > .98 && state.unload < .015 ? 1 : 0));
-    $('farm-supply').setAttribute('opacity', String(1 - smooth(state.load * 3)));
-    $('market-supply').setAttribute('opacity', String(smooth((state.unload - .85) / .15)));
     collection.classList.toggle('is-loaded', state.load > .98);
     delivery.classList.toggle('is-delivered', state.unload > .98);
     $('collection-caption').textContent = state.load > .98 ? 'Colheita a bordo. Próxima parada: cidade.' : state.load > .02 ? 'Coletando os alimentos.' : 'A próxima parada é no produtor.';
@@ -191,32 +198,10 @@ export function mountMotion() {
   function onScroll() { updateTarget(); start(); }
   function onResize() { if (!resizeFrame) resizeFrame = requestAnimationFrame(measure); }
 
-  function positionStaticTrucks() {
-    if (!metrics) return;
-    const base = world.getBoundingClientRect();
-    staticTrucks.forEach((el, i) => {
-      const rect = stations[i].getBoundingClientRect(), p = [metrics.depot, metrics.farm, metrics.market][i];
-      const scale = metrics.scale * .92;
-      el.style.width = `${320 * scale}px`; el.style.height = `${200 * scale}px`;
-      el.style.transform = `translate(${p.x - (rect.left - base.left) - 160 * scale}px,${p.y - (rect.top - base.top) - 170 * scale}px)`;
-    });
-  }
   function applyMotion() {
     document.body.classList.toggle('art-paused', reduced);
     toggle.setAttribute('aria-pressed', String(reduced));
     toggle.textContent = reduced ? 'Ativar movimento' : 'Reduzir movimento';
-    if (reduced && !staticTrucks.length) {
-      stations.forEach((station, i) => {
-        const el = document.createElement('div'); el.className = 'static-truck'; el.setAttribute('aria-hidden', 'true');
-        const svg = rig.querySelector('svg').cloneNode(true);
-        svg.querySelector('#truck-cargo').setAttribute('opacity', i === 1 ? '1' : '0');
-        svg.querySelector('#speed-strokes').setAttribute('opacity', '0');
-        svg.querySelector('#truck-facing').setAttribute('transform', `scale(${i === 0 ? -1 : 1} 1)`);
-        svg.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
-        el.append(svg); station.append(el); staticTrucks.push(el);
-      });
-    }
-    staticTrucks.forEach(el => {el.hidden = !reduced;});
     document.querySelector('.journey-indicator').classList.remove('is-visible');
     if (frame) cancelAnimationFrame(frame); frame = 0; previousTime = 0;
     if (initialised) measure();
@@ -237,7 +222,6 @@ export function mountMotion() {
   return () => {
     lifetime.abort();
     cancelAnimationFrame(frame); cancelAnimationFrame(resizeFrame); observer.disconnect();
-    staticTrucks.forEach(el => el.remove());
     document.body.classList.remove('art-paused');
   };
 }

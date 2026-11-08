@@ -25,7 +25,7 @@ export default function DemandsPage({ session }) {
     catch (failure) { setError(failure.message) }
     finally { setPending(false) }
   }
-  return <><div className="page-top"><PageHeading eyebrow="SEU NEGÓCIO, MAIS PERTO DO CAMPO" title="O que sua cozinha" accent="precisa hoje?">Crie sua demanda, escolha os produtores e envie a proposta. Depois, acompanhe as respostas abaixo.</PageHeading><div className="page-illustration"><img src="/assets/svg/mercado.svg" alt="" /></div></div>
+  return <><div className="page-top"><PageHeading eyebrow="SEU NEGÓCIO, MAIS PERTO DO CAMPO" title="O que sua cozinha" accent="precisa hoje?">Crie sua demanda, escolha os produtores e envie a proposta. Depois, acompanhe as respostas abaixo.</PageHeading><div className="page-illustration"><img src="/assets/illustrations/market.webp" alt="" /></div></div>
     <div className="section-toolbar"><h2>Minhas demandas</h2><button className="button" disabled={!catalog || Boolean(state.error)} onClick={() => setEditing({})}>Nova demanda</button></div>
     {catalogError && <ErrorNotice>{catalogError} Recarregue a página para tentar novamente.</ErrorNotice>}{state.error && <ErrorNotice retry={state.reload}>{state.error}</ErrorNotice>}{notice && <p className="success-notice" role="status">{notice}</p>}
     {state.loading ? <p role="status">Carregando demandas…</p> : !state.error && <>
