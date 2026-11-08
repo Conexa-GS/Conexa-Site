@@ -53,6 +53,8 @@ Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_tra
 - [ ] T23 Comparação de composições e justificativa inclusiva baseada no histórico.
 - [ ] T24 Verificar AC15–17; não alegar economia ou distância fictícias.
 
+Início em 08/11/2026, pelo Codex, na `feature/m4-rotas-inclusao`: pesquisa técnica de T21 registrada em `m4-routes.md`, sem fornecedor/orçamento autorizado; base manual autenticada de T22 em `202611080001_m4_analysis.sql`; parte de T23 em domínio/componentes M4 (duas candidatas por alimentos/histórico, cotações equivalentes da mesma carga). Testes locais em `inclusion.test.js`, `route-analysis.test.js` e `m4-database.mjs`; resultados/limites em `validation.md`. T21–T24 continuam abertos: faltam ativação externa validada, comparação de total entre composições cotadas, aplicação/testes no demo e aceite humano. Nenhum avanço de M5.
+
 ## M5 — Fechamento da operação; depende de M3
 
 - [ ] T25 Pagamento simulado idempotente e conversão de reserva em compromisso.

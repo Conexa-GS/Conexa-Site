@@ -49,3 +49,16 @@
 .demand-steps { display: flex; flex-wrap: wrap; gap: .7rem 1.4rem; padding: 0; list-style: none; margin-bottom: 1.5rem; font-size: .9rem; }
 .demand-steps li { padding: .6rem .8rem; background: #f0eddf; border-radius: .7rem; }
 .demand-steps [aria-current="step"] { background: #23432d; color: #fff8e9; }
+.m4-analysis { margin-block: 1.5rem; padding-block: 1.2rem; border-block: 1px solid var(--border, #d8deca); overflow-wrap: anywhere; }
+.m4-analysis > p, .m4-route p { margin-block: .9rem; }
+.m4-analysis > .button { max-width: 100%; white-space: normal; }
+.m4-alternatives { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-block: 1rem; }
+.m4-candidate { min-width: 0; padding: 1rem; border: 1px solid var(--border, #d8deca); border-radius: 1rem; background: #f7f4e8; }
+.m4-candidate h4 { font-size: 1rem; }
+.m4-candidate p, .m4-candidate li { font-size: .85rem; line-height: 1.6; }
+.m4-candidate ul { padding-left: 1.2rem; margin-block: 1rem; }
+.m4-candidate li { margin-block: .7rem; }
+.m4-candidate .money-list > div { flex-wrap: wrap; gap: .4rem; }
+.m4-route { overflow-wrap: anywhere; }
+.m4-route .text-link { white-space: normal; text-align: left; }
+@media (max-width: 1000px) { .m4-alternatives { grid-template-columns: 1fr; } }

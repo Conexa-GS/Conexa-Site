@@ -84,6 +84,14 @@ Distâncias/tempos não são calculados; pedágio individual a confirmar, cobert
 
 `npm run test:db` inclui M3. `node tests/remote-m3.mjs` usa `.env` e cria fixtures próprias somente no demo autorizado. Ofertas/demanda de teste são arquivadas após cancelamento; histórico e veículos fictícios de teste permanecem. IDs/resultados locais: `artifacts/m3-remote.local.json` (ignorado no Git). Não executar fora do demo nem tratar o teste por API como revisão visual.
 
+## M4 em avaliação local
+
+Primeira fatia em `feature/m4-rotas-inclusao`: sugestões de composição por preço de alimentos ou inclusão (menos vendas entregues na plataforma, desempate pela idade da oferta); comparação estrita de cotações do mesmo roteiro; consulta autenticada de roteiro manual completo. Interface identificada como prévia. Não há cálculo externo de km/tempo/pedágios, cobrança, aprovação automática ou avanço para M5.
+
+Migration `supabase/migrations/202611080001_m4_analysis.sql` preparada e testada **somente localmente**. A análise de histórico/roteiro no demo depende de aplicação e validação remotas autorizadas; sua indisponibilidade não bloqueia composição/envio e cotação manual M2/M3. `npm run test:db` agora cobre M1–M4 em PGlite com identidade simulada.
+
+Para avaliar componentes sem escrever no demo, inicie Vite e abra `/tests/ui/m4.html`. É uma bancada com fixtures em memória, explicitamente identificada, fora da entrada do build de produção. Não comprova integração remota. API externa depende de T21; pesquisa técnica, instruções e limitações em [M4: rotas e inclusão](Conexa-specs/m4-routes.md). Nenhuma chave de rotas deve ser colocada em variável `VITE_`.
+
 ## Organização do código
 
 `src/components` contém layout e elementos compartilhados; `pages` reúne entrada e prévias; `features/offers`, `features/demands` e `features/transport` contêm os fluxos M1–M3; `hooks` coordena sessão e consultas; `services` isola Supabase e demonstração local; `domain` mantém validações e dinheiro; `pilot` preserva o estudo fornecido. Os vetores locais ficam em `public/assets`.
