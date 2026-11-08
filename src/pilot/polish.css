@@ -1,6 +1,9 @@
 /* Layout of the user's supplied animated artwork. */
 .wordmark{display:inline-flex;line-height:0;letter-spacing:normal}.wordmark svg{display:block;width:168px;height:auto}.header .wordmark{flex-shrink:0}.footer .wordmark svg{width:145px}
 .reference-scene{position:relative;width:100%;height:100%;isolation:isolate}.scene-image{width:100%;height:100%;object-fit:contain;display:block}
+.reference-scene .scene-character{position:absolute;left:4%;bottom:6%;width:35%;height:65%}
+.depot-station .scene-character{left:1%;bottom:9%;width:29%;height:61%}
+.market-station .scene-character{left:0;bottom:6%;width:33%;height:64%}
 .scene-marker{position:absolute;bottom:0;left:12%;display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.2px;color:var(--ink-soft)}.scene-marker i{display:block;width:6px;height:6px;border-radius:50%;background:var(--orange)}
 .depot-station{top:50px;right:-22px;width:57%;aspect-ratio:1.28}.depot-station .dock{left:67%;top:91%}.farm-station{left:-20px;top:138px;width:55%;aspect-ratio:1.28}.farm-station .dock{left:62%;top:101%}.farm-station .cargo-source{left:48%;top:61%}.market-station{right:-15px;top:165px;width:55%;aspect-ratio:1.28}.market-station .dock{left:35%;top:100%}.market-station .cargo-destination{left:53%;top:63%}.hero-stamp{top:27px;right:10px;width:96px;z-index:2}
 

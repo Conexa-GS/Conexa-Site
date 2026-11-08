@@ -1,5 +1,26 @@
 // Supplied GIF files are copied byte for byte. Viewports only trim canvas padding.
 export const animationAssets = {
+  "home-carrier": {
+    "gif": "/assets/home-scenes/carrier.gif",
+    "still": "/assets/home-scenes/carrier-still.png",
+    "width": 362,
+    "height": 362,
+    "viewport": [87, 7, 228, 348]
+  },
+  "home-farmer": {
+    "gif": "/assets/home-scenes/farmer.gif",
+    "still": "/assets/home-scenes/farmer-still.png",
+    "width": 361,
+    "height": 362,
+    "viewport": [40, 2, 299, 357]
+  },
+  "home-buyer": {
+    "gif": "/assets/home-scenes/buyer.gif",
+    "still": "/assets/home-scenes/buyer-still.png",
+    "width": 362,
+    "height": 362,
+    "viewport": [30, 14, 263, 330]
+  },
   "buyer-icon-border": {
     "gif": "/assets/animations/buyer-icon-border.gif",
     "still": "/assets/animations/buyer-icon-border-still.png",
