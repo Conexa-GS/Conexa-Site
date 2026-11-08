@@ -423,3 +423,37 @@ Revisão dirigida do Codex em 1366×900 e 360×800: home, ícones, flor e escolh
 ### Análise crítica
 
 Articulações vetoriais permitem movimentos contínuos e compartilhamento entre retratos e banners, resolvendo a limitação da troca de imagens da interação anterior. A nova arte é uma interpretação vetorial das referências, não reprodução pixel a pixel dos bitmaps. Cenários principais mantêm a arte fornecida. IDs isolados e grupos aninhados evitam colisão de gradientes e deslocamento de articulações. A spline elimina quinas e ganchos enquanto mantém amostragem por rolagem monotônica e espaço de leitura; os testes matemáticos não substituem percepção humana de fluidez. A estética e a intensidade dos gestos continuam sujeitas à nova avaliação do usuário. Nenhuma aprovação de integração, push, merge ou deploy foi recebida ou realizada nesta revisão.
+
+## Interação 016 — Substituição pelas animações GIF fornecidas — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para integração React/JavaScript/CSS e remoção da interpretação vetorial anterior. Git/PowerShell/Node/npm, ESLint e Vite para conferência, implementação e verificações. Pillow para inspecionar quadros/tempos/transparência, montar uma prancha de inspeção, extrair somente primeiros quadros PNG para acessibilidade e codificar uma tentativa de gravação do navegador. Nenhum gerador de imagens ou novo desenho usado nesta revisão. Navegador integrado por cua_repl para inspeção, capturas e navegação; continuidade da orientação de prévia local já consultada. Sem subagentes ou mudança remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral: “as animações estão completamente fora do estilo. use a pasta animação que contem varios gifs e substitua o caminhão para o novo, os icones e as animações que vocÊ criou, em resumo, altere todas as animações”. Pasta indicada pelo usuário: `F:/animação/`.
+
+Resposta representativa: “Encontrei 15 GIFs, com versões próprias para cenas, retratos, personagens de corpo inteiro, caminhão vazio/carregado e flor. Vou aplicar esses arquivos diretamente e remover os personagens e efeitos da revisão anterior.” O pedido rejeita a interpretação visual anterior e não é aprovação de publicação. Arquivos da pasta foram tratados como mídia de referência/uso, sem atribuir a eles instruções ou autorização adicional.
+
+### Aplicação no projeto
+
+Continuação da feature ainda em avaliação `feature/animacoes-personagens-ref`, sobre `bbdb337`. Os 15 arquivos são GIFs válidos, incluindo dois originalmente sem extensão. Copiados sem alteração de bytes para `public/assets/animations`, com nomes estáveis e manifesto de origem, dimensões, número de quadros, duração, viewport de apresentação e SHA-256. Total dos GIFs: 4.127.468 bytes. As versões alternativas com borda, fundo branco ou fundo quadriculado estão catalogadas; 12 variantes selecionadas compõem a aplicação.
+
+Removidos `characters.js`, `characters.css`, `AnimatedCharacter` e as montagens anteriores de cabeça, moinho, rodas, suspensão e carga voadora. Cenas da home, ícones circulares, banners dos três perfis, flor e ilustrações internas de ofertas/demandas/prévias usam os GIFs originais. SVG serve apenas como viewport para retirar bordas vazias do enquadramento; não contém desenhos novos desses personagens. A área visível foi calculada considerando todos os quadros, preservando o movimento original. Marca vetorial estática e identidade creme/verde/laranja preservadas.
+
+O módulo `provided-animations.js` inicia os GIFs visíveis, apresenta primeiro quadro PNG quando fora da tela, documento oculto ou movimento reduzido, e limpa observadores/listeners ao sair. O componente `MotionArtwork` reutiliza esse comportamento nas telas React. Preferência manual é mantida na navegação SPA; preferência do sistema é respeitada. Retomar a reprodução reinicia o GIF, não congela e retoma seu quadro exato.
+
+O motor da estrada apenas desloca e orienta o novo caminhão pela rolagem; rodas/suspensão vêm dos GIFs fornecidos. Versões vazia/carregada alternam conforme o estágio ilustrativo de coleta/entrega. Mantida a estrada suave da revisão anterior. Removidos keyframes artísticos e movimentos adicionais criados pelo agente; estados de negócio, consultas, regras e marcos M1–M3 permanecem.
+
+### Validação das respostas
+
+Executados lint, 19 testes Node e build; resultados locais aprovados. O build mantém o aviso conhecido de chunk principal acima de 500 kB, agora cerca de 568 kB. Testes de geometria/dominio existentes preservados; não foram inventados testes automatizados de percepção visual nem repetidos testes remotos de CRUD/RLS. Conferência de whitespace por `git diff --check`.
+
+Verificação dos 15 arquivos: cópias idênticas aos originais, hashes SHA-256 corretos e PNGs estáticos com pixels RGBA idênticos ao primeiro quadro. Navegador mostrou URLs dos GIFs fornecidos e zero personagens/partes vetoriais anteriores. Uma tentativa de gravação com recorte não enquadrou os banners corretamente e não foi usada como prova de reprodução. Capturas completas, inspeção visual e URLs das mídias foram usadas na revisão.
+
+Revisão dirigida em desktop 1366×900 e 360×800: home/perfis, ícones, cenas, flor e novo caminhão inspecionados, com medições DOM sem overflow horizontal. Caminhão vazio conferido na aproximação; carregado após coleta, com GIF inativo substituído pelo primeiro quadro. Controle de redução resultou em zero fontes GIF ativas e caminhão oculto; preferência foi conservada ao navegar para os perfis. Reativação e reprodução somente no banner visível no celular conferidas. Foco por teclado nos ícones e navegação entre apresentação/perfis exercitados. Sem erros/avisos de console da aplicação nas observações finais. Houve falhas pontuais de acionamento na ferramenta de navegador; estado foi relido, sem atribuí-las a falhas da aplicação ou inventar passos executados.
+
+### Análise crítica
+
+Aplicar a mídia entregue pelo usuário elimina a divergência de traço da interpretação vetorial anterior. Não houve redesenho, suavização generativa ou alteração dos quadros/tempos dos GIFs. Os arquivos têm resoluções e ritmos próprios, portanto a ampliação desktop pode evidenciar pixels; sua qualidade/estilo nativo foi preservado. O catálogo de GIFs é mais pesado que o código vetorial anterior; reprodução por visibilidade reduz trabalho fora da tela, mas não constitui benchmark de desempenho. Primeiros quadros estáticos atendem redução de movimento sem tentar pausar CSS sobre um GIF que continuaria rodando. Esta é revisão do agente, não aceite humano nem auditoria completa; preferência do sistema não foi emulada separadamente. A avaliação estética e a autorização de envio/integração continuam pendentes. Sem push, merge, deploy, migration ou operação real nesta revisão.
