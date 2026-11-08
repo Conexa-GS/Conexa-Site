@@ -510,3 +510,25 @@ Revisão dirigida do agente em 1366×900 e 360×800: as três cenas foram inspec
 ### Análise crítica
 
 A separação entre fundo PNG e personagem GIF permite usar os seis arquivos fornecidos sem redesenhar a arte e conserva o comportamento de redução de movimento existente. Os PNGs originais têm resolução maior e aumentam o volume das mídias entregues; não foram recomprimidos, e não houve benchmark de desempenho. As proporções e a transparência nativas foram preservadas. As capturas demonstram o enquadramento, mas não são uma gravação da animação nem substituem o aceite estético do usuário. Não houve emulação independente da preferência de movimento do sistema nesta revisão.
+
+## Interação 019 — Aprovação e promoção visual para dev e main — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell e Git para conferir estado local/remoto, registrar a aprovação e executar as integrações e publicações autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “otimo, pode integrar e subir pra main tambem”. Resposta ao resultado apresentado na interação 018, commit `27b9d72`, com prévia e verificações. Autoriza integração/publicação na dev e promoção/publicação na main. Resposta representativa: “Vou registrar sua aprovação, integrar a feature na dev e depois promover a dev para a main, publicando as duas branches.”
+
+### Aplicação no projeto
+
+Registro preparado na `feature/cenarios-inicio-fornecidos`, antes das integrações. Fluxo autorizado: feature → dev → main, sem desenvolvimento direto na main. A main também receberá as revisões visuais anteriormente aprovadas e já presentes na dev (interações 014–017), além das três cenas da home da interação 018. Preservado o histórico, sem reescrita ou push forçado.
+
+### Validação das respostas
+
+Checkout limpo antes do registro; `git fetch origin --prune` concluído. Referências locais de dev/main coincidem com as respectivas referências remotas; main é ancestral de dev. Lint, 19 testes e build da implementação passaram na interação 018, com revisão dirigida desktop/360 px e redução de movimento. Nenhum código de aplicação foi alterado nesta autorização, portanto essas verificações não foram repetidas para o registro documental. O usuário aprovou o resultado apresentado; não lhe são atribuídos testes adicionais. As integrações e a igualdade local/remota serão conferidas após publicação.
+
+### Análise crítica
+
+A autorização explícita permite promover o conjunto visual aprovado até a main, respeitando a ordem de branches. A publicação no Git não comprova execução ou sucesso de eventual deploy automático; nenhum deploy será declarado sem evidência. Permanecem os limites técnicos e o aviso de tamanho de bundle registrados na interação 018.
