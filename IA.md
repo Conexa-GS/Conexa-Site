@@ -457,3 +457,25 @@ Revisão dirigida em desktop 1366×900 e 360×800: home/perfis, ícones, cenas, 
 ### Análise crítica
 
 Aplicar a mídia entregue pelo usuário elimina a divergência de traço da interpretação vetorial anterior. Não houve redesenho, suavização generativa ou alteração dos quadros/tempos dos GIFs. Os arquivos têm resoluções e ritmos próprios, portanto a ampliação desktop pode evidenciar pixels; sua qualidade/estilo nativo foi preservado. O catálogo de GIFs é mais pesado que o código vetorial anterior; reprodução por visibilidade reduz trabalho fora da tela, mas não constitui benchmark de desempenho. Primeiros quadros estáticos atendem redução de movimento sem tentar pausar CSS sobre um GIF que continuaria rodando. Esta é revisão do agente, não aceite humano nem auditoria completa; preferência do sistema não foi emulada separadamente. A avaliação estética e a autorização de envio/integração continuam pendentes. Sem push, merge, deploy, migration ou operação real nesta revisão.
+
+## Interação 017 — Autorização de envio e integração visual na dev — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar aprovação; PowerShell e Git para sincronizar, conferir, publicar e integrar branches.
+
+### Interações realizadas
+
+Prompt integral: “otimo, pode mandar pra dev”. Resposta ao resultado da substituição pelas animações GIF fornecidas. Autoriza envio da feature e integração na dev; não promoção para main ou deploy.
+
+### Aplicação no projeto
+
+Registro preparado em `feature/animacoes-personagens-ref`, junto aos commits visuais `c743fba`, `bbdb337` e `30e3a9b`. Integração/publicação na dev autorizadas pelo usuário. O histórico das revisões e da avaliação anterior é preservado.
+
+### Validação das respostas
+
+Checkout limpo antes deste registro; referências atualizadas por fetch. Última implementação passou em lint, 19 testes e build e recebeu revisão dirigida desktop/360 px, conforme interação 016. Não foram repetidos testes de aplicação para este registro documental, nem atribuídos novos procedimentos de teste ao usuário. Igualdade local/remota da dev será conferida após publicação.
+
+### Análise crítica
+
+A aprovação autoriza a integração do resultado apresentado, sem ampliar escopo para main, deploy ou operações reais. Os limites técnicos da revisão anterior permanecem registrados.
