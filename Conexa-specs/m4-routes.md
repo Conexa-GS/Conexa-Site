@@ -4,6 +4,8 @@
 
 Primeira fatia local em `feature/m4-rotas-inclusao`, criada da dev. M4 continua em avaliação; M5/M6 permanecem prévias. Migration M4 preparada e verificada em PostgreSQL local, sem aplicação remota. Sem ativação de fornecedor, credencial criada, cobrança ou deploy. Não declarar T21–T24 ou M4 concluídos.
 
+Após apresentação do commit `30e742d`, usuário autorizou em 08/11/2026: “pode mandar para dev”. Envio e integração desta fatia na dev autorizados. Permanecem pendentes aplicação/validação no demo e demais itens de M4; não há autorização de promoção à main ou deploy nesta interação. Registro em IA.md, interação 021.
+
 ## T21 — Pesquisa técnica inicial
 
 Google Routes permanece **candidato**, conforme plan.md. Documentação oficial consultada em 08/11/2026:

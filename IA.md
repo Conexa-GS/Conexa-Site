@@ -570,3 +570,25 @@ Na aplicação conectada, sessão demo de comprador consultou registros existent
 É possível iniciar M4 sem enviar endereços fictícios a uma API paga nem inventar km/pedágios. A análise de alimentos é explicável e preserva os mínimos, mas não prova viabilidade final ou diferença de total entre composições com seus próprios fretes. O modelo atual de uma proposta ativa por demanda foi preservado; comparação final entre composições continua pendente. Antes de M5, ausência de entregas implica histórico zero legítimo, sem simular vendas para influenciar inclusão.
 
 PGlite com identidade simulada e bancada visual não substituem Auth/RLS/persistência no Supabase demo. O erro observado na aplicação demonstra somente tratamento de indisponibilidade; não valida execução remota da função M4. Pesquisa oficial não é aprovação de fornecedor, cobertura, termos ou orçamento. M4/T21–T24 não declarados concluídos. Sem novo push, merge ou deploy; aplicação/testes remotos e integração na dev aguardam autorização correspondente após apresentação e avaliação.
+
+## Interação 021 — Autorização de envio da primeira fatia M4 à dev — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização; PowerShell e Git para conferir o checkout, atualizar referências, registrar o aceite de envio e executar publicação/integração.
+
+### Interações realizadas
+
+Prompt integral: “pode mandar para dev”. Resposta ao resultado apresentado na interação 020, commit `30e742d`, com verificações, prévia e pendências explícitas. Autoriza publicar a feature e integrar/publicar esta primeira fatia na dev. Resposta representativa: “Vou registrar sua autorização, conferir o estado local e remoto e publicar/integrar a feature na dev.”
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-rotas-inclusao`, antes da integração. Fluxo autorizado: feature → dev, preservando histórico, sem push forçado. A autorização se refere ao envio da fatia apresentada; não encerra M4/T21–T24 e não autoriza aplicação da migration no Supabase demo, API paga, promoção à main ou deploy.
+
+### Validação das respostas
+
+Checkout limpo no início; `git fetch origin --prune` concluído. Dev local e remota coincidem em `10feab7`; a feature contém um commit adicional de implementação, `30e742d`, e nenhuma divergência em relação à dev. A main local/remota está em `306fa59`. Lint, 26 testes Node, suíte local PGlite M1–M4 e build passaram na interação 020, com revisão dirigida desktop/360 px e limites em validation.md. Nenhum código de aplicação foi alterado nesta autorização; essas verificações não foram repetidas para a atualização documental. Não são atribuídos novos testes ao usuário. A igualdade local/remota da dev será conferida após publicação.
+
+### Análise crítica
+
+A autorização permite compartilhar a primeira fatia na dev mantendo sua condição de prévia e suas pendências. Publicar o código da migration no Git não significa aplicá-la no Supabase nem comprova deploy. As validações remotas e a integração externa continuam pendentes; a main fica fora desta autorização.
