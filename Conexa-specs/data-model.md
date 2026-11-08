@@ -35,6 +35,8 @@ Proposta técnica, a converter em migrations versionadas. Não criar todas as ta
 
 Dados da rota externa: consultar sob demanda; não persistir respostas, geocodificação, polylines ou estimativas de fornecedor sem verificar seus termos de uso e armazenamento. Cotação acordada e roteiro próprio podem ser registrados; não tratá-los como cópia de resposta externa.
 
+Primeira fatia M4 (08/11/2026): nenhuma tabela nova. `m4('route')` monta o roteiro próprio dos snapshots de `load_items`, `loads` e `transport_quotes`, ordenando coletas por UUID; não cria `route_stops` nem armazena conteúdo externo. `m4('candidates')` retorna somente agregados de cargas distintas `delivered` por produtor e idade de oferta; estados de entrega ainda dependem de M5. Não expõe registros de outras vendas nem cria histórico sintético. Migration preparada localmente, com validação remota pendente; detalhes em `m4-routes.md`.
+
 ## Relações centrais
 
 Produtor 1:N ofertas. Comprador 1:N demandas/cargas. Carga 1:N itens. Cada item referencia uma oferta e uma demanda do mesmo comprador da carga. Carga 1:N cotações e 0:1 cotação selecionada. Cotação selecionada precisa pertencer à própria carga e à versão válida.

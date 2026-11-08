@@ -60,6 +60,16 @@ Origem: avaliação do usuário sobre o caminho demanda → proposta → envio e
 
 Listas de demandas, propostas e transporte mostram Ativas por padrão, com Histórico e Ocultas acessíveis por filtros e contagens. Produtor separa novas propostas sem resposta das em andamento. Ocultar é preferência reversível de visualização no navegador, isolada por participante e lista; não é arquivamento/cancelamento no banco. Ocultas mantém aviso de prazos/reservas ativos. Só UUIDs de preferências ficam em localStorage; cadastros continuam no Supabase. Indisponibilidade de storage limita preferência à sessão. Avaliação visual em 360 px/desktop e teclado ainda pendente pelo bloqueio de navegador já registrado.
 
+## D011 — Início local da M4 com roteiro manual e inclusão explicável — 08/11/2026
+
+Origem: “comece a implementar a M4 seguindo as regras do projeto”. Implementada uma primeira fatia na feature criada da dev, preservando M1–M3. M4 continua em avaliação, com rótulo de prévia. Sem autorização nova de envio/integração, migration remota ou cobrança.
+
+Google Routes segue candidato; pesquisa oficial e pendências em `m4-routes.md`. Não habilitar estimativa externa com endereços fictícios sem coordenadas, perfil/cobertura validado, termos, credencial de servidor e orçamento/quota autorizados. Roteiro manual é consultado no PostgreSQL com dono, papel e versão validados; dados geográficos desconhecidos permanecem nulos. Não criar infraestrutura externa vazia nem presumir rota real para nomes fictícios.
+
+Inclusão usa somente cargas distintas entregues por produtor na plataforma e idade da oferta. Duas heurísticas locais com saldo real e centavos; sem índice arbitrário nem promessa de ótimo global. Antes de M5, zero vendas concluídas é histórico vazio legítimo. Custo dos alimentos pode ser comparado, mas frete/viabilidade de cada composição continuam pendentes. Cotações da mesma carga só entram no mesmo grupo quando roteiro/horários/conservação/serviços coincidem. Não ampliar para duas propostas ativas por demanda nem reaproveitar cotação de outra composição. Comparação final entre composições cotadas permanece pendente.
+
+Arquivos: migration M4, serviço, domínio, componentes em demandas/transporte, testes e bancada visual isolada. PGlite e fixtures de UI não substituem Supabase demo nem aceite humano; resultados em `validation.md`. Nenhum pagamento, transporte físico ou avanço de M5.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

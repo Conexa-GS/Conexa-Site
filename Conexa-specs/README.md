@@ -27,6 +27,8 @@ O primeiro marco é o CRUD de ofertas persistido no Supabase e consultado por um
 
 Atualização em 07/11/2026: M1/M2/M3 concluídos por aceite do usuário. T20 aprovado explicitamente e promoção dev → main autorizada. M3 persiste veículos, indicações, cotações, totais e aceites no demo, com testes locais/remotos pelo Codex. O aceite não é apresentado como execução de testes visuais pelo agente; limites em `validation.md`. Próximo marco: M4/T21; M4+ continua em prévias. Ver `tasks.md` e D009/D010 em `decisions.md`.
 
+Atualização em 08/11/2026: M4 iniciada localmente em `feature/m4-rotas-inclusao`. Pesquisa de fornecedor, roteiro manual autenticado, candidatas com histórico e comparação de cotações preparados; API externa, aplicação da migration no demo, validação remota e aceite ainda pendentes. M4 permanece prévia em avaliação. Escopo e pré-requisitos em `m4-routes.md` e D011.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.

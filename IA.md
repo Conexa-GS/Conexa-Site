@@ -532,3 +532,63 @@ Checkout limpo antes do registro; `git fetch origin --prune` concluído. Referê
 ### Análise crítica
 
 A autorização explícita permite promover o conjunto visual aprovado até a main, respeitando a ordem de branches. A publicação no Git não comprova execução ou sucesso de eventual deploy automático; nenhum deploy será declarado sem evidência. Permanecem os limites técnicos e o aviso de tamanho de bundle registrados na interação 018.
+
+## Interação 020 — Início da M4: rotas e inclusão — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para ler especificações, implementar, revisar e documentar. PowerShell/Git para inspeção, branch e verificações; Node/npm, ESLint, Vite e PGlite para testes locais. Pesquisa web na documentação oficial Google Routes para os pré-requisitos de T21. Skill computer-use consultada; navegador integrado por cua_repl para revisão em desktop/360 px e consulta dirigida da aplicação demo. Sem subagentes, geração de imagem ou novas dependências. Não foram criadas contas, credenciais nem contratado serviço de rotas.
+
+### Interações realizadas
+
+Prompt integral: “comece a implementar a M4 seguindo as regras do projeto”. As instruções AGENTS.md do usuário e o workflow orientaram branch, preservação, registro e autorização posterior de integração.
+
+Resposta representativa: “A M4 começa por rotas e inclusão. Vou preparar o roteiro no servidor e a comparação de composições com base no histórico da plataforma, mantendo a cotação manual quando não houver API de rotas configurada. A ativação do fornecedor externo ficará pendente de credenciais e orçamento autorizado.”
+
+Não houve resposta humana de aprovação durante a implementação. Não se presume nova autorização de migration/testes remotos, push, merge, promoção para main ou gasto. As autorizações históricas de M2/M3 e visuais não foram reutilizadas para ativar serviços M4.
+
+### Aplicação no projeto
+
+Criada `feature/m4-rotas-inclusao` a partir da dev inicialmente limpa. A primeira tentativa de criação encontrou bloqueio de escrita em `.git/index.lock`; a ferramenta com escalonamento autorizado criou a branch. Nenhum arquivo de aplicação foi editado na dev/main.
+
+Migration M4 acrescenta gateway autenticado e função privada: candidatas reutilizam compatibilidade/saldo/propriedade M2 e acrescentam contagem agregada de cargas distintas entregues por produtor e idade da oferta. Roteiro manual deriva de cotação confirmada/versionada do comprador dono ou transportador responsável; inclui saída, todas as coletas, destino e retorno acordado. Dados desconhecidos permanecem nulos e o frete fechado inclui os serviços sem dupla soma. Nenhuma nova reserva, aprovação, pagamento ou estimativa externa é gerada pela análise; candidatas herdam a manutenção de expiração M2.
+
+Domínio e componentes mostram duas candidatas explicáveis, mínimo individual, subtotal e diferença apenas de alimentos; preencher a seleção exige ação do comprador e o envio continua revalidado pelo banco M2. Cotações só são comparadas no mesmo roteiro/horário/conservação/serviços da mesma carga e versão. M4 identificada como prévia em avaliação. Interface existente, marca, paleta e mídias locais preservadas. Serviço M4 mantém mensagens de erro independentes, sem bloquear composição/cotação manual.
+
+`tests/ui/m4.html` é bancada isolada com fixtures em memória e os componentes reais, para revisão reproduzível sem escrita remota; não entra no build de produção. `m4-routes.md`, contratos, fluxos, tarefas, decisões e README registram o escopo parcial. Google Routes continua candidato, com validação territorial/veículo, termos/atribuição, chave de servidor e orçamento/quota ainda pendentes. Não há adaptador externo vazio apresentado como integração concluída.
+
+### Validação das respostas
+
+Lint aprovado após corrigir a exportação do componente da bancada; 26 testes Node aprovados; suíte PGlite M1–M4 aprovada; build aprovado com aviso herdado do chunk acima de 500 kB (579,85 kB). Sete testes de domínio novos e teste de banco M4 cobrem inclusão, insuficiência, dinheiro, histórico, permissões e versões. A preparação inicial da fixture de espera falhou porque o trigger corretamente preserva `created_at`; ajustada apenas a fixture administrativa local e repetida a suíte. Fixture futura de entrega fica em transação revertida, sem adicionar estados M5 ao produto.
+
+Revisão dirigida em 1366×900 e 360×800 sem overflow nas medições da bancada e da composição conectada. Na bancada, comparação de alimentos R$250/R$270, diferença R$20, seleção por Enter, erro/repetição e preservação; cotações comparáveis R$80/R$100 e totais R$330/R$350, roteiro com retorno, distância/direção indisponíveis e pedágio a confirmar. Esses números são fixtures identificadas, não dados nem economia de operação real.
+
+Na aplicação conectada, sessão demo de comprador consultou registros existentes. Uma demanda de cenoura já cadastrada foi aberta; preenchimento manual de 30 kg permaneceu após a análise M4 responder indisponível, com subtotal R$180 e envio habilitado. Não foi enviada proposta nem salvo novo cadastro; campo voltou a zero. As consultas existentes podem processar expiração conforme M2/M3. Nenhuma migration M4 aplicada, fixture remota criada ou suíte remota executada. Capturas locais desktop/celular guardadas na pasta de visualizações; relatório em `validation.md` distingue esses procedimentos dos testes locais. Não se atribui revisão/aprovação humana ao grupo.
+
+### Análise crítica
+
+É possível iniciar M4 sem enviar endereços fictícios a uma API paga nem inventar km/pedágios. A análise de alimentos é explicável e preserva os mínimos, mas não prova viabilidade final ou diferença de total entre composições com seus próprios fretes. O modelo atual de uma proposta ativa por demanda foi preservado; comparação final entre composições continua pendente. Antes de M5, ausência de entregas implica histórico zero legítimo, sem simular vendas para influenciar inclusão.
+
+PGlite com identidade simulada e bancada visual não substituem Auth/RLS/persistência no Supabase demo. O erro observado na aplicação demonstra somente tratamento de indisponibilidade; não valida execução remota da função M4. Pesquisa oficial não é aprovação de fornecedor, cobertura, termos ou orçamento. M4/T21–T24 não declarados concluídos. Sem novo push, merge ou deploy; aplicação/testes remotos e integração na dev aguardam autorização correspondente após apresentação e avaliação.
+
+## Interação 021 — Autorização de envio da primeira fatia M4 à dev — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização; PowerShell e Git para conferir o checkout, atualizar referências, registrar o aceite de envio e executar publicação/integração.
+
+### Interações realizadas
+
+Prompt integral: “pode mandar para dev”. Resposta ao resultado apresentado na interação 020, commit `30e742d`, com verificações, prévia e pendências explícitas. Autoriza publicar a feature e integrar/publicar esta primeira fatia na dev. Resposta representativa: “Vou registrar sua autorização, conferir o estado local e remoto e publicar/integrar a feature na dev.”
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-rotas-inclusao`, antes da integração. Fluxo autorizado: feature → dev, preservando histórico, sem push forçado. A autorização se refere ao envio da fatia apresentada; não encerra M4/T21–T24 e não autoriza aplicação da migration no Supabase demo, API paga, promoção à main ou deploy.
+
+### Validação das respostas
+
+Checkout limpo no início; `git fetch origin --prune` concluído. Dev local e remota coincidem em `10feab7`; a feature contém um commit adicional de implementação, `30e742d`, e nenhuma divergência em relação à dev. A main local/remota está em `306fa59`. Lint, 26 testes Node, suíte local PGlite M1–M4 e build passaram na interação 020, com revisão dirigida desktop/360 px e limites em validation.md. Nenhum código de aplicação foi alterado nesta autorização; essas verificações não foram repetidas para a atualização documental. Não são atribuídos novos testes ao usuário. A igualdade local/remota da dev será conferida após publicação.
+
+### Análise crítica
+
+A autorização permite compartilhar a primeira fatia na dev mantendo sua condição de prévia e suas pendências. Publicar o código da migration no Git não significa aplicá-la no Supabase nem comprova deploy. As validações remotas e a integração externa continuam pendentes; a main fica fora desta autorização.
