@@ -1,5 +1,7 @@
 /* Reference artwork follows a reversible, scroll-driven collection journey.
    Frame work stops when the vehicle settles or the page leaves the viewport. */
+import { journeyRoute } from './journey-route'
+
 export function mountMotion() {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -15,11 +17,12 @@ export function mountMotion() {
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const lerp = (a, b, t) => a + (b - a) * t;
   const smooth = t => { t = clamp(t); return t * t * (3 - 2 * t); };
-  const damp = (a, b, dt, time = .115) => lerp(a, b, 1 - Math.exp(-dt / time));
+  const damp = (a, b, dt, time = .16) => lerp(a, b, 1 - Math.exp(-dt / time));
   let reduced = preference.matches, metrics, samples = [], total = 1;
   let target = { distance: 0, load: 0, unload: 0 }, state = { distance: 0, load: 0, unload: 0 };
   let frame = 0, resizeFrame = 0, previousTime = 0, speed = 0, face = -1, initialised = false, previousStage = -1;
   let scenePositions = [];
+  let heading = -1;
 
   function pin(el, base) {
     const rect = el.getBoundingClientRect();
@@ -47,25 +50,13 @@ export function mountMotion() {
       focus, scale, hold: mobile ? 170 : 200,
       source: pin(document.querySelector('.cargo-source'), rect),
       destination: pin(document.querySelector('.cargo-destination'), rect) };
-    let d;
-    if (mobile) {
-      // The thread follows the margins while the full-width text is in view.
-      const right = rect.width - 10, left = 10;
-      d = `M${depot.x},${depot.y} C${right},${depot.y + 90} ${right},${depot.y + 130} ${right},${depot.y + 240}
-        L${right},${farm.y - 75} C${right},${farm.y - 20} ${farm.x + 60},${farm.y - 5} ${farm.x},${farm.y}
-        C${left},${farm.y + 120} ${left},${farm.y + 180} ${left},${farm.y + 290}
-        L${left},${market.y - 75} C${left},${market.y - 20} ${market.x - 70},${market.y - 5} ${market.x},${market.y}`;
-    } else {
-      const farmApproachX = Math.min(farm.x + 260, collection.querySelector('.section-copy').getBoundingClientRect().left - rect.left - 60);
-      const marketApproachX = Math.max(market.x - 230, delivery.querySelector('.section-copy').getBoundingClientRect().right - rect.left + 60);
-      // Approach each stop along its foreground, keeping the vehicle out of
-      // the buildings. Timing below is by leg distance, including the bends.
-      d = `M${depot.x},${depot.y}
-        C${depot.x - 300},${depot.y + 160} ${farmApproachX},${farm.y - 400} ${farmApproachX},${farm.y - 100}
-        C${farmApproachX},${farm.y - 25} ${farm.x + 130},${farm.y - 5} ${farm.x},${farm.y}
-        C${farm.x + 70},${farm.y + 220} ${marketApproachX},${market.y - 400} ${marketApproachX},${market.y - 100}
-        C${marketApproachX},${market.y - 20} ${market.x - 110},${market.y - 5} ${market.x},${market.y}`;
-    }
+    const bounds = el => {
+      const box = el.getBoundingClientRect();
+      return { left: box.left - rect.left, right: box.right - rect.left, top: box.top - rect.top };
+    };
+    const {d} = journeyRoute({ depot, farm, market, width: rect.width, mobile, scale,
+      collection: bounds(collection.querySelector('.section-copy')),
+      delivery: bounds(delivery.querySelector('.section-copy')) });
     $('route-svg').setAttribute('viewBox', `0 0 ${rect.width} ${rect.height}`);
     ['road-soft', 'road-base', 'road-dashes', 'road-travelled'].forEach(id => $(id).setAttribute('d', d));
     total = route.getTotalLength();
@@ -87,7 +78,8 @@ export function mountMotion() {
     state = { ...target }; speed = 0;
     const tangent = route.getPointAtLength(Math.min(total, state.distance + 3));
     const point = route.getPointAtLength(Math.max(0, state.distance - 3));
-    if (Math.abs(tangent.x - point.x) > .02) face = tangent.x >= point.x ? 1 : -1;
+    if (Math.abs(tangent.x - point.x) > .02) heading = tangent.x >= point.x ? 1 : -1;
+    face = heading;
     initialised = true;
     render(performance.now(), .016, 0);
     start();
@@ -140,9 +132,13 @@ export function mountMotion() {
     const ahead = route.getPointAtLength(Math.min(total, state.distance + 8));
     const behind = route.getPointAtLength(Math.max(0, state.distance - 8));
     const dx = ahead.x - behind.x;
-    // Each leg has a clear heading; loading provides a quiet turnaround.
-    const direction = state.load > .9 ? 1 : -1;
-    face = damp(face, direction, dt, .13);
+    // Look along the curve, with a dead zone on vertical stretches. The turn
+    // at the farm starts while stationary, before the next leg accelerates.
+    if (state.load > .7 && Math.abs(state.distance - metrics.farmDistance) < 2) {
+      const departure = route.getPointAtLength(Math.min(total, metrics.farmDistance + 60));
+      if (Math.abs(departure.x - point.x) > .5) heading = departure.x > point.x ? 1 : -1;
+    } else if (Math.abs(dx) > 1.2) heading = dx > 0 ? 1 : -1;
+    face = damp(face, heading, dt, .24);
     speed = damp(speed, clamp(Math.abs(velocity) / 800), dt, .16);
     const bounce = reduced ? 0 : Math.sin(time / 85) * speed * 1.1;
     const pitch = reduced ? 0 : clamp(dx / 9, -1, 1) * speed * 1.2 + Math.sin(time / 145) * speed * .35;
@@ -191,7 +187,7 @@ export function mountMotion() {
     state.unload = damp(state.unload, target.unload, dt, .10);
     const velocity = (state.distance - oldDistance) / dt;
     render(time, dt, velocity);
-    if (Math.abs(state.distance - target.distance) > .02 || Math.abs(state.load - target.load) > .001 || Math.abs(state.unload - target.unload) > .001 || Math.abs(face - (state.load > .9 ? 1 : -1)) > .002 || speed > .005) frame = requestAnimationFrame(tick);
+    if (Math.abs(state.distance - target.distance) > .02 || Math.abs(state.load - target.load) > .001 || Math.abs(state.unload - target.unload) > .001 || Math.abs(face - heading) > .002 || speed > .005) frame = requestAnimationFrame(tick);
     else previousTime = 0;
   }
   function start() { if (!frame && !reduced && !document.hidden) frame = requestAnimationFrame(tick); }
@@ -216,7 +212,7 @@ export function mountMotion() {
     else {updateTarget(); start();}
   }, {signal: lifetime.signal});
   const observer = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle('art-offscreen', !entry.isIntersecting)), {rootMargin: '100px'});
-  [...stations, document.querySelector('.inclusion-art')].forEach(el => observer.observe(el));
+  [...stations, document.querySelector('.inclusion-art'), ...document.querySelectorAll('.audience-row,.people-line')].forEach(el => observer.observe(el));
   applyMotion(); measure();
   // Expose cleanup only, for a future component lifecycle. No runtime library.
   return () => {

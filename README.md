@@ -4,7 +4,7 @@ Do campo pra cidade. Mais juntos.
 
 Aplicação React da Conexa, baseada no piloto visual fornecido pelo grupo. A home usa as ilustrações de referência locais, o caminhão guiado pela rolagem e a opção de movimento reduzido. Marca vetorial, creme, verde e laranja são preservados; as telas internas compartilham os novos personagens.
 
-Revisão visual de 08/11/2026: as 24 imagens fornecidas em `F:/ref/` foram examinadas e convertidas para WebP (1,35 MB no total). Cenas, caminhão, carga e poses usam a própria arte, com camadas SVG/CSS para rodas, suspensão, movimento do personagem, moinho, coleta/descarga e interação por foco/ponteiro. Origem de cada arquivo em `public/assets/illustrations/sources.json`. O percurso da apresentação é ilustrativo. Validações e limites em `Conexa-specs/validation.md`; integração desta revisão na dev aguarda avaliação e autorização.
+Revisão visual de 08/11/2026: as 24 imagens fornecidas em `F:/ref/` foram examinadas e convertidas para WebP (1,35 MB no total). Cenas principais, caminhão e carga aproveitam a arte original. Após avaliação, ícones e banners dos perfis receberam personagens vetoriais articulados inspirados nas referências: braços, mãos, cabeça, olhos e objetos animam continuamente, com resposta a foco/ponteiro, sem troca de imagens. A flor original foi restaurada e a estrada usa curvas abertas com tangentes contínuas. Origem dos arquivos raster em `public/assets/illustrations/sources.json`. O percurso é ilustrativo. Validações e limites em `Conexa-specs/validation.md`; integração desta revisão na dev aguarda avaliação e autorização.
 
 ## Executar
 

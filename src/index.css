@@ -3,4 +3,5 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import './pilot/site.css';
 @import './pilot/polish.css';
+@import './pilot/characters.css';
 html{scrollbar-gutter:stable}button:disabled{cursor:wait;opacity:.6}input,select,textarea{font:inherit;color:inherit}select:focus-visible,input:focus-visible{outline:3px solid #b24124;outline-offset:3px}

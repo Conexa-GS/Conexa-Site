@@ -1,4 +1,6 @@
 /* Supplied artwork stays intact; viewports animate its original cargo and wheels. */
+import { characterMarkup } from './characters'
+
 const asset = name => `/assets/illustrations/${name}.webp`
 
 function driverIllustration(label) {
@@ -26,9 +28,9 @@ export function mountArtwork() {
   document.querySelector('#truck-rig').innerHTML = `<svg class="truck-svg" viewBox="0 0 320 200" aria-hidden="true"><g transform="translate(160 170)"><ellipse id="truck-shadow" cx="0" cy="-7" rx="125" ry="7" fill="#6d6353" opacity=".15"/><g id="truck-facing"><g id="truck-suspension"><svg x="-160" y="-160" width="320" height="160" viewBox="0 0 1774 887" overflow="visible"><g id="truck-cargo" opacity="0" transform="translate(-80 -54)"><image href="${asset('truck-loaded')}" width="1774" height="887" style="clip-path:polygon(13% 54%,13% 35%,19% 30%,19% 10%,58% 5%,58% 54%)"/></g><image href="${asset('truck-empty')}" width="1774" height="887" style="clip-path:polygon(10% 46%,55% 46%,55% 7%,92% 7%,93% 84%,79% 84%,79% 95%,60% 95%,60% 84%,35% 84%,35% 95%,19% 95%,19% 80%,12% 80%,12% 68%,10% 68%)"/>${truckWheel(457, 716, 109)}${truckWheel(1218, 716, 111)}</svg><g id="speed-strokes" fill="none" stroke="#a8b581" stroke-width="2" stroke-linecap="round" opacity="0"><path d="M-159-60h-19M-165-43h-29M-157-27h-12"/></g></g></g></g></svg>`
   document.querySelector('#flying-cargo').innerHTML = `<svg viewBox="0 0 290 330" aria-hidden="true"><image href="${asset('truck-loaded')}" x="-335" y="-115" width="1774" height="887" style="clip-path:polygon(19% 50%,19% 32%,20% 26%,20% 18%,32% 18%,34% 32%,34% 50%)"/></svg>`
   const portraits = { farmer: 'farmer', buyer: 'buyer', driver: 'carrier' }
-  document.querySelectorAll('[data-portrait]').forEach(el => {
+  document.querySelectorAll('[data-portrait]').forEach((el, index) => {
     const name = portraits[el.dataset.portrait]
-    el.innerHTML = `<img src="${asset(`${name}-rest`)}" alt="" loading="lazy" decoding="async"><img class="portrait-greeting" src="${asset(`${name}-talk`)}" alt="" loading="lazy" decoding="async">`
+    el.innerHTML = characterMarkup(name, { id: `portrait-${index}`, portrait: true })
   })
   return () => library.remove()
 }

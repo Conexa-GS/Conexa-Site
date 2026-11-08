@@ -384,3 +384,42 @@ A revisão é do agente, não aceite humano nem auditoria completa de acessibili
 ### Análise crítica
 
 Usar os arquivos fornecidos mantém personagens, roupas, veículos e cenário próximos dos exemplos e evita uma interpretação generativa diferente. WebP reduz o custo de rede, e as camadas reutilizam imagens em cache. As imagens são raster: poses interativas e recortes articulados não equivalem a um personagem vetorial completamente rigado ou animação quadro a quadro. Recortes precisam de inspeção no navegador, como demonstrado pelo defeito das rodas encontrado e corrigido. Nem todas as 24 imagens aparecem simultaneamente: variantes completas de estrada, armazém e personagens permanecem disponíveis no catálogo, evitando repetir cenas semelhantes na apresentação. Aprovação estética do grupo e autorização de integração continuam pendentes conforme AGENTS.md/workflow.md.
+
+## Interação 015 — Flor, personagens articulados e estrada fluida — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para revisão e criação de ilustrações vetoriais articuladas em SVG/JavaScript/CSS, componentes React e geometria do percurso. PowerShell/Git, Node/npm, ESLint e Vite para implementação, inspeção, testes e build. Continuação da orientação de frontend e prévia local das skills consultadas anteriormente. A skill imagegen foi consultada para avaliar a estratégia; esta revisão usa SVG nativo animável em código, sem chamada a um gerador de bitmaps. Navegador integrado por cua_repl para capturas, inspeção DOM e teclado. Pillow do runtime local apenas para codificar o GIF de evidência com capturas reais do navegador. Sem subagentes, nova dependência de aplicação, Supabase remoto ou publicação.
+
+### Interações realizadas
+
+Prompt integral do usuário:
+
+> pontos que eu gostaria de melhorar antes de subir
+>
+> - voltar com a flor que ficava no final do site
+> - fazer animações reais nos icones da sessão 'como você quer participar'
+> - animações reais nos banners do como 'como você quer se conectar'
+> - deixa a estrada por onde o caminhão passa mais natural e menos acentuada, com movimento fluido
+>
+> use as imagens como referencia para fazer animações novas, e não apenas trocar de uma imagem para outra
+
+Resposta representativa: “Vou redesenhar os três personagens em camadas vetoriais, seguindo as referências de roupas, cores e objetos. Assim, braços, mãos, cabeça e olhos poderão se mover de forma contínua.” O Codex informou a continuidade na feature para nova avaliação, sem interpretar o pedido como autorização para subir.
+
+### Aplicação no projeto
+
+Continuação em `feature/animacoes-personagens-ref`, ainda não integrada, sobre o commit local `c743fba`. Restaurada a mesma flor SVG da dev (`ee93bd9`), com balanço da flor e das folhas. As trocas de poses bitmap foram removidas dos ícones da home e dos banners de escolha de perfil.
+
+Novo módulo `src/pilot/characters.js`: produtora com chapéu amarelo/macacão azul, comprador de boné/avental verde e transportador de boné/colete amarelo e camisa laranja, todos inspirados nas referências. Cabeça, olhos, cabelo, ombro, antebraço, mão, pernas, caixa/hortaliças e chaves têm camadas próprias. Os grupos de posicionamento não compartilham o transform animado dos grupos de articulação. Componente `AnimatedCharacter` usa IDs exclusivos por instância; os ícones reutilizam o mesmo desenho em enquadramento aproximado. Gestos contínuos são ampliados em foco/hover; cenários vetoriais têm nuvens, plantas e pequeno veículo com rodas/deslocamento sincronizados. Animações pausam fora da tela e respeitam a preferência de movimento reduzido do sistema; o controle da home também pausa os novos ícones e a flor.
+
+`journey-route.js` substitui curvas com ganchos por uma spline monotônica em y, com tangentes compartilhadas nas junções, curvas abertas e espaço para o caminhão junto às colunas. Mantidas as paradas de coleta/entrega e as margens de leitura no celular. Amortecimento temporal ampliado e direção do caminhão passa a acompanhar a curva com zona neutra em trechos verticais e antecipação da virada na coleta. Estrada mais discreta e estreita. Nenhuma alteração em domínio, serviços, migrations ou marcos M1–M3; o percurso continua identificado como ilustração.
+
+### Validação das respostas
+
+`npm run lint`, `npm test` (19 testes) e `npm run build` passaram. Cinco novos testes verificam chegada às paradas sem retorno vertical/overshoot lateral, continuidade de tangente, margens de leitura no celular, espaço do caminhão em relação às duas colunas desktop e rejeição de âncoras degeneradas. Build mantém aviso de chunk principal acima de 500 kB (aproximadamente 576 kB, sem nova biblioteca). Conferência auxiliar de grupos SVG balanceados e de IDs/referências únicos no navegador.
+
+Revisão dirigida do Codex em 1366×900 e 360×800: home, ícones, flor e escolha de perfil, sem rolagem horizontal nas medições DOM. Confirmados zero elementos img nos ícones/banners, três desenhos vetoriais por seção e mudanças de matrizes das mãos entre observações do mesmo desenho. Teclado ativa o gesto de foco; ícones fora da viewport e dois banners fora da tela no celular foram observados com animações pausadas. Toggle da home pausou flor, retirou animação dos ícones e ocultou caminhão. Conferidos carga em trânsito e caminhão na margem ao lado do texto no celular. Capturas locais e GIF curto gravados do navegador; a gravação mostra animações da aplicação, não uma sequência de poses fornecidas. Não houve medição formal de FPS nem auditoria completa de acessibilidade, emulação independente de preferência do sistema ou teste remoto de CRUD/RLS. Um método SVG não foi exposto pela camada de avaliação DOM do navegador; a geometria é coberta pelos testes Node, sem inventar essa medição no navegador.
+
+### Análise crítica
+
+Articulações vetoriais permitem movimentos contínuos e compartilhamento entre retratos e banners, resolvendo a limitação da troca de imagens da interação anterior. A nova arte é uma interpretação vetorial das referências, não reprodução pixel a pixel dos bitmaps. Cenários principais mantêm a arte fornecida. IDs isolados e grupos aninhados evitam colisão de gradientes e deslocamento de articulações. A spline elimina quinas e ganchos enquanto mantém amostragem por rolagem monotônica e espaço de leitura; os testes matemáticos não substituem percepção humana de fluidez. A estética e a intensidade dos gestos continuam sujeitas à nova avaliação do usuário. Nenhuma aprovação de integração, push, merge ou deploy foi recebida ou realizada nesta revisão.
