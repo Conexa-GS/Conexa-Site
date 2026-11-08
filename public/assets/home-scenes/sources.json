@@ -1,0 +1,75 @@
+{
+  "sourceDirectory": "F:/inicio site conexa/",
+  "note": "Original PNG/GIF files copied byte for byte. Static PNGs are the first GIF frame for reduced motion. Used only in the three landing journey scenes.",
+  "assets": [
+    {
+      "file": "carrier-background.png",
+      "source": "Ilustração de entrega rural em nuvem transparente.png",
+      "width": 1672,
+      "height": 941,
+      "frames": 1,
+      "sha256": "14c623c2e02a45a406f0a73ed5b43005453b504d0fbbe73a5c25783a53318db9"
+    },
+    {
+      "file": "farm-background.png",
+      "source": "Paisagem Rural Colorida em Recorte Nuvem.png",
+      "width": 1526,
+      "height": 1030,
+      "frames": 1,
+      "sha256": "4517bc2dfb2db3d1deed9e47ea1048e7b594cdda9d2ea9e02d2ac04c950f1dae"
+    },
+    {
+      "file": "market-background.png",
+      "source": "Barraca Colorida de Feira com Frutas e Legumes.png",
+      "width": 1536,
+      "height": 1024,
+      "frames": 1,
+      "sha256": "c1403a3d0cce3c44a37b72d72c6519d1b01fdf3327182665e941dc98293bf54b"
+    },
+    {
+      "file": "farmer.gif",
+      "source": "Animação da agricultora com hortaliças.gif",
+      "width": 361,
+      "height": 362,
+      "frames": 12,
+      "sha256": "44056be9b1a24a2fa887caac301bf7023d5b417980a0808c04763c930e1f4e4e",
+      "motionBounds": [
+        40,
+        2,
+        339,
+        359
+      ],
+      "durationMs": 1680
+    },
+    {
+      "file": "carrier.gif",
+      "source": "Animação de Entregador Sorridente.gif",
+      "width": 362,
+      "height": 362,
+      "frames": 12,
+      "sha256": "f3add4be460a445333048dee48e04d6e262d800dc4bbaad132a2bd00b0724351",
+      "motionBounds": [
+        87,
+        7,
+        315,
+        355
+      ],
+      "durationMs": 2040
+    },
+    {
+      "file": "buyer.gif",
+      "source": "Vendedor Animado Gesticulando.gif",
+      "width": 362,
+      "height": 362,
+      "frames": 12,
+      "sha256": "f0f39337fe0333ba679459dc99df9c8d9503eef7479a5a8de0f8041d7726bfdf",
+      "motionBounds": [
+        30,
+        14,
+        293,
+        344
+      ],
+      "durationMs": 1680
+    }
+  ]
+}

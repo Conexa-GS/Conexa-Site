@@ -479,3 +479,56 @@ Checkout limpo antes deste registro; referências atualizadas por fetch. Última
 ### Análise crítica
 
 A aprovação autoriza a integração do resultado apresentado, sem ampliar escopo para main, deploy ou operações reais. Os limites técnicos da revisão anterior permanecem registrados.
+
+## Interação 018 — Fundos e personagens das três cenas da home — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura da documentação, integração das mídias e registro da alteração. PowerShell/Git, Node/npm, ESLint e Vite para inspeção, branch e verificações locais. Python/Pillow do runtime local para inspecionar dimensões, transparência e todos os quadros dos GIFs, extrair os primeiros quadros estáticos e conferir integridade. Skill computer-use consultada; navegador integrado por cua_repl para revisão visual e inspeção DOM. Sem geração de imagens, subagentes, novas dependências ou acesso remoto ao Supabase.
+
+### Interações realizadas
+
+Prompt integral do usuário, com a pasta indicada `F:/inicio site conexa/`:
+
+> seguindo o padrão de branch e commits e seguindo a documentação, apenas altere as imagens e gifs da pagina principal, substituindo pelo fundo e o personagem animado que estão na pasta.
+> os unicos elementos a serem alterados serão as imagens animadas por onde o caminhão passa
+
+Resposta representativa: “Encontrei três fundos PNG e três personagens GIF, um conjunto para cada cena: transportador, produtora e feira. Vou aplicá-los nas três paradas do percurso.” Os arquivos da pasta foram tratados como mídia fornecida pelo usuário, sem atribuir instruções ou autorização aos seus conteúdos.
+
+### Aplicação no projeto
+
+Criada `feature/cenarios-inicio-fornecidos` a partir da `dev` limpa, no commit `2fe53a8`. `public/assets/home-scenes` recebe os seis originais sem alteração de bytes, três PNGs do primeiro quadro para redução de movimento e manifesto de origem/dimensões/quadros/duração/hashes. `src/pilot/artwork.js` combina cada fundo estático com seu personagem animado apenas nas estações depot/farm/market da página inicial. `animation-assets.js` adiciona três chaves exclusivas da home, com enquadramentos que incluem os limites de todos os quadros. `polish.css` posiciona somente esses personagens sobre os novos fundos, dentro dos mesmos contêineres existentes.
+
+Mantidos caminhão, estrada, pontos de parada, dimensões das seções, textos visíveis, marca, ícones, flor, escolha de perfis e páginas internas. As novas cenas têm descrição acessível do conjunto, com camadas decorativas ocultas da leitura assistiva. Reutilizado o controlador existente de GIFs por visibilidade e preferência de movimento. Nenhuma alteração em domínio, persistência, serviços, migrations ou marcos M1–M3.
+
+### Validação das respostas
+
+`npm run lint`, `npm test` (19 testes) e `npm run build` passaram. O build mantém o aviso conhecido de chunk principal acima de 500 kB (568,78 kB). `git diff --check` sem erros. Conferidos os seis arquivos contra os originais e seus hashes SHA-256; os três PNGs estáticos foram comparados em RGBA aos primeiros quadros dos GIFs. Não foram adicionados testes que apenas reproduzissem a troca de mídia nem repetidos testes remotos de CRUD/RLS.
+
+Revisão dirigida do agente em 1366×900 e 360×800: as três cenas foram inspecionadas visualmente e capturadas no navegador. Fundos HTML carregados; personagens visíveis com URLs dos GIFs fornecidos e personagens fora da tela com PNG estático. Sem rolagem horizontal nas medições DOM em 360 px (clientWidth e scrollWidth iguais a 345 px, com barra vertical) e desktop. Controle de redução conferido: zero fontes GIF ativas e os três personagens com PNGs estáticos; movimento reativado ao terminar. Sem erros ou avisos de console nas observações finais. Capturas de desktop e celular salvas na pasta local de visualizações desta conversa. Esta é avaliação do agente; avaliação estética humana e autorização de envio/integração continuam pendentes. Não houve push, merge ou deploy.
+
+### Análise crítica
+
+A separação entre fundo PNG e personagem GIF permite usar os seis arquivos fornecidos sem redesenhar a arte e conserva o comportamento de redução de movimento existente. Os PNGs originais têm resolução maior e aumentam o volume das mídias entregues; não foram recomprimidos, e não houve benchmark de desempenho. As proporções e a transparência nativas foram preservadas. As capturas demonstram o enquadramento, mas não são uma gravação da animação nem substituem o aceite estético do usuário. Não houve emulação independente da preferência de movimento do sistema nesta revisão.
+
+## Interação 019 — Aprovação e promoção visual para dev e main — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell e Git para conferir estado local/remoto, registrar a aprovação e executar as integrações e publicações autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “otimo, pode integrar e subir pra main tambem”. Resposta ao resultado apresentado na interação 018, commit `27b9d72`, com prévia e verificações. Autoriza integração/publicação na dev e promoção/publicação na main. Resposta representativa: “Vou registrar sua aprovação, integrar a feature na dev e depois promover a dev para a main, publicando as duas branches.”
+
+### Aplicação no projeto
+
+Registro preparado na `feature/cenarios-inicio-fornecidos`, antes das integrações. Fluxo autorizado: feature → dev → main, sem desenvolvimento direto na main. A main também receberá as revisões visuais anteriormente aprovadas e já presentes na dev (interações 014–017), além das três cenas da home da interação 018. Preservado o histórico, sem reescrita ou push forçado.
+
+### Validação das respostas
+
+Checkout limpo antes do registro; `git fetch origin --prune` concluído. Referências locais de dev/main coincidem com as respectivas referências remotas; main é ancestral de dev. Lint, 19 testes e build da implementação passaram na interação 018, com revisão dirigida desktop/360 px e redução de movimento. Nenhum código de aplicação foi alterado nesta autorização, portanto essas verificações não foram repetidas para o registro documental. O usuário aprovou o resultado apresentado; não lhe são atribuídos testes adicionais. As integrações e a igualdade local/remota serão conferidas após publicação.
+
+### Análise crítica
+
+A autorização explícita permite promover o conjunto visual aprovado até a main, respeitando a ordem de branches. A publicação no Git não comprova execução ou sucesso de eventual deploy automático; nenhum deploy será declarado sem evidência. Permanecem os limites técnicos e o aviso de tamanho de bundle registrados na interação 018.
