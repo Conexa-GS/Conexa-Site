@@ -721,3 +721,25 @@ Concentrar pagamento, estoque e repasses em transações permite explicar os inv
 PGlite simula identidade, não autentica usuários reais; a bancada visual não valida o servidor e não substitui o Supabase demo. T28 permanece aberta para aplicação/testes remotos autorizados, concorrência real, reload e percurso conectado nos três perfis. M5 continua em avaliação; o usuário decidiu apenas o responsável pela resolução. O workflow exige avaliação e autorização próprias antes de publicação/integração na dev. Nenhuma aprovação de marco, migration remota ou envio é presumida a partir do pedido inicial.
 
 Revisão final de permissões encontrou exposição indireta de descrições/resoluções nos eventos M3 para transportador que cotou mas não foi escolhido. A migration restringe também esse histórico após a seleção; a cotação própria permanece consultável. A fixture passou a criar uma segunda cotação e verificar o isolamento via M3/M5 e RLS. Suíte PGlite M1–M5 repetida e aprovada após a correção. Nenhuma alteração visual adicional.
+
+## Interação 027 — Autorização de publicação da M5 na dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização; PowerShell e Git para conferir referências, commitar o registro, integrar e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Resposta à pergunta explícita que identificou código, migration, testes e documentação da M5, branches feature/dev e destino Conexa-GS/Conexa-Site no GitHub. Autoriza publicação e integração na dev; não promoção à main.
+
+### Aplicação no projeto
+
+Registro preparado em feature/m5-fechamento-operacao após 882b772. Integração autorizada dessa implementação local na dev e publicação de ambas as branches em https://github.com/Conexa-GS/Conexa-Site.git, sem force push. M5 permanece em avaliação, com T28 pendente; nenhuma migration remota ou deploy incluído.
+
+### Validação das respostas
+
+Checkout limpo; fetch concluído; dev local/remota sem divergência antes da integração. Mantidas as verificações da interação 026: lint, 26 testes Node, PGlite M1–M5, build e revisão dirigida desktop/360 px. Nenhum código alterado nesta autorização; testes não repetidos para o registro documental. Publicação será conferida pelos hashes remotos.
+
+### Análise crítica
+
+A autorização permite compartilhar a implementação preparada, sem converter testes locais em validação Supabase nem declarar aceite da M5. T28, aplicação/testes no demo e avaliação humana permanecem pendentes. Main preservada.
