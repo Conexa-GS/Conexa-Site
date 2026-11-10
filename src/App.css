@@ -62,3 +62,8 @@
 .m4-route { overflow-wrap: anywhere; }
 .m4-route .text-link { white-space: normal; text-align: left; }
 @media (max-width: 1000px) { .m4-alternatives { grid-template-columns: 1fr; } }
+.m5-closure { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line, #d8dfd1); overflow-wrap: anywhere; }
+.m5-closure > * + * { margin-top: 1rem; }
+.m5-closure .inline-note { display: block; }
+.m5-closure textarea { width: 100%; max-width: 100%; min-width: 0; font: inherit; padding: .75rem; border: 1px solid #8b9b87; border-radius: .5rem; background: #fffdf7; color: inherit; }
+.m5-records { display: grid; gap: .75rem; padding-left: 1.25rem; }

@@ -55,6 +55,8 @@ Guardar preço/mínimo acordados nos itens. Atualizar uma oferta não altera sil
 
 ## Acesso no modo de demonstração
 
+Implementação M5 local em 09/11/2026: migration `202611090001_m5_operation_closure.sql` cria `payment_attempts`, `simulated_payouts` e `delivery_occurrences` com RLS e escrita exclusiva via RPC. `payment_attempts.outcome` preserva o resultado solicitado; `status` pode passar de approved para refunded com `refunded_at`. Chave UUID única e índice parcial sobre outcome=approved impedem segunda aprovação mesmo após estorno. Repasse tem unicidade carga/destinatário/tipo. Ocorrência guarda autor, chave de repetição, descrição, status, resolução, comprador responsável e datas. Histórico reutiliza `load_events` existente, sem criar `operation_events` paralelos. Uma demanda entregue permanece atendida; só cancelada/expirada permite remontagem. Arquivar demanda com carga scheduled/in_transit/delivery_review é bloqueado. Compromissos pagos não expiram com a reserva original. Migration/testes remotos ainda pendentes; PGlite não comprova Auth/RLS do demo.
+
 Não usar seletor visual como identidade confiável. Plano técnico inicial: usuários fictícios previamente criados no Supabase Auth, um por participante, para o servidor/banco aplicar RLS; o seletor abre uma sessão de demonstração correspondente. Sem cadastro público de pessoas reais.
 
 Escolher e documentar o mecanismo de sessão antes do M1: credenciais de demo têm acesso deliberadamente limitado, ou função servidor cria a sessão. Nunca expor service_role. Se a configuração ainda não existir, oferecer apenas modo local explicitamente simulado; isso não completa o aceite do CRUD remoto.

@@ -70,6 +70,16 @@ Inclusão usa somente cargas distintas entregues por produtor na plataforma e id
 
 Arquivos: migration M4, serviço, domínio, componentes em demandas/transporte, testes e bancada visual isolada. PGlite e fixtures de UI não substituem Supabase demo nem aceite humano; resultados em `validation.md`. Nenhum pagamento, transporte físico ou avanço de M5.
 
+## D012 — Fechamento simulado da M5 — implementação local em avaliação — 09/11/2026
+
+Origem: “seguindo o padrão de commits e branchs, anotando as mudanças concluídas no tasks.md, comece a implementar a M5. pergunte o que não ficar claro”. Branch `feature/m5-fechamento-operacao` criada a partir da dev limpa. Pergunta sobre resolução de divergência respondida explicitamente: “Sim, o comprador resolve e confirma”. A resolução escrita fica a cargo do comprador, seguida de confirmação separada do recebimento, sem liberar repasses no simples registro da resolução.
+
+M5 usa o mesmo gateway privado/invoker, advisory lock M2/M3 e bloqueio de ofertas ordenado no pagamento. Tentativas têm resultado imutável e status próprio; aprovado pode virar estornado. Mesmo UUID e payload compatível recuperam a tentativa, inclusive após cancelamento; chave reutilizada com outro resultado/carga é rejeitada. Pendente/recusado permite uma nova tentativa com outra chave, sem atualização silenciosa nem callback externo. Só uma aprovação por carga em toda a sua história. Cancelada/expirada pode ser remontada; entregue continua atendendo a demanda, evitando compra duplicada para a mesma necessidade. Estoque comprometido permanece após vencimento do prazo original e recebimento.
+
+Cancelamento pré-transporte e estorno são atômicos; após início, pedido abre ocorrência e bloqueia recebimento/repasses até resolução, sem liberar estoque. Participantes envolvidos podem reportar ocorrência; comprador registra resolução de todas e confirma recebimento. Repasse único por carga/beneficiário/tipo usa snapshots e frete aprovado, taxa zero e sem desconto; não há ação autônoma de repasse antecipado. Eventos reutilizam `load_events`. Tudo é demonstração com dados fictícios, sem cartão/conta, dinheiro ou transporte reais.
+
+Interface em `/operacoes`, preservando marca/paleta e prévias de exemplo independentes. RPC indisponível retorna consulta M3 com aviso, sem habilitar M5; erros de rede preservam dados já carregados. Bancada isolada e PGlite permitem revisão local sem escrever no Supabase. T25–T27 implementadas localmente, T28 e aceite do marco pendentes. A resposta sobre resolução não autoriza migration remota, push, merge, main ou deploy. Arquivos/validações em tasks.md e validation.md.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.
