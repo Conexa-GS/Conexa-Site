@@ -29,6 +29,8 @@ Atualização em 07/11/2026: M1/M2/M3 concluídos por aceite do usuário. T20 ap
 
 Atualização em 08/11/2026: M4 iniciada localmente em `feature/m4-rotas-inclusao`. Pesquisa de fornecedor, roteiro manual autenticado, candidatas com histórico e comparação de cotações preparados; API externa, aplicação da migration no demo, validação remota e aceite ainda pendentes. M4 permanece prévia em avaliação. Escopo e pré-requisitos em `m4-routes.md` e D011.
 
+Atualização em 09/11/2026: M4 confirmado explicitamente pelo usuário no escopo apresentado e publicado na dev. T21–T24 encerrados por aceite humano somado às verificações locais registradas. O aceite preserva como limites a ausência de API externa ativa, migration/testes M4 no Supabase demo e comparação de total entre composições com fretes próprios. Próximo marco: M5/T25.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.
