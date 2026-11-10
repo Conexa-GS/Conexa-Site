@@ -997,3 +997,57 @@ Fetch concluído e referências conferidas antes da integração. Mantidos os re
 ### Análise crítica
 
 A aprovação permite publicar a T29 apresentada na dev, preservando as limitações explicitadas. Não comprova revisão visual em 360 px/desktop, teclado nativo, leitor de tela ou F5; esses itens continuam registrados como pendentes, sem declarar M6 integralmente concluída. T28/M5 e demais marcos permanecem com seus estados anteriores. Sem autorização ou alteração da main nesta interação.
+
+## Interação 037 — Preparação local da T30 — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para especificação, implementação, revisão e testes; PowerShell/Git para leitura/estado/diff; apply_patch para alterações; Node/Web Crypto e npm para demonstrador, testes, lint e build. Documentação oficial Meta/WhatsApp e Supabase consultada na web. Sem subagentes, IA externa no produto ou cliente de banco nesta implementação.
+
+### Interações realizadas
+
+Prompt integral de programação: “vamos seguir com o resto então”. Contexto resumido: autorização para preparar especificação e estrutura local do T30 enquanto o cadastro Meta está temporariamente bloqueado. Resposta representativa: “Vou preparar a especificação do T30 e a estrutura local da integração enquanto a Meta libera sua conta.” Não são transcritas perguntas/consultas de orientação, conforme regra atual do usuário. Não houve aprovação de integração na dev, ativação, custos ou conclusão de M6.
+
+### Aplicação no projeto
+
+Mantida `feature/t30-preparacao`, já criada da dev local `af7174f`. Preservadas mudanças locais anteriores autorizadas em AGENTS.md/workflow.md: somente prompts de programação entram neste arquivo. Consulta de pré-requisitos removida anteriormente não foi restaurada; histórico anterior preservado. Sem fetch, edição em dev/main ou mudança de referências remotas.
+
+Criados protocolo em server/whatsapp/conversation.js, handler em server/whatsapp/webhook.js, exemplo vazio de configuração de servidor, demonstrador scripts/whatsapp-demo.mjs e testes/whatsapp.test.js. Reutilizadas validações/perguntas da T29. Prévia versionada, correção, descarte, confirmação exata e pedido de publicação separado do resultado; incerteza exige reconciliação antes de corrigir/cancelar/publicar. Handler confere challenge, assinatura nos bytes originais, receptor e lote, esperando aceite assíncrono antes de 200. Sem persistência/fila/worker/envio padrão, Edge Function ou migration.
+
+Especificação t30-whatsapp.md define a próxima fatia de vínculo verificado, banco/outbox, gateway e ativação. Atualizados READMEs, tasks, spec, contracts, flows, data-model, D016 e validation.md. T30 continua em avaliação, canal inativo, M5/T28 e T29 visual preservadas. Novo comando demo:whatsapp mostra o fluxo exclusivamente em memória; não envia mensagens, lê .env ou grava no site. Sem dependência nova, contato real ou alteração de interface.
+
+### Validação das respostas
+
+Lint, 55 testes (42 anteriores e 13 novos) e build aprovados. Build 633,88 kB/gzip 180,66 kB mantém aviso herdado de chunk acima de 500 kB. Testes cobrem confirmação explícita/atual, payload do formulário, revalidação/correções, incerteza/falha/sucesso, preservação da chave, assinatura/bytes/receptor/limites e lote assíncrono. Demonstrador passou com uma oferta fictícia após correção, confirmação antiga rejeitada e repetições sequenciais sem duplicação. Nenhum teste de banco/remoto, RLS novo, reinício, concorrência persistente ou envio/recebimento Meta foi executado.
+
+Primeira tentativa do teste novo falhou por sintaxe de asserção; corrigida e suíte executada. Revisão posterior identificou que resultado perdido não pode liberar edição como recusa definitiva: implementado estado reconciling, teste adicional e repetidos lint/suíte completa. Documentação detalhada Meta retornou 429/login; referência histórica oficial de challenge/assinatura consultada com ressalva de SDK arquivado, sem instalá-lo. Sem revisão visual nesta entrega, pois interface não mudou. Diff e estado preparados para conferência e Conventional Commit local; publicação depende de autorização após apresentação.
+
+### Análise crítica
+
+Separar protocolo/recebimento do banco e do provedor torna o fluxo verificável sem credenciais e preserva validações de ofertas. Isso permite detectar confirmação obsoleta e risco de duplicação após resultado incerto antes de ativar o canal. Contudo, módulo puro não resolve autorização, persistência ou idempotência distribuída; o demonstrador sequencial em memória não substitui inbox/outbox e transação no Supabase. O aceite HTTP não comprova publicação nem entrega ao telefone. A próxima fatia exige vínculo verificado e gateway restrito antes de contato real, com autorização específica de ativação. Nenhum teste ou aceite foi atribuído ao usuário.
+
+## Interação 038 — Publicação da preparação T30 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para executar a instrução de desenvolvimento Git e registrar sua autorização; PowerShell/Git para conferir estado, fetch, commit documental na feature, publicação e integração na dev. Sem alteração de código ou operação no Supabase/Meta.
+
+### Interações realizadas
+
+Prompt integral de execução: “pode publicar  e integrar com a dev”. Autoriza publicar e integrar a preparação T30 apresentada, commit `b9d895e`, da `feature/t30-preparacao`. Resposta representativa: “Vou publicar a feature e integrá-la na dev, registrando sua autorização no IA.md e preservando o histórico.” Não inclui perguntas/consultas de orientação nem autoriza promoção para main, custos, deploy do webhook ou mensagens reais.
+
+### Aplicação no projeto
+
+Checkout inicial limpo na feature; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `af7174f`, com feature um commit à frente e sem divergência. Registro preparado na própria feature antes da publicação, sem edição direta em dev/main. Fluxo autorizado feature → dev, sem force push. A integração externa permanece inativa; escopo e pendências de t30-whatsapp.md preservados.
+
+### Validação das respostas
+
+Mantidos lint, 55 testes, build e demonstrador aprovados na interação 037; mudança desta rodada somente documental, sem repetir testes. Fetch executado com acesso correspondente. Consulta adicional ls-remote no sandbox não conectou; referências obtidas pelo fetch continuam disponíveis para conferência. Diff/estado verificados antes do commit; a publicação/integração será conferida por novo fetch e referências remotas antes da resposta final.
+
+### Análise crítica
+
+A autorização permite publicar a preparação apresentada, sem demonstrar persistência WhatsApp no Supabase, identidade por telefone, concorrência ou tráfego Meta. Não encerra T30/M6 nem pendências M5/T28/T29 visual. Nenhum teste ou aceite adicional foi atribuído ao usuário. Promoção para main e ativação externa continuam fora desta autorização.
+
+Resultado desta rodada: commit de autorização `ea3ba0e` criado na feature. A revisão automática rejeitou o push por exigir confirmação explícita do destino GitHub e do conteúdo a publicar. Conferidos novamente origin/push URL, os 19 arquivos alterados, exemplo de servidor com valores vazios e ausência de `.env` rastreado; busca por padrões de tokens no diff de código/documentação (exceto histórico IA.md) retornou zero, sem equivaler a auditoria de segredos. Registros anteriores de autorização para o mesmo origin foram apresentados como evidência numa segunda tentativa direta. A revisão rejeitou novamente: considerou insuficiente a autorização atual sem nomear destino/payload e não aceitou os registros como substituto de confirmação. Nenhum push executado, sem alternativa de envio ou contorno. Publicação de `feature/t30-preparacao` e `dev` em `https://github.com/Conexa-GS/Conexa-Site.git` permanece bloqueada até confirmação explícita desse destino e do conteúdo (código, testes, especificação/documentação, registro de IA e exemplo vazio de configuração).
+
+Trabalho autorizado não afetado: preparar este complemento na feature e integrá-la localmente à dev com merge que preserva histórico, sem conflitos esperados. A conferência final usará referências locais e as remotas obtidas no fetch; origin/dev permanece em `af7174f` enquanto o push estiver bloqueado. Main e sistemas Meta/Supabase não serão alterados. Nenhum teste de aplicação repetido nesta correção documental.

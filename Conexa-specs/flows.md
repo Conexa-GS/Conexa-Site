@@ -1,5 +1,7 @@
 # Telas, fluxos e estados
 
+Evolução T30 por texto: OFERTA → perguntas → prévia versionada → corrigir/cancelar/confirmar → aguardar resultado. Resposta perdida mantém reconciliação bloqueante; não anuncia sucesso nem permite outra publicação até conferir o resultado. Estados completos em [t30-whatsapp.md](t30-whatsapp.md). Somente protocolo/demonstrador locais nesta fase; sem nova tela ou canal externo ativo.
+
 ## Rotas de interface sugeridas
 
 | Caminho | Conteúdo |

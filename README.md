@@ -8,6 +8,8 @@ Revisão visual de 08/11/2026: caminhão vazio/carregado, cenas, retratos, banne
 
 ## Executar
 
+Preparação T30/WhatsApp: `npm run demo:whatsapp` percorre conversa, prévia, correção e confirmação em um demonstrador de terminal exclusivamente em memória. Não envia mensagens nem grava ofertas no site/Supabase. Escopo, contratos e próximos passos em [t30-whatsapp.md](Conexa-specs/t30-whatsapp.md); integração oficial continua inativa e em avaliação.
+
 Requisitos: Node 22.12+ ou 24 e npm. Ambiente verificado: Node 24.21.0.
 
 ```powershell

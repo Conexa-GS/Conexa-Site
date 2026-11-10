@@ -2,6 +2,8 @@
 
 Interfaces abaixo são contratos lógicos, não endpoints de backend já implementados. CRUD simples usa cliente Supabase com RLS. Operações compostas usam funções transacionais; rotas externas usam servidor.
 
+T30/WhatsApp: contrato separado em [t30-whatsapp.md](t30-whatsapp.md), com protocolo de texto e handler local sem adaptador persistente. `acceptBatch` deve garantir recebimento durável do lote antes de responder 200; `publish_offer` é pedido, não confirmação de gravação. Banco, identidade e envio externo ainda não implementados.
+
 ## Implementação M2 — 07/11/2026
 
 `src/services/m2.js` usa `supabase.rpc('m2', { action, payload })`. O gateway é `security invoker`; a função privada valida sessão, papel, propriedade, versão, estado e saldo. Ações: `list`, `balances`, `save_demand`, `remove_demand`, `archive_demand`, `candidates`, `draft`, `submit`, `respond`, `cancel`. `draft` recebe `{id: demandId, items: [{offer_id, quantity}], hours}`; ações de proposta recebem `{id: loadId, version}`; resposta adiciona `decision` accepted/rejected e cancelamento exige `reason`.

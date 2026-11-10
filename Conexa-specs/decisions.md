@@ -112,6 +112,14 @@ O formato guiado é decisão de implementação comunicada ao usuário, não apr
 
 Complemento D015 — 10/11/2026: pedido “implemente a T29, seguindo o padrão de branch e commits, perguntando o que não estiver nitido”. Mantido o escopo guiado já implementado; criada `feature/t29-chat-validacao` da dev `11f295f`. Nenhuma decisão de negócio adicional exigiu esclarecimento. Para verificar eventos reais do componente sem contornar o bloqueio de navegador, adicionados testes em jsdom (dependência de desenvolvimento), com simulações explícitas das APIs de diálogo/rolagem. Isso não comprova layout, foco preso pelo diálogo nativo, Tab/Escape físicos ou leitor de tela. Corrigidos foco de catálogo indisponível e estado desabilitado do botão Fechar durante envio. Teste manual combina componente em DOM simulado com o serviço existente no Supabase demo, nova autenticação e RLS, arquivando dados próprios. T29 tem implementação e verificação automatizada de AC22; AC23 visual/F5 e aceite da M6 seguem pendentes. Evidências em `validation.md`; sem nova autorização de push/integração ou main.
 
+## D016 — T30 por texto: especificação e base local isoladas — em avaliação — 10/11/2026
+
+Origem: “vamos seguir com o resto então”, após proposta de preparar especificação e estrutura local enquanto a criação do portfólio Meta está bloqueada. Mantida `feature/t30-preparacao`, já criada da dev local `af7174f`; preservados ajustes anteriores autorizados de AGENTS.md/workflow.md para registrar somente prompts de programação. Sem perguntas/consultas no IA.md.
+
+Primeira fatia proposta reaproveita perguntas/validações da T29, com protocolo por texto, escolhas numeradas, prévia versionada e confirmação exata. Domínio em `server/whatsapp/conversation.js` emite intenção de publicação separada do resultado; resultado incerto bloqueia edição/cancelamento até reconciliação. Handler `server/whatsapp/webhook.js` valida challenge/assinatura/receptor/corpo e só reconhece lote após o adaptador confirmar recebimento. Nenhum adaptador persistente padrão, Edge Function, migração ou cliente de envio. Demonstrador de terminal estritamente em memória para tornar o fluxo avaliável sem Meta.
+
+Contratos de identidade, gateway privado, inbox/sessão/publicação/outbox, autorização, concorrência e ativação estão em `t30-whatsapp.md`. Banco e envio externo são próxima fatia, não promessas de idempotência/durabilidade já verificadas. Sem IA externa, áudio, contatos reais ou mudança nas regras de dinheiro/estoque. Testes/lint/build e limites em validation.md; T30/M6 seguem em avaliação e M5/T28 preservadas. Publicação/integração dependem da autorização do usuário após avaliação.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.
