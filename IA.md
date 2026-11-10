@@ -923,3 +923,25 @@ Revisão estática confirma que somente o botão explícito da prévia chama esc
 Perguntas explícitas evitam interpretar incorretamente quantidade, valor ou disponibilidade e permitem implementar acessibilidade sem nova infraestrutura. Reutilizar formulário/serviço preserva a fonte de ofertas e as regras existentes; catálogo e calendário recebem controles adicionais no adaptador. O formato guiado não interpreta frases livres nem atende áudio; WhatsApp oficial exige escopo separado. Foco/labels/estilos preparados precisam de revisão real, que o bloqueio do navegador impediu.
 
 Bloqueio em memória evita confirmação simultânea no diálogo, mas não garante idempotência após resposta perdida ou entre abas; a interface orienta conferir a lista antes de repetir. Sem verificação do chat no demo não se afirma persistência/RLS nova, e sem avaliação humana não se declara marco concluído. Commit local conserva o trabalho para revisão; publicação e integração dependem de autorização específica conforme AGENTS.md/workflow.md.
+
+## Interação 034 — Publicação da M6 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell/Git para conferir estado e referências, fetch, commit documental na feature, publicação e integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Autoriza publicar e integrar na dev a primeira fatia M6 apresentada na interação 033. Resposta representativa: “Vou publicar a feature da M6 e integrá-la na dev, conforme sua autorização.” Não autoriza promoção para main nem equivale a relato de testes visuais ou encerramento da M6.
+
+### Aplicação no projeto
+
+Checkout limpo na `feature/m6-chat-acessivel`, commit de implementação `5acf064`. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `6741d8c` e feature um commit à frente, sem divergência. Registro preparado na própria feature antes da publicação; fluxo feature → dev com histórico preservado, sem force push. Nenhuma edição de código diretamente em dev/main.
+
+### Validação das respostas
+
+Mantidos os resultados da interação 033: lint, 37 testes Node e build aprovados, com aviso herdado de chunk acima de 500 kB. Esta interação altera somente documentação de autorização, sem repetir testes ou operações no demo. Diff e estado Git conferidos antes do commit; publicação e integração serão verificadas pelas referências remotas antes da resposta final. T29/AC22 completo, revisão em 360 px/desktop/teclado e persistência via chat no demo continuam pendentes em tasks.md/validation.md.
+
+### Análise crítica
+
+A autorização permite publicar a implementação apresentada na dev, sem inventar aceite de critérios ainda não executados. Publicação não demonstra persistência ou acessibilidade e não conclui M6. Sem alteração na main, deploy solicitado ou migration nesta interação.
