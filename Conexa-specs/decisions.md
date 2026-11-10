@@ -80,6 +80,28 @@ Cancelamento pré-transporte e estorno são atômicos; após início, pedido abr
 
 Interface em `/operacoes`, preservando marca/paleta e prévias de exemplo independentes. RPC indisponível retorna consulta M3 com aviso, sem habilitar M5; erros de rede preservam dados já carregados. Bancada isolada e PGlite permitem revisão local sem escrever no Supabase. T25–T27 implementadas localmente, T28 e aceite do marco pendentes. A resposta sobre resolução não autoriza migration remota, push, merge, main ou deploy. Arquivos/validações em tasks.md e validation.md.
 
+## D013 — Feedback visível para falhas de ações — implementada, avaliação pendente — 09/11/2026
+
+Origem: usuário relata que só percebe o erro da cotação ao subir toda a página e solicita feedback mais nítido, seguindo branches/commits e verificando atualização da versão. Criada `feature/feedback-validacao` a partir da dev limpa e sincronizada com origin/dev em `25cdca9` após fetch.
+
+O aviso compartilhado ganha ícone, título, texto maior e contorno ao receber foco. Somente falhas de ações usam foco e rolagem automática; erros de consultas/recargas mantêm o foco atual. No transporte, o erro pertence à proposta que originou a ação e a falha da cotação aparece imediatamente antes de seu botão. Se a proposta expirar/sair da lista ativa após recarga, o aviso continua disponível acima da lista com foco e orientação para o Histórico.
+
+Antes de enviar cotação, a interface verifica saída futura, validade futura limitada à reserva, entrega após saída e data desejada em São Paulo, reproduzindo as restrições M3 existentes. Os campos inválidos têm mensagem associada, indicação visual e foco no primeiro campo; erro remoto preserva os dados. Banco e RPCs continuam como autoridade; sem migration ou mudança de regra de negócio. Arquivos e verificação em tasks.md/validation.md. Sem push/merge/deploy nesta entrega; autorização correspondente será solicitada após apresentação.
+
+## D014 — Cotação distinta, revisão e negociação com desistência simulada — implementação local em avaliação — 09–10/11/2026
+
+Origem: usuário aprovou o feedback apresentado com “otimo” e solicitou design diferente após confirmar cotação, edição de datas/veículo, avisos a comprador/produtores e frete bloqueado salvo negociação direta com o pagador. Na pergunta sobre preço, determinou aprovação do comprador; recusa seguida de desistência da transportadora deve gerar taxa e envio a outra transportadora. Pediu taxa maior perto da entrega/vencimento e aprovou faixas propostas de 5%/15%/30%, vencimento opcional com fallback explícito pela entrega e destinação a comprador e produtores (“pode, ambos”). Isso aprova essas regras de produto, sem autorizar publicação, integração ou migration remota.
+
+O comprador paga frete no MVP. Cotação confirmada ganha cartão verde com ícone, revisão e valor protegido; formulário inicial é substituído por Modificar proposta. Edição altera veículo/horários/validade, preserva frete e dados de roteiro/serviços; data desejada e reserva permanecem limitantes. Revisões preservam snapshots anteriores, notificam envolvidos no site e, quando selecionadas, incrementam versão da carga e exigem todos os aceites finais. Edição/negociação são anteriores ao pagamento aprovado.
+
+Negociação separada exige registro de contato direto, novo valor/motivo e decisão explícita do comprador. Preço não muda durante pendência ou recusa; seleção, confirmação e pagamento da cotação ficam bloqueados no banco. Transportadora pode manter o original sem taxa. Após recusa, desistência exige prévia e aceite da taxa simulada; aprovação de preço cria revisão com novos avisos/aceites. Mudanças de versão/encerramento fecham negociações obsoletas sem penalidade automática.
+
+Taxa: 5% acima de 72h, 15% com mais de 24h até 72h, 30% até 24h, pelo menor prazo até entrega/fim do vencimento informado em São Paulo. Vencimento não é deduzido da disponibilidade; campo opcional na oferta é copiado ao snapshot, sem backfill inventado. Ausência usa entrega no item com aviso. Usuário escolheu ambos os beneficiários; divisão operacional adotada e comunicada: metade comprador/metade produtores, proporcional ao valor dos alimentos, preservando todos os centavos. Regras de arredondamento/caso zero em RN48.
+
+Desistência reabre a proposta, preserva reservas/fornecimentos, invalida aceites finais e notifica automaticamente outra transportadora demo com veículo compatível, por nome/UUID. Não presume oferta, preço ou aceite da substituta. Sem candidata, fica pendente de transporte. Taxa não debita dinheiro nem altera preço dos alimentos/frete futuro. Outra transportadora não recebe dados da negociação/parcelas da desistente. Avisos individuais são persistidos, com leitura e consulta a cada 30s/foco; sem mensagens externas.
+
+Mantida feature/feedback-validacao, criada da dev e ainda não integrada, preservando 1037ff4. RN02/RN36/RN47–49, contratos, modelo, fluxos, tasks e evidências foram atualizados. Migration e bancada locais, sem aplicação remota/deploy. Validação em validation.md; revisão humana, execução conectada e autorização de envio/integração pendentes.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

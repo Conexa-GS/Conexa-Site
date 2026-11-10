@@ -44,7 +44,7 @@ export default function OperationClosure({ load, session, reload, request = m5 }
   return <section className="m5-closure" aria-label="Fechamento simulado da operação">
     <h3>Pagamento e entrega · M5 em avaliação</h3>
     <p className="inline-note"><strong>Demonstração fictícia persistida.</strong> Não há cobrança, transferência de dinheiro ou transporte físico. Não informe cartão, CPF ou conta bancária.</p>
-    {error && <ErrorNotice>{error} Os campos foram preservados. Repetir a mesma ação reutiliza sua chave de tentativa.</ErrorNotice>}
+    {error && <ErrorNotice autoFocus title="Não foi possível registrar a simulação">{error} Os campos foram preservados. Repetir a mesma ação reutiliza sua chave de tentativa.</ErrorNotice>}
     {notice && <p role="status" className="success-notice">{notice}</p>}
     {load.status === 'awaiting_payment' && (buyer ? <form className="m3-form" onSubmit={e => { e.preventDefault(); act('pay', { outcome }) }}>
       <h4>Simular pagamento de {currency(load.total_cents)}</h4>

@@ -47,10 +47,16 @@ export async function saveOffer(session, input, previous) {
     localOffers = previous ? localOffers.map(o => o.id === previous.id ? offer : o) : [offer, ...localOffers]
     return
   }
-  const query = previous
-    ? supabase.from('offers').update(input).eq('id', previous.id).eq('version', previous.version).select('id').single()
-    : supabase.from('offers').insert(input).select('id').single()
-  const result = await query
+  const write = data => previous
+    ? supabase.from('offers').update(data).eq('id', previous.id).eq('version', previous.version).select('id').single()
+    : supabase.from('offers').insert(data).select('id').single()
+  let result = await write(input)
+  if (result.error?.code === 'PGRST204' && result.error.message.includes('expires_on')) {
+    if (input.expires_on) throw new Error('O cadastro de vencimento aguarda atualização do Supabase demo. Seus dados foram preservados.')
+    // Keep the existing CRUD usable until the optional expiry column is installed.
+    const legacy = { ...input }; delete legacy.expires_on
+    result = await write(legacy)
+  }
   if (result.error?.code === 'PGRST116') throw new Error('Esta oferta mudou em outra sessão. Atualize a lista antes de editar novamente.')
   check(result)
 }

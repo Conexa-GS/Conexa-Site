@@ -70,3 +70,14 @@ M5 preparada localmente em 09/11/2026: controles reais de demonstração ficam e
 - Mostrar oferta publicada como “disponível”, nunca “vendida” só por cadastro.
 - Erro remoto preserva formulário; botão de tentar novamente.
 - Painel financeiro por participante; mapa não é a única forma de entender roteiro.
+
+
+## Cotação confirmada e alterações — 09/11/2026
+
+Após confirmar cotação, o cartão fica verde com ícone, revisão, frete protegido e resumo dos horários. O formulário de nova cotação é substituído por Modificar proposta. A edição oferece veículo, saída, entrega no dia desejado e validade, com motivo e confirmação dos avisos; o frete permanece exibido sem campo editável. Nova revisão selecionada exige todos os aceites finais. Edição e negociação são anteriores ao pagamento aprovado.
+
+Negociação separada: após conversa direta, transportadora registra novo valor/motivo; comprador aprova ou recusa no site. Até resolver, o valor atual permanece e seleção/aceites/pagamento da cotação ficam pausados. Aprovação cria revisão e avisos. Recusa permite manter o frete original sem taxa ou consultar taxa simulada por urgência e confirmar desistência. A prévia mostra base, faixa, prazo, limite do vencimento ausente, divisão e reenvio; cálculo que mudar exige nova confirmação.
+
+Desistência confirmada reabre a carga para cotação, preservando reservas/fornecimentos e exigindo novos aceites finais depois da escolha. A transportadora seguinte recebe aviso no site quando houver veículo compatível. Sem candidata, a pendência fica explícita. Taxa simulada aparece aos envolvidos, sem desconto no valor dos alimentos ou adição ao frete futuro.
+
+Comprador/produtores veem avisos na área Atualizações de transporte de qualquer tela autenticada, com contagem de não lidos, motivo, antes/depois, acesso a Transporte e valores e opção Marcar como lida. Consulta a cada 30s e ao voltar à janela. Nenhuma mensagem externa é enviada. Troca de versão/encerramento fecha negociação pendente obsoleta, sem taxa automática.

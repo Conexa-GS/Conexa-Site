@@ -24,9 +24,9 @@ Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos 
 | US03 Comprador reúne pequenos fornecedores | RF03 Busca e composição | Quantidades selecionadas de várias ofertas atendem uma demanda |
 | US04 Produtor responde ao fornecimento | RF04 Reserva e confirmação | Aceite ou recusa altera operação e saldo |
 | US05 Produtor indica contato local | RF05 Indicação de transportador | Cotação fica pendente até aceite do transportador fictício |
-| US06 Transportador apresenta proposta | RF06 Veículo e cotação | Condições e valor do roteiro completo registrados |
+| US06 Transportador apresenta proposta | RF06 Veículo e cotação | Cotação confirmada tem apresentação distinta; revisão de veículo/horários avisa os envolvidos e preserva frete; novo valor exige aprovação do comprador |
 | US07 Comprador avalia logística e inclusão | RF07 Análise comparativa | Mostra custo, critérios individuais, percurso e razões da sugestão |
-| US08 Participantes aprovam operação | RF08 Confirmações e histórico | Apenas transições permitidas; mudanças relevantes invalidam aceites |
+| US08 Participantes aprovam operação | RF08 Confirmações e histórico | Apenas transições permitidas; mudanças relevantes invalidam aceites; notificações persistidas e negociação com manutenção do valor original ou desistência/taxa simulada e reencaminhamento |
 | US09 Comprador demonstra pagamento | RF09 Pagamento simulado | Aprovado, pendente ou recusado; sem cobrança real |
 | US10 Participantes acompanham entrega | RF10 Entrega e repasses | Mesma operação nos três perfis e repasses simulados após recebimento |
 | US11 Produtor cadastra por conversa | RF11 Chat demonstrativo posterior | Prévia e confirmação antes de salvar pela mesma regra do formulário |
@@ -34,7 +34,7 @@ Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos 
 ## Requisitos de qualidade
 
 - RNF01: layout utilizável em celular e desktop, sem rolagem horizontal na largura de 360 px nas telas principais.
-- RNF02: formulários com labels, mensagens associadas e navegação por teclado; cor não é a única indicação de estado.
+- RNF02: formulários com labels, mensagens associadas e navegação por teclado; cor não é a única indicação de estado. Falhas de ações recebem foco e são trazidas à área visível; a cotação mostra erros junto da confirmação e orientações nos campos de datas inválidas.
 - RNF03: carregamento, vazio, sucesso e erro em todas as consultas e mutações remotas.
 - RNF04: configuração por ambiente; credenciais administrativas e de rotas no servidor; acessos ao banco com permissões explícitas.
 - RNF05: validação de saldo, dinheiro e estados não depende exclusivamente da interface.

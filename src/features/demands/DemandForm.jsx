@@ -27,5 +27,5 @@ export default function DemandForm({ previous, catalog, close }) {
     {field('quantity', 'Quantidade (kg)', <input {...props('quantity')} inputMode="decimal" placeholder="Ex.: 50" />)}
     {field('desired_date', 'Data desejada', <input {...props('desired_date')} type="date" min={today()} />)}
     {field('destination_id', 'Destino fictício', <select {...props('destination_id')}><option value="">Selecione</option>{catalog.locations.map(l => <option key={l.id} value={l.id}>{l.display_address}</option>)}</select>)}
-  </div>{error && <ErrorNotice>{error} Seus dados foram preservados.</ErrorNotice>}<div className="form-actions"><button type="button" className="button button-outline" disabled={pending} onClick={() => close()}>Cancelar</button><button className="button" disabled={pending}>{pending ? 'Salvando…' : previous ? 'Salvar alterações' : 'Continuar: escolher produtores'}</button></div></form></Modal>
+  </div>{error && <ErrorNotice autoFocus title="Não foi possível salvar a demanda">{error} Seus dados foram preservados.</ErrorNotice>}<div className="form-actions"><button type="button" className="button button-outline" disabled={pending} onClick={() => close()}>Cancelar</button><button className="button" disabled={pending}>{pending ? 'Salvando…' : previous ? 'Salvar alterações' : 'Continuar: escolher produtores'}</button></div></form></Modal>
 }

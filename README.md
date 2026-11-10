@@ -78,7 +78,7 @@ Demandas, propostas e transporte abrem em **Ativas**; canceladas, expiradas e ar
 2. Como produtor, indique transportador fictício e preço opcionalmente. A indicação permanece pendente; não pode ser selecionada como cotação.
 3. Como transportador, cadastre veículo em **Meus veículos**. Em **Solicitações**, preencha veículo, saída fictícia, conservação exigida, datas/validade, preço final e retorno opcional. Confirme cobertura de combustível, pedágios, todas as coletas, descarga e retorno acordado. A validade não ultrapassa a reserva. Capacidade insuficiente ou conservação incompatível bloqueiam a confirmação.
 4. Como comprador, selecione uma cotação confirmada. Isso abre nova versão; confira alimentos, frete separado, taxa zero, total e mínimos individuais. Cada produtor, comprador e transportador selecionado confirma as condições finais pelo próprio perfil.
-5. Quatro aceites levam a **Aguardando pagamento simulado**. O M3 termina aqui, sem agendamento. Com a migration M5, o comprador poderá seguir a simulação descrita abaixo. Para mudar itens/coletas/datas/frete antes do pagamento, cancele com motivo e remonte: reservas são liberadas e aceites antigos permanecem no histórico.
+5. Quatro aceites levam a **Aguardando pagamento simulado**. O M3 termina aqui, sem agendamento. Com a migration M5, o comprador poderá seguir a simulação descrita abaixo. Para mudar itens/coletas, cancele com motivo e remonte. A extensão de revisão de cotação abaixo permite alterar veículo/horários e negociar frete antes do pagamento, depois da aplicação da migration correspondente; aceites anteriores ficam no histórico.
 
 Distâncias/tempos não são calculados; pedágio individual a confirmar, coberto pelo frete fechado. Condições são declarações fictícias, sem certificado sanitário. Veículos e cotações são imutáveis nesta etapa para preservar o acordado.
 
@@ -125,3 +125,14 @@ A primeira versão foi publicada nas branches remotas `dev` e `main`, conforme a
 ## Publicação
 
 Nenhum deploy realizado. Ao hospedar o build `dist`, configurar fallback de rotas para `index.html`, pois os caminhos são de uma SPA. Rotas, credenciais e permissões remotas precisam ser verificadas no ambiente de destino.
+
+
+## Revisão de cotação e negociação — implementação local em avaliação
+
+A feature/feedback-validacao preserva o feedback de erros e acrescenta cartão distinto após confirmar cotação, Modificar proposta para veículo/horários/validade e avisos persistidos dentro do site. O preço permanece protegido: após conversa direta, transportadora registra novo frete e o comprador aprova ou recusa. Aprovação gera revisão; cotação selecionada exige todos os aceites finais novamente. Edição/negociação não são permitidas após pagamento aprovado.
+
+Se o comprador recusar, a transportadora pode manter o original ou desistir com taxa exclusivamente simulada. Faixas aprovadas para a demo: 5% acima de 72h, 15% com mais de 24h até 72h, 30% com até 24h, pelo menor prazo até entrega/vencimento informado. Vencimento é opcional na oferta e separado da disponibilidade; ausência usa entrega com aviso. Metade da taxa fica para o comprador e metade para produtores, proporcional aos alimentos. A desistência preserva reservas e reabre a proposta, notificando outra transportadora com veículo compatível. Sem alternativa, informa pendência, sem inventar cotação ou aceite.
+
+Ativação depende de aplicar as migrations ausentes em ordem no demo autorizado, incluindo supabase/migrations/202611090002_quote_revisions.sql, e validar o fluxo conectado. Sem ela, edição/negociação ficam indisponíveis com aviso; o CRUD antigo sem vencimento é preservado. Para demonstrar reenvio, precisa existir outra transportadora demo com veículo compatível. Notificações são consultadas a cada 30s e ao voltar à janela; não enviam mensagem externa. Nenhuma cobrança real.
+
+Teste local: npm run test:db inclui revisões/negociação/taxas/encaminhamento/RLS em PGlite, com identidade simulada. A bancada /tests/ui/quote-revisions.html mostra componentes reais com respostas controladas, sem escrita remota. Evidências e pendências em [validation.md](Conexa-specs/validation.md). Migration e validação no Supabase, avaliação humana e publicação/integração ainda pendentes.

@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowLeft, Leaf, X } from '@phosphor-icons/react'
+import { ArrowUpRight, ArrowLeft, Leaf, X, WarningCircle } from '@phosphor-icons/react'
 import { useEffect, useRef } from 'react'
 import { navigate } from '../hooks/useRouter'
 
@@ -10,7 +10,20 @@ export function ActionLink({ href, children, secondary = false }) { return <Link
 export function PageHeading({ eyebrow, title, accent, children }) { return <div className="page-heading relative"><p className="eyebrow"><span className="seed" />{eyebrow}</p><h1>{title}<br /><span>{accent}</span></h1>{children && <p className="page-intro">{children}</p>}</div> }
 export function StatusBadge({ children, tone = '' }) { return <span className={`status-badge ${tone}`}><i aria-hidden="true" />{children}</span> }
 export function EmptyState({ title, children, action }) { return <div className="empty-state"><Leaf size={38} weight="duotone" aria-hidden="true" /><h2>{title}</h2><p>{children}</p>{action}</div> }
-export function ErrorNotice({ children, retry }) { return <div className="error-notice break-words" role="alert"><p>{children}</p>{retry && <button className="text-link" onClick={retry}>Tentar novamente <ArrowUpRight size={18} /></button>}</div> }
+export function ErrorNotice({ children, retry, autoFocus = false, title = 'Confira o que precisa de atenção' }) {
+  const ref = useRef(null)
+  useEffect(() => {
+    if (!autoFocus) return
+    const notice = ref.current
+    notice.focus({ preventScroll: true })
+    notice.scrollIntoView({ block: 'center', behavior: 'instant' })
+  }, [autoFocus])
+  return <div ref={ref} className="error-notice break-words" role="alert" tabIndex={-1}>
+    <div className="error-notice-heading"><WarningCircle size={23} weight="bold" aria-hidden="true" /><strong>{title}</strong></div>
+    <div className="error-notice-message">{children}</div>
+    {retry && <button type="button" className="text-link" onClick={retry}>Tentar novamente <ArrowUpRight size={18} /></button>}
+  </div>
+}
 export function Modal({ title, children, onClose }) {
   const ref = useRef(null)
   useEffect(() => {

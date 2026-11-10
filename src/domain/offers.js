@@ -26,8 +26,9 @@ export function validateOffer(input) {
   if (Number.isFinite(price) && price < minimum) errors.price = 'O preço de venda deve preservar seu mínimo líquido.'
   if (!input.available_from || input.available_from < today()) errors.available_from = 'Escolha hoje ou uma data futura.'
   if (!input.available_until || input.available_until < input.available_from) errors.available_until = 'A data final deve ser igual ou posterior ao início.'
+  if (input.expires_on && (!/^\d{4}-\d{2}-\d{2}$/.test(input.expires_on) || input.expires_on < input.available_until)) errors.expires_on = 'O vencimento deve ser igual ou posterior ao fim da disponibilidade.'
   if (!input.pickup_location_id) errors.pickup_location_id = 'Selecione um local de coleta.'
-  return { errors, data: { product_id: input.product_id, quantity_total: Number(amount), unit_price_cents: price, minimum_net_unit_cents: minimum, available_from: input.available_from, available_until: input.available_until, pickup_location_id: input.pickup_location_id, status: 'published' } }
+  return { errors, data: { product_id: input.product_id, quantity_total: Number(amount), unit_price_cents: price, minimum_net_unit_cents: minimum, available_from: input.available_from, available_until: input.available_until, expires_on: input.expires_on || null, pickup_location_id: input.pickup_location_id, status: 'published' } }
 }
 // Quantidade em milésimos; arredondamento por linha, metade para cima.
 export function lineTotalCents(unitCents, amount) {

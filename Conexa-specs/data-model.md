@@ -62,3 +62,15 @@ Não usar seletor visual como identidade confiável. Plano técnico inicial: usu
 Escolher e documentar o mecanismo de sessão antes do M1: credenciais de demo têm acesso deliberadamente limitado, ou função servidor cria a sessão. Nunca expor service_role. Se a configuração ainda não existir, oferecer apenas modo local explicitamente simulado; isso não completa o aceite do CRUD remoto.
 
 Políticas mínimas: produtor modifica suas ofertas; comprador modifica suas demandas; transportador modifica seus veículos/cotações. Comprador consulta ofertas publicadas; cada participante consulta cargas em que participa. Transições protegidas em funções com validação de identidade. Público não pode atualizar indiscriminadamente todos os registros. Testar RLS com identidades diferentes.
+
+
+## Extensão local — revisão de cotação e negociação — 09/11/2026
+
+- offers.expires_on: vencimento opcional distinto de disponibilidade; não antecede available_until. load_items.product_expires_on: snapshot capturado na composição, nullable para histórico desconhecido.
+- transport_quotes.revision, previous_quote_id, superseded_at: revisões preservam linhas anteriores, preço e roteiro não mudam sem ações autorizadas. Revisão selecionada aponta a nova selected_quote_id e incrementa loads.version. Candidata revisada mantém a versão da composição até sua seleção.
+- transport_notifications: destinatário, carga, cotação, versão, mensagem, JSON de alterações e created_at/read_at. RLS só do destinatário; marcar leitura via RPC autenticada. Aviso de substituição não revela negociação ou parcela da desistente à transportadora seguinte.
+- freight_negotiations: cotação/carga, transportadora, comprador, novo valor em centavos, motivo, status pending/approved/rejected/kept_original/withdrawn/superseded e datas. Uma negociação aberta por cotação; só comprador e transportadora consultam. Mudança da carga encerra negociações obsoletas.
+- carrier_cancellation_fees: única por negociação, base original, percentual 5/15/30, total em centavos, prazo considerado, flag de vencimento ausente, responsável e is_simulated sempre true. carrier_fee_shares: parcelas por beneficiário/tipo; soma preserva o total, sem alterar alimentos/frete/repasse M5.
+- loads.replacement_carrier_id: transportadora compatível notificada automaticamente, sem aceitar/preencher cotação por ela; null quando não encontrada. Reservas existentes permanecem ativas e sujeitas ao prazo original.
+
+Sem escrita REST direta em negociações, notificações, taxas ou parcelas. Gateways privados e advisory lock já usado pelas reservas/aceites/pagamento serializam mutações. Nenhum dado novo inventa vencimentos históricos, contas financeiras ou cobrança real. Contratos, distribuição e permissões em contracts.md; aplicação remota pendente.
