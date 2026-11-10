@@ -32,6 +32,7 @@ npm run preview
 | Apresentação do produto | `/` | Home do piloto integrada |
 | Participantes fictícios | `/demo` | Ana, João, restaurante e transportador |
 | Ofertas do produtor | `/produtor/ofertas` | Criar, consultar, editar, excluir e filtrar |
+| Cadastro por conversa | `/produtor/ofertas` → Cadastrar por conversa | M6 em avaliação: perguntas guiadas, correção e prévia antes da confirmação |
 | Consulta do comprador | `/comprador/ofertas` | Mesma fonte de ofertas |
 | Propostas do produtor | `/produtor/propostas` | Aceite/recusa persistidos, prazo e valores acordados |
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
@@ -44,6 +45,14 @@ npm run preview
 O acesso a cada espaço exige selecionar um participante fictício. Ao recarregar, selecione o perfil novamente. Não representa autenticação segura de produção.
 
 M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. M5 tem migration aplicada ao demo e testes remotos parciais de pagamento/cancelamento; entrega/divergência/repasses remotos e revisão conectada da interface permanecem pendentes. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3/M5 explicam a falta de configuração e não simulam gravação persistida.
+
+## Experimentar a M6 — prévia em avaliação
+
+No perfil de produtor, abra **Minhas ofertas → Cadastrar por conversa**. Responda alimento, quantidade em kg, preço e mínimo por kg, início/fim da disponibilidade, vencimento opcional e coleta fictícia. Datas aceitam `DD/MM/AAAA` ou `AAAA-MM-DD`. Não há interpretação livre de frases, IA externa, áudio ou WhatsApp nesta fatia.
+
+A prévia permite corrigir qualquer resposta; **Confirmar e publicar oferta** usa as mesmas validações e o serviço do formulário. Nenhuma escrita é solicitada durante as respostas ou ao descartar. Fechar o chat descarta o rascunho; falha ao publicar o mantém aberto. Sem configuração remota, vale a demonstração em memória já identificada; com Supabase, usa a sessão/RLS existentes. Não há nova migration.
+
+Para revisão isolada sem escrita remota, execute Vite e abra `/tests/ui/m6.html`. A bancada tem contadores de tentativas/gravações em memória, catálogo vazio e falha controlada. Testes de domínio, lint e build passaram; interação por teclado, 360 px/desktop, AC22 completo e persistência pelo chat no demo continuam pendentes. O navegador foi bloqueado pela ferramenta nesta rodada; não houve aceite humano nem conclusão da M6.
 
 ## Conectar o Supabase de demonstração
 

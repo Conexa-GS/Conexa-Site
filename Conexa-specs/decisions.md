@@ -102,6 +102,14 @@ Desistência reabre a proposta, preserva reservas/fornecimentos, invalida aceite
 
 Mantida feature/feedback-validacao, criada da dev e ainda não integrada, preservando 1037ff4. RN02/RN36/RN47–49, contratos, modelo, fluxos, tasks e evidências foram atualizados. Migration e bancada locais, sem aplicação remota/deploy. Validação em validation.md; revisão humana, execução conectada e autorização de envio/integração pendentes.
 
+## D015 — M6 por conversa guiada e confirmação explícita — implementada localmente, avaliação pendente — 10/11/2026
+
+Origem: pedido integral do usuário: “comece a implementar a M6, seguindo o padrão de branch e commits, atualizando a tasks.md e pergunte se algo não ficou claro”. Checkout limpo na dev `6741d8c`, fetch confirmou dev/origin/dev iguais; criada `feature/m6-chat-acessivel` antes de editar. Escopo de RF11/RN45/AC22 suficiente para iniciar sem pergunta bloqueante.
+
+Primeira fatia é um chat demonstrativo guiado opcional no produtor, sem modelo de IA, reconhecimento de áudio ou WhatsApp. Oito respostas explícitas alimentam rascunho em memória; produto/coleta usam catálogo do perfil e não há inferência de datas, unidade ou vencimento. Prévia corrigível e confirmação separada precedem a única chamada de escrita. Mesmos `validateOffer`, hook e serviço do formulário; sem nova infraestrutura, migration ou mudança no banco. Conversa não é persistida. Resposta inválida/falha preserva dados, fechar descarta rascunho e envio em andamento bloqueia repetição no diálogo.
+
+O formato guiado é decisão de implementação comunicada ao usuário, não aprovação humana de escopo adicional. Não atende frases livres/áudio; WhatsApp/T30 depende de pedido separado. M5/T28 não é reaberto nem declarado concluído. Limites: teclado/visual/AC22 completo e persistência pelo chat no demo pendentes, navegador bloqueado pela política da ferramenta; sem testes remotos nesta rodada. CRUD herdado não é idempotente após resposta perdida; interface orienta conferir lista antes de reenvio. Publicação/integração na dev aguardam autorização após apresentação, sem promoção para main. Arquivos/validações em tasks.md e validation.md.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

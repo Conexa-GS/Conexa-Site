@@ -74,10 +74,15 @@ Entrega local preparada em `feature/m5-fechamento-operacao`, a partir da dev. Ar
 - [x] Aplicar migrations M4, M5 e revisões no Supabase demo autorizado; validar revisões/negociação/notificações por API com Auth/RLS reais, sessões independentes e concorrência — Codex, 10/11/2026; script tests/remote-quote-revisions.mjs e evidências em validation.md. Nova autenticação conserva revisão/avisos/leitura; não equivale a F5 no navegador. Desistência sem substituta confirmada; dados próprios cancelados/arquivados.
 - [ ] Percorrer o site conectado, incluindo recarga real e telas em 360 px/desktop, e demonstrar encaminhamento a uma segunda transportadora com veículo compatível — navegador bloqueado pela ferramenta e demo com apenas uma transportadora. Avaliação humana da extensão continua pendente; nenhum marco declarado concluído por esta rodada. Publicação/integração das novas alterações de teste/documentação na dev autorizadas em 10/11/2026, conforme interação 032 de IA.md; sem nova promoção para main.
 
-## M6 — Evolução de acessibilidade
+## M6 — Evolução de acessibilidade; implementação local em avaliação
 
-- [ ] T29 Chat demonstrativo opcional com confirmação e mesmo serviço de ofertas; verificar AC22.
+- [ ] T29 Chat demonstrativo opcional com confirmação e mesmo serviço de ofertas; verificar AC22 — primeira fatia implementada em 10/11/2026 na `feature/m6-chat-acessivel`. Domínio e integração preparados; AC22 completo, revisão visual/teclado e persistência pelo chat no Supabase demo ainda pendentes.
+  - [x] Conversa guiada opcional no produtor, oito respostas explícitas, correção/prévia, descarte e confirmação separada antes de chamar `useOffers.save`/`saveOffer`, os mesmos do formulário; vencimento opcional permanece desconhecido quando omitido.
+  - [x] Reutilizar `validateOffer`, preservar mínimo/precisão/datas e restringir catálogo/coleta do perfil; erros preservam rascunho e envio em andamento bloqueia nova confirmação. Cinco testes de domínio novos, lint e build aprovados pelo Codex em 10/11/2026.
+  - [ ] Percorrer AC22/AC23 em 360 px/desktop e teclado, catálogo vazio, correção, descarte sem escrita, erro/reenvio e confirmação única pela interface; validar consulta/recarga no demo e obter avaliação humana. Navegador bloqueado pela ferramenta; bancada local preparada em `/tests/ui/m6.html`.
 - [ ] T30 Especificar integração WhatsApp oficial separadamente se solicitada; não implementar por pressuposição.
+
+Arquivos: `src/domain/offer-chat.js`, `src/features/offers/OfferChat.jsx`, integração em `OffersPage.jsx`, estilos em `App.css`, `tests/offer-chat.test.js` e bancada `tests/ui/m6.*`. Responsável pela implementação/verificações locais: Codex, 10/11/2026. Registro da decisão D015 e evidências em `validation.md`. Sem IA externa, áudio, WhatsApp, migration ou execução remota nesta fatia. M6 permanece prévia; T29/marco não declarados concluídos. T28/M5 e demais pendências anteriores preservados. Publicação/integração dependem de autorização após avaliação.
 
 ## Fechamento acadêmico
 

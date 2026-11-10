@@ -103,5 +103,25 @@
 .cancellation-fees { border: 1px solid var(--border); padding: 1.2rem; border-radius: 12px; margin-block: 1rem; }
 .cancellation-fees article { margin-block: 1rem; }
 .cancellation-fees ul { padding-left: 1.2rem; }
+.offer-chat-entry { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.2rem; margin-block: 1.5rem; border: 1px solid var(--border); border-radius: 12px; background: #e7efd7; }
+.offer-chat-entry > div { flex: 1 1 250px; min-width: 0; }
+.offer-chat-entry p { margin-top: .5rem; font-size: .9rem; }
+.offer-chat-entry .button, .offer-chat .button { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.offer-chat { min-width: 0; overflow-wrap: anywhere; font-size: 1rem; line-height: 1.6; }
+.offer-chat .preview-notice { font-size: .9rem; }
+.offer-chat .form-intro, .offer-chat .success-notice { font-size: 1rem; }
+.offer-chat .form-actions { flex-wrap: wrap; }
+.offer-chat .form-actions .button { min-height: 44px; font-size: .95rem; }
+.offer-chat h3 { margin-block: 1rem; font-size: 1.2rem; }
+.offer-chat h3:focus { outline: 3px solid #397357; outline-offset: 4px; }
+.offer-chat-question { padding: 1rem; margin-block: 1rem; background: #e7efd7; border-radius: 12px; border-left: 4px solid #397357; }
+.offer-chat .field > span, .offer-chat .field-help, .offer-chat .text-link { font-size: .95rem; }
+.offer-chat .field input, .offer-chat .field select { font-size: 1rem; min-height: 44px; }
+.offer-chat-answers { margin-block: 1rem; }
+.offer-chat-answers summary { cursor: pointer; padding-block: .75rem; }
+.offer-chat-answers dl > div { padding: .8rem; margin-block: .5rem; border: 1px solid var(--border); border-radius: 8px; }
+.offer-chat-answers dt { font-weight: bold; }
+.offer-chat-answers dd { display: grid; justify-items: start; margin: .3rem 0; white-space: pre-wrap; }
+.offer-chat-answers .text-link { padding-block: .5rem; }
 .freight-negotiation, .freight-negotiation > *, .freight-negotiation form, .quote-edit-form, .quote-edit-form > * { min-width: 0; max-width: 100%; }
 .freight-negotiation .button, .quote-edit-form .button, .notification-list .button { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }

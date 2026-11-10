@@ -305,3 +305,22 @@ Todas as sete novas tabelas têm RLS habilitada. Advisor de segurança apontou d
 Verificação visual conectada impedida: inventário não disponibilizou host de acesso a browsers; tentativa de ativar o Firefox pelo Computer Use retornou bloqueio porque a aplicação da política de URLs não é suportada no navegador Windows atual. Automação encerrada, sem contornar o bloqueio, sem screenshots novas, sem F5 nem testes conectados em 360 px/desktop. As bancadas anteriores continuam sendo a única evidência visual dirigida. Não há alteração de interface nesta rodada.
 
 Pendências preservadas: percurso visual conectado/recarga real, encaminhamento com segunda transportadora demo compatível, falha de rede pela interface, avaliação humana da extensão e autorização das novas alterações de teste/documentação. As faixas 5%/30%, ausência de alternativa por veículo incompatível e ciclo completo de substituta continuam comprovados apenas na suíte local anterior. Aplicar M5 não conclui T28/M5; entrega/divergência/repasses remotos não foram exercitados nesta rodada. Sem push, merge, deploy, cobrança ou novo marco declarado concluído.
+
+## M6 — Cadastro por conversa guiada — 10/11/2026
+
+Responsável: Codex. Branch `feature/m6-chat-acessivel`, criada da dev limpa em `6741d8c` depois de fetch confirmar igualdade com origin/dev. Primeira fatia local de T29/RF11/RN45, sem declaração de conclusão da tarefa ou do marco.
+
+Implementação: `src/domain/offer-chat.js`, `src/features/offers/OfferChat.jsx`, `OffersPage.jsx` e estilos em `App.css`. Conversa opcional do produtor, oito respostas explícitas, consulta/correção das respostas, prévia completa, confirmação separada e descarte sem chamada de escrita. Reutiliza `validateOffer` → `useOffers.save` → `saveOffer`; mesmos dados, sessão e regras de banco do formulário. Somente payload normalizado de oferta é enviado. Não persiste conversa, não usa IA externa/áudio/WhatsApp e não cria schema/serviço remoto novo. Foco, mensagens associadas, anúncios e diálogo nativo preparados, sem alegar validação observada de tecnologia assistiva.
+
+Verificações executadas:
+
+- `npm.cmd run lint`: aprovado. Primeira execução detectou falta de export no componente da bancada; corrigida e repetida com sucesso.
+- `npm.cmd test`: 37 testes aprovados, incluindo cinco novos em `tests/offer-chat.test.js`. Cobrem fluxo completo com datas brasileiras, payload igual ao formulário, vencimento opcional sem inferência, números/precisão/mínimos, datas impossíveis/passadas, catálogo/coleta/unidade e revalidação de dependências após correção.
+- `npm.cmd run build`: aprovado; bundle principal 633,68 kB, gzip 180,58 kB. Aviso de chunk acima de 500 kB já existia antes da M6; não foi tratado como falha nem suprimido.
+- Revisão dirigida do código: a escrita só aparece no handler de confirmação da prévia; guarda em ref bloqueia envios simultâneos enquanto pendente. Isso não substitui execução do componente nem prova ausência de duplicação após resposta perdida. O CRUD herdado não oferece idempotência entre tentativas/abas; erro orienta conferir lista antes de repetir.
+
+No PowerShell, `npm` resolveu para `npm.ps1` bloqueado pela política de scripts; comandos executados com `npm.cmd`, sem mudar a política. Não foi necessário instalar dependências. Suítes PostgreSQL e testes remotos não foram repetidos: não houve alteração de domínio de estoque, serviço de escrita ou SQL nesta fatia.
+
+Bancada preparada em `/tests/ui/m6.html` com componente real e fixtures locais, contadores separados de tentativas/gravações, falha controlada e catálogo sem coleta. Não foi percorrida no navegador: inventário informou host de browsers indisponível; selecionar Firefox pela ferramenta retornou bloqueio por política de URLs não suportada no Windows. Automação encerrada; sem contorno, screenshot, medição de overflow ou verificação visual/teclado de M6.
+
+Roteiro pendente AC22/AC23: em 360×800 e desktop, percorrer por teclado as oito perguntas, corrigir respostas/erros e revisar prévia; sem confirmar, descartar e verificar contadores zero; confirmar e verificar uma tentativa/gravação; repetir com falha preservando rascunho e com catálogo vazio. No site conectado ao demo, confirmar oferta fictícia, consultar pelo comprador e conferir persistência após recarga/nova sessão, respeitando RLS. Essa rodada não executou essas ações nem atribui aceite ao usuário. M5/T28 permanece com pendências anteriores. Sem push, merge, deploy ou operação remota nesta entrega.
