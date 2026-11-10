@@ -50,6 +50,8 @@ Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos 
 - M5: pagamento, acompanhamento, recebimento, cancelamento e repasses simulados.
 - M6: chat acessível, após o fluxo principal; WhatsApp oficial é evolução separada.
 
+T30 solicitada em 10/11/2026: evolução separada de WhatsApp por texto em preparação local, especificada em `t30-whatsapp.md`. Não ativa o canal nem amplia o fluxo principal para contatos/transportes/pagamentos reais.
+
 ## Fora do escopo
 
 Dinheiro real, transporte físico, autenticação de produção, transcrição real, WhatsApp oficial, otimização global de frota, múltiplos compradores por carga, certificação de segurança alimentar e integração obrigatória com os trabalhos das outras matérias.

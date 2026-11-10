@@ -2,6 +2,8 @@
 
 Proposta técnica, a converter em migrations versionadas. Não criar todas as tabelas no M1. Supabase/PostgreSQL é a persistência; serviços não podem contornar integridade financeira ou de estoque.
 
+T30: entidades planejadas de vínculo, sessão, inbox, publicação idempotente e outbox em [t30-whatsapp.md](t30-whatsapp.md). Nenhuma migration/tabela WhatsApp criada nesta preparação; o demonstrador usa memória e não substitui a fonte de ofertas do Supabase.
+
 ## Convenções
 
 - IDs UUID; datas de auditoria em UTC; exibição em America/Sao_Paulo.

@@ -41,6 +41,8 @@ Complemento em 10/11/2026 — T29: `feature/t29-chat-validacao`, da dev `11f295f
 
 ## Origem e precedência
 
+Atualização em 10/11/2026 — T30: especificação separada em `t30-whatsapp.md` e base local de conversa/webhook preparadas na `feature/t30-preparacao`, enquanto a conta Meta aguarda liberação. Demonstrador exclusivamente em memória, sem mensagens externas nem escrita no Supabase. Vínculo por telefone, persistência/idempotência no banco, envio pela Meta e aceite continuam pendentes. Não conclui M6 ou altera M5/T28.
+
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.
 - Decisões de produto: conversa sobre CAMPOCIDADE, consolidada neste pacote.
 - Referência acadêmica: pp. 39–42 e 58–61 do PDF para Front-end e Web; pp. 18–25 para regras gerais. Numeração pela posição da página, incluindo capa.

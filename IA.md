@@ -997,3 +997,31 @@ Fetch concluído e referências conferidas antes da integração. Mantidos os re
 ### Análise crítica
 
 A aprovação permite publicar a T29 apresentada na dev, preservando as limitações explicitadas. Não comprova revisão visual em 360 px/desktop, teclado nativo, leitor de tela ou F5; esses itens continuam registrados como pendentes, sem declarar M6 integralmente concluída. T28/M5 e demais marcos permanecem com seus estados anteriores. Sem autorização ou alteração da main nesta interação.
+
+## Interação 037 — Preparação local da T30 — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para especificação, implementação, revisão e testes; PowerShell/Git para leitura/estado/diff; apply_patch para alterações; Node/Web Crypto e npm para demonstrador, testes, lint e build. Documentação oficial Meta/WhatsApp e Supabase consultada na web. Sem subagentes, IA externa no produto ou cliente de banco nesta implementação.
+
+### Interações realizadas
+
+Prompt integral de programação: “vamos seguir com o resto então”. Contexto resumido: autorização para preparar especificação e estrutura local do T30 enquanto o cadastro Meta está temporariamente bloqueado. Resposta representativa: “Vou preparar a especificação do T30 e a estrutura local da integração enquanto a Meta libera sua conta.” Não são transcritas perguntas/consultas de orientação, conforme regra atual do usuário. Não houve aprovação de integração na dev, ativação, custos ou conclusão de M6.
+
+### Aplicação no projeto
+
+Mantida `feature/t30-preparacao`, já criada da dev local `af7174f`. Preservadas mudanças locais anteriores autorizadas em AGENTS.md/workflow.md: somente prompts de programação entram neste arquivo. Consulta de pré-requisitos removida anteriormente não foi restaurada; histórico anterior preservado. Sem fetch, edição em dev/main ou mudança de referências remotas.
+
+Criados protocolo em server/whatsapp/conversation.js, handler em server/whatsapp/webhook.js, exemplo vazio de configuração de servidor, demonstrador scripts/whatsapp-demo.mjs e testes/whatsapp.test.js. Reutilizadas validações/perguntas da T29. Prévia versionada, correção, descarte, confirmação exata e pedido de publicação separado do resultado; incerteza exige reconciliação antes de corrigir/cancelar/publicar. Handler confere challenge, assinatura nos bytes originais, receptor e lote, esperando aceite assíncrono antes de 200. Sem persistência/fila/worker/envio padrão, Edge Function ou migration.
+
+Especificação t30-whatsapp.md define a próxima fatia de vínculo verificado, banco/outbox, gateway e ativação. Atualizados READMEs, tasks, spec, contracts, flows, data-model, D016 e validation.md. T30 continua em avaliação, canal inativo, M5/T28 e T29 visual preservadas. Novo comando demo:whatsapp mostra o fluxo exclusivamente em memória; não envia mensagens, lê .env ou grava no site. Sem dependência nova, contato real ou alteração de interface.
+
+### Validação das respostas
+
+Lint, 55 testes (42 anteriores e 13 novos) e build aprovados. Build 633,88 kB/gzip 180,66 kB mantém aviso herdado de chunk acima de 500 kB. Testes cobrem confirmação explícita/atual, payload do formulário, revalidação/correções, incerteza/falha/sucesso, preservação da chave, assinatura/bytes/receptor/limites e lote assíncrono. Demonstrador passou com uma oferta fictícia após correção, confirmação antiga rejeitada e repetições sequenciais sem duplicação. Nenhum teste de banco/remoto, RLS novo, reinício, concorrência persistente ou envio/recebimento Meta foi executado.
+
+Primeira tentativa do teste novo falhou por sintaxe de asserção; corrigida e suíte executada. Revisão posterior identificou que resultado perdido não pode liberar edição como recusa definitiva: implementado estado reconciling, teste adicional e repetidos lint/suíte completa. Documentação detalhada Meta retornou 429/login; referência histórica oficial de challenge/assinatura consultada com ressalva de SDK arquivado, sem instalá-lo. Sem revisão visual nesta entrega, pois interface não mudou. Diff e estado preparados para conferência e Conventional Commit local; publicação depende de autorização após apresentação.
+
+### Análise crítica
+
+Separar protocolo/recebimento do banco e do provedor torna o fluxo verificável sem credenciais e preserva validações de ofertas. Isso permite detectar confirmação obsoleta e risco de duplicação após resultado incerto antes de ativar o canal. Contudo, módulo puro não resolve autorização, persistência ou idempotência distribuída; o demonstrador sequencial em memória não substitui inbox/outbox e transação no Supabase. O aceite HTTP não comprova publicação nem entrega ao telefone. A próxima fatia exige vínculo verificado e gateway restrito antes de contato real, com autorização específica de ativação. Nenhum teste ou aceite foi atribuído ao usuário.
