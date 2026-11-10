@@ -35,6 +35,8 @@ Atualização em 09/11/2026: M5 iniciada em `feature/m5-fechamento-operacao`. T2
 
 Atualização em 10/11/2026: usuário autorizou aplicação/validação no demo; migrations M4, M5 e revisões de cotação aplicadas ao projeto configurado. Testes remotos por API com Auth/RLS reais e concorrência passaram, incluindo persistência após nova autenticação, negociação/avisos, desistência sem substituta, pagamento/estorno únicos e revisão versus pagamento. Navegador bloqueado pela ferramenta; recarga/percurso visual conectado e encaminhamento com segunda transportadora continuam pendentes. M5/T28 e avaliação humana da extensão não são declarados concluídos. Mapeamento de versões e limites em `validation.md`.
 
+Atualização em 10/11/2026 — M6: primeira fatia local em `feature/m6-chat-acessivel`, com cadastro opcional de oferta por conversa guiada, correção, prévia e confirmação separada usando o mesmo serviço do formulário. Sem IA externa, áudio ou WhatsApp. T29 e M6 permanecem em avaliação: domínio/lint/build verificados; AC22 completo, visual/teclado e persistência via chat no demo pendentes por bloqueio do navegador. Nenhuma alteração no aceite/pendências da M5. Detalhes em `tasks.md`, D015 e `validation.md`.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.

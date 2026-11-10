@@ -62,6 +62,16 @@ Pagamento: pendente, aprovado, recusado ou estornado. Pagamento recusado permite
 
 ## Experiência comum
 
+### Cadastro por conversa — M6, prévia local em avaliação — 10/11/2026
+
+Em `/produtor/ofertas`, **Cadastrar por conversa** abre diálogo opcional; **Nova oferta** mantém o formulário. Oito perguntas explícitas: alimento em kg do catálogo, quantidade, preço, mínimo, início/fim da disponibilidade, vencimento opcional e coleta do perfil. Datas digitadas em DD/MM/AAAA ou ISO; nenhuma data, alimento, endereço ou vencimento é inferido. Não há áudio nem interpretação livre por IA.
+
+Cada resposta é validada antes de avançar; respostas aceitas ficam consultáveis e corrigíveis. A última abre prévia completa com botão separado **Confirmar e publicar oferta**. Corrigir exige novo retorno à prévia; dependências e data corrente são revalidadas na confirmação. Responder, corrigir ou fechar não chama o serviço de escrita. Fechar descarta o rascunho em memória. Confirmar usa `useOffers.save`/`saveOffer`, atualiza a lista e mostra sucesso; publicação não confirma venda. Envio em andamento bloqueia correção, fechamento e repetição simultânea. Falha preserva dados, recebe foco e permite nova tentativa; queda durante o envio exige conferir a lista antes de repetir, pois o CRUD existente não garante idempotência após resposta perdida.
+
+Catálogo sem alimento em kg/coleta informa impedimento e orienta atualizar. Labels, mensagens associadas, anúncio da pergunta, foco no campo/prévia/sucesso e diálogo nativo foram preparados; validação efetiva por teclado/360 px/desktop e demo remoto pendentes. Bancada sem Supabase em `/tests/ui/m6.html`.
+
+### Fechamento da operação e padrões comuns
+
 M5 preparada localmente em 09/11/2026: controles reais de demonstração ficam em `/operacoes`, junto ao resumo e histórico da carga persistida; não foi criada página dinâmica de pagamento separada. Comprador escolhe resultado explícito (pendente/recusado/aprovado); aprovação agenda em simulação. Transportador selecionado inicia viagem fictícia. Comprador registra divergência ou confirma recebimento. Na divergência, cada ocorrência precisa de resolução escrita pelo comprador, seguida de confirmação de recebimento separada; só então os repasses são registrados. Produtor/transportador veem acompanhamento, ocorrências e seu próprio repasse. Pedido de cancelamento após saída vira ocorrência com aviso explícito de estoque preservado e ausência de estorno automático. Cancelamento/entrega ficam no Histórico das listas. As páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` continuam prévias independentes. Sem a migration M5, M3 continua disponível e a interface informa M5 em preparação, sem liberar pagamento. A feature aguarda avaliação e validação conectada no demo.
 
 - Campos com labels e explicação da unidade; datas e dinheiro em padrão brasileiro.

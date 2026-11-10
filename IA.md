@@ -895,3 +895,53 @@ Destino origin conferido, fetch concluído e diff sem erros de whitespace. .env 
 ### Análise crítica
 
 A autorização contempla a dev e os arquivos apresentados, preservando as pendências de navegador, segunda transportadora e aceite humano. O teste remoto é manual e limitado ao demo; sua publicação não o executa automaticamente. Migrations já aplicadas não são reaplicadas nesta interação. Sem deploy ou nova alteração na main.
+
+## Interação 033 — Início da M6: cadastro por conversa — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, decisões, implementação, testes e documentação; PowerShell/Git para inspeção/fetch, branch e commit local; apply_patch para arquivos; npm/Node, ESLint e Vite para verificações. Skill Computer Use e documentação consultadas para revisão de interface; inventário/seleção do Firefox via ferramenta CUA bloqueados pela política de URLs no Windows. Sem subagentes, modelo de IA externo no produto ou ferramentas Supabase nesta interação.
+
+### Interações realizadas
+
+Prompt integral: “comece a implementar a M6, seguindo o padrão de branch e commits, atualizando a tasks.md e pergunte se algo não ficou claro”. Resposta representativa: “A M6 prevê um chat opcional para cadastrar ofertas, com prévia e confirmação antes de salvar. Vou começar por uma conversa guiada que reutiliza as validações e o serviço do formulário, sem IA externa, áudio ou WhatsApp.” Escopo suficiente para iniciar sem pergunta bloqueante. Formato guiado comunicado como decisão de implementação, sem atribuir ao usuário aprovação humana não dada. Pedido autoriza implementação e commit local; envio/integração na dev serão solicitados após apresentação.
+
+### Aplicação no projeto
+
+Checkout limpo na dev em `6741d8c`. Fetch confirmou dev/origin/dev iguais; criada `feature/m6-chat-acessivel` antes de editar. Escrita em `.git` exigiu permissão do ambiente para fetch/troca de branch; não se trabalhou em dev/main. Novo domínio `offer-chat.js`, componente `OfferChat.jsx`, entrada opcional em `OffersPage.jsx` e estilos com a paleta existente. Oito respostas explícitas usam catálogo do perfil, quantidade em kg, valores em reais, datas brasileiras/ISO e vencimento opcional. Dados não inferidos, consulta/correção das respostas, prévia e confirmação separada antes de `useOffers.save`/`saveOffer`, os mesmos do formulário. Rascunho em memória descartado ao fechar; falha preserva dados e recebe foco; envio pendente bloqueia repetição/correção/fechamento. Texto da conversa não é transmitido a IA nem persistido.
+
+Criados cinco testes de domínio e bancada `tests/ui/m6.*` com fixtures, falha e catálogo vazio. Atualizados tasks.md com subtarefas implementadas e T29 ainda aberta, READMEs, contratos/fluxos, D015 e validation.md. Sem migration, dependência nova, WhatsApp/T30, áudio ou mudança nas pendências M5/T28. Feature preparada para avaliação com Conventional Commit local; sem autorização de publicação/integração ou main.
+
+### Validação das respostas
+
+Lint aprovado; 37 testes Node aprovados, cinco novos verificando payload equivalente ao formulário, precisão/mínimos, datas inválidas, catálogo/unidade/coleta, correção e vencimento desconhecido. Build aprovado com aviso herdado de chunk acima de 500 kB (principal 633,68 kB). Primeira execução npm.ps1 foi bloqueada pela política PowerShell; usado npm.cmd sem alterar configuração. Lint inicial encontrou componente da bancada sem export, corrigido; lint/build repetidos após ajuste de semântica da lista de respostas. Nenhuma suíte de banco nem teste remoto repetido, pois serviço de persistência e SQL não foram alterados.
+
+Revisão estática confirma que somente o botão explícito da prévia chama escrita; testes de domínio não comprovam essa interação visual. Bancada preparada, mas não percorrida: host de browsers indisponível, Firefox bloqueado pela política da ferramenta. Automação encerrada com resumo, sem contorno nem screenshots. AC22/AC23 completos, teclado, 360 px/desktop, descarte/confirmação/falha por interface, consulta/recarga no demo e avaliação humana continuam pendentes. Não se atribui teste ou aceite ao usuário. Verificação local não encerra T29 ou M6.
+
+### Análise crítica
+
+Perguntas explícitas evitam interpretar incorretamente quantidade, valor ou disponibilidade e permitem implementar acessibilidade sem nova infraestrutura. Reutilizar formulário/serviço preserva a fonte de ofertas e as regras existentes; catálogo e calendário recebem controles adicionais no adaptador. O formato guiado não interpreta frases livres nem atende áudio; WhatsApp oficial exige escopo separado. Foco/labels/estilos preparados precisam de revisão real, que o bloqueio do navegador impediu.
+
+Bloqueio em memória evita confirmação simultânea no diálogo, mas não garante idempotência após resposta perdida ou entre abas; a interface orienta conferir a lista antes de repetir. Sem verificação do chat no demo não se afirma persistência/RLS nova, e sem avaliação humana não se declara marco concluído. Commit local conserva o trabalho para revisão; publicação e integração dependem de autorização específica conforme AGENTS.md/workflow.md.
+
+## Interação 034 — Publicação da M6 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell/Git para conferir estado e referências, fetch, commit documental na feature, publicação e integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Autoriza publicar e integrar na dev a primeira fatia M6 apresentada na interação 033. Resposta representativa: “Vou publicar a feature da M6 e integrá-la na dev, conforme sua autorização.” Não autoriza promoção para main nem equivale a relato de testes visuais ou encerramento da M6.
+
+### Aplicação no projeto
+
+Checkout limpo na `feature/m6-chat-acessivel`, commit de implementação `5acf064`. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `6741d8c` e feature um commit à frente, sem divergência. Registro preparado na própria feature antes da publicação; fluxo feature → dev com histórico preservado, sem force push. Nenhuma edição de código diretamente em dev/main.
+
+### Validação das respostas
+
+Mantidos os resultados da interação 033: lint, 37 testes Node e build aprovados, com aviso herdado de chunk acima de 500 kB. Esta interação altera somente documentação de autorização, sem repetir testes ou operações no demo. Diff e estado Git conferidos antes do commit; publicação e integração serão verificadas pelas referências remotas antes da resposta final. T29/AC22 completo, revisão em 360 px/desktop/teclado e persistência via chat no demo continuam pendentes em tasks.md/validation.md.
+
+### Análise crítica
+
+A autorização permite publicar a implementação apresentada na dev, sem inventar aceite de critérios ainda não executados. Publicação não demonstra persistência ou acessibilidade e não conclui M6. Sem alteração na main, deploy solicitado ou migration nesta interação.
