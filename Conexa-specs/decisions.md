@@ -80,6 +80,14 @@ Cancelamento pré-transporte e estorno são atômicos; após início, pedido abr
 
 Interface em `/operacoes`, preservando marca/paleta e prévias de exemplo independentes. RPC indisponível retorna consulta M3 com aviso, sem habilitar M5; erros de rede preservam dados já carregados. Bancada isolada e PGlite permitem revisão local sem escrever no Supabase. T25–T27 implementadas localmente, T28 e aceite do marco pendentes. A resposta sobre resolução não autoriza migration remota, push, merge, main ou deploy. Arquivos/validações em tasks.md e validation.md.
 
+## D013 — Feedback visível para falhas de ações — implementada, avaliação pendente — 09/11/2026
+
+Origem: usuário relata que só percebe o erro da cotação ao subir toda a página e solicita feedback mais nítido, seguindo branches/commits e verificando atualização da versão. Criada `feature/feedback-validacao` a partir da dev limpa e sincronizada com origin/dev em `25cdca9` após fetch.
+
+O aviso compartilhado ganha ícone, título, texto maior e contorno ao receber foco. Somente falhas de ações usam foco e rolagem automática; erros de consultas/recargas mantêm o foco atual. No transporte, o erro pertence à proposta que originou a ação e a falha da cotação aparece imediatamente antes de seu botão. Se a proposta expirar/sair da lista ativa após recarga, o aviso continua disponível acima da lista com foco e orientação para o Histórico.
+
+Antes de enviar cotação, a interface verifica saída futura, validade futura limitada à reserva, entrega após saída e data desejada em São Paulo, reproduzindo as restrições M3 existentes. Os campos inválidos têm mensagem associada, indicação visual e foco no primeiro campo; erro remoto preserva os dados. Banco e RPCs continuam como autoridade; sem migration ou mudança de regra de negócio. Arquivos e verificação em tasks.md/validation.md. Sem push/merge/deploy nesta entrega; autorização correspondente será solicitada após apresentação.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

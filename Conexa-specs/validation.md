@@ -223,3 +223,21 @@ Capturas locais: `m5-desktop.jpg` e `m5-mobile.jpg` em `C:/Users/Murilo/.codex/v
 Revisão final encontrou e corrigiu exposição indireta das descrições M5 nos eventos do gateway M3 para transportador que cotou mas não foi selecionado. Acrescentada segunda cotação de outro transportador à fixture M5: ele conserva a própria cotação, mas não recebe eventos após seleção de outro transportador, tentativas, ocorrências ou repasses da carga. Repetida a suíte PGlite M1–M5 após esse ajuste: aprovada. O ajuste é exclusivamente de migration/teste de banco; não altera o layout revisto.
 
 Pendências: aplicar migrations ausentes e validar no Supabase demo mediante autorização própria; testar concorrência de pagamento/cancelamento, Auth/RLS reais, reload, troca dos três perfis na aplicação conectada e erros de rede; avaliação humana. Não foram executados scripts remotos, aplicadas migrations ou criadas fixtures no Supabase. Não há pagamento, transporte físico, repasse, API externa ou cobrança real. Sem push, merge ou deploy. A ausência da RPC M5 mantém consulta M3 com aviso explícito; o fallback foi revisado no código, sem teste remoto nesta entrega.
+
+
+## Feedback de erros visível — 09/11/2026
+
+Branch feature/feedback-validacao criada a partir da dev limpa. Fetch concluído e comparação dev...origin/dev retornou 0/0 em 25cdca9. Responsável pela implementação e verificações abaixo: Codex. Avaliação humana e autorização de publicação/integração pendentes.
+
+Avisos de ações em ofertas, demandas/composição/propostas, transporte/M5 e entrada demo recebem foco e rolagem para a área visível, com título, ícone e texto maior. Consultas não mudam o foco. Cotação tem erro remoto junto do botão e validação local das datas por campo; datas são interpretadas no horário do dispositivo e a data da entrega é comparada em America/Sao_Paulo, conforme o banco existente. Falha não limpa campos. Transporte mantém aviso também quando a recarga move a proposta para o Histórico ou remove o registro da lista retornada; esse fallback foi revisto no código, sem injeção de mudança de estado no demo.
+
+- npm run lint: aprovado após exportar o componente da nova bancada para atender ao Fast Refresh.
+- npm test: 29 testes aprovados; três novos casos cobrem limites de validade/saída, ordem da entrega, virada UTC/São Paulo e entradas ausentes/inválidas.
+- npm run build: aprovado; aviso herdado de chunk principal acima de 500 kB (595,98 kB na rodada final).
+- Bancada tests/ui/feedback.html com QuoteForm, ErrorNotice e OfferForm reais, respostas controladas e nenhuma chamada Supabase: revisão em 1366×900 e 360×800. No celular, scrollWidth 345 para viewport 360, sem overflow horizontal; modal também sem overflow interno.
+- Validade após a reserva: campo expires_at marcado e focado. Entrega antes da saída no celular: delivery_time marcado, focado e visível. Correção permite chegar ao envio controlado.
+- Falha remota controlada: aviso focado e totalmente visível nas duas larguras, junto do botão; saída/local/frete/datas preservados. Repetição da cotação mantém foco no aviso. Sucesso controlado limpa o erro e reseta o formulário.
+- Falha no modal em 360 px: aviso visível dentro do diálogo, foco e quantidade preservada; repetição retorna foco ao aviso. Fechar devolve foco ao botão de abertura.
+- Erro de consulta controlado: foco permaneceu no botão que o revelou.
+
+Capturas feedback-desktop.png e feedback-mobile.png em C:/Users/Murilo/.codex/visualizations/2026/11/10/01a1c334-f71a-7c71-8791-a96548210ec1. A bancada fica fora da entrada do build de produção. Sem teste conectado, execução de RPC/migration no Supabase, nova suíte de banco, auditoria completa de teclado/leitor de tela ou aceite humano. Não houve mudança de persistência, RLS ou estados de M1–M5. Sem push, merge ou deploy nesta entrega.

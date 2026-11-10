@@ -64,6 +64,10 @@ Entrega M4 publicada na dev em `5598cc7`, com implementação principal `30e742d
 
 Entrega local preparada em `feature/m5-fechamento-operacao`, a partir da dev. Arquivos: `202611090001_m5_operation_closure.sql`, `services/m5.js`, `OperationClosure.jsx`, hook/listas integradas, `tests/m5-database.mjs` e bancada `tests/ui/m5.html`. Responsável pelas verificações: Codex, 09/11/2026. Critérios AC18–21 passaram no PostgreSQL local com identidade simulada: cenário 30+20 kg, total R$330, João com 5 kg livres antes/depois do pagamento, estorno único, divergências e repasses de R$150/R$100/R$80; repetição sequencial não duplicou efeitos. Lint, 26 testes Node, suíte PGlite M1–M5 e build aprovados; revisão visual dirigida em 1366×900 e 360×800, sem overflow na bancada. Limites em `validation.md`. T25–T27 registram conclusão de implementação local, **não conclusão/aceite da M5 nem persistência remota verificada**. M5 permanece prévia em avaliação; nenhum push, merge, deploy ou migration remota executado nesta entrega.
 
+## Ajuste transversal — feedback de erros — 09/11/2026
+
+- [x] Tornar falhas de ações visíveis e orientar correção das datas da cotação — `components/ui.jsx`, `App.css`, formulários/listas de ofertas e demandas, transporte/M5 e entrada demo. Criada `feature/feedback-validacao` a partir da dev sincronizada com origin/dev em `25cdca9`. Codex verificou lint, 29 testes Node, build e bancada local em desktop/360 px; detalhes e limites em `validation.md`. Avaliação humana e autorização de publicação/integração pendentes; não altera o aceite dos marcos.
+
 ## M6 — Evolução de acessibilidade
 
 - [ ] T29 Chat demonstrativo opcional com confirmação e mesmo serviço de ofertas; verificar AC22.

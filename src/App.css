@@ -67,3 +67,9 @@
 .m5-closure .inline-note { display: block; }
 .m5-closure textarea { width: 100%; max-width: 100%; min-width: 0; font: inherit; padding: .75rem; border: 1px solid #8b9b87; border-radius: .5rem; background: #fffdf7; color: inherit; }
 .m5-records { display: grid; gap: .75rem; padding-left: 1.25rem; }
+.error-notice { font-size: 14px; line-height: 1.6; border-left-width: 5px; scroll-margin-block: 6rem; }
+.error-notice-heading { display: flex; align-items: flex-start; gap: .6rem; line-height: 1.4; }
+.error-notice-heading svg { flex-shrink: 0; }
+.error-notice-message { margin-top: .5rem; overflow-wrap: anywhere; }
+.error-notice:focus { outline: 3px solid #8e301f; outline-offset: 3px; }
+.field-error, .field .field-error { color: #a53725; font-size: 13px; line-height: 1.5; }

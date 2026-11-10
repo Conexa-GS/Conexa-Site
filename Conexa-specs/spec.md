@@ -34,7 +34,7 @@ Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos 
 ## Requisitos de qualidade
 
 - RNF01: layout utilizável em celular e desktop, sem rolagem horizontal na largura de 360 px nas telas principais.
-- RNF02: formulários com labels, mensagens associadas e navegação por teclado; cor não é a única indicação de estado.
+- RNF02: formulários com labels, mensagens associadas e navegação por teclado; cor não é a única indicação de estado. Falhas de ações recebem foco e são trazidas à área visível; a cotação mostra erros junto da confirmação e orientações nos campos de datas inválidas.
 - RNF03: carregamento, vazio, sucesso e erro em todas as consultas e mutações remotas.
 - RNF04: configuração por ambiente; credenciais administrativas e de rotas no servidor; acessos ao banco com permissões explícitas.
 - RNF05: validação de saldo, dinheiro e estados não depende exclusivamente da interface.

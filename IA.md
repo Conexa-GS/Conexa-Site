@@ -743,3 +743,36 @@ Checkout limpo; fetch concluído; dev local/remota sem divergência antes da int
 ### Análise crítica
 
 A autorização permite compartilhar a implementação preparada, sem converter testes locais em validação Supabase nem declarar aceite da M5. T28, aplicação/testes no demo e avaliação humana permanecem pendentes. Main preservada.
+
+
+## Interação 028 — Feedback de validação e falhas visível — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para análise, implementação, revisão e documentação. PowerShell/Git para inspecionar estado e referências, fetch, branch feature e commit Conventional Commit. Node/npm, ESLint e Vite para lint, testes e build. Skill computer-use consultada e informada ao usuário; navegador integrado via cua_repl para revisão dirigida desktop/360 px e capturas locais. Sem subagentes, pesquisa web, geração de imagens ou ferramentas Supabase remotas. Uma tentativa de edição por Python não executou porque o alias do Windows estava indisponível; a edição foi realizada com Node.
+
+### Interações realizadas
+
+Prompt integral: “preciso de um feedback mais nitido de quando alguma coisa não está dentro do padrão. o erro (imagem anexada) aparece só se eu subir toda a pagina, na maioria das vezes eu não sei o que está dando errado, ou demoro pra perceber que a confirmação não está indo por conta de um erro.
+
+siga o padrão de commits e branchs, verifique se branch a versão está atualizada”. A imagem fornecida mostra o aviso “Revise validade, saída e entrega na data desejada; validade limitada à reserva.” As instruções AGENTS.md fornecidas pelo usuário orientam leitura, fluxo de branches, registro e avaliação antes de publicação/integração.
+
+Resposta representativa: “Vou conferir a branch e sua atualização em relação à dev, ler as regras do projeto e ajustar o feedback para que os erros fiquem visíveis no momento da confirmação.” Nenhuma pergunta de produto, aprovação humana ou autorização de publicação recebida nesta interação.
+
+### Aplicação no projeto
+
+Dev inicialmente limpa em 25cdca9. Primeira tentativa de fetch encontrou falta de permissão em .git/FETCH_HEAD; execução escalonada do fetch e da criação de branch foi aprovada automaticamente. Fetch concluído, dev/origin/dev sem divergência (0/0); criada feature/feedback-validacao a partir dessa dev antes de editar arquivos. Nenhuma edição em main/dev.
+
+ErrorNotice compartilhado ganhou título, ícone, texto maior, contorno de foco e opção de foco/rolagem automática usada nos erros de ações. Consultas não usam essa opção. Transporte associa erros à proposta/ação; cotação mostra falha junto do botão, veículo junto do cadastro e existe fallback se uma recarga retirar a proposta da lista ativa. QuoteForm foi extraído para componente próprio e valida datas com mensagens por campo, aria-invalid/aria-describedby e foco no primeiro problema. Domínio respeita data de entrega em São Paulo, saída futura, entrega após saída e validade futura até a reserva, sem alterar regras/RPC/migrations do banco. Campos são preservados em falha.
+
+Aplicado feedback também aos erros de ações de ofertas, demandas, composição, propostas, M5 e entrada demo. Especificação RNF02, D013, tasks.md e validation.md registram comportamento e evidências. Bancada tests/ui/feedback.html usa componentes reais com respostas em memória, fora do build de produção. Paleta, marca vetorial e ilustrações locais preservadas.
+
+### Validação das respostas
+
+Executados npm run lint, npm test (29 aprovados) e npm run build: aprovados na rodada final. O lint apontou ausência de export no componente da nova bancada; corrigido com export default e lint repetido. Três casos novos no domínio testam validade/saída, ordem da entrega, fronteira da reserva, virada UTC/São Paulo e entradas inválidas/ausentes. Build mantém aviso herdado de chunk acima de 500 kB. Sem alteração de banco, suíte PGlite e testes remotos não foram executados nesta interação.
+
+Navegador em bancada local: cotação em 1366×900 e 360×800 sem overflow horizontal; validade acima da reserva e entrega anterior à saída direcionam foco aos campos correspondentes. Erro remoto controlado foca aviso totalmente visível, junto da confirmação, preservando os dados; repetição e sucesso controlados conferidos. Modal em 360 px preserva quantidade, mantém foco/visibilidade do aviso nas duas tentativas e restaura foco ao fechar. Erro de consulta não move o foco. Capturas locais e limitações em validation.md. Nenhuma avaliação humana ou persistência remota atribuída a esses testes.
+
+### Análise crítica
+
+O aviso ligado à ação e o foco eliminam a necessidade de procurar o erro no topo; mensagens por data explicam como corrigir a falha ilustrada. A validação local antecipa restrições já existentes, mas relógio do dispositivo, concorrência ou expiração durante envio ainda podem gerar recusa do servidor, que continua exibida. O foco automático fica restrito às ações para não interromper digitação durante consultas periódicas. Fixtures validam apresentação e interação, sem substituir percurso conectado, Supabase real ou auditoria completa de acessibilidade. Avaliação do usuário e autorização para push/integração na dev continuam pendentes; nenhuma promoção para main presumida.
