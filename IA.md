@@ -847,3 +847,51 @@ Fetch concluído. Dev local e origin/dev coincidem em 25cdca9. Main local estava
 ### Análise crítica
 
 A autorização amplia explicitamente o destino para main, respeitando a ordem solicitada sem presumir liberação anterior. Publicar código e migrations no Git não aplica schema ao banco: edição/negociação continuam dependentes da migration no demo e da validação conectada. Nenhuma cobrança, mensagem externa, conta ou migration remota é executada nesta interação.
+
+## Interação 031 — Migrations e validação real no demo — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para inspeção, roteiro de testes e registro; conector Supabase para identificar projeto, inspecionar schema/histórico, aplicar migrations e consultar RLS/advisors; PowerShell/Node e @supabase/supabase-js para Auth e concorrência reais; npm para verificações locais. Skill Computer Use lida para tentativa de revisão conectada; ferramenta bloqueou o navegador Windows por falta de suporte à política de URLs. Automação encerrada sem contornar o bloqueio.
+
+### Interações realizadas
+
+Prompt integral desta solicitação de ação: “consegue fazer isso por mim?”. Refere-se à aplicação no demo e percurso de revisões/negociação/notificações, concorrência e recarga apresentados na resposta anterior. A pergunta anterior foi excluída do registro conforme instrução expressa do usuário; seu texto não foi reproduzido aqui. Resposta representativa: “Vou conferir o projeto demo configurado e as ferramentas disponíveis para aplicar as migrations pendentes e testar os perfis conectados.” Autorização restrita às ações necessárias no demo identificado; sem nova autorização de publicação/integração Git.
+
+### Aplicação no projeto
+
+Checkout inicial limpo em feature/feedback-validacao, 8e785f8, feature já derivada da dev. Aplicados os arquivos M4, M5 e quote_revisions, nessa ordem, ao projeto conexa/ppbneiusqlitvewwoact. Versões geradas pelo conector: 20261110183413, 20261110183606 e 20261110183652; nomes e correspondência com fontes em validation.md. Nenhuma reaplicação das migrations anteriores nem modificação de arquivo SQL aplicado. Criado tests/remote-quote-revisions.mjs com hostname limitado ao demo, sessões independentes, fixtures próprias, cancelamento/arquivo e relatório local ignorado pelo Git. Atualizados tasks.md, validation.md e README.md para distinguir validação por API, limite de navegador e pendências reais.
+
+### Validação das respostas
+
+Lint, 32 testes Node, seis scripts PGlite e build aprovados, com aviso herdado de chunk 625,03 kB. Rede inicialmente bloqueada pelo sandbox; teste remoto executado com a permissão de rede correspondente. Primeira rodada interrompida por expectativa incorreta da mensagem de confirmação fora de ordem; fixture cancelada/arquivada, expectativa corrigida e teste adicional de confirmação bloqueada pela negociação. Duas rodadas completas passaram; última com 10 grupos de verificações, RLS direto dos avisos e rota M4 autenticada com quatro paradas. Não houve correção do código do produto.
+
+Auth real nos quatro participantes, mais duas sessões adicionais para concorrência. Revisões simultâneas produziram uma vencedora, preservando R$80; avisos/leitura restritos aos destinatários e nova autenticação preservando dados; revisão selecionada invalida aceites e rejeita versão antiga. Recusa/manutenção do preço sem taxa e aprovação concorrente de R$100,07 com total R$350,07, sem aceitar valor adulterado. Desistência concorrente gerou uma taxa simulada de R$15,01, parcelas exatas e saldo 5 kg; sem segunda transportadora, reabertura sem substituta inventada. Escrita direta/anon bloqueados. Dois pagamentos com mesma chave resultaram no mesmo registro; cancelamentos concorrentes estornaram uma vez e devolveram saldo 25 kg. Na corrida revisão versus pagamento, revisão venceu e impediu pagamento da versão antiga.
+
+Relatório artifacts/quote-revisions-remote.local.json e cópia datada, sem segredos. Três cargas da rodada final canceladas, seis ofertas/três demandas próprias arquivadas. Históricos/avisos/taxas simuladas/veículos preservados; contas não criadas. Oito cargas anteriores conferidas após a execução, mantendo status/versões. Novas tabelas com RLS habilitada; dois avisos de segurança legados documentados, sem alterações de configuração. Sem teste de navegador/F5/360 px/desktop conectado: Computer Use bloqueado pela política de URLs. Sem atribuição de avaliação humana ao usuário; nenhuma publicação/integração Git ou deploy desta rodada.
+
+### Análise crítica
+
+Concorrência e RLS com Auth real ampliam a evidência em relação ao PGlite, e a nova autenticação comprova persistência entre sessões. Essa evidência não demonstra recarga visual nem entrega de avisos pela interface. O demo contém somente uma transportadora; caminho com substituta e faixas 5%/30% permanecem cobertos apenas localmente. Aplicação de M5 não comprova todo o fluxo de entrega/divergência/repasses remoto nem encerra T28. Permanece necessário percurso visual conectado, segunda transportadora compatível, avaliação humana e autorização das novas alterações de teste/documentação. Não declarar marco concluído nem confundir taxas/pagamentos de demonstração com dinheiro real.
+
+## Interação 032 — Publicação da validação remota na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar o pedido e conferir o escopo; PowerShell/Git para inspeção, fetch, sincronização da feature, commit e publicação/integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Autoriza publicar o teste remoto e a documentação apresentados na interação 031 e integrá-los à dev do origin https://github.com/Conexa-GS/Conexa-Site.git. Resposta representativa: “Vou conferir a branch e as alterações, criar o commit e publicar na dev, preservando o histórico remoto.” Não autoriza nova promoção para main nem declara aceite dos testes visuais pendentes.
+
+### Aplicação no projeto
+
+Alterações preparadas na feature/feedback-validacao; após fetch, dev e origin/dev coincidem em 62d1d64, que já integra a feature anterior. Feature sincronizada por fast-forward de 8e785f8 para 62d1d64, sem diferença de árvore nem perda das alterações locais. Escopo do commit: tests/remote-quote-revisions.mjs, README.md, IA.md e Conexa-specs/README.md, tasks.md, validation.md. Registro da autorização atualizado sem marcar os percursos visuais/encaminhamento com substituta como concluídos. Publicação segue feature → dev, sem force push.
+
+### Validação das respostas
+
+Destino origin conferido, fetch concluído e diff sem erros de whitespace. .env e relatório artifacts/quote-revisions-remote.local.json confirmados como ignorados; não serão incluídos no commit. Mantidos os resultados reais da interação 031: lint, 32 testes Node, seis scripts locais, build e rodada remota final com 10 grupos aprovados. Esta interação muda somente o registro da autorização; não repete operações remotas de teste nem atribui avaliação humana ao usuário. Push e integração serão conferidos pelas referências remotas antes da resposta final.
+
+### Análise crítica
+
+A autorização contempla a dev e os arquivos apresentados, preservando as pendências de navegador, segunda transportadora e aceite humano. O teste remoto é manual e limitado ao demo; sua publicação não o executa automaticamente. Migrations já aplicadas não são reaplicadas nesta interação. Sem deploy ou nova alteração na main.

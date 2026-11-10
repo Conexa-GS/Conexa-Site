@@ -33,6 +33,8 @@ Atualização em 09/11/2026: M4 confirmado explicitamente pelo usuário no escop
 
 Atualização em 09/11/2026: M5 iniciada em `feature/m5-fechamento-operacao`. T25–T27 implementadas e verificadas localmente: pagamento, compromisso de estoque, agendamento/viagem fictícios, divergência/resolução, cancelamento/estorno e repasses simulados. Comprador registra resolução e depois confirma recebimento, conforme confirmação explícita do usuário. T28, execução no Supabase demo e aceite da M5 continuam pendentes. Sem aplicação remota da migration nem integração/publicação desta feature. Evidências em `validation.md`.
 
+Atualização em 10/11/2026: usuário autorizou aplicação/validação no demo; migrations M4, M5 e revisões de cotação aplicadas ao projeto configurado. Testes remotos por API com Auth/RLS reais e concorrência passaram, incluindo persistência após nova autenticação, negociação/avisos, desistência sem substituta, pagamento/estorno únicos e revisão versus pagamento. Navegador bloqueado pela ferramenta; recarga/percurso visual conectado e encaminhamento com segunda transportadora continuam pendentes. M5/T28 e avaliação humana da extensão não são declarados concluídos. Mapeamento de versões e limites em `validation.md`.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.

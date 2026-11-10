@@ -37,17 +37,17 @@ npm run preview
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
 | Composição | `/comprador/demandas/:id/composicao` | Busca compatível, seleção e candidata; envio cria reservas atômicas |
 | Solicitações e veículos | `/transportador/solicitacoes`, `/transportador/veiculos` | M3: cadastro de veículos e cotações persistidas |
-| Transporte e valores | `/operacoes` | M3 persistida; M5 em avaliação local: pagamento, acompanhamento e repasses simulados, dependentes da migration demo |
+| Transporte e valores | `/operacoes` | M3 persistida; M5 em avaliação, com migration demo aplicada e testes parciais por API |
 | Operação e valores | `/operacoes/exemplo` | Roteiro textual e resumo fictício |
 | Pagamento | `/operacoes/exemplo/pagamento` | Prévia de mensagens, sem cobrar/agendar |
 
 O acesso a cada espaço exige selecionar um participante fictício. Ao recarregar, selecione o perfil novamente. Não representa autenticação segura de produção.
 
-M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. M5 tem código/migration preparados e verificados localmente; execução no demo ainda pendente. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3/M5 explicam a falta de configuração e não simulam gravação persistida.
+M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. M5 tem migration aplicada ao demo e testes remotos parciais de pagamento/cancelamento; entrega/divergência/repasses remotos e revisão conectada da interface permanecem pendentes. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3/M5 explicam a falta de configuração e não simulam gravação persistida.
 
 ## Conectar o Supabase de demonstração
 
-1. Escolher um projeto de demonstração do grupo. O projeto demo configurado já recebeu as migrations M1–M3 mediante autorização explícita em 07/11/2026; não reaplicá-las nele.
+1. Escolher um projeto de demonstração do grupo. O projeto demo configurado recebeu M1–M3 em 07/11/2026 e M4/M5/revisões em 10/11/2026 mediante autorização; não reaplicá-las nele. O histórico remoto tem versões diferentes dos nomes locais; conferir o mapeamento em validation.md.
 2. Em instalação nova, aplicar os arquivos SQL de `supabase/migrations` em ordem de nome. Em projeto existente, aplicar apenas migrations ausentes conforme histórico; M3 tem a migration principal e complementos de compatibilidade/totais.
 3. Criar no Supabase Auth os quatro usuários fictícios listados em `.env.example`, com emails confirmados e uma senha pública descartável exclusiva da demonstração. Sem contas pessoais ou credenciais de produção.
 4. Executar `supabase/seed.sql`. O seed associa os UUIDs reais do Auth aos participantes e publica as ofertas iniciais. Ajustar o mapeamento do seed se alterar os emails.
@@ -56,7 +56,7 @@ M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais 
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita acesso por participante. Produto, locais, preço/mínimo, datas, precisão, papel, versão e saldo são verificados no banco. Ofertas vinculadas preservam snapshots; excluir exige ausência de vínculos, e arquivar mantém o histórico.
 
-**M1–M4 concluídos por aceite do usuário; M5 em avaliação local.** M4 foi confirmado em 09/11/2026 no escopo apresentado, preservando limites de API externa e migration remota. T25–T27 estão implementadas localmente; T28 e aceite da M5 pendentes. O aceite humano não é apresentado como teste visual executado pelo agente. Evidências e limites em [validation.md](Conexa-specs/validation.md).
+**M1–M4 concluídos por aceite do usuário; M5 em avaliação.** M4 foi confirmado em 09/11/2026 no escopo manual; sua migration foi aplicada em 10/11/2026, sem API externa. T25–T27 estão implementadas; T28 e aceite da M5 pendentes, mesmo após a aplicação de sua migration e testes parciais por API. O aceite humano não é apresentado como teste visual executado pelo agente. Evidências e limites em [validation.md](Conexa-specs/validation.md).
 
 ## Experimentar a M2
 
@@ -88,13 +88,13 @@ Distâncias/tempos não são calculados; pedágio individual a confirmar, cobert
 
 Primeira fatia em `feature/m4-rotas-inclusao`, publicada na dev e aceita pelo usuário em 09/11/2026: sugestões de composição por preço de alimentos ou inclusão (menos vendas entregues na plataforma, desempate pela idade da oferta); comparação estrita de cotações do mesmo roteiro; consulta autenticada de roteiro manual completo. Interface mantém o aviso de prévia da análise. Não há cálculo externo de km/tempo/pedágios, cobrança ou aprovação automática.
 
-Migration `supabase/migrations/202611080001_m4_analysis.sql` preparada e testada **somente localmente**. A análise de histórico/roteiro no demo depende de aplicação e validação remotas autorizadas; sua indisponibilidade não bloqueia composição/envio e cotação manual M2/M3. `npm run test:db` cobre M1–M5 em PGlite com identidade simulada.
+Migration `supabase/migrations/202611080001_m4_analysis.sql` aplicada ao demo em 10/11/2026, com consulta remota autenticada de roteiro validada por API. Análise de histórico/inclusão segue com evidência local; revisão completa no navegador pendente. A indisponibilidade da análise não bloqueia composição/envio e cotação manual M2/M3. `npm run test:db` cobre M1–M5 em PGlite com identidade simulada.
 
 Para avaliar componentes sem escrever no demo, inicie Vite e abra `/tests/ui/m4.html`. É uma bancada com fixtures em memória, explicitamente identificada, fora da entrada do build de produção. Não comprova integração remota. API externa depende de T21; pesquisa técnica, instruções e limitações em [M4: rotas e inclusão](Conexa-specs/m4-routes.md). Nenhuma chave de rotas deve ser colocada em variável `VITE_`.
 
-## M5 em avaliação local
+## M5 em avaliação
 
-Implementação em `feature/m5-fechamento-operacao`: `supabase/migrations/202611090001_m5_operation_closure.sql`, serviço M5 e controles em `/operacoes`. T25–T27 verificadas localmente; **migration/testes no demo, T28 e aceite humano pendentes**. Não há integração/publicação desta feature nesta entrega.
+Implementação originada em `feature/m5-fechamento-operacao`: `supabase/migrations/202611090001_m5_operation_closure.sql`, serviço M5 e controles em `/operacoes`. T25–T27 verificadas localmente; migration aplicada ao demo em 10/11/2026, com pagamento/cancelamento concorrentes testados por API. **Ciclo completo remoto, percurso visual conectado, T28 e aceite humano pendentes.** Aplicação do schema não encerra o marco.
 
 Após aplicar as migrations ausentes em ordem **no demo autorizado** e validar a configuração:
 
@@ -127,12 +127,14 @@ A primeira versão foi publicada nas branches remotas `dev` e `main`, conforme a
 Nenhum deploy realizado. Ao hospedar o build `dist`, configurar fallback de rotas para `index.html`, pois os caminhos são de uma SPA. Rotas, credenciais e permissões remotas precisam ser verificadas no ambiente de destino.
 
 
-## Revisão de cotação e negociação — implementação local em avaliação
+## Revisão de cotação e negociação — em avaliação
 
 A feature/feedback-validacao preserva o feedback de erros e acrescenta cartão distinto após confirmar cotação, Modificar proposta para veículo/horários/validade e avisos persistidos dentro do site. O preço permanece protegido: após conversa direta, transportadora registra novo frete e o comprador aprova ou recusa. Aprovação gera revisão; cotação selecionada exige todos os aceites finais novamente. Edição/negociação não são permitidas após pagamento aprovado.
 
 Se o comprador recusar, a transportadora pode manter o original ou desistir com taxa exclusivamente simulada. Faixas aprovadas para a demo: 5% acima de 72h, 15% com mais de 24h até 72h, 30% com até 24h, pelo menor prazo até entrega/vencimento informado. Vencimento é opcional na oferta e separado da disponibilidade; ausência usa entrega com aviso. Metade da taxa fica para o comprador e metade para produtores, proporcional aos alimentos. A desistência preserva reservas e reabre a proposta, notificando outra transportadora com veículo compatível. Sem alternativa, informa pendência, sem inventar cotação ou aceite.
 
-Ativação depende de aplicar as migrations ausentes em ordem no demo autorizado, incluindo supabase/migrations/202611090002_quote_revisions.sql, e validar o fluxo conectado. Sem ela, edição/negociação ficam indisponíveis com aviso; o CRUD antigo sem vencimento é preservado. Para demonstrar reenvio, precisa existir outra transportadora demo com veículo compatível. Notificações são consultadas a cada 30s e ao voltar à janela; não enviam mensagem externa. Nenhuma cobrança real.
+Migrations M4, M5 e revisões aplicadas ao demo autorizado em 10/11/2026. Testes remotos por API com sessões reais validaram revisões, negociação, avisos/RLS, nova autenticação e concorrência. Sem essa migration em outros ambientes, edição/negociação ficam indisponíveis com aviso; o CRUD antigo sem vencimento é preservado. Para demonstrar reenvio, precisa existir outra transportadora demo com veículo compatível; o demo atual tem apenas uma. Notificações são consultadas a cada 30s e ao voltar à janela; não enviam mensagem externa. Nenhuma cobrança real.
 
-Teste local: npm run test:db inclui revisões/negociação/taxas/encaminhamento/RLS em PGlite, com identidade simulada. A bancada /tests/ui/quote-revisions.html mostra componentes reais com respostas controladas, sem escrita remota. Evidências e pendências em [validation.md](Conexa-specs/validation.md). Migration e validação no Supabase, avaliação humana e publicação/integração ainda pendentes.
+Teste local: npm run test:db inclui revisões/negociação/taxas/encaminhamento/RLS em PGlite, com identidade simulada. A bancada /tests/ui/quote-revisions.html mostra componentes reais com respostas controladas, sem escrita remota. Teste remoto manual: `node tests/remote-quote-revisions.mjs`, somente no demo autorizado; cria fixtures próprias e ao terminar cancela cargas e arquiva suas ofertas/demandas. Histórico, avisos, taxas simuladas e veículos de teste permanecem; IDs/resultados em `artifacts/quote-revisions-remote.local.json`, ignorado no Git. Credenciais são lidas de `.env` sem impressão.
+
+Recarga/percurso visual conectado não executados: a ferramenta bloqueou o navegador Windows por ausência de suporte à política de URLs. Nova autenticação via API não substitui essa revisão. Encaminhamento sem substituta passou; caminho conectado com outra transportadora e avaliação humana seguem pendentes. Publicação/integração das novas alterações de teste/documentação na dev autorizadas pelo usuário em 10/11/2026, conforme interação 032 de IA.md. Evidências e mapeamento dos nomes/versões remotas em [validation.md](Conexa-specs/validation.md); não reaplicar SQL já executado nem usar `db push` automaticamente com o histórico divergente deste demo.

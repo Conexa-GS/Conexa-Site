@@ -261,3 +261,47 @@ Bancada tests/ui/quote-revisions.html em 1366×900 e 360×800 usa QuoteStatus, C
 Foi encontrado overflow horizontal na prévia da taxa em 360 px; corrigidos min-width e quebra dos botões. Medições finais: viewport/scrollWidth 1366/1351 no desktop e 360/345 no celular, inclusive editor e prévia da taxa, sem elementos além do viewport. Editor conferido com zero campos de preço editável. Capturas quote-confirmed-desktop.png, quote-confirmed-mobile.png e quote-fee-mobile.png em C:/Users/Murilo/.codex/visualizations/2026/11/10/01a1c334-f71a-7c71-8791-a96548210ec1. Viewport restaurado ao encerrar. Sem auditoria completa de leitor de tela/teclado, teste de falha real de conexão ou percurso conectado.
 
 Pendências: aplicar 202611090002_quote_revisions.sql ao demo depois da avaliação/autorização, conferir migrations anteriores exigidas, Auth/RLS/concorrência/reload e avisos entre sessões reais; garantir outra transportadora demo com veículo compatível para demonstrar reenvio. Sem isso, a interface informa atualização pendente para editar e não inventa substituta. Fallback do cadastro de ofertas sem vencimento em schema legado e fallback de erro quando a cotação deixa de ser editável foram revistos no código, sem injeção de falha conectada. Sem cobrança, mensagem externa, push, merge, deploy ou migration remota nesta entrega. Marcos M1–M5 e limites anteriores preservados.
+
+## Aplicação no Supabase demo e testes conectados por API — 10/11/2026
+
+Usuário solicitou “consegue fazer isso por mim?” após o roteiro de aplicação/validação. Autorização utilizada somente para migrations e testes no projeto demo configurado, `conexa` (`ppbneiusqlitvewwoact`), identificado pelo conector e pela URL de `.env`. Não estende a publicação/integração Git das novas alterações. A pergunta anterior, expressamente excluída do registro pelo usuário, não foi adicionada a IA.md. Responsável: Codex. Checkout inicial limpo em feature/feedback-validacao, 8e785f8; preservado o trabalho existente.
+
+Inspecionados histórico remoto, tabelas/RLS, participantes e oito cargas anteriores antes das alterações. Ausentes M4, M5 e revisões; os três arquivos locais foram lidos integralmente e aplicados, em ordem, pela ferramenta apply_migration do conector Supabase, todos com sucesso. Nenhuma reaplicação de M1–M3 ou alteração manual do histórico. O conector gera a versão remota na aplicação:
+
+| Arquivo local | Nome registrado no demo | Versão remota |
+| --- | --- | --- |
+| 202611080001_m4_analysis.sql | m4_analysis | 20261110183413 |
+| 202611090001_m5_operation_closure.sql | m5_operation_closure | 20261110183606 |
+| 202611090002_quote_revisions.sql | quote_revisions | 20261110183652 |
+
+O histórico já apresentava versões M3 diferentes dos nomes locais; M1 existe no schema sem entrada nessa lista de migrations. Não executar db push/repair por suposição: comparar nome, schema e histórico antes de preparar qualquer reconciliação. Nenhum arquivo de migration aplicada foi alterado nesta rodada.
+
+Criado tests/remote-quote-revisions.mjs, executado manualmente com Node e @supabase/supabase-js usando somente a chave pública e a senha fictícia já configuradas. O script recusa outro hostname e não é executado por npm test. Quatro contas reais do demo e duas sessões adicionais do mesmo comprador/transportador, sem persistência local de token; chamadas concorrentes por Promise.all em conexões HTTP independentes. Sem nova conta, e-mail, WhatsApp ou mensagem externa. O motivo de contato direto é um cenário fictício de teste, não evidência de conversa real.
+
+| Procedimento real | Resultado e limite |
+| --- | --- |
+| npm.cmd run lint; npm.cmd test; npm.cmd run build | Aprovados; 32 testes Node, build 625,03 kB com aviso de chunk >500 kB |
+| npm.cmd run test:db | Seis scripts M1–M5/revisões aprovados; PGlite com identidade simulada |
+| node tests/remote-quote-revisions.mjs, rodada final | 10 grupos de verificações aprovados; relatório success=true e três fixtures limpas |
+| Auth e M4 | Login real nos quatro participantes; consulta autenticada de roteiro com saída, duas coletas e destino; não usa API externa |
+| Revisão candidata simultânea | Exatamente uma revisão; outra chamada rejeitada; revisão 2 e frete R$80 preservados; produtor e adulteração direta do valor bloqueados |
+| Avisos e RLS | Comprador/Ana/João receberam avisos próprios com antes/depois; leitura persistida; produtor não marca aviso do comprador; SELECT direto não revela avisos de outro destinatário |
+| Revisão selecionada | Nova versão sem aceites finais herdados; confirmação antiga rejeitada; quatro novos aceites levam a awaiting_payment |
+| Negociação | Preço permanece R$80 enquanto pendente/recusado; pagamento e confirmação bloqueados; produtor não aprova; manter original encerra sem taxa |
+| Aprovação concorrente | Um efeito, preço persistido R$100,07 e total R$350,07; valor adulterado enviado na aprovação ignorado; novos aceites exigidos |
+| Persistência entre sessões | Sign-out e nova autenticação em comprador, Ana, João e transportador preservam versão/avisos; leitura do comprador permanece. É teste de API, não F5 no site |
+| Desistência concorrente | Prévia de 15%, R$15,01 sobre R$100,07; cálculo adulterado rejeitado; uma taxa, parcelas somando R$15,01 e R$7,51 ao comprador; volta a awaiting_quotes com saldo João 5 kg |
+| Encaminhamento sem alternativa | replacement_carrier_id nulo, nenhuma cotação/aceite fabricados; desistente não recota. Demo possui uma única transportadora |
+| Negociação/parcelas/escrita direta | Produtores não consultam negociações, cada um vê apenas sua parcela; alterações diretas das parcelas e INSERT direto nas tabelas da extensão rejeitados; RPC anônima bloqueada |
+| Pagamentos e cancelamentos concorrentes | Mesma chave retorna o mesmo pagamento; uma aprovação e, após dois cancelamentos simultâneos, um estorno; saldo João retorna a 25 kg |
+| Revisão versus pagamento concorrentes | Exatamente um vencedor; nesta rodada revisão venceu, carga v3 awaiting_final_approval sem pagamento; não comprova as duas ordens possíveis da corrida |
+
+Tentativa inicial no sandbox falhou por rede; execução autorizada fora dele prosseguiu. Primeira rodada remota parou por expectativa estreita do teste: ao confirmar novamente carga já em awaiting_payment, o banco retornou “Confirmação final fora de ordem.” antes de avaliar negociação. Expectativa corrigida; acrescentado teste específico de bloqueio por negociação em awaiting_final_approval. Duas rodadas completas posteriores passaram; a última também confirmou M4 e leitura RLS direta. Nenhuma correção do produto/migration foi necessária.
+
+Relatório final local ignorado pelo Git: artifacts/quote-revisions-remote.local.json, com cópia datada da rodada final. Contém IDs fictícios, checks e limpeza, sem segredos. Cargas da rodada final: consultar relatório; todas canceladas, seis ofertas e três demandas próprias arquivadas. A primeira rodada interrompida também cancelou/arquivou sua fixture. Histórico, revisões, avisos, taxas/parcelas simuladas e veículos de teste foram preservados, conforme o modelo; não houve limpeza administrativa destrutiva. Ao conferir o estado após os testes, as oito cargas anteriores mantiveram seus status e versões; não foram canceladas pelo teste.
+
+Todas as sete novas tabelas têm RLS habilitada. Advisor de segurança apontou dois avisos anteriores ao escopo: public.demo_role() SECURITY DEFINER executável por authenticated (uso intencional nas policies M1, função sem argumentos que só deriva o papel de auth.uid()), e proteção de senhas vazadas desativada no Auth demo. Nenhuma configuração de segurança foi alterada. Referências: [advisor de funções](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable), [proteção de senhas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). Os avisos não constituem prova de segurança de produção.
+
+Verificação visual conectada impedida: inventário não disponibilizou host de acesso a browsers; tentativa de ativar o Firefox pelo Computer Use retornou bloqueio porque a aplicação da política de URLs não é suportada no navegador Windows atual. Automação encerrada, sem contornar o bloqueio, sem screenshots novas, sem F5 nem testes conectados em 360 px/desktop. As bancadas anteriores continuam sendo a única evidência visual dirigida. Não há alteração de interface nesta rodada.
+
+Pendências preservadas: percurso visual conectado/recarga real, encaminhamento com segunda transportadora demo compatível, falha de rede pela interface, avaliação humana da extensão e autorização das novas alterações de teste/documentação. As faixas 5%/30%, ausência de alternativa por veículo incompatível e ciclo completo de substituta continuam comprovados apenas na suíte local anterior. Aplicar M5 não conclui T28/M5; entrega/divergência/repasses remotos não foram exercitados nesta rodada. Sem push, merge, deploy, cobrança ou novo marco declarado concluído.
