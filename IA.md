@@ -682,3 +682,64 @@ Antes desta atualização, dev local estava três commits à frente de origin/de
 ### Análise crítica
 
 A autorização agora está ligada explicitamente ao destino e às branches citadas no pedido anterior, atendendo ao bloqueio de publicação. Isso não amplia o escopo para main, Supabase, API externa ou deploy.
+
+## Interação 026 — Início da M5: fechamento simulado — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura, implementação, revisão e documentação. PowerShell/Git para inspecionar checkout, criar feature, conferir alterações e preparar commit Conventional Commit. Node/npm, ESLint, Vite e PostgreSQL PGlite para verificações locais. Skill computer-use consultada e informada ao usuário; navegador integrado via cua_repl para bancada visual desktop/360 px, interação dirigida e capturas. Ferramenta de pergunta assíncrona para esclarecer o responsável pela resolução. Sem subagentes, pesquisa web, novas dependências ou geração de imagens. Nenhuma ferramenta Supabase remota executada.
+
+### Interações realizadas
+
+Prompt integral: “seguindo o padrão de commits e branchs, anotando as mudanças concluídas no tasks.md, comece a implementar a M5.
+pergunte o que não ficar claro”. Instruções AGENTS.md fornecidas pelo usuário orientaram leitura das especificações, feature a partir da dev, testes, preservação e autorização posterior de envio/integração.
+
+Resposta representativa: “Vou ler as especificações e o estado atual da M5, conferir a branch e começar a implementação. Vou registrar as entregas no tasks.md e o uso de IA no IA.md; se houver alguma decisão em aberto, pergunto durante o trabalho.”
+
+Pergunta efetiva: “Na entrega com divergência, posso adotar que o comprador registra a resolução por escrito e depois confirma o recebimento, liberando os repasses simulados? As especificações exigem a resolução registrada, mas não definem outro responsável.” Resposta explícita: “Sim, o comprador resolve e confirma”. Confirma somente esse fluxo; não se atribui avaliação visual ou aceite da M5 ao usuário.
+
+### Aplicação no projeto
+
+Criada `feature/m5-fechamento-operacao` a partir da dev inicialmente limpa. Primeira tentativa de Git encontrou `.git/index.lock` sem permissão; criação por execução escalonada foi aprovada automaticamente. Nenhum arquivo de aplicação editado na dev/main. Implementação local T25–T27, com T28 e conclusão do marco pendentes.
+
+Migration M5 acrescenta tentativas de pagamento, repasses e ocorrências com RLS, índices únicos e gateway privado/invoker. Mesma chave e payload recuperam pagamento; aprovado uma única vez inclusive após estorno. Valida total/aceites/cotação/reservas/capacidade/conservação/mínimos no banco e converte a reserva existente em compromisso sem dupla baixa. Pendente/recusado não agenda; nova tentativa usa outra chave. Transportador selecionado inicia; recebimento do comprador cria parcelas pelos snapshots. Divergência/pedido de cancelamento pós-saída guarda ocorrência e preserva estoque; comprador resolve por escrito e confirma em ação separada. Cancelamento pré-saída libera estoque e estorna aprovado uma vez. Histórico reutiliza load_events. Guardas M2 impedem cancelamento de carga paga e arquivo de demanda com viagem ativa; demanda entregue permanece atendida.
+
+Serviço/hook consultam M5, mantendo M3 apenas se a RPC M5 não existir; nesse caso nenhum controle M5 é liberado. Interface em `/operacoes` identifica M5 em avaliação, dados fictícios e ausência de dinheiro/transporte reais, permite erros/repetição e mostra repasses conforme perfil. Listas M2 passaram a usar rótulos corretos e link de acompanhamento também após pagamento/entrega. Dados já carregados são preservados em falha de recarga para evitar desmontar os campos da operação. Marca, paleta e ilustrações locais preservadas. Bancada `tests/ui/m5.html` usa componente real e reducer visual em memória, sem consulta remota nem inclusão no build de produção.
+
+`tasks.md` registra T25–T27 como implementação local verificada e T28 aberto; README, contratos, modelo, fluxos, D012 e validation.md distinguem código, verificação local e execução remota pendente. Sem migration Supabase, push, merge, main ou deploy nesta interação.
+
+### Validação das respostas
+
+Executados lint, 26 testes Node, suíte PGlite M1–M5 e build: aprovados na rodada final. O diagnóstico inicial do ESLint sobre refs em helper de render foi corrigido extraindo ReasonForm antes da repetição. Build manteve aviso de chunk principal acima de 500 kB (589,26 kB). Nova suíte M5 percorreu total R$330, João com 5 kg livres antes/depois do pagamento, pendente/recusado/aprovado, replay sequencial, estorno único, perda da validade, aceites/mínimos, estoque comprometido, divergência/resolução e repasses de R$150/R$100/R$80. Testes locais de RLS/perfis/anon e rejeição de escrita direta passaram; não comprovam Supabase Auth real ou concorrência remota.
+
+Navegador: bancada em 1366×900 e 360×800 sem overflow horizontal nas medições DOM (scrollWidth 1351 e 345). Pendente, recusado, falha com resultado preservado, repetição por Enter com mesma chave (comparação verdadeira), aprovação, troca para transportador/início, comprador/divergência, bloqueio de recebimento, resolução sem conclusão automática e recebimento/repasses conferidos. Produtor consultou seu próprio repasse no cenário visual. Capturas m5-desktop.jpg/m5-mobile.jpg na pasta local de visualizações. Revisão dirigida de componentes, sem percurso conectado, auditoria completa de teclado/leitor de tela, prova remota de persistência ou avaliação humana. O fallback de RPC ausente e a preservação em falha de recarga foram revisados no código; não foram exercitados no demo.
+
+### Análise crítica
+
+Concentrar pagamento, estoque e repasses em transações permite explicar os invariantes e testar repetições sem integrar dinheiro real. Uma chave por tentativa preserva respostas incertas; índice único no banco impede segunda aprovação mesmo se o navegador perder a chave. Ocorrências preservam histórico e exigem resolução explícita, mas não representam conciliação financeira ou mediação real. A serialização global herdada é adequada ao pequeno demo, sem alegação de escala de produção.
+
+PGlite simula identidade, não autentica usuários reais; a bancada visual não valida o servidor e não substitui o Supabase demo. T28 permanece aberta para aplicação/testes remotos autorizados, concorrência real, reload e percurso conectado nos três perfis. M5 continua em avaliação; o usuário decidiu apenas o responsável pela resolução. O workflow exige avaliação e autorização próprias antes de publicação/integração na dev. Nenhuma aprovação de marco, migration remota ou envio é presumida a partir do pedido inicial.
+
+Revisão final de permissões encontrou exposição indireta de descrições/resoluções nos eventos M3 para transportador que cotou mas não foi escolhido. A migration restringe também esse histórico após a seleção; a cotação própria permanece consultável. A fixture passou a criar uma segunda cotação e verificar o isolamento via M3/M5 e RLS. Suíte PGlite M1–M5 repetida e aprovada após a correção. Nenhuma alteração visual adicional.
+
+## Interação 027 — Autorização de publicação da M5 na dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização; PowerShell e Git para conferir referências, commitar o registro, integrar e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Resposta à pergunta explícita que identificou código, migration, testes e documentação da M5, branches feature/dev e destino Conexa-GS/Conexa-Site no GitHub. Autoriza publicação e integração na dev; não promoção à main.
+
+### Aplicação no projeto
+
+Registro preparado em feature/m5-fechamento-operacao após 882b772. Integração autorizada dessa implementação local na dev e publicação de ambas as branches em https://github.com/Conexa-GS/Conexa-Site.git, sem force push. M5 permanece em avaliação, com T28 pendente; nenhuma migration remota ou deploy incluído.
+
+### Validação das respostas
+
+Checkout limpo; fetch concluído; dev local/remota sem divergência antes da integração. Mantidas as verificações da interação 026: lint, 26 testes Node, PGlite M1–M5, build e revisão dirigida desktop/360 px. Nenhum código alterado nesta autorização; testes não repetidos para o registro documental. Publicação será conferida pelos hashes remotos.
+
+### Análise crítica
+
+A autorização permite compartilhar a implementação preparada, sem converter testes locais em validação Supabase nem declarar aceite da M5. T28, aplicação/testes no demo e avaliação humana permanecem pendentes. Main preservada.

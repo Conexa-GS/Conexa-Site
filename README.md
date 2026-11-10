@@ -37,13 +37,13 @@ npm run preview
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
 | Composição | `/comprador/demandas/:id/composicao` | Busca compatível, seleção e candidata; envio cria reservas atômicas |
 | Solicitações e veículos | `/transportador/solicitacoes`, `/transportador/veiculos` | M3: cadastro de veículos e cotações persistidas |
-| Transporte e valores | `/operacoes` | M3: indicações, cotação, mínimos e aceites finais por versão |
+| Transporte e valores | `/operacoes` | M3 persistida; M5 em avaliação local: pagamento, acompanhamento e repasses simulados, dependentes da migration demo |
 | Operação e valores | `/operacoes/exemplo` | Roteiro textual e resumo fictício |
 | Pagamento | `/operacoes/exemplo/pagamento` | Prévia de mensagens, sem cobrar/agendar |
 
 O acesso a cada espaço exige selecionar um participante fictício. Ao recarregar, selecione o perfil novamente. Não representa autenticação segura de produção.
 
-M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3 explicam a falta de configuração e não simulam gravação.
+M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. M5 tem código/migration preparados e verificados localmente; execução no demo ainda pendente. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3/M5 explicam a falta de configuração e não simulam gravação persistida.
 
 ## Conectar o Supabase de demonstração
 
@@ -56,7 +56,7 @@ M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais 
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita acesso por participante. Produto, locais, preço/mínimo, datas, precisão, papel, versão e saldo são verificados no banco. Ofertas vinculadas preservam snapshots; excluir exige ausência de vínculos, e arquivar mantém o histórico.
 
-**M1, M2 e M3 concluídos por aceite do usuário em 07/11/2026.** T20 aprovado explicitamente e promoção dev → main autorizada. Inclui envio direto e separação/ocultação de listas. Verificações locais e de API no Supabase demo pelo Codex; o aceite humano não é apresentado como teste visual executado pelo agente. Próximo marco: M4/T21. Evidências e limites em [validation.md](Conexa-specs/validation.md).
+**M1–M4 concluídos por aceite do usuário; M5 em avaliação local.** M4 foi confirmado em 09/11/2026 no escopo apresentado, preservando limites de API externa e migration remota. T25–T27 estão implementadas localmente; T28 e aceite da M5 pendentes. O aceite humano não é apresentado como teste visual executado pelo agente. Evidências e limites em [validation.md](Conexa-specs/validation.md).
 
 ## Experimentar a M2
 
@@ -70,7 +70,7 @@ O cenário 30 kg Ana + 20 kg João para 50 kg deixa 5 kg de João livres quando 
 
 Demandas, propostas e transporte abrem em **Ativas**; canceladas, expiradas e arquivadas ficam no **Histórico**. No produtor, as novas propostas para responder aparecem primeiro. **Ocultar da lista** envia o cartão para **Ocultas**, onde pode ser reexibido. Essa preferência é local por participante e por lista; não cancela proposta nem altera reserva/prazo ou dados no Supabase.
 
-`npm run test:db` verifica M1–M3 em PostgreSQL local PGlite com identidade simulada. `node tests/remote-m2.mjs` cria fixtures próprias **somente no projeto demo autorizado**, usando `.env` sem imprimir credenciais; o relatório local em `artifacts/m2-remote.local.json` lista UUIDs para limpeza administrativa restrita a essas fixtures. A etapa `--verify-expiration` requer antecipar administrativamente o prazo da carga indicada no relatório, sem alterar operações de outras pessoas. O teste não executa limpeza administrativa automática nem substitui revisão de interface. Na entrega M2, fixtures foram removidas e as três ofertas anteriores preservadas.
+`npm run test:db` verifica M1–M5 em PostgreSQL local PGlite com identidade simulada. `node tests/remote-m2.mjs` cria fixtures próprias **somente no projeto demo autorizado**, usando `.env` sem imprimir credenciais; o relatório local em `artifacts/m2-remote.local.json` lista UUIDs para limpeza administrativa restrita a essas fixtures. A etapa `--verify-expiration` requer antecipar administrativamente o prazo da carga indicada no relatório, sem alterar operações de outras pessoas. O teste não executa limpeza administrativa automática nem substitui revisão de interface. Na entrega M2, fixtures foram removidas e as três ofertas anteriores preservadas.
 
 ## Experimentar o M3
 
@@ -78,23 +78,39 @@ Demandas, propostas e transporte abrem em **Ativas**; canceladas, expiradas e ar
 2. Como produtor, indique transportador fictício e preço opcionalmente. A indicação permanece pendente; não pode ser selecionada como cotação.
 3. Como transportador, cadastre veículo em **Meus veículos**. Em **Solicitações**, preencha veículo, saída fictícia, conservação exigida, datas/validade, preço final e retorno opcional. Confirme cobertura de combustível, pedágios, todas as coletas, descarga e retorno acordado. A validade não ultrapassa a reserva. Capacidade insuficiente ou conservação incompatível bloqueiam a confirmação.
 4. Como comprador, selecione uma cotação confirmada. Isso abre nova versão; confira alimentos, frete separado, taxa zero, total e mínimos individuais. Cada produtor, comprador e transportador selecionado confirma as condições finais pelo próprio perfil.
-5. Quatro aceites levam a **Aceites completos · pagamento futuro (M5)**. Nenhum transporte é agendado. Para mudar itens/coletas/datas/frete, cancele com motivo e remonte: reservas são liberadas e aceites antigos permanecem no histórico.
+5. Quatro aceites levam a **Aguardando pagamento simulado**. O M3 termina aqui, sem agendamento. Com a migration M5, o comprador poderá seguir a simulação descrita abaixo. Para mudar itens/coletas/datas/frete antes do pagamento, cancele com motivo e remonte: reservas são liberadas e aceites antigos permanecem no histórico.
 
 Distâncias/tempos não são calculados; pedágio individual a confirmar, coberto pelo frete fechado. Condições são declarações fictícias, sem certificado sanitário. Veículos e cotações são imutáveis nesta etapa para preservar o acordado.
 
 `npm run test:db` inclui M3. `node tests/remote-m3.mjs` usa `.env` e cria fixtures próprias somente no demo autorizado. Ofertas/demanda de teste são arquivadas após cancelamento; histórico e veículos fictícios de teste permanecem. IDs/resultados locais: `artifacts/m3-remote.local.json` (ignorado no Git). Não executar fora do demo nem tratar o teste por API como revisão visual.
 
-## M4 em avaliação local
+## M4 confirmado no escopo manual
 
-Primeira fatia em `feature/m4-rotas-inclusao`: sugestões de composição por preço de alimentos ou inclusão (menos vendas entregues na plataforma, desempate pela idade da oferta); comparação estrita de cotações do mesmo roteiro; consulta autenticada de roteiro manual completo. Interface identificada como prévia. Não há cálculo externo de km/tempo/pedágios, cobrança, aprovação automática ou avanço para M5.
+Primeira fatia em `feature/m4-rotas-inclusao`, publicada na dev e aceita pelo usuário em 09/11/2026: sugestões de composição por preço de alimentos ou inclusão (menos vendas entregues na plataforma, desempate pela idade da oferta); comparação estrita de cotações do mesmo roteiro; consulta autenticada de roteiro manual completo. Interface mantém o aviso de prévia da análise. Não há cálculo externo de km/tempo/pedágios, cobrança ou aprovação automática.
 
-Migration `supabase/migrations/202611080001_m4_analysis.sql` preparada e testada **somente localmente**. A análise de histórico/roteiro no demo depende de aplicação e validação remotas autorizadas; sua indisponibilidade não bloqueia composição/envio e cotação manual M2/M3. `npm run test:db` agora cobre M1–M4 em PGlite com identidade simulada.
+Migration `supabase/migrations/202611080001_m4_analysis.sql` preparada e testada **somente localmente**. A análise de histórico/roteiro no demo depende de aplicação e validação remotas autorizadas; sua indisponibilidade não bloqueia composição/envio e cotação manual M2/M3. `npm run test:db` cobre M1–M5 em PGlite com identidade simulada.
 
 Para avaliar componentes sem escrever no demo, inicie Vite e abra `/tests/ui/m4.html`. É uma bancada com fixtures em memória, explicitamente identificada, fora da entrada do build de produção. Não comprova integração remota. API externa depende de T21; pesquisa técnica, instruções e limitações em [M4: rotas e inclusão](Conexa-specs/m4-routes.md). Nenhuma chave de rotas deve ser colocada em variável `VITE_`.
 
+## M5 em avaliação local
+
+Implementação em `feature/m5-fechamento-operacao`: `supabase/migrations/202611090001_m5_operation_closure.sql`, serviço M5 e controles em `/operacoes`. T25–T27 verificadas localmente; **migration/testes no demo, T28 e aceite humano pendentes**. Não há integração/publicação desta feature nesta entrega.
+
+Após aplicar as migrations ausentes em ordem **no demo autorizado** e validar a configuração:
+
+1. Termine os quatro aceites M3. Como comprador, em `/operacoes`, escolha resultado **Pendente**, **Recusado** ou **Aprovado** e registre o pagamento simulado. O total vem do banco; sem cartão, conta ou dinheiro reais.
+2. Pendente/recusado não agenda; nova tentativa usa outra chave. Aprovado converte a reserva em compromisso sem descontar duas vezes e libera o agendamento fictício uma vez. Reenvio da mesma tentativa recupera o resultado, inclusive se houver estorno posterior.
+3. Como transportador selecionado, inicie a viagem fictícia. Produtores acompanham a mesma carga e podem registrar ocorrência após a saída.
+4. Como comprador, confirme recebimento ou registre divergência. Com ocorrência aberta, recebimento/repasses ficam bloqueados. Registre resolução escrita de cada ocorrência, depois confirme recebimento em ação separada: gera R$150/R$100/R$80 no cenário-base, apenas em simulação e uma vez por beneficiário.
+5. Antes do transporte, comprador cancela com motivo: libera o estoque e estorna uma única vez eventual pagamento aprovado. Após saída, o pedido vira ocorrência, sem estorno nem liberação automática. Entregues/canceladas ficam no Histórico.
+
+Sem a RPC M5, a consulta mantém o M3 e informa M5 em preparação; nenhum controle de pagamento é habilitado. Não substitui falha de rede por dados em memória. Páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` seguem independentes e ilustrativas.
+
+`npm run test:db` cobre M1–M5 em PGlite com identidade simulada. Para revisar a interface sem escrever no demo, inicie Vite e abra `/tests/ui/m5.html`: bancada identificada com fixtures em memória, fora do build de produção. Não comprova Auth/RLS remoto ou persistência. Evidências e pendências em [validation.md](Conexa-specs/validation.md).
+
 ## Organização do código
 
-`src/components` contém layout e elementos compartilhados; `pages` reúne entrada e prévias; `features/offers`, `features/demands` e `features/transport` contêm os fluxos M1–M3; `hooks` coordena sessão e consultas; `services` isola Supabase e demonstração local; `domain` mantém validações e dinheiro; `pilot` preserva o estudo fornecido. Os vetores locais ficam em `public/assets`.
+`src/components` contém layout e elementos compartilhados; `pages` reúne entrada e prévias; `features/offers`, `features/demands` e `features/transport` contêm os fluxos M1–M5; `hooks` coordena sessão e consultas; `services` isola Supabase e demonstração local; `domain` mantém validações e dinheiro; `pilot` preserva o estudo fornecido. Os vetores locais ficam em `public/assets`.
 
 Tailwind está integrado pelo plugin Vite, com utilitários nas telas. O CSS original foi mantido e estendido para preservar a identidade visual. Não há dependência de fontes, imagens ou APIs de mapas externas para a avaliação local.
 

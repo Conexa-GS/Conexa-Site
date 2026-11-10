@@ -196,3 +196,30 @@ O pedido não relata novos procedimentos de teste executados pelo usuário e nã
 Integração/publicação documental autorizada em 09/11/2026 pela resposta “altorizado” à pergunta explícita sobre integrar e publicar na dev. Registro em IA.md, interação 024. Não representa novos testes, promoção à main, deploy ou alteração das limitações técnicas acima.
 
 Push confirmado novamente em 09/11/2026 por “pode subir para dev”, após a pergunta identificar explicitamente as branches feature/dev e o destino externo `Conexa-GS/Conexa-Site`. Registro em IA.md, interação 025. A autorização continua restrita à documentação do aceite M4; main e sistemas externos permanecem inalterados.
+
+## M5 — Implementação local em avaliação — 09/11/2026
+
+Feature `feature/m5-fechamento-operacao` criada a partir da dev limpa. T25–T27 implementadas; **T28 e aceite da M5 pendentes**. A única decisão de produto confirmada nesta interação foi comprador registrar resolução escrita e depois confirmar recebimento em ação separada. Não equivale a aceite do marco ou autorização de migration remota/publicação.
+
+Verificações efetivamente executadas pelo Codex:
+
+| Procedimento | Resultado | Limite |
+| --- | --- | --- |
+| `npm run lint` | Aprovado; extraído ReasonForm para corrigir diagnóstico inicial de refs no render | Análise estática |
+| `npm test` | 26 testes Node aprovados | Suíte existente de domínio/serviços; regras M5 verificadas no banco |
+| `npm run test:db` | Cinco scripts M1–M5 aprovados com todas as migrations em ordem | PGlite, `auth.uid()` simulado; sem Supabase Auth remoto nem concorrência real |
+| `npm run build` | Aprovado; chunk principal 589,26 kB com aviso acima de 500 kB | Aviso de tamanho herdado, sem falha do build |
+| Bancada `/tests/ui/m5.html`, 1366×900 e 360×800 | Sem overflow horizontal: scrollWidth 1351 e 345, respectivamente; campos e textos legíveis | Componentes reais com fixtures em memória, sem consultas/escritas remotas; não é revisão conectada completa |
+| Interação dirigida na bancada | Pendente/recusado mantêm etapa; falha preserva resultado/chave; repetição por Enter reutiliza a chave; aprovação agenda; transportador inicia; comprador registra divergência, recebimento fica desabilitado, resolução o habilita sem concluir; recebimento exibe R$150/R$100/R$80; produtor consulta seu próprio repasse | Reducer visual não valida banco; comandos por teclado dirigidos não são auditoria completa de teclado/leitor de tela |
+
+`tests/m5-database.mjs` percorre comprador, dois produtores e transportador com cargas criadas pelas RPCs M2/M3 antes do pagamento. AC18: pendente/recusado não agendam, total adulterado pelo cliente é ignorado e servidor usa R$330; mesma chave retorna mesma tentativa; outro resultado/carga com chave usada é rejeitado; outra aprovação é bloqueada; reserva vira compromisso sem alterar saldo livre de João (5 kg) e compromisso sobrevive ao prazo original. Verificadas rejeições de aceites incompletos, reserva/cotação vencidas, unidade desconhecida, mínimo inválido, versão errada e ausência de chave.
+
+AC19: comprador cancela carga agendada com motivo, pagamento vira refunded e estoque volta a 25 kg livres para João; repetição não duplica estorno/eventos. Cancelamento M2 não contorna M5; arquivamento de demanda com agendamento é bloqueado. Após início, cancelamento vira ocorrência, mantém pagamento approved e saldo 5, sem liberação. AC20: divergência e pedido pós-saída criam duas ocorrências, bloqueiam recebimento/repasses; resolução escrita de todas não conclui; recebimento separado produz três parcelas (15000/10000/8000 centavos), repetição não duplica. Caminho sem divergência também executado em transação revertida sobre uma carga realmente paga/comprometida.
+
+AC21: produtor, comprador, transportador selecionado, outro transportador, comprador alheio e anon exercitados. Banco rejeita pagamentos, cancelamentos, partida, resolução e recebimento fora do perfil/ordem. RLS restringe tentativas ao comprador e repasses ao próprio beneficiário ou comprador; ocorrência apenas aos envolvidos. Escrita REST direta nas tabelas M5 sem concessão. Testes administrativos de snapshots/validade rodam em transações locais revertidas; nenhum dado de operação remota adulterado.
+
+Capturas locais: `m5-desktop.jpg` e `m5-mobile.jpg` em `C:/Users/Murilo/.codex/visualizations/2026/11/10/01a1c317-bc93-75c2-ae11-cc84b91a666a`. Datas de exibição em America/Sao_Paulo. Bancada fora da entrada do build de produção. Estilos, marca vetorial, paleta e ilustrações locais preservados. O ajuste final de preservação de dados já carregados em falha de recarga foi revisado no código e incluído em lint/build, sem injeção de falha na página conectada.
+
+Revisão final encontrou e corrigiu exposição indireta das descrições M5 nos eventos do gateway M3 para transportador que cotou mas não foi selecionado. Acrescentada segunda cotação de outro transportador à fixture M5: ele conserva a própria cotação, mas não recebe eventos após seleção de outro transportador, tentativas, ocorrências ou repasses da carga. Repetida a suíte PGlite M1–M5 após esse ajuste: aprovada. O ajuste é exclusivamente de migration/teste de banco; não altera o layout revisto.
+
+Pendências: aplicar migrations ausentes e validar no Supabase demo mediante autorização própria; testar concorrência de pagamento/cancelamento, Auth/RLS reais, reload, troca dos três perfis na aplicação conectada e erros de rede; avaliação humana. Não foram executados scripts remotos, aplicadas migrations ou criadas fixtures no Supabase. Não há pagamento, transporte físico, repasse, API externa ou cobrança real. Sem push, merge ou deploy. A ausência da RPC M5 mantém consulta M3 com aviso explícito; o fallback foi revisado no código, sem teste remoto nesta entrega.

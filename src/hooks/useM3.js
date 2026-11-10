@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { m3 } from '../services/m3'
+import { listOperations } from '../services/m5'
 
 export function useM3(session) {
   const [state, setState] = useState({ vehicles: [], carriers: [], loads: [], loading: true, error: '' })
@@ -7,7 +7,7 @@ export function useM3(session) {
   const reload = useCallback(() => setRevision(n => n + 1), [])
   useEffect(() => {
     let active = true
-    m3('list').then(data => { if (active) setState({ ...data, loading: false, error: '' }) })
+    listOperations().then(data => { if (active) setState({ ...data, loading: false, error: '' }) })
       .catch(error => { if (active) setState(previous => ({ ...previous, loading: false, error: error.message })) })
     const timer = setInterval(reload, 30000)
     window.addEventListener('focus', reload)

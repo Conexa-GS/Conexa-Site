@@ -62,6 +62,8 @@ Pagamento: pendente, aprovado, recusado ou estornado. Pagamento recusado permite
 
 ## Experiência comum
 
+M5 preparada localmente em 09/11/2026: controles reais de demonstração ficam em `/operacoes`, junto ao resumo e histórico da carga persistida; não foi criada página dinâmica de pagamento separada. Comprador escolhe resultado explícito (pendente/recusado/aprovado); aprovação agenda em simulação. Transportador selecionado inicia viagem fictícia. Comprador registra divergência ou confirma recebimento. Na divergência, cada ocorrência precisa de resolução escrita pelo comprador, seguida de confirmação de recebimento separada; só então os repasses são registrados. Produtor/transportador veem acompanhamento, ocorrências e seu próprio repasse. Pedido de cancelamento após saída vira ocorrência com aviso explícito de estoque preservado e ausência de estorno automático. Cancelamento/entrega ficam no Histórico das listas. As páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` continuam prévias independentes. Sem a migration M5, M3 continua disponível e a interface informa M5 em preparação, sem liberar pagamento. A feature aguarda avaliação e validação conectada no demo.
+
 - Campos com labels e explicação da unidade; datas e dinheiro em padrão brasileiro.
 - Botões de salvar não permitem duplicar envio enquanto pendente.
 - Exclusão exige confirmação; explicar quando só é possível arquivar.

@@ -15,5 +15,5 @@ export async function m2(action, payload = {}) {
   return data
 }
 
-export const statusLabel = status => ({ draft: 'Composição candidata', awaiting_producers: 'Aguardando produtores', awaiting_quotes: 'Fornecimentos aceitos · transporte pendente', awaiting_final_approval: 'Aguardando aceites finais', awaiting_payment: 'Aceites completos · pagamento futuro (M5)', cancelled: 'Cancelada', expired: 'Expirada' })[status] || status
+export const statusLabel = status => ({ draft: 'Composição candidata', awaiting_producers: 'Aguardando produtores', awaiting_quotes: 'Fornecimentos aceitos · transporte pendente', awaiting_final_approval: 'Aguardando aceites finais', awaiting_payment: 'Aguardando pagamento simulado', scheduled: 'Agendada · simulação', in_transit: 'Em transporte · simulação', delivery_review: 'Entrega em análise · repasses bloqueados', delivered: 'Recebida · repasses simulados', cancelled: 'Cancelada', expired: 'Expirada' })[status] || status
 export const timestampLabel = date => new Intl.DateTimeFormat('pt-BR', { timeZone: 'America/Sao_Paulo', dateStyle: 'short', timeStyle: 'short' }).format(new Date(date))

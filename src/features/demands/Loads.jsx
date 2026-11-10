@@ -23,9 +23,9 @@ export default function Loads({ loads, session, reload }) {
       const expired = load.expires_at && new Date(load.expires_at) <= new Date()
       return <article className="wide-card m2-load" key={load.id}><div className="card-heading"><div><p className="eyebrow">PROPOSTA {load.id.slice(0, 8)} · VERSÃO {load.version}</p><h3>{dateLabel(load.scheduled_date)} · destino fictício</h3></div><StatusBadge tone="pending">{expired && active ? 'Prazo encerrado · atualize' : statusLabel(load.status)}</StatusBadge></div><p>{load.destination_address}</p>
         <ul className="m2-items">{load.items.map(item => <li key={item.id}><strong>{item.producer_name} · {item.product_name}</strong><span>{quantity(item.quantity)} {item.unit} × {currency(item.unit_price_cents)} = {currency(item.gross_cents)}</span><small>Mínimo acordado: {currency(item.minimum_cents)} · coleta: {item.pickup_address}</small></li>)}</ul>
-        <p>{session.role === 'buyer' ? `Alimentos: ${currency(load.subtotal_cents)}. ` : ''}Taxa zero · sem pagamento ou transporte agendado.</p>
-        {['awaiting_quotes','awaiting_final_approval','awaiting_payment'].includes(load.status) && <ActionLink href="/operacoes">Ver transporte, valores e aceites finais</ActionLink>}
-        {load.expires_at && <p><strong>Reserva até {timestampLabel(load.expires_at)} (São Paulo).</strong></p>}
+        <p>{session.role === 'buyer' ? `Alimentos: ${currency(load.subtotal_cents)}. ` : ''}Taxa zero · pagamento e transporte exclusivamente simulados.</p>
+        {['awaiting_quotes','awaiting_final_approval','awaiting_payment','scheduled','in_transit','delivery_review','delivered','cancelled'].includes(load.status) && <ActionLink href="/operacoes">Ver transporte, pagamento e acompanhamento</ActionLink>}
+        {load.expires_at && <p><strong>Prazo original da reserva: {timestampLabel(load.expires_at)} (São Paulo).</strong></p>}
         {load.reason && <p>Motivo: {load.reason}</p>}
         {load.status === 'draft' && <p>Rascunho ainda não enviado. Os produtores só recebem a proposta quando você conclui o envio. Nenhum estoque reservado.</p>}
         {load.status === 'awaiting_producers' && session.role === 'buyer' && <p role="status">Proposta enviada. Aguardando resposta dos produtores; você não precisa aprovar novamente nesta etapa.</p>}

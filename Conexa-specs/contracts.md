@@ -80,7 +80,7 @@ Validações: perfil do veículo suportado; pelo menos partida/destino; pontos c
 
 Integração final com Google Routes é proposta, não credencial ou cobertura já verificadas para o cenário. Confirmar faturamento, limites, suporte de veículo e termos antes de habilitar. Chamada autenticada e limitada no servidor; evitar proxy aberto que exponha custos.
 
-## Simulações — M5
+## Simulações — M5 (contrato lógico)
 
 - `payments.simulate(loadId, expectedVersion, outcome, idempotencyKey)` → tentativa e estado; mesmo pedido idempotente devolve mesmo resultado. Aprovado valida aceites, cotação, reservas e valores na mesma operação.
 - `loads.startTransit(id)` → apenas transportador selecionado, carga scheduled com pagamento aprovado.
@@ -88,3 +88,17 @@ Integração final com Google Routes é proposta, não credencial ou cobertura j
 - `payouts.simulate(loadId)` → servidor usa snapshots aprovados; único por beneficiário/carga/tipo.
 
 Controles de resultado de pagamento ficam no modo demo; não são desenho de pagamento de produção.
+
+### Implementação local — 09/11/2026
+
+`services/m5.js` chama `public.m5(action,payload)` invoker e função privada com identidade demo, propriedade, papel, versão e estado validados. Ações: `list`, `pay`, `cancel`, `start`, `report`, `discrepancy`, `resolve`, `receive`. Mutação recebe `{id:loadId,version}`. Sem escrita REST direta nas tabelas M5. A migration ainda não foi aplicada ao demo.
+
+`pay` acrescenta `{outcome:'pending'|'approved'|'declined',idempotency_key:uuid}`. Mesma chave/carga/versão/resultado devolve a tentativa original (com status atual, inclusive estorno); reutilização incompatível é rejeitada. Total, destinatários e estoque nunca vêm do cliente. Revalida cotação, partida futura, reserva válida/quantidade, aceites, peso/conservação e mínimos. Aprovação converte a própria reserva em compromisso e agenda atomicamente; resultado pendente/recusado não agenda. Outra chave pode iniciar nova tentativa antes da aprovação; não atualiza tentativa pendente nem presume callback. Uma aprovação por carga, inclusive após estorno.
+
+`cancel` exige `{reason}` de até 500 caracteres. Antes do transporte cancela, libera e estorna uma única vez; repetir carga cancelada não repete efeitos. Em trânsito/análise, acrescentar `idempotency_key` abre ocorrência sem estorno/liberação. `start` é exclusivo do transportador selecionado após pagamento aprovado. `report` permite ocorrência pelos participantes da carga em trânsito; `discrepancy` é exclusivo do comprador. Ambos exigem `{reason,idempotency_key}`; repetição compatível devolve a mesma ocorrência. Uma carga pode ter várias ocorrências.
+
+`resolve` recebe `{occurrence_id,resolution}`: comprador registra texto sem concluir recebimento. `receive`, também exclusivo do comprador, exige trânsito iniciado e todas as ocorrências resolvidas; cria repasses únicos na mesma transação e marca delivered. Repetição não gera novos repasses. Não existe endpoint separado que permita antecipar repasses.
+
+`list` preserva o envelope M3 e acrescenta por carga `{payments,payouts,occurrences}`. Comprador vê tentativas de suas cargas e todos os seus beneficiários; produtor/transportador selecionado veem seus próprios repasses, não tentativas do comprador. Ocorrências são compartilhadas apenas com os participantes envolvidos; transportador não selecionado não ganha acesso às tabelas M5. O serviço usa M3 como fallback **somente** quando a RPC M5 não existe, informa `m5Available:false` e não oferece mutações M5. Falhas de rede não são convertidas em sucesso/fallback. Consultas preservam a expiração M3 exclusivamente pré-pagamento.
+
+Transportador que cotou e não foi escolhido conserva a consulta de sua cotação, mas o histórico de eventos fica vazio após a seleção de outro transportador, inclusive no gateway M3: descrições/resoluções de ocorrência não podem vazar por eventos textuais.
