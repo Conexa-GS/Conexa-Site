@@ -1025,3 +1025,25 @@ Primeira tentativa do teste novo falhou por sintaxe de asserção; corrigida e s
 ### Análise crítica
 
 Separar protocolo/recebimento do banco e do provedor torna o fluxo verificável sem credenciais e preserva validações de ofertas. Isso permite detectar confirmação obsoleta e risco de duplicação após resultado incerto antes de ativar o canal. Contudo, módulo puro não resolve autorização, persistência ou idempotência distribuída; o demonstrador sequencial em memória não substitui inbox/outbox e transação no Supabase. O aceite HTTP não comprova publicação nem entrega ao telefone. A próxima fatia exige vínculo verificado e gateway restrito antes de contato real, com autorização específica de ativação. Nenhum teste ou aceite foi atribuído ao usuário.
+
+## Interação 038 — Publicação da preparação T30 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para executar a instrução de desenvolvimento Git e registrar sua autorização; PowerShell/Git para conferir estado, fetch, commit documental na feature, publicação e integração na dev. Sem alteração de código ou operação no Supabase/Meta.
+
+### Interações realizadas
+
+Prompt integral de execução: “pode publicar  e integrar com a dev”. Autoriza publicar e integrar a preparação T30 apresentada, commit `b9d895e`, da `feature/t30-preparacao`. Resposta representativa: “Vou publicar a feature e integrá-la na dev, registrando sua autorização no IA.md e preservando o histórico.” Não inclui perguntas/consultas de orientação nem autoriza promoção para main, custos, deploy do webhook ou mensagens reais.
+
+### Aplicação no projeto
+
+Checkout inicial limpo na feature; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `af7174f`, com feature um commit à frente e sem divergência. Registro preparado na própria feature antes da publicação, sem edição direta em dev/main. Fluxo autorizado feature → dev, sem force push. A integração externa permanece inativa; escopo e pendências de t30-whatsapp.md preservados.
+
+### Validação das respostas
+
+Mantidos lint, 55 testes, build e demonstrador aprovados na interação 037; mudança desta rodada somente documental, sem repetir testes. Fetch executado com acesso correspondente. Consulta adicional ls-remote no sandbox não conectou; referências obtidas pelo fetch continuam disponíveis para conferência. Diff/estado verificados antes do commit; a publicação/integração será conferida por novo fetch e referências remotas antes da resposta final.
+
+### Análise crítica
+
+A autorização permite publicar a preparação apresentada, sem demonstrar persistência WhatsApp no Supabase, identidade por telefone, concorrência ou tráfego Meta. Não encerra T30/M6 nem pendências M5/T28/T29 visual. Nenhum teste ou aceite adicional foi atribuído ao usuário. Promoção para main e ativação externa continuam fora desta autorização.
