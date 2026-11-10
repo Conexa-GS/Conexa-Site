@@ -638,3 +638,25 @@ Mudança exclusivamente documental. Conferidos checkout limpo, dev local/remota 
 ### Análise crítica
 
 O aceite encerra o marco conforme a decisão de produto do usuário, mas não torna verdadeiras integrações não realizadas. A documentação mantém explícitos: ausência de API externa ativa, credencial/orçamento/cobertura, aplicação remota da migration e comparação de total entre composições cotadas. Esses itens ficam como limites/evoluções, enquanto o M4 confirmado corresponde ao roteiro manual seguro, fallback, inclusão explicável e comparações implementadas.
+
+## Interação 024 — Autorização para integrar o aceite M4 na dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização; PowerShell e Git para conferir referências, registrar o aceite de integração, integrar a feature documental e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “altorizado”, interpretado no contexto da pergunta imediatamente anterior: “Autoriza integrar e publicar essa atualização na dev?”. Autoriza integrar e publicar a atualização documental que confirma M4; não autoriza promoção à main.
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-aceite-documental` após o commit `167f311`. Fluxo autorizado: feature documental → dev, com publicação de ambas no origin configurado, sem force push. Nenhuma mudança de aplicação, Supabase, API externa ou deploy faz parte desta integração.
+
+### Validação das respostas
+
+Antes deste registro, checkout limpo na feature; dev local/remota e main local/remota coincidiam respectivamente em `5598cc7` e `306fa59`. A mudança é exclusivamente documental, portanto lint, testes, build e revisão visual não foram repetidos. A publicação será conferida pelos hashes remotos após o push.
+
+### Análise crítica
+
+A autorização permite que o estado documental confirmado fique disponível à equipe na dev. A main permanece preservada e o registro continua distinguindo aceite humano de validações técnicas não executadas.
