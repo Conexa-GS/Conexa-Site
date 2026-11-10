@@ -647,7 +647,7 @@ OpenAI Codex para registrar a autorização; PowerShell e Git para conferir refe
 
 ### Interações realizadas
 
-Prompt integral: “altorizado”, interpretado no contexto da pergunta imediatamente anterior: “Autoriza integrar e publicar essa atualização na dev?”. Autoriza integrar e publicar a atualização documental que confirma M4; não autoriza promoção à main.
+Prompt integral: “autorizado”, interpretado no contexto da pergunta imediatamente anterior: “Autoriza integrar e publicar essa atualização na dev?”. Autoriza integrar e publicar a atualização documental que confirma M4; não autoriza promoção à main.
 
 ### Aplicação no projeto
 
@@ -660,3 +660,25 @@ Antes deste registro, checkout limpo na feature; dev local/remota e main local/r
 ### Análise crítica
 
 A autorização permite que o estado documental confirmado fique disponível à equipe na dev. A main permanece preservada e o registro continua distinguindo aceite humano de validações técnicas não executadas.
+
+## Interação 025 — Confirmação do push documental para a dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a confirmação; PowerShell e Git para preservar a correção documental já preparada, sincronizar referências e publicar feature/dev no origin configurado.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Resposta à pergunta imediatamente anterior que identificou expressamente as branches `feature/m4-aceite-documental` e `dev` e o repositório externo `https://github.com/Conexa-GS/Conexa-Site`. Autoriza o push da atualização documental para esse destino. A main permanece fora do escopo.
+
+### Aplicação no projeto
+
+Confirmação registrada na feature documental. A correção já preparada em `IA.md`, que normaliza o texto anterior de “altorizado” para “autorizado”, foi preservada no mesmo registro documental. A dev local já contém o merge `1a0187d`; após este registro, a feature será integrada novamente e ambas as branches serão publicadas sem force push.
+
+### Validação das respostas
+
+Antes desta atualização, dev local estava três commits à frente de origin/dev; main local/remota coincidiam em `306fa59`. O origin configurado foi confirmado como `https://github.com/Conexa-GS/Conexa-Site.git`. Alterações exclusivamente documentais; testes de aplicação não foram repetidos. A conclusão do envio será verificada pelos hashes remotos.
+
+### Análise crítica
+
+A autorização agora está ligada explicitamente ao destino e às branches citadas no pedido anterior, atendendo ao bloqueio de publicação. Isso não amplia o escopo para main, Supabase, API externa ou deploy.
