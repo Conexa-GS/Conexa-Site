@@ -24,7 +24,7 @@ export function ErrorNotice({ children, retry, autoFocus = false, title = 'Confi
     {retry && <button type="button" className="text-link" onClick={retry}>Tentar novamente <ArrowUpRight size={18} /></button>}
   </div>
 }
-export function Modal({ title, children, onClose }) {
+export function Modal({ title, children, onClose, closeDisabled = false }) {
   const ref = useRef(null)
   useEffect(() => {
     const dialog = ref.current
@@ -32,6 +32,6 @@ export function Modal({ title, children, onClose }) {
     dialog.showModal()
     return () => { dialog.close(); opener?.focus() }
   }, [])
-  return <dialog ref={ref} className="app-dialog" aria-labelledby="modal-title" onCancel={event => { event.preventDefault(); onClose() }}><button className="dialog-close" onClick={onClose} aria-label="Fechar"><X size={22} /></button><h2 id="modal-title">{title}</h2>{children}</dialog>
+  return <dialog ref={ref} className="app-dialog" aria-labelledby="modal-title" onCancel={event => { event.preventDefault(); if (!closeDisabled) onClose() }}><button type="button" className="dialog-close" disabled={closeDisabled} onClick={onClose} aria-label="Fechar"><X size={22} /></button><h2 id="modal-title">{title}</h2>{children}</dialog>
 }
 export function BackLink({ href, children = 'Voltar' }) { return <Link href={href} className="back-link"><ArrowLeft size={17} aria-hidden="true" />{children}</Link> }

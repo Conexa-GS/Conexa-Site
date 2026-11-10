@@ -22,6 +22,7 @@ export default function OfferChat({ products, locations, save, close, onSaved })
   const [saved, setSaved] = useState(false)
   const inputRef = useRef(null)
   const headingRef = useRef(null)
+  const chatRef = useRef(null)
   const saving = useRef(false)
   const step = offerChatSteps[stepIndex]
   const review = !step
@@ -30,9 +31,10 @@ export default function OfferChat({ products, locations, save, close, onSaved })
   const reviewErrors = validation ? Object.entries(validation.errors) : []
 
   useEffect(() => {
-    if (saved || stepIndex === -1) headingRef.current?.focus()
+    if (!available) chatRef.current?.querySelector('[role="alert"]')?.focus()
+    else if (saved || stepIndex === -1) headingRef.current?.focus()
     else inputRef.current?.focus()
-  }, [stepIndex, saved])
+  }, [stepIndex, saved, available])
 
   function respond(value) {
     const result = answerOfferChat(draft, step.name, value, catalog)
@@ -71,8 +73,8 @@ export default function OfferChat({ products, locations, save, close, onSaved })
     }
   }
 
-  return <Modal title="Vamos conversar sobre sua oferta?" onClose={() => { if (!saving.current) close() }}>
-    <div className="offer-chat" aria-busy={pending}>
+  return <Modal title="Vamos conversar sobre sua oferta?" closeDisabled={pending} onClose={() => { if (!saving.current) close() }}>
+    <div ref={chatRef} className="offer-chat" aria-busy={pending}>
       <p className="preview-notice">M6 · Prévia em avaliação. Conversa guiada de demonstração, uma pergunta por vez. Use somente dados fictícios.</p>
       <p className="form-intro">Suas respostas ficam neste rascunho até você confirmar a publicação. Ao fechar, o rascunho é descartado. O formulário continua disponível em Nova oferta.</p>
       {!available ? <ErrorNotice>O chat precisa de um alimento em kg e um local de coleta do seu perfil. Feche e atualize a lista de ofertas para tentar novamente.</ErrorNotice> : <>
