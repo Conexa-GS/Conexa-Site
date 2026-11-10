@@ -2,7 +2,7 @@
 
 ## Estado desta entrega
 
-Primeira fatia local em `feature/m4-rotas-inclusao`, criada da dev. M4 continua em avaliação; M5/M6 permanecem prévias. Migration M4 preparada e verificada em PostgreSQL local, sem aplicação remota. Sem ativação de fornecedor, credencial criada, cobrança ou deploy. Não declarar T21–T24 ou M4 concluídos.
+Primeira fatia implementada em `feature/m4-rotas-inclusao`, criada da dev e publicada na dev em `5598cc7`. Em 09/11/2026, o usuário confirmou explicitamente o M4 e autorizou marcar T21–T24 como concluídos no escopo demonstrado. M5/M6 permanecem prévias. Migration M4 foi preparada e verificada em PostgreSQL local, sem aplicação remota. Não houve ativação de fornecedor, credencial criada, cobrança ou deploy; esses limites não são convertidos em evidência técnica pelo aceite humano.
 
 Após apresentação do commit `30e742d`, usuário autorizou em 08/11/2026: “pode mandar para dev”. Envio e integração desta fatia na dev autorizados. Permanecem pendentes aplicação/validação no demo e demais itens de M4; não há autorização de promoção à main ou deploy nesta interação. Registro em IA.md, interação 021.
 

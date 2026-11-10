@@ -616,3 +616,25 @@ Checkout limpo e fetch concluído no início. Dev local e feature coincidem em `
 ### Análise crítica
 
 A confirmação responde especificamente ao bloqueio de destino e conteúdo, permitindo retomar a publicação normal no Git. Ela não resolve as pendências técnicas da M4 nem comprova aplicação no Supabase ou deploy. A feature mantém os limites e a identificação de prévia já apresentados.
+
+## Interação 023 — Confirmação final do M4 — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para interpretar o aceite explícito, revisar o estado documental e atualizar `tasks.md`, o resumo das especificações, o relatório de validação e este registro. PowerShell e Git para conferir branch/status e preparar a feature documental conforme o workflow.
+
+### Interações realizadas
+
+Prompt integral: “atualize o tasks.md e deixe como o m4 confirmado”. O pedido explícito substitui o estado anterior de avaliação e determina o encerramento do marco. Resposta representativa: “A confirmação será registrada como aceite humano do marco: T21–T24 ficarão marcadas, sem transformar as limitações técnicas já documentadas em testes ou integrações que não ocorreram.”
+
+### Aplicação no projeto
+
+Criada `feature/m4-aceite-documental` a partir da dev sincronizada em `5598cc7`. Em `tasks.md`, T21–T24 foram marcadas como concluídas e M4 como confirmado no escopo demonstrado; o próximo marco passa a M5/T25. `m4-routes.md`, README das especificações e `validation.md` foram alinhados ao aceite, preservando a distinção entre conclusão por aprovação humana e evidência técnica executada.
+
+### Validação das respostas
+
+Mudança exclusivamente documental. Conferidos checkout limpo, dev local/remota coincidentes antes da alteração e conteúdo anterior de M4. Não foram repetidos lint, testes, build, navegador ou Supabase, pois nenhum código de aplicação foi alterado. Permanecem como evidência os 26 testes Node, a suíte PGlite M1–M4, build e revisão desktop/360 px da interação 020. O usuário não relatou novos testes; nenhuma validação adicional lhe é atribuída.
+
+### Análise crítica
+
+O aceite encerra o marco conforme a decisão de produto do usuário, mas não torna verdadeiras integrações não realizadas. A documentação mantém explícitos: ausência de API externa ativa, credencial/orçamento/cobertura, aplicação remota da migration e comparação de total entre composições cotadas. Esses itens ficam como limites/evoluções, enquanto o M4 confirmado corresponde ao roteiro manual seguro, fallback, inclusão explicável e comparações implementadas.
