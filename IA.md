@@ -532,3 +532,153 @@ Checkout limpo antes do registro; `git fetch origin --prune` concluído. Referê
 ### Análise crítica
 
 A autorização explícita permite promover o conjunto visual aprovado até a main, respeitando a ordem de branches. A publicação no Git não comprova execução ou sucesso de eventual deploy automático; nenhum deploy será declarado sem evidência. Permanecem os limites técnicos e o aviso de tamanho de bundle registrados na interação 018.
+
+## Interação 020 — Início da M4: rotas e inclusão — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para ler especificações, implementar, revisar e documentar. PowerShell/Git para inspeção, branch e verificações; Node/npm, ESLint, Vite e PGlite para testes locais. Pesquisa web na documentação oficial Google Routes para os pré-requisitos de T21. Skill computer-use consultada; navegador integrado por cua_repl para revisão em desktop/360 px e consulta dirigida da aplicação demo. Sem subagentes, geração de imagem ou novas dependências. Não foram criadas contas, credenciais nem contratado serviço de rotas.
+
+### Interações realizadas
+
+Prompt integral: “comece a implementar a M4 seguindo as regras do projeto”. As instruções AGENTS.md do usuário e o workflow orientaram branch, preservação, registro e autorização posterior de integração.
+
+Resposta representativa: “A M4 começa por rotas e inclusão. Vou preparar o roteiro no servidor e a comparação de composições com base no histórico da plataforma, mantendo a cotação manual quando não houver API de rotas configurada. A ativação do fornecedor externo ficará pendente de credenciais e orçamento autorizado.”
+
+Não houve resposta humana de aprovação durante a implementação. Não se presume nova autorização de migration/testes remotos, push, merge, promoção para main ou gasto. As autorizações históricas de M2/M3 e visuais não foram reutilizadas para ativar serviços M4.
+
+### Aplicação no projeto
+
+Criada `feature/m4-rotas-inclusao` a partir da dev inicialmente limpa. A primeira tentativa de criação encontrou bloqueio de escrita em `.git/index.lock`; a ferramenta com escalonamento autorizado criou a branch. Nenhum arquivo de aplicação foi editado na dev/main.
+
+Migration M4 acrescenta gateway autenticado e função privada: candidatas reutilizam compatibilidade/saldo/propriedade M2 e acrescentam contagem agregada de cargas distintas entregues por produtor e idade da oferta. Roteiro manual deriva de cotação confirmada/versionada do comprador dono ou transportador responsável; inclui saída, todas as coletas, destino e retorno acordado. Dados desconhecidos permanecem nulos e o frete fechado inclui os serviços sem dupla soma. Nenhuma nova reserva, aprovação, pagamento ou estimativa externa é gerada pela análise; candidatas herdam a manutenção de expiração M2.
+
+Domínio e componentes mostram duas candidatas explicáveis, mínimo individual, subtotal e diferença apenas de alimentos; preencher a seleção exige ação do comprador e o envio continua revalidado pelo banco M2. Cotações só são comparadas no mesmo roteiro/horário/conservação/serviços da mesma carga e versão. M4 identificada como prévia em avaliação. Interface existente, marca, paleta e mídias locais preservadas. Serviço M4 mantém mensagens de erro independentes, sem bloquear composição/cotação manual.
+
+`tests/ui/m4.html` é bancada isolada com fixtures em memória e os componentes reais, para revisão reproduzível sem escrita remota; não entra no build de produção. `m4-routes.md`, contratos, fluxos, tarefas, decisões e README registram o escopo parcial. Google Routes continua candidato, com validação territorial/veículo, termos/atribuição, chave de servidor e orçamento/quota ainda pendentes. Não há adaptador externo vazio apresentado como integração concluída.
+
+### Validação das respostas
+
+Lint aprovado após corrigir a exportação do componente da bancada; 26 testes Node aprovados; suíte PGlite M1–M4 aprovada; build aprovado com aviso herdado do chunk acima de 500 kB (579,85 kB). Sete testes de domínio novos e teste de banco M4 cobrem inclusão, insuficiência, dinheiro, histórico, permissões e versões. A preparação inicial da fixture de espera falhou porque o trigger corretamente preserva `created_at`; ajustada apenas a fixture administrativa local e repetida a suíte. Fixture futura de entrega fica em transação revertida, sem adicionar estados M5 ao produto.
+
+Revisão dirigida em 1366×900 e 360×800 sem overflow nas medições da bancada e da composição conectada. Na bancada, comparação de alimentos R$250/R$270, diferença R$20, seleção por Enter, erro/repetição e preservação; cotações comparáveis R$80/R$100 e totais R$330/R$350, roteiro com retorno, distância/direção indisponíveis e pedágio a confirmar. Esses números são fixtures identificadas, não dados nem economia de operação real.
+
+Na aplicação conectada, sessão demo de comprador consultou registros existentes. Uma demanda de cenoura já cadastrada foi aberta; preenchimento manual de 30 kg permaneceu após a análise M4 responder indisponível, com subtotal R$180 e envio habilitado. Não foi enviada proposta nem salvo novo cadastro; campo voltou a zero. As consultas existentes podem processar expiração conforme M2/M3. Nenhuma migration M4 aplicada, fixture remota criada ou suíte remota executada. Capturas locais desktop/celular guardadas na pasta de visualizações; relatório em `validation.md` distingue esses procedimentos dos testes locais. Não se atribui revisão/aprovação humana ao grupo.
+
+### Análise crítica
+
+É possível iniciar M4 sem enviar endereços fictícios a uma API paga nem inventar km/pedágios. A análise de alimentos é explicável e preserva os mínimos, mas não prova viabilidade final ou diferença de total entre composições com seus próprios fretes. O modelo atual de uma proposta ativa por demanda foi preservado; comparação final entre composições continua pendente. Antes de M5, ausência de entregas implica histórico zero legítimo, sem simular vendas para influenciar inclusão.
+
+PGlite com identidade simulada e bancada visual não substituem Auth/RLS/persistência no Supabase demo. O erro observado na aplicação demonstra somente tratamento de indisponibilidade; não valida execução remota da função M4. Pesquisa oficial não é aprovação de fornecedor, cobertura, termos ou orçamento. M4/T21–T24 não declarados concluídos. Sem novo push, merge ou deploy; aplicação/testes remotos e integração na dev aguardam autorização correspondente após apresentação e avaliação.
+
+## Interação 021 — Autorização de envio da primeira fatia M4 à dev — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização; PowerShell e Git para conferir o checkout, atualizar referências, registrar o aceite de envio e executar publicação/integração.
+
+### Interações realizadas
+
+Prompt integral: “pode mandar para dev”. Resposta ao resultado apresentado na interação 020, commit `30e742d`, com verificações, prévia e pendências explícitas. Autoriza publicar a feature e integrar/publicar esta primeira fatia na dev. Resposta representativa: “Vou registrar sua autorização, conferir o estado local e remoto e publicar/integrar a feature na dev.”
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-rotas-inclusao`, antes da integração. Fluxo autorizado: feature → dev, preservando histórico, sem push forçado. A autorização se refere ao envio da fatia apresentada; não encerra M4/T21–T24 e não autoriza aplicação da migration no Supabase demo, API paga, promoção à main ou deploy.
+
+### Validação das respostas
+
+Checkout limpo no início; `git fetch origin --prune` concluído. Dev local e remota coincidem em `10feab7`; a feature contém um commit adicional de implementação, `30e742d`, e nenhuma divergência em relação à dev. A main local/remota está em `306fa59`. Lint, 26 testes Node, suíte local PGlite M1–M4 e build passaram na interação 020, com revisão dirigida desktop/360 px e limites em validation.md. Nenhum código de aplicação foi alterado nesta autorização; essas verificações não foram repetidas para a atualização documental. Não são atribuídos novos testes ao usuário. A igualdade local/remota da dev será conferida após publicação.
+
+### Análise crítica
+
+A autorização permite compartilhar a primeira fatia na dev mantendo sua condição de prévia e suas pendências. Publicar o código da migration no Git não significa aplicá-la no Supabase nem comprova deploy. As validações remotas e a integração externa continuam pendentes; a main fica fora desta autorização.
+
+Resultado efetivo desta interação: autorização registrada em `8beedec`; integração **local** na dev concluída pelo merge `9100107`, sem conflitos. A revisão automática de aprovação rejeitou o push da feature por considerar o destino GitHub externo não verificado e exigir autorização explícita para destino e conteúdo. Foram conferidos `.git/config`, URL de push e `git ls-remote`: origin é `https://github.com/Conexa-GS/Conexa-Site.git`, dev remota em `10feab7`, mesma base da feature. Revisados os nomes dos 26 arquivos alterados; `.env` não é rastreado e a busca por padrões de credenciais no conteúdo desses arquivos não retornou correspondências. Essas verificações não substituem uma auditoria de segredos. Uma nova tentativa direta, com essas evidências na justificativa, também foi rejeitada: a revisão exigiu confirmação explícita do usuário para publicar esse conteúdo nesse destino. Nenhum push foi executado e nenhuma alternativa de envio foi usada. A publicação permanece pendente dessa confirmação; origin/dev continua em `10feab7`. Main local/remota preservadas em `306fa59`. Este complemento documental é preparado na feature e incorporado localmente à dev; sem novos testes de aplicação, pois não altera o código já validado.
+
+## Interação 022 — Confirmação explícita do envio da M4 ao GitHub — 08/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a confirmação; PowerShell e Git para atualizar referências, registrar a autorização na feature, incorporar o registro à dev e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “sim pode enviar para a dev”. Resposta à pergunta explícita: “Autoriza enviar os commits da M4 — código, migration, testes e documentação — para as branches feature/m4-rotas-inclusao e dev de Conexa-GS/Conexa-Site?”, com o destino informado como `https://github.com/Conexa-GS/Conexa-Site`. Confirma o conteúdo e o destino exigidos pela revisão automática anterior. Resposta representativa: “Vou publicar os commits autorizados em feature/m4-rotas-inclusao e dev no repositório Conexa-GS/Conexa-Site, depois conferir se a dev local e a remota coincidem.”
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-rotas-inclusao`, preservando o merge local `9100107` e o registro do bloqueio `89bc729`. Publicação autorizada exclusivamente das branches da M4 e dev no origin já configurado. Nenhum push forçado, alteração da main, aplicação de migration no demo, ativação de API paga ou deploy incluído nesta confirmação.
+
+### Validação das respostas
+
+Checkout limpo e fetch concluído no início. Dev local e feature coincidem em `89bc729`; dev remota continua na base `10feab7`, sem novos commits concorrentes. Main local/remota coincidem em `306fa59`. Sem código de aplicação alterado nesta confirmação; mantidas as verificações da interação 020, sem repetir testes nem atribuir novos procedimentos ao usuário. O retorno do push e a leitura dos hashes remotos serão usados para confirmar o envio.
+
+### Análise crítica
+
+A confirmação responde especificamente ao bloqueio de destino e conteúdo, permitindo retomar a publicação normal no Git. Ela não resolve as pendências técnicas da M4 nem comprova aplicação no Supabase ou deploy. A feature mantém os limites e a identificação de prévia já apresentados.
+
+## Interação 023 — Confirmação final do M4 — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para interpretar o aceite explícito, revisar o estado documental e atualizar `tasks.md`, o resumo das especificações, o relatório de validação e este registro. PowerShell e Git para conferir branch/status e preparar a feature documental conforme o workflow.
+
+### Interações realizadas
+
+Prompt integral: “atualize o tasks.md e deixe como o m4 confirmado”. O pedido explícito substitui o estado anterior de avaliação e determina o encerramento do marco. Resposta representativa: “A confirmação será registrada como aceite humano do marco: T21–T24 ficarão marcadas, sem transformar as limitações técnicas já documentadas em testes ou integrações que não ocorreram.”
+
+### Aplicação no projeto
+
+Criada `feature/m4-aceite-documental` a partir da dev sincronizada em `5598cc7`. Em `tasks.md`, T21–T24 foram marcadas como concluídas e M4 como confirmado no escopo demonstrado; o próximo marco passa a M5/T25. `m4-routes.md`, README das especificações e `validation.md` foram alinhados ao aceite, preservando a distinção entre conclusão por aprovação humana e evidência técnica executada.
+
+### Validação das respostas
+
+Mudança exclusivamente documental. Conferidos checkout limpo, dev local/remota coincidentes antes da alteração e conteúdo anterior de M4. Não foram repetidos lint, testes, build, navegador ou Supabase, pois nenhum código de aplicação foi alterado. Permanecem como evidência os 26 testes Node, a suíte PGlite M1–M4, build e revisão desktop/360 px da interação 020. O usuário não relatou novos testes; nenhuma validação adicional lhe é atribuída.
+
+### Análise crítica
+
+O aceite encerra o marco conforme a decisão de produto do usuário, mas não torna verdadeiras integrações não realizadas. A documentação mantém explícitos: ausência de API externa ativa, credencial/orçamento/cobertura, aplicação remota da migration e comparação de total entre composições cotadas. Esses itens ficam como limites/evoluções, enquanto o M4 confirmado corresponde ao roteiro manual seguro, fallback, inclusão explicável e comparações implementadas.
+
+## Interação 024 — Autorização para integrar o aceite M4 na dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização; PowerShell e Git para conferir referências, registrar o aceite de integração, integrar a feature documental e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “autorizado”, interpretado no contexto da pergunta imediatamente anterior: “Autoriza integrar e publicar essa atualização na dev?”. Autoriza integrar e publicar a atualização documental que confirma M4; não autoriza promoção à main.
+
+### Aplicação no projeto
+
+Registro preparado em `feature/m4-aceite-documental` após o commit `167f311`. Fluxo autorizado: feature documental → dev, com publicação de ambas no origin configurado, sem force push. Nenhuma mudança de aplicação, Supabase, API externa ou deploy faz parte desta integração.
+
+### Validação das respostas
+
+Antes deste registro, checkout limpo na feature; dev local/remota e main local/remota coincidiam respectivamente em `5598cc7` e `306fa59`. A mudança é exclusivamente documental, portanto lint, testes, build e revisão visual não foram repetidos. A publicação será conferida pelos hashes remotos após o push.
+
+### Análise crítica
+
+A autorização permite que o estado documental confirmado fique disponível à equipe na dev. A main permanece preservada e o registro continua distinguindo aceite humano de validações técnicas não executadas.
+
+## Interação 025 — Confirmação do push documental para a dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a confirmação; PowerShell e Git para preservar a correção documental já preparada, sincronizar referências e publicar feature/dev no origin configurado.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Resposta à pergunta imediatamente anterior que identificou expressamente as branches `feature/m4-aceite-documental` e `dev` e o repositório externo `https://github.com/Conexa-GS/Conexa-Site`. Autoriza o push da atualização documental para esse destino. A main permanece fora do escopo.
+
+### Aplicação no projeto
+
+Confirmação registrada na feature documental. A correção já preparada em `IA.md`, que normaliza o texto anterior de “altorizado” para “autorizado”, foi preservada no mesmo registro documental. A dev local já contém o merge `1a0187d`; após este registro, a feature será integrada novamente e ambas as branches serão publicadas sem force push.
+
+### Validação das respostas
+
+Antes desta atualização, dev local estava três commits à frente de origin/dev; main local/remota coincidiam em `306fa59`. O origin configurado foi confirmado como `https://github.com/Conexa-GS/Conexa-Site.git`. Alterações exclusivamente documentais; testes de aplicação não foram repetidos. A conclusão do envio será verificada pelos hashes remotos.
+
+### Análise crítica
+
+A autorização agora está ligada explicitamente ao destino e às branches citadas no pedido anterior, atendendo ao bloqueio de publicação. Isso não amplia o escopo para main, Supabase, API externa ou deploy.

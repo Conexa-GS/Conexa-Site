@@ -66,6 +66,14 @@ Validar que início/fim fazem sentido para a data corrente; dados seed precisam 
 
 ## Rotas — M4
 
+### Primeira fatia local — 08/11/2026
+
+`src/services/m4.js` chama gateway `public.m4(action,payload)` invoker e função privada com identidade demo validada. `candidates` recebe `{id:demandId}`, reutiliza M2 e acrescenta `completed_sales` (cargas distintas entregues do produtor) e `waiting_days` (idade da oferta). Herda a manutenção de expiração M2. `route` recebe `{id:loadId,version,quote_id}` e exige comprador proprietário ou transportador dono da cotação confirmada da versão atual. Não recebe paradas/preços arbitrários do navegador.
+
+`route` retorna `{loadId,version,quoteId,stops,status:'manual',provider:null,isSimulated:false,distanceMeters:null,drivingSeconds:null,stopSeconds:null,tollAmountCents:null,currency:'BRL',freightCents,servicesIncluded,warnings}`. Cada parada contém `kind,address,stopSeconds:null`; coleta inclui `itemId,producerName`. Nenhuma estimativa externa, gravação de rota ou novo aceite é criado. `isSimulated:false` significa ausência de estimativa sintética; os dados da demo continuam fictícios. Migration preparada localmente; ativação remota e API externa pendentes. Detalhes em `m4-routes.md`.
+
+### Contrato planejado de estimativa externa
+
 `routes.estimate(stops[], departureTime, vehicleProfile)` → `{distanceMeters, drivingSeconds, stopSeconds, tollAmountCents: number|null, currency, provider, isSimulated, warnings[]}`.
 
 Validações: perfil do veículo suportado; pelo menos partida/destino; pontos completos; dados desconhecidos nulos. Retornar polyline apenas para exibição conforme termos do fornecedor. Nunca substituir falha por dados fictícios sem marcação. Não mostrar “sem pedágio” quando informação não retornou.

@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 07/11/2026: **M1, M2 e M3 concluídos por aceite do usuário**. T20 aprovado explicitamente (“pode aprovar o t20 e depois pode subir para a main”), com promoção dev → main autorizada. T17–T19 e API/banco de T20 verificados pelo Codex; aceite humano não é atribuído a testes visuais executados pelo agente. Próximo marco: M4/T21. Evidências e limites em `validation.md`.
+Atualização de 09/11/2026: **M1, M2, M3 e M4 concluídos por aceite do usuário**. M4 foi confirmado explicitamente após a primeira fatia de rotas e inclusão ser apresentada, validada localmente e publicada na dev. O aceite encerra T21–T24 no escopo demonstrado; não atribui ao usuário novos testes nem transforma API externa, migration remota ou comparação entre composições cotadas em funcionalidades executadas. Próximo marco: M5/T25. Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
@@ -46,12 +46,14 @@ Commits de implementação: `c9ba25c` (domínio, banco, serviços e testes) e `5
 
 Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_transport_finance.sql`, `20261107224534_m3_quote_compatibility.sql` e `20261107224716_m3_financial_totals.sql`. Testes `transport.test.js`, `m3-database.mjs` e `remote-m3.mjs`. Autorizações de migration/testes no demo dadas pelo usuário nesta interação; nenhum push/merge autorizado. M3 não declarado concluído.
 
-## M4 — Rotas e inclusão; depende da composição e cotação
+## M4 — Rotas e inclusão; confirmado no escopo demonstrado
 
-- [ ] T21 Validar fornecedor de rotas, credenciais, termos, cobertura e orçamento autorizado.
-- [ ] T22 Função de rotas no servidor, roteiro completo, nulos e fallback manual explícito.
-- [ ] T23 Comparação de composições e justificativa inclusiva baseada no histórico.
-- [ ] T24 Verificar AC15–17; não alegar economia ou distância fictícias.
+- [x] T21 Validar fornecedor de rotas, credenciais, termos, cobertura e orçamento autorizado — Google Routes avaliado como candidato; sem território roteável, credencial ou orçamento autorizados, a ativação externa foi rejeitada para este escopo e o fallback manual foi aceito.
+- [x] T22 Função de rotas no servidor, roteiro completo, nulos e fallback manual explícito — gateway M4 preparado, roteiro manual autenticado com saída, coletas, destino e retorno; distância, duração e pedágio desconhecidos permanecem nulos/a confirmar.
+- [x] T23 Comparação de composições e justificativa inclusiva baseada no histórico — candidatas por preço dos alimentos e por menos vendas concluídas/maior espera, com mínimos preservados, frete pendente e sem alegar ótimo global.
+- [x] T24 Verificar AC15–17; não alegar economia ou distância fictícias — domínio, PGlite e revisão dirigida local cobrem o escopo registrado; aceite explícito do usuário em 09/11/2026 encerra M4, preservando os limites de `validation.md`.
+
+Entrega M4 publicada na dev em `5598cc7`, com implementação principal `30e742d`: pesquisa técnica de T21 em `m4-routes.md`; gateway manual autenticado de T22 em `202611080001_m4_analysis.sql`; T23 em domínio/componentes M4; testes `inclusion.test.js`, `route-analysis.test.js` e `m4-database.mjs`. Usuário confirmou em 09/11/2026: “atualize o tasks.md e deixe como o m4 confirmado”. O aceite encerra o marco no escopo apresentado. API externa, aplicação/testes da migration no demo e comparação do total entre composições com fretes próprios não foram executados e ficam registrados como evoluções/limites, sem reabrir T21–T24. Nenhum avanço de M5.
 
 ## M5 — Fechamento da operação; depende de M3
 

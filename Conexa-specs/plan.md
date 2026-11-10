@@ -51,10 +51,12 @@ Frete pago pelo comprador; taxa zero; mínimo por produtor; pagamentos simulados
 - TypeScript ou JavaScript conforme domínio do grupo.
 - Reserva de 24h limitada pela disponibilidade; parametrizar, mostrar prazo e expirar antes de confirmar.
 - API de rotas: Google Routes como candidata; testar cobertura, veículo, cobrança e termos.
-- Critério inicial de inclusão: ordenar por menos vendas concluídas, desempatar por maior espera. É heurística explicável, não modelo de justiça validado.
+- Critério inicial de inclusão: ordenar por menos vendas concluídas, desempatar por maior espera. Implementado na fatia local M4 de 08/11/2026 como contagem de cargas distintas entregues e idade da oferta; validação no demo e avaliação pendentes. É heurística explicável, não modelo de justiça validado.
 - Exclusão física só sem vínculos; demais registros arquivados.
 
 Essas escolhas não justificam reabrir o que já foi decidido. Registrar as decisões técnicas ao implementar; pedir ao usuário apenas dados/autorizações realmente faltantes ou mudanças de escopo.
+
+M4 iniciada localmente em 08/11/2026: pesquisa de T21 e roteiro manual autenticado, candidatas por alimentos/histórico e comparação estrita de cotações da mesma carga. Sem adaptador externo habilitado; faltam território roteável, perfil/cobertura, termos/atribuição, credencial de servidor e teto de consumo autorizados. Migration preparada, ainda sem aplicação/testes no demo. T21–T24 permanecem abertos; não alterar a regra de uma proposta ativa por demanda para antecipar comparação final de composições. Detalhes em `m4-routes.md`/D011.
 
 ## Prioridade e prazo
 
