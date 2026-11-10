@@ -37,6 +37,8 @@ Atualização em 10/11/2026: usuário autorizou aplicação/validação no demo;
 
 Atualização em 10/11/2026 — M6: primeira fatia local em `feature/m6-chat-acessivel`, com cadastro opcional de oferta por conversa guiada, correção, prévia e confirmação separada usando o mesmo serviço do formulário. Sem IA externa, áudio ou WhatsApp. T29 e M6 permanecem em avaliação: domínio/lint/build verificados; AC22 completo, visual/teclado e persistência via chat no demo pendentes por bloqueio do navegador. Nenhuma alteração no aceite/pendências da M5. Detalhes em `tasks.md`, D015 e `validation.md`.
 
+Complemento em 10/11/2026 — T29: `feature/t29-chat-validacao`, da dev `11f295f`. Implementação e comportamento AC22 verificados por cinco testes do componente em jsdom e teste manual combinando o componente, serviço real e Auth/RLS do demo; ofertas próprias arquivadas. Total de 42 testes, lint e build aprovados. Fechamento durante envio e foco do impedimento de catálogo corrigidos. Substitui as pendências anteriores de execução do componente e persistência via serviço; revisão visual/teclado, F5 e aceite humano da M6 continuam pendentes. M6 permanece prévia, sem alteração de M5/T28 nem autorização de publicação deste complemento.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.

@@ -62,13 +62,13 @@ Pagamento: pendente, aprovado, recusado ou estornado. Pagamento recusado permite
 
 ## Experiência comum
 
-### Cadastro por conversa — M6, prévia local em avaliação — 10/11/2026
+### Cadastro por conversa — M6, prévia em avaliação — 10/11/2026
 
 Em `/produtor/ofertas`, **Cadastrar por conversa** abre diálogo opcional; **Nova oferta** mantém o formulário. Oito perguntas explícitas: alimento em kg do catálogo, quantidade, preço, mínimo, início/fim da disponibilidade, vencimento opcional e coleta do perfil. Datas digitadas em DD/MM/AAAA ou ISO; nenhuma data, alimento, endereço ou vencimento é inferido. Não há áudio nem interpretação livre por IA.
 
 Cada resposta é validada antes de avançar; respostas aceitas ficam consultáveis e corrigíveis. A última abre prévia completa com botão separado **Confirmar e publicar oferta**. Corrigir exige novo retorno à prévia; dependências e data corrente são revalidadas na confirmação. Responder, corrigir ou fechar não chama o serviço de escrita. Fechar descarta o rascunho em memória. Confirmar usa `useOffers.save`/`saveOffer`, atualiza a lista e mostra sucesso; publicação não confirma venda. Envio em andamento bloqueia correção, fechamento e repetição simultânea. Falha preserva dados, recebe foco e permite nova tentativa; queda durante o envio exige conferir a lista antes de repetir, pois o CRUD existente não garante idempotência após resposta perdida.
 
-Catálogo sem alimento em kg/coleta informa impedimento e orienta atualizar. Labels, mensagens associadas, anúncio da pergunta, foco no campo/prévia/sucesso e diálogo nativo foram preparados; validação efetiva por teclado/360 px/desktop e demo remoto pendentes. Bancada sem Supabase em `/tests/ui/m6.html`.
+Catálogo sem alimento em kg/coleta informa impedimento, recebe foco e orienta atualizar. Durante envio, o botão Fechar fica desabilitado e Escape não descarta o rascunho. Labels, mensagens associadas, anúncio da pergunta e foco no campo/prévia/sucesso foram exercitados programaticamente em jsdom; o mesmo componente publicou pelo serviço real no demo e o comprador consultou o registro após nova autenticação. Diálogo/teclado nativos, visual em 360 px/desktop, F5 e avaliação humana continuam pendentes. Bancada sem Supabase em `/tests/ui/m6.html`; evidências em `validation.md`.
 
 ### Fechamento da operação e padrões comuns
 
