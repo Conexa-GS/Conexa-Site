@@ -975,3 +975,25 @@ Inventário CUA retornou host de browsers indisponível; selecionar o Firefox fo
 Exercitar o componente amplia a evidência dos testes de domínio: permite demonstrar que a publicação depende do botão separado e que os dados são preservados na falha, além de detectar inconsistências de foco/estado. Associar esse componente ao serviço real e consultar pelo comprador após autenticar novamente demonstra persistência/RLS da oferta sem duplicar infraestrutura ou alterar a autoridade do banco. A restrição de hostname e o arquivamento limitado aos registros próprios reduzem interferência no demo; tentativas falhas também tiveram limpeza registrada.
 
 jsdom não substitui navegador e seus métodos de diálogo/rolagem são simulados. Os testes não comprovam layout, contraste, contenção nativa de foco ou uso com tecnologia assistiva; a ferramenta bloqueou a revisão visual, que permanece pendente junto do aceite humano da M6. O CRUD herdado continua sem idempotência após resposta perdida ou entre abas; uma chamada no mesmo diálogo durante envio não é garantia geral de publicação única. A implementação fica concreta para avaliação local na feature; autorização para publicar/integrar na dev será solicitada após apresentar o resultado, conforme AGENTS.md/workflow.md, sem promoção para main por pressuposição.
+
+## Interação 036 — Aprovação e publicação da T29 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização e conferir o escopo; PowerShell/Git para inspeção, fetch, commit documental na feature, publicação e integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “aprovado”. Responde à apresentação da T29 e à pergunta explícita “Após avaliar, autoriza publicar e integrar esta feature na dev?”. Autoriza publicar e integrar a `feature/t29-chat-validacao` apresentada, com implementação em `54b8780`. Resposta representativa: “Vou publicar a feature aprovada e integrá-la na dev, preservando o histórico e registrando sua autorização no IA.md.” Não contém relato de procedimentos visuais/teclado nem autoriza promoção para main.
+
+### Aplicação no projeto
+
+Checkout inicial limpo na `feature/t29-chat-validacao`; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Registro preparado na própria feature antes de publicar. Fluxo autorizado feature → dev, com Conventional Commits e sem force push. Nenhuma edição de código diretamente em dev/main, deploy ou operação remota no Supabase nesta interação.
+
+### Validação das respostas
+
+Fetch concluído e referências conferidas antes da integração. Mantidos os resultados reais da interação 035: lint, 42 testes e build aprovados; cinco grupos de verificação do componente com serviço real/Auth/RLS demo aprovados e fixtures próprias arquivadas. Mudança desta interação é documental, sem repetir testes ou ações remotas no banco. Diff e estado Git conferidos antes do commit; publicação/integração serão verificadas pelas referências remotas antes da resposta final.
+
+### Análise crítica
+
+A aprovação permite publicar a T29 apresentada na dev, preservando as limitações explicitadas. Não comprova revisão visual em 360 px/desktop, teclado nativo, leitor de tela ou F5; esses itens continuam registrados como pendentes, sem declarar M6 integralmente concluída. T28/M5 e demais marcos permanecem com seus estados anteriores. Sem autorização ou alteração da main nesta interação.
