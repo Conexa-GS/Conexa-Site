@@ -824,3 +824,26 @@ Sem teste remoto de Auth/RLS/concorrência/reload, aplicação de migration ou p
 Separar edição operacional de negociação evita mudança silenciosa de frete. Revisões imutáveis e novos aceites impedem reutilizar aprovação de condições antigas; avisos persistidos tornam o motivo consultável, com limite de atualização periódica de 30s. A declaração de contato direto não comprova conversa externa, mas a mudança de valor depende da aprovação autenticada do comprador, suficiente para a demonstração e sem criar um chat fictício.
 
 As faixas são política de demonstração aprovada, não cálculo de prejuízo comprovado nem cobrança juridicamente validada. Vencimento não é inventado a partir de disponibilidade; quando ausente, o site explica que usa a entrega. Encaminhamento depende de outro participante demo com veículo compatível e não garante aceite/transporte; sem alternativa, a proposta permanece pendente. PGlite e bancada não substituem Supabase real. Regras de produto foram aprovadas nas respostas acima; publicação/integração, migration remota e avaliação humana da nova implementação seguem pendentes. Nenhuma promoção à main presumida.
+
+
+## Interação 030 — Publicação na dev e promoção para main — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização e conferir o fluxo; PowerShell/Git para fetch, comparação das referências, commit documental na feature, publicação e integração sequencial feature → dev → main.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para a dev e atualizar a main logo depois”. Autoriza expressamente publicar a feature apresentada no repositório origin https://github.com/Conexa-GS/Conexa-Site.git, integrá-la à dev e em seguida atualizar a main. Resposta representativa: “Vou conferir as referências remotas, publicar a feature e integrá-la na dev. Depois, atualizarei a main com essa versão, conforme sua autorização.” A resposta do usuário especifica Git; não é tratada como autorização para aplicar migrations no Supabase ou executar transações remotas.
+
+### Aplicação no projeto
+
+Registro preparado na feature/feedback-validacao, após 1037ff4 e 4e9f6a9, com checkout limpo. Destino origin conferido. Fluxo autorizado sem force push: publicar feature, integrar/publicar dev e depois promover/publicar main, preservando histórico remoto. Nenhum arquivo desenvolvido diretamente na main. A promoção da dev inclui sua implementação M5 já existente, com limites e pendências remotas preservados.
+
+### Validação das respostas
+
+Fetch concluído. Dev local e origin/dev coincidem em 25cdca9. Main local estava 12 commits atrás de origin/main, portanto será sincronizada antes da promoção para preservar o trabalho remoto. Feature contém dois commits de aplicação sobre a dev; registro documental não altera código. Mantidas as verificações da interação 029: lint, 32 testes Node, seis scripts de banco local, build e revisão visual dirigida em desktop/360 px. Não se atribuem novos testes ou validação humana ao usuário. Publicação será conferida pelos hashes remotos.
+
+### Análise crítica
+
+A autorização amplia explicitamente o destino para main, respeitando a ordem solicitada sem presumir liberação anterior. Publicar código e migrations no Git não aplica schema ao banco: edição/negociação continuam dependentes da migration no demo e da validação conectada. Nenhuma cobrança, mensagem externa, conta ou migration remota é executada nesta interação.
