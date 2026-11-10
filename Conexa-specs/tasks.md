@@ -1,6 +1,6 @@
 # Tarefas e marcos
 
-Atualização de 09/11/2026: **M1, M2, M3 e M4 concluídos por aceite do usuário**. M4 foi confirmado explicitamente após a primeira fatia de rotas e inclusão ser apresentada, validada localmente e publicada na dev. O aceite encerra T21–T24 no escopo demonstrado; não atribui ao usuário novos testes nem transforma API externa, migration remota ou comparação entre composições cotadas em funcionalidades executadas. Próximo marco: M5/T25. Evidências e limites em `validation.md`.
+Atualização de 09/11/2026: **M1, M2, M3 e M4 concluídos por aceite do usuário**. M4 foi confirmado explicitamente após a primeira fatia de rotas e inclusão ser apresentada, validada localmente e publicada na dev. O aceite encerra T21–T24 no escopo demonstrado; não atribui ao usuário novos testes nem transforma API externa, migration remota ou comparação entre composições cotadas em funcionalidades executadas. **M5 em avaliação local: T25–T27 implementadas; T28 e aceite do marco pendentes.** Evidências e limites em `validation.md`.
 
 ## M0 — Preparação
 
@@ -55,12 +55,23 @@ Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_tra
 
 Entrega M4 publicada na dev em `5598cc7`, com implementação principal `30e742d`: pesquisa técnica de T21 em `m4-routes.md`; gateway manual autenticado de T22 em `202611080001_m4_analysis.sql`; T23 em domínio/componentes M4; testes `inclusion.test.js`, `route-analysis.test.js` e `m4-database.mjs`. Usuário confirmou em 09/11/2026: “atualize o tasks.md e deixe como o m4 confirmado”. O aceite encerra o marco no escopo apresentado. API externa, aplicação/testes da migration no demo e comparação do total entre composições com fretes próprios não foram executados e ficam registrados como evoluções/limites, sem reabrir T21–T24. Nenhum avanço de M5.
 
-## M5 — Fechamento da operação; depende de M3
+## M5 — Fechamento da operação; implementação local em avaliação
 
-- [ ] T25 Pagamento simulado idempotente e conversão de reserva em compromisso.
-- [ ] T26 Agendamento, transporte, entrega e divergência com histórico.
-- [ ] T27 Cancelamento/estorno/liberação e repasses únicos.
-- [ ] T28 Verificar AC18–21; percorrer os três perfis no cenário-base.
+- [x] T25 Pagamento simulado idempotente e conversão de reserva em compromisso — gateway M5, chave por tentativa, total do banco e conversão atômica sem dupla baixa; verificação local em PGlite, aplicação remota pendente.
+- [x] T26 Agendamento, transporte, entrega e divergência com histórico — transportador selecionado inicia; comprador resolve por escrito e confirma recebimento em ação separada, conforme resposta explícita do usuário; verificação local e bancada visual.
+- [x] T27 Cancelamento/estorno/liberação e repasses únicos — cancelamento pré-transporte libera reservas/compromissos e estorna uma vez; após saída abre ocorrência, preserva estoque e segura repasses; recebimento gera parcelas únicas pelos snapshots. Verificação local, sem dinheiro real.
+- [ ] T28 Verificar AC18–21; percorrer os três perfis no cenário-base — caminhos e permissões cobertos em PGlite e revisão dirigida da bancada em desktop/360 px; faltam aplicação/testes no Supabase demo (inclusive concorrência real, Auth/RLS e reload), percurso conectado e aceite humano.
+
+Entrega local preparada em `feature/m5-fechamento-operacao`, a partir da dev. Arquivos: `202611090001_m5_operation_closure.sql`, `services/m5.js`, `OperationClosure.jsx`, hook/listas integradas, `tests/m5-database.mjs` e bancada `tests/ui/m5.html`. Responsável pelas verificações: Codex, 09/11/2026. Critérios AC18–21 passaram no PostgreSQL local com identidade simulada: cenário 30+20 kg, total R$330, João com 5 kg livres antes/depois do pagamento, estorno único, divergências e repasses de R$150/R$100/R$80; repetição sequencial não duplicou efeitos. Lint, 26 testes Node, suíte PGlite M1–M5 e build aprovados; revisão visual dirigida em 1366×900 e 360×800, sem overflow na bancada. Limites em `validation.md`. T25–T27 registram conclusão de implementação local, **não conclusão/aceite da M5 nem persistência remota verificada**. M5 permanece prévia em avaliação; nenhum push, merge, deploy ou migration remota executado nesta entrega.
+
+## Ajuste transversal — feedback de erros — 09/11/2026
+
+- [x] Tornar falhas de ações visíveis e orientar correção das datas da cotação — `components/ui.jsx`, `App.css`, formulários/listas de ofertas e demandas, transporte/M5 e entrada demo. Criada `feature/feedback-validacao` a partir da dev sincronizada com origin/dev em `25cdca9`. Codex verificou lint, 29 testes Node, build e bancada local em desktop/360 px; detalhes e limites em `validation.md`. Avaliação humana e autorização de publicação/integração pendentes; não altera o aceite dos marcos.
+
+## Ajuste transversal — revisão de cotação e negociação — 09–10/11/2026
+
+- [x] Diferenciar cotação confirmada, revisar veículo/horários com avisos persistidos, negociar frete com aprovação do comprador e registrar desistência/taxa simulada por urgência com encaminhamento a outra transportadora — código, migration `202611090002_quote_revisions.sql`, teste `quote-revisions-database.mjs` e bancada `tests/ui/quote-revisions.html` preparados na mesma feature já derivada da dev. Vencimento opcional acrescentado à oferta e aos snapshots; faixas 5%/15%/30% e destinatários comprador/produtores aprovados pelo usuário nesta conversa. Verificações locais por Codex em `validation.md`.
+- [ ] Aplicar a migration no Supabase demo e percorrer revisões/negociação/notificações nos perfis conectados, incluindo concorrência e recarga; avaliação humana e autorização de publicação/integração continuam pendentes. Nenhum marco é declarado concluído por estes testes locais.
 
 ## M6 — Evolução de acessibilidade
 

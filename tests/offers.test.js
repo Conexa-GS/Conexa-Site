@@ -31,3 +31,9 @@ test('rejeita início no passado, admite o mesmo dia como fim', () => {
   assert.ok(validateOffer({ ...valid(), available_from: '2020-01-01' }).errors.available_from)
   assert.deepEqual(validateOffer({ ...valid(), available_until: today() }).errors, {})
 })
+
+test('vencimento é opcional e não pode preceder o fim da disponibilidade', () => {
+  assert.equal(validateOffer(valid()).data.expires_on, null)
+  assert.equal(validateOffer({ ...valid(), expires_on: futureDate(8) }).data.expires_on, futureDate(8))
+  assert.ok(validateOffer({ ...valid(), expires_on: futureDate(6) }).errors.expires_on)
+})

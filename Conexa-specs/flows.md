@@ -62,9 +62,22 @@ Pagamento: pendente, aprovado, recusado ou estornado. Pagamento recusado permite
 
 ## Experiência comum
 
+M5 preparada localmente em 09/11/2026: controles reais de demonstração ficam em `/operacoes`, junto ao resumo e histórico da carga persistida; não foi criada página dinâmica de pagamento separada. Comprador escolhe resultado explícito (pendente/recusado/aprovado); aprovação agenda em simulação. Transportador selecionado inicia viagem fictícia. Comprador registra divergência ou confirma recebimento. Na divergência, cada ocorrência precisa de resolução escrita pelo comprador, seguida de confirmação de recebimento separada; só então os repasses são registrados. Produtor/transportador veem acompanhamento, ocorrências e seu próprio repasse. Pedido de cancelamento após saída vira ocorrência com aviso explícito de estoque preservado e ausência de estorno automático. Cancelamento/entrega ficam no Histórico das listas. As páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` continuam prévias independentes. Sem a migration M5, M3 continua disponível e a interface informa M5 em preparação, sem liberar pagamento. A feature aguarda avaliação e validação conectada no demo.
+
 - Campos com labels e explicação da unidade; datas e dinheiro em padrão brasileiro.
 - Botões de salvar não permitem duplicar envio enquanto pendente.
 - Exclusão exige confirmação; explicar quando só é possível arquivar.
 - Mostrar oferta publicada como “disponível”, nunca “vendida” só por cadastro.
 - Erro remoto preserva formulário; botão de tentar novamente.
 - Painel financeiro por participante; mapa não é a única forma de entender roteiro.
+
+
+## Cotação confirmada e alterações — 09/11/2026
+
+Após confirmar cotação, o cartão fica verde com ícone, revisão, frete protegido e resumo dos horários. O formulário de nova cotação é substituído por Modificar proposta. A edição oferece veículo, saída, entrega no dia desejado e validade, com motivo e confirmação dos avisos; o frete permanece exibido sem campo editável. Nova revisão selecionada exige todos os aceites finais. Edição e negociação são anteriores ao pagamento aprovado.
+
+Negociação separada: após conversa direta, transportadora registra novo valor/motivo; comprador aprova ou recusa no site. Até resolver, o valor atual permanece e seleção/aceites/pagamento da cotação ficam pausados. Aprovação cria revisão e avisos. Recusa permite manter o frete original sem taxa ou consultar taxa simulada por urgência e confirmar desistência. A prévia mostra base, faixa, prazo, limite do vencimento ausente, divisão e reenvio; cálculo que mudar exige nova confirmação.
+
+Desistência confirmada reabre a carga para cotação, preservando reservas/fornecimentos e exigindo novos aceites finais depois da escolha. A transportadora seguinte recebe aviso no site quando houver veículo compatível. Sem candidata, a pendência fica explícita. Taxa simulada aparece aos envolvidos, sem desconto no valor dos alimentos ou adição ao frete futuro.
+
+Comprador/produtores veem avisos na área Atualizações de transporte de qualquer tela autenticada, com contagem de não lidos, motivo, antes/depois, acesso a Transporte e valores e opção Marcar como lida. Consulta a cada 30s e ao voltar à janela. Nenhuma mensagem externa é enviada. Troca de versão/encerramento fecha negociação pendente obsoleta, sem taxa automática.

@@ -62,3 +62,46 @@
 .m4-route { overflow-wrap: anywhere; }
 .m4-route .text-link { white-space: normal; text-align: left; }
 @media (max-width: 1000px) { .m4-alternatives { grid-template-columns: 1fr; } }
+.m5-closure { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line, #d8dfd1); overflow-wrap: anywhere; }
+.m5-closure > * + * { margin-top: 1rem; }
+.m5-closure .inline-note { display: block; }
+.m5-closure textarea { width: 100%; max-width: 100%; min-width: 0; font: inherit; padding: .75rem; border: 1px solid #8b9b87; border-radius: .5rem; background: #fffdf7; color: inherit; }
+.m5-records { display: grid; gap: .75rem; padding-left: 1.25rem; }
+.error-notice { font-size: 14px; line-height: 1.6; border-left-width: 5px; scroll-margin-block: 6rem; }
+.error-notice-heading { display: flex; align-items: flex-start; gap: .6rem; line-height: 1.4; }
+.error-notice-heading svg { flex-shrink: 0; }
+.error-notice-message { margin-top: .5rem; overflow-wrap: anywhere; }
+.error-notice:focus { outline: 3px solid #8e301f; outline-offset: 3px; }
+.field-error, .field .field-error { color: #a53725; font-size: 13px; line-height: 1.5; }
+.transport-proposal-confirmed { border: 2px solid #719978; background: #fffdf6; box-shadow: 0 6px 22px #254d3410; }
+.quote-confirmed-summary { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem; padding: 1.3rem; margin-block: 1.3rem; border-radius: 12px; background: #e7efd7; border-left: 5px solid #296447; }
+.quote-confirmed-summary > svg { flex-shrink: 0; }
+.quote-confirmed-summary > div { min-width: 0; flex: 1 1 220px; }
+.quote-confirmed-summary h3 { margin-block: .5rem; font-size: 1.2rem; }
+.quote-confirmed-summary p { overflow-wrap: anywhere; }
+.quote-confirmed-price { display: grid; gap: .35rem; }
+.quote-confirmed-price strong { font-size: 1.8rem; }
+.quote-confirmed-price span { display: flex; align-items: center; gap: .4rem; font-size: .8rem; }
+.carrier-quote-controls { padding-block: 1rem; }
+.quote-edit-form { border-top: 1px solid var(--border); padding-top: 1.5rem; }
+.quote-edit-form textarea { width: 100%; min-width: 0; font: inherit; border: 1px solid var(--border); border-radius: 7px; padding: .75rem; background: #fffdf6; }
+.quote-locked-price { padding: 1rem; border-radius: 8px; background: #f8ebd6; border: 1px solid #bd8547; }
+.transport-notifications { border: 1px solid var(--border); border-radius: 12px; background: #fffdf6; margin-bottom: 2rem; padding: 1rem 1.2rem; overflow-wrap: anywhere; }
+.transport-notifications > details > summary { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; cursor: pointer; font-weight: bold; }
+.notification-count { background: #e7efd7; padding: .3rem .6rem; border-radius: 20px; font-size: .8rem; }
+.notification-list { padding: 0; list-style: none; display: grid; gap: 1rem; margin-top: 1rem; }
+.notification-list > li { padding: 1rem; border: 1px solid var(--border); border-radius: 10px; }
+.notification-list > .unread { border-left: 5px solid #bb6636; background: #fff5e6; }
+.notification-list p { margin-block: .7rem; }
+.notification-changes > div { display: grid; gap: .3rem; margin-block: .8rem; }
+.notification-changes dt { font-weight: bold; }
+@media (max-width: 600px) { .quote-confirmed-summary { padding: 1rem; } .quote-confirmed-summary > div { flex-basis: 100%; } .transport-notifications { padding: 1rem; } }
+.freight-negotiation { margin-block: 1.3rem; padding: 1.2rem; border: 1px solid #c99858; border-radius: 12px; background: #fff6e6; }
+.freight-negotiation textarea { width: 100%; min-width: 0; font: inherit; padding: .75rem; border: 1px solid var(--border); border-radius: 7px; }
+.negotiation-request { padding-block: 1rem; border-block: 1px solid #d8bd91; }
+.cancellation-fee-preview { border: 1px solid #b95435; padding: 1rem; border-radius: 10px; }
+.cancellation-fees { border: 1px solid var(--border); padding: 1.2rem; border-radius: 12px; margin-block: 1rem; }
+.cancellation-fees article { margin-block: 1rem; }
+.cancellation-fees ul { padding-left: 1.2rem; }
+.freight-negotiation, .freight-negotiation > *, .freight-negotiation form, .quote-edit-form, .quote-edit-form > * { min-width: 0; max-width: 100%; }
+.freight-negotiation .button, .quote-edit-form .button, .notification-list .button { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }

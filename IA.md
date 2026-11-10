@@ -682,3 +682,168 @@ Antes desta atualização, dev local estava três commits à frente de origin/de
 ### Análise crítica
 
 A autorização agora está ligada explicitamente ao destino e às branches citadas no pedido anterior, atendendo ao bloqueio de publicação. Isso não amplia o escopo para main, Supabase, API externa ou deploy.
+
+## Interação 026 — Início da M5: fechamento simulado — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura, implementação, revisão e documentação. PowerShell/Git para inspecionar checkout, criar feature, conferir alterações e preparar commit Conventional Commit. Node/npm, ESLint, Vite e PostgreSQL PGlite para verificações locais. Skill computer-use consultada e informada ao usuário; navegador integrado via cua_repl para bancada visual desktop/360 px, interação dirigida e capturas. Ferramenta de pergunta assíncrona para esclarecer o responsável pela resolução. Sem subagentes, pesquisa web, novas dependências ou geração de imagens. Nenhuma ferramenta Supabase remota executada.
+
+### Interações realizadas
+
+Prompt integral: “seguindo o padrão de commits e branchs, anotando as mudanças concluídas no tasks.md, comece a implementar a M5.
+pergunte o que não ficar claro”. Instruções AGENTS.md fornecidas pelo usuário orientaram leitura das especificações, feature a partir da dev, testes, preservação e autorização posterior de envio/integração.
+
+Resposta representativa: “Vou ler as especificações e o estado atual da M5, conferir a branch e começar a implementação. Vou registrar as entregas no tasks.md e o uso de IA no IA.md; se houver alguma decisão em aberto, pergunto durante o trabalho.”
+
+Pergunta efetiva: “Na entrega com divergência, posso adotar que o comprador registra a resolução por escrito e depois confirma o recebimento, liberando os repasses simulados? As especificações exigem a resolução registrada, mas não definem outro responsável.” Resposta explícita: “Sim, o comprador resolve e confirma”. Confirma somente esse fluxo; não se atribui avaliação visual ou aceite da M5 ao usuário.
+
+### Aplicação no projeto
+
+Criada `feature/m5-fechamento-operacao` a partir da dev inicialmente limpa. Primeira tentativa de Git encontrou `.git/index.lock` sem permissão; criação por execução escalonada foi aprovada automaticamente. Nenhum arquivo de aplicação editado na dev/main. Implementação local T25–T27, com T28 e conclusão do marco pendentes.
+
+Migration M5 acrescenta tentativas de pagamento, repasses e ocorrências com RLS, índices únicos e gateway privado/invoker. Mesma chave e payload recuperam pagamento; aprovado uma única vez inclusive após estorno. Valida total/aceites/cotação/reservas/capacidade/conservação/mínimos no banco e converte a reserva existente em compromisso sem dupla baixa. Pendente/recusado não agenda; nova tentativa usa outra chave. Transportador selecionado inicia; recebimento do comprador cria parcelas pelos snapshots. Divergência/pedido de cancelamento pós-saída guarda ocorrência e preserva estoque; comprador resolve por escrito e confirma em ação separada. Cancelamento pré-saída libera estoque e estorna aprovado uma vez. Histórico reutiliza load_events. Guardas M2 impedem cancelamento de carga paga e arquivo de demanda com viagem ativa; demanda entregue permanece atendida.
+
+Serviço/hook consultam M5, mantendo M3 apenas se a RPC M5 não existir; nesse caso nenhum controle M5 é liberado. Interface em `/operacoes` identifica M5 em avaliação, dados fictícios e ausência de dinheiro/transporte reais, permite erros/repetição e mostra repasses conforme perfil. Listas M2 passaram a usar rótulos corretos e link de acompanhamento também após pagamento/entrega. Dados já carregados são preservados em falha de recarga para evitar desmontar os campos da operação. Marca, paleta e ilustrações locais preservadas. Bancada `tests/ui/m5.html` usa componente real e reducer visual em memória, sem consulta remota nem inclusão no build de produção.
+
+`tasks.md` registra T25–T27 como implementação local verificada e T28 aberto; README, contratos, modelo, fluxos, D012 e validation.md distinguem código, verificação local e execução remota pendente. Sem migration Supabase, push, merge, main ou deploy nesta interação.
+
+### Validação das respostas
+
+Executados lint, 26 testes Node, suíte PGlite M1–M5 e build: aprovados na rodada final. O diagnóstico inicial do ESLint sobre refs em helper de render foi corrigido extraindo ReasonForm antes da repetição. Build manteve aviso de chunk principal acima de 500 kB (589,26 kB). Nova suíte M5 percorreu total R$330, João com 5 kg livres antes/depois do pagamento, pendente/recusado/aprovado, replay sequencial, estorno único, perda da validade, aceites/mínimos, estoque comprometido, divergência/resolução e repasses de R$150/R$100/R$80. Testes locais de RLS/perfis/anon e rejeição de escrita direta passaram; não comprovam Supabase Auth real ou concorrência remota.
+
+Navegador: bancada em 1366×900 e 360×800 sem overflow horizontal nas medições DOM (scrollWidth 1351 e 345). Pendente, recusado, falha com resultado preservado, repetição por Enter com mesma chave (comparação verdadeira), aprovação, troca para transportador/início, comprador/divergência, bloqueio de recebimento, resolução sem conclusão automática e recebimento/repasses conferidos. Produtor consultou seu próprio repasse no cenário visual. Capturas m5-desktop.jpg/m5-mobile.jpg na pasta local de visualizações. Revisão dirigida de componentes, sem percurso conectado, auditoria completa de teclado/leitor de tela, prova remota de persistência ou avaliação humana. O fallback de RPC ausente e a preservação em falha de recarga foram revisados no código; não foram exercitados no demo.
+
+### Análise crítica
+
+Concentrar pagamento, estoque e repasses em transações permite explicar os invariantes e testar repetições sem integrar dinheiro real. Uma chave por tentativa preserva respostas incertas; índice único no banco impede segunda aprovação mesmo se o navegador perder a chave. Ocorrências preservam histórico e exigem resolução explícita, mas não representam conciliação financeira ou mediação real. A serialização global herdada é adequada ao pequeno demo, sem alegação de escala de produção.
+
+PGlite simula identidade, não autentica usuários reais; a bancada visual não valida o servidor e não substitui o Supabase demo. T28 permanece aberta para aplicação/testes remotos autorizados, concorrência real, reload e percurso conectado nos três perfis. M5 continua em avaliação; o usuário decidiu apenas o responsável pela resolução. O workflow exige avaliação e autorização próprias antes de publicação/integração na dev. Nenhuma aprovação de marco, migration remota ou envio é presumida a partir do pedido inicial.
+
+Revisão final de permissões encontrou exposição indireta de descrições/resoluções nos eventos M3 para transportador que cotou mas não foi escolhido. A migration restringe também esse histórico após a seleção; a cotação própria permanece consultável. A fixture passou a criar uma segunda cotação e verificar o isolamento via M3/M5 e RLS. Suíte PGlite M1–M5 repetida e aprovada após a correção. Nenhuma alteração visual adicional.
+
+## Interação 027 — Autorização de publicação da M5 na dev — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização; PowerShell e Git para conferir referências, commitar o registro, integrar e publicar as branches autorizadas.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Resposta à pergunta explícita que identificou código, migration, testes e documentação da M5, branches feature/dev e destino Conexa-GS/Conexa-Site no GitHub. Autoriza publicação e integração na dev; não promoção à main.
+
+### Aplicação no projeto
+
+Registro preparado em feature/m5-fechamento-operacao após 882b772. Integração autorizada dessa implementação local na dev e publicação de ambas as branches em https://github.com/Conexa-GS/Conexa-Site.git, sem force push. M5 permanece em avaliação, com T28 pendente; nenhuma migration remota ou deploy incluído.
+
+### Validação das respostas
+
+Checkout limpo; fetch concluído; dev local/remota sem divergência antes da integração. Mantidas as verificações da interação 026: lint, 26 testes Node, PGlite M1–M5, build e revisão dirigida desktop/360 px. Nenhum código alterado nesta autorização; testes não repetidos para o registro documental. Publicação será conferida pelos hashes remotos.
+
+### Análise crítica
+
+A autorização permite compartilhar a implementação preparada, sem converter testes locais em validação Supabase nem declarar aceite da M5. T28, aplicação/testes no demo e avaliação humana permanecem pendentes. Main preservada.
+
+
+## Interação 028 — Feedback de validação e falhas visível — 09/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para análise, implementação, revisão e documentação. PowerShell/Git para inspecionar estado e referências, fetch, branch feature e commit Conventional Commit. Node/npm, ESLint e Vite para lint, testes e build. Skill computer-use consultada e informada ao usuário; navegador integrado via cua_repl para revisão dirigida desktop/360 px e capturas locais. Sem subagentes, pesquisa web, geração de imagens ou ferramentas Supabase remotas. Uma tentativa de edição por Python não executou porque o alias do Windows estava indisponível; a edição foi realizada com Node.
+
+### Interações realizadas
+
+Prompt integral: “preciso de um feedback mais nitido de quando alguma coisa não está dentro do padrão. o erro (imagem anexada) aparece só se eu subir toda a pagina, na maioria das vezes eu não sei o que está dando errado, ou demoro pra perceber que a confirmação não está indo por conta de um erro.
+
+siga o padrão de commits e branchs, verifique se branch a versão está atualizada”. A imagem fornecida mostra o aviso “Revise validade, saída e entrega na data desejada; validade limitada à reserva.” As instruções AGENTS.md fornecidas pelo usuário orientam leitura, fluxo de branches, registro e avaliação antes de publicação/integração.
+
+Resposta representativa: “Vou conferir a branch e sua atualização em relação à dev, ler as regras do projeto e ajustar o feedback para que os erros fiquem visíveis no momento da confirmação.” Nenhuma pergunta de produto, aprovação humana ou autorização de publicação recebida nesta interação.
+
+### Aplicação no projeto
+
+Dev inicialmente limpa em 25cdca9. Primeira tentativa de fetch encontrou falta de permissão em .git/FETCH_HEAD; execução escalonada do fetch e da criação de branch foi aprovada automaticamente. Fetch concluído, dev/origin/dev sem divergência (0/0); criada feature/feedback-validacao a partir dessa dev antes de editar arquivos. Nenhuma edição em main/dev.
+
+ErrorNotice compartilhado ganhou título, ícone, texto maior, contorno de foco e opção de foco/rolagem automática usada nos erros de ações. Consultas não usam essa opção. Transporte associa erros à proposta/ação; cotação mostra falha junto do botão, veículo junto do cadastro e existe fallback se uma recarga retirar a proposta da lista ativa. QuoteForm foi extraído para componente próprio e valida datas com mensagens por campo, aria-invalid/aria-describedby e foco no primeiro problema. Domínio respeita data de entrega em São Paulo, saída futura, entrega após saída e validade futura até a reserva, sem alterar regras/RPC/migrations do banco. Campos são preservados em falha.
+
+Aplicado feedback também aos erros de ações de ofertas, demandas, composição, propostas, M5 e entrada demo. Especificação RNF02, D013, tasks.md e validation.md registram comportamento e evidências. Bancada tests/ui/feedback.html usa componentes reais com respostas em memória, fora do build de produção. Paleta, marca vetorial e ilustrações locais preservadas.
+
+### Validação das respostas
+
+Executados npm run lint, npm test (29 aprovados) e npm run build: aprovados na rodada final. O lint apontou ausência de export no componente da nova bancada; corrigido com export default e lint repetido. Três casos novos no domínio testam validade/saída, ordem da entrega, fronteira da reserva, virada UTC/São Paulo e entradas inválidas/ausentes. Build mantém aviso herdado de chunk acima de 500 kB. Sem alteração de banco, suíte PGlite e testes remotos não foram executados nesta interação.
+
+Navegador em bancada local: cotação em 1366×900 e 360×800 sem overflow horizontal; validade acima da reserva e entrega anterior à saída direcionam foco aos campos correspondentes. Erro remoto controlado foca aviso totalmente visível, junto da confirmação, preservando os dados; repetição e sucesso controlados conferidos. Modal em 360 px preserva quantidade, mantém foco/visibilidade do aviso nas duas tentativas e restaura foco ao fechar. Erro de consulta não move o foco. Capturas locais e limitações em validation.md. Nenhuma avaliação humana ou persistência remota atribuída a esses testes.
+
+### Análise crítica
+
+O aviso ligado à ação e o foco eliminam a necessidade de procurar o erro no topo; mensagens por data explicam como corrigir a falha ilustrada. A validação local antecipa restrições já existentes, mas relógio do dispositivo, concorrência ou expiração durante envio ainda podem gerar recusa do servidor, que continua exibida. O foco automático fica restrito às ações para não interromper digitação durante consultas periódicas. Fixtures validam apresentação e interação, sem substituir percurso conectado, Supabase real ou auditoria completa de acessibilidade. Avaliação do usuário e autorização para push/integração na dev continuam pendentes; nenhuma promoção para main presumida.
+
+
+## Interação 029 — Cotação distinta, revisão, negociação e desistência simulada — 09–10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para análise das regras, implementação, revisão e documentação; PowerShell/Git para conferir checkout/referências e preparar commit Conventional Commit na feature existente; Node/npm, ESLint, Vite e PostgreSQL PGlite para verificações locais. Perguntas assíncronas para definir aprovação de preço e regra da taxa. Skill computer-use já consultada nesta conversa; navegador integrado via cua_repl para bancada de componentes reais em desktop/360 px e capturas. Sem subagentes, pesquisa web, geração de imagens, envio externo de mensagens ou ferramentas Supabase remotas.
+
+### Interações realizadas
+
+Prompt integral: “otimo, quero mais uma alteração.
+no momento em que a cotação for confirmada, a proposta tem que aparecer com um design diferente e não identico a outras propostas abertas, coloque uma opção de modificar proposta, se a transportadora quiser alterar alguma data ou carro, caso a proposta seja alterada, o comprador e os produtores devem ser notificados, o preço do frente não podera ser alterado a não ser que o a transportadora fale diretamente com o responsavel por pagar o envio”. O “otimo” avalia o feedback anterior; não foi tratado como autorização de push/integração.
+
+Resposta representativa: “Vou revisar o fluxo de cotação e os aceites para diferenciar as propostas já cotadas e permitir alterações de datas e veículo com aviso aos envolvidos. Também vou verificar como manter o frete bloqueado durante essa edição.”
+
+Pergunta efetiva: “Depois da conversa direta com o comprador (quem paga o frete), como deve ser registrada uma mudança de preço?”. Opções oferecidas: transportadora propõe/comprador aprova no site ou preço bloqueado exigindo nova proposta. Resposta integral: “a transportadora pode negociar com o comprador, ele precisa aprovar, mas caso ele não aceite o novo valor e a transportadora não aceitar o valor antigo, ela recebera uma taxa de cancelamento pois acabou atrasando a negociação e talvez prejudicando todos os envolvidos, alem da proposta ser automaticamente enviada para outra transportadora”.
+
+Pergunta efetiva: “Qual deve ser o valor da taxa de cancelamento (fixo ou percentual do frete) e quem deve recebê-la? Entendi que a transportadora desistente será quem paga; preciso definir o valor e o destinatário para registrar a simulação.” Resposta integral: “a taxa deveria varias conforme a data de recebimento e vencimento do produto, se o produto estiver longe do vencimento e longe da data prevista de entrega, o valor deve ser baixo, se a transportadora cancelar perto da data, os valores devem ser maiores devido a urgência”.
+
+Pergunta efetiva: “Para a demonstração, posso usar 5% do frete com mais de 72h, 15% entre 24h e 72h, e 30% com até 24h, considerando o menor prazo entre entrega e vencimento informado? Vou acrescentar vencimento opcional ao cadastro do produto; quando ausente, o cálculo usará a entrega e mostrará esse limite. Quem deve receber a taxa simulada: comprador, produtores ou ambos?”. Resposta integral: “pode, ambos”. Essa resposta aprova as faixas propostas, o campo/fallback e ambos os grupos destinatários. A divisão operacional 50% comprador/50% produtores, estes proporcionalmente aos alimentos, foi decisão de implementação comunicada em comentário; não se atribui ao usuário escolha explícita desse rateio exato.
+
+### Aplicação no projeto
+
+Checkout inicialmente limpo na feature/feedback-validacao em 1037ff4, já derivada da dev, sem integração/publicação anterior. Mantida a mesma feature para a continuação solicitada, preservando o feedback. Fetch concluído e dev/origin/dev sem divergência em 25cdca9. Nenhuma edição em main/dev.
+
+Cartão confirmado verde com ícone, revisão, frete protegido e horários, distinto das propostas abertas. CarrierQuote substitui formulário inicial por Modificar proposta. QuoteModificationForm edita veículo/horários/validade com motivo, validação de datas e confirmação dos avisos, sem campo de preço. Cotação selecionada revisada gera nova versão e volta aos aceites finais; candidata revisada ainda exige seleção/aceites finais. Frete bloqueado também no servidor, inclusive impedindo recotação para contornar a edição. Revisões anteriores ficam preservadas; duplicatas legadas ficam no histórico, mantendo visível a selecionada/mais recente.
+
+FreightNegotiation registra contato direto, novo valor/motivo, decisão do comprador, manutenção do original ou desistência após recusa. Preço não muda em pendência/recusa; seleção/aceite/pagamento da cotação ficam bloqueados no banco. Aprovação usa valor persistido e exige nova revisão/aceites quando selecionada. Negociação obsoleta por escolha de outra cotação ou encerramento da carga é fechada sem taxa automática.
+
+Migration 202611090002_quote_revisions.sql acrescenta revisões, avisos por destinatário com antes/depois/leitura, negociações, taxas/parcelas simuladas e encaminhamento. Oferta recebe vencimento opcional separado da disponibilidade; novo item guarda snapshot, sem inventar dado histórico. Taxa usa prazo mais próximo da entrega/fim do vencimento informado em São Paulo; faltante usa entrega com aviso, faixas 5/15/30 aprovadas, arredondamento em centavos e taxa única por negociação. Prévia é recalculada ao desistir; alteração de faixa/valor exige nova confirmação. Divide metade comprador/metade produtores, sem alterar alimentos/frete futuro/repasse M5 ou movimentar dinheiro.
+
+Desistência reabre carga com reservas e fornecimentos preservados, invalida aceites finais e avisa outra transportadora demo com veículo compatível, ordenada por nome/UUID e excluindo desistentes da carga. Não preenche cotação, preço ou aceite pela substituta. Sem candidata, informa pendência. Outra transportadora não recebe dados da negociação/parcelas anteriores. Edição/negociação ficam antes do pagamento aprovado. TransportNotifications aparece em todas as telas autenticadas, consulta avisos persistidos a cada 30s/foco da janela e permite marcar leitura; não envia e-mail/WhatsApp/push.
+
+Atualizados RN02/RN36/RN47–49, RF06/RF08, contratos, modelo, fluxos, D014, tasks.md e validation.md. Sem novas dependências. Cadastro de ofertas sem vencimento mantém fallback ao schema legado; vencimento explícito sem migration exige atualização e preserva campos. Ferramentas remotas não foram executadas, migration não aplicada, nenhuma conta criada e nenhum push/merge/deploy feito nesta entrega.
+
+### Validação das respostas
+
+Lint aprovado, 32 testes Node e seis scripts PGlite M1–M5/revisões aprovados, build aprovado com aviso de chunk acima de 500 kB. A extensão inicial do snapshot M3 encontrou diferença de CRLF e INSERT com mais valores que colunas; corrigida a substituição com expressão regular e repetidas as suítes. Testes novos percorrem revisões candidata/selecionada, rejeição de adulteração de frete/veículo/datas/roteiro/perfis, notificações e leitura, snapshots, negociações e aceites por versão, pagamento bloqueado, manutenção sem taxa, aprovação de R$100,07/total R$350,07 ignorando valor adulterado, encerramento de negociação por escolha de outra transportadora sem taxa, faixas de 96h/48h/12h e influência do vencimento, recusa de cálculo desatualizado, soma exata das parcelas, desistência única/reenvio com e sem candidata, saldo de João preservado em 5 kg e novo pagamento após cotação/aceites da substituta. RLS/perfis/anon e escrita direta verificados localmente.
+
+Bancada em 1366×900 e 360×800 usa componentes reais com respostas controladas. Verificados cartão distinto, edição sem campo de preço, veículo/saída alterados e revisão, avisos a comprador/produtor com antes/depois e leitura, novo valor mantendo preço até aprovação, aprovação, recusa, prévia/aceite da taxa e encaminhamento à outra transportadora. Encontrado overflow horizontal no botão da prévia em 360 px; corrigidos min-width/quebra de texto e repetida a revisão: scrollWidth 1351 no desktop e 345 no celular, sem elementos além do viewport nos cenários revistos. Capturas locais e limites detalhados em validation.md; viewport restaurado ao finalizar.
+
+Sem teste remoto de Auth/RLS/concorrência/reload, aplicação de migration ou percurso conectado. Fixtures administrativas de timestamps/snapshots para casos limite não alteraram dados remotos. Fallbacks de schema legado/erro após mudança de estado foram revistos no código, sem injeção de falha conectada. Não se atribui ao usuário teste visual ou aceite humano desta implementação.
+
+### Análise crítica
+
+Separar edição operacional de negociação evita mudança silenciosa de frete. Revisões imutáveis e novos aceites impedem reutilizar aprovação de condições antigas; avisos persistidos tornam o motivo consultável, com limite de atualização periódica de 30s. A declaração de contato direto não comprova conversa externa, mas a mudança de valor depende da aprovação autenticada do comprador, suficiente para a demonstração e sem criar um chat fictício.
+
+As faixas são política de demonstração aprovada, não cálculo de prejuízo comprovado nem cobrança juridicamente validada. Vencimento não é inventado a partir de disponibilidade; quando ausente, o site explica que usa a entrega. Encaminhamento depende de outro participante demo com veículo compatível e não garante aceite/transporte; sem alternativa, a proposta permanece pendente. PGlite e bancada não substituem Supabase real. Regras de produto foram aprovadas nas respostas acima; publicação/integração, migration remota e avaliação humana da nova implementação seguem pendentes. Nenhuma promoção à main presumida.
+
+
+## Interação 030 — Publicação na dev e promoção para main — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar autorização e conferir o fluxo; PowerShell/Git para fetch, comparação das referências, commit documental na feature, publicação e integração sequencial feature → dev → main.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para a dev e atualizar a main logo depois”. Autoriza expressamente publicar a feature apresentada no repositório origin https://github.com/Conexa-GS/Conexa-Site.git, integrá-la à dev e em seguida atualizar a main. Resposta representativa: “Vou conferir as referências remotas, publicar a feature e integrá-la na dev. Depois, atualizarei a main com essa versão, conforme sua autorização.” A resposta do usuário especifica Git; não é tratada como autorização para aplicar migrations no Supabase ou executar transações remotas.
+
+### Aplicação no projeto
+
+Registro preparado na feature/feedback-validacao, após 1037ff4 e 4e9f6a9, com checkout limpo. Destino origin conferido. Fluxo autorizado sem force push: publicar feature, integrar/publicar dev e depois promover/publicar main, preservando histórico remoto. Nenhum arquivo desenvolvido diretamente na main. A promoção da dev inclui sua implementação M5 já existente, com limites e pendências remotas preservados.
+
+### Validação das respostas
+
+Fetch concluído. Dev local e origin/dev coincidem em 25cdca9. Main local estava 12 commits atrás de origin/main, portanto será sincronizada antes da promoção para preservar o trabalho remoto. Feature contém dois commits de aplicação sobre a dev; registro documental não altera código. Mantidas as verificações da interação 029: lint, 32 testes Node, seis scripts de banco local, build e revisão visual dirigida em desktop/360 px. Não se atribuem novos testes ou validação humana ao usuário. Publicação será conferida pelos hashes remotos.
+
+### Análise crítica
+
+A autorização amplia explicitamente o destino para main, respeitando a ordem solicitada sem presumir liberação anterior. Publicar código e migrations no Git não aplica schema ao banco: edição/negociação continuam dependentes da migration no demo e da validação conectada. Nenhuma cobrança, mensagem externa, conta ou migration remota é executada nesta interação.

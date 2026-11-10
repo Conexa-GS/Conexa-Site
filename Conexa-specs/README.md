@@ -31,6 +31,8 @@ Atualização em 08/11/2026: M4 iniciada localmente em `feature/m4-rotas-inclusa
 
 Atualização em 09/11/2026: M4 confirmado explicitamente pelo usuário no escopo apresentado e publicado na dev. T21–T24 encerrados por aceite humano somado às verificações locais registradas. O aceite preserva como limites a ausência de API externa ativa, migration/testes M4 no Supabase demo e comparação de total entre composições com fretes próprios. Próximo marco: M5/T25.
 
+Atualização em 09/11/2026: M5 iniciada em `feature/m5-fechamento-operacao`. T25–T27 implementadas e verificadas localmente: pagamento, compromisso de estoque, agendamento/viagem fictícios, divergência/resolução, cancelamento/estorno e repasses simulados. Comprador registra resolução e depois confirma recebimento, conforme confirmação explícita do usuário. T28, execução no Supabase demo e aceite da M5 continuam pendentes. Sem aplicação remota da migration nem integração/publicação desta feature. Evidências em `validation.md`.
+
 ## Origem e precedência
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.

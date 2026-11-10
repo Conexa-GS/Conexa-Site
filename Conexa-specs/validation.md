@@ -196,3 +196,68 @@ O pedido não relata novos procedimentos de teste executados pelo usuário e nã
 Integração/publicação documental autorizada em 09/11/2026 pela resposta “altorizado” à pergunta explícita sobre integrar e publicar na dev. Registro em IA.md, interação 024. Não representa novos testes, promoção à main, deploy ou alteração das limitações técnicas acima.
 
 Push confirmado novamente em 09/11/2026 por “pode subir para dev”, após a pergunta identificar explicitamente as branches feature/dev e o destino externo `Conexa-GS/Conexa-Site`. Registro em IA.md, interação 025. A autorização continua restrita à documentação do aceite M4; main e sistemas externos permanecem inalterados.
+
+## M5 — Implementação local em avaliação — 09/11/2026
+
+Feature `feature/m5-fechamento-operacao` criada a partir da dev limpa. T25–T27 implementadas; **T28 e aceite da M5 pendentes**. A única decisão de produto confirmada nesta interação foi comprador registrar resolução escrita e depois confirmar recebimento em ação separada. Não equivale a aceite do marco ou autorização de migration remota/publicação.
+
+Verificações efetivamente executadas pelo Codex:
+
+| Procedimento | Resultado | Limite |
+| --- | --- | --- |
+| `npm run lint` | Aprovado; extraído ReasonForm para corrigir diagnóstico inicial de refs no render | Análise estática |
+| `npm test` | 26 testes Node aprovados | Suíte existente de domínio/serviços; regras M5 verificadas no banco |
+| `npm run test:db` | Cinco scripts M1–M5 aprovados com todas as migrations em ordem | PGlite, `auth.uid()` simulado; sem Supabase Auth remoto nem concorrência real |
+| `npm run build` | Aprovado; chunk principal 589,26 kB com aviso acima de 500 kB | Aviso de tamanho herdado, sem falha do build |
+| Bancada `/tests/ui/m5.html`, 1366×900 e 360×800 | Sem overflow horizontal: scrollWidth 1351 e 345, respectivamente; campos e textos legíveis | Componentes reais com fixtures em memória, sem consultas/escritas remotas; não é revisão conectada completa |
+| Interação dirigida na bancada | Pendente/recusado mantêm etapa; falha preserva resultado/chave; repetição por Enter reutiliza a chave; aprovação agenda; transportador inicia; comprador registra divergência, recebimento fica desabilitado, resolução o habilita sem concluir; recebimento exibe R$150/R$100/R$80; produtor consulta seu próprio repasse | Reducer visual não valida banco; comandos por teclado dirigidos não são auditoria completa de teclado/leitor de tela |
+
+`tests/m5-database.mjs` percorre comprador, dois produtores e transportador com cargas criadas pelas RPCs M2/M3 antes do pagamento. AC18: pendente/recusado não agendam, total adulterado pelo cliente é ignorado e servidor usa R$330; mesma chave retorna mesma tentativa; outro resultado/carga com chave usada é rejeitado; outra aprovação é bloqueada; reserva vira compromisso sem alterar saldo livre de João (5 kg) e compromisso sobrevive ao prazo original. Verificadas rejeições de aceites incompletos, reserva/cotação vencidas, unidade desconhecida, mínimo inválido, versão errada e ausência de chave.
+
+AC19: comprador cancela carga agendada com motivo, pagamento vira refunded e estoque volta a 25 kg livres para João; repetição não duplica estorno/eventos. Cancelamento M2 não contorna M5; arquivamento de demanda com agendamento é bloqueado. Após início, cancelamento vira ocorrência, mantém pagamento approved e saldo 5, sem liberação. AC20: divergência e pedido pós-saída criam duas ocorrências, bloqueiam recebimento/repasses; resolução escrita de todas não conclui; recebimento separado produz três parcelas (15000/10000/8000 centavos), repetição não duplica. Caminho sem divergência também executado em transação revertida sobre uma carga realmente paga/comprometida.
+
+AC21: produtor, comprador, transportador selecionado, outro transportador, comprador alheio e anon exercitados. Banco rejeita pagamentos, cancelamentos, partida, resolução e recebimento fora do perfil/ordem. RLS restringe tentativas ao comprador e repasses ao próprio beneficiário ou comprador; ocorrência apenas aos envolvidos. Escrita REST direta nas tabelas M5 sem concessão. Testes administrativos de snapshots/validade rodam em transações locais revertidas; nenhum dado de operação remota adulterado.
+
+Capturas locais: `m5-desktop.jpg` e `m5-mobile.jpg` em `C:/Users/Murilo/.codex/visualizations/2026/11/10/01a1c317-bc93-75c2-ae11-cc84b91a666a`. Datas de exibição em America/Sao_Paulo. Bancada fora da entrada do build de produção. Estilos, marca vetorial, paleta e ilustrações locais preservados. O ajuste final de preservação de dados já carregados em falha de recarga foi revisado no código e incluído em lint/build, sem injeção de falha na página conectada.
+
+Revisão final encontrou e corrigiu exposição indireta das descrições M5 nos eventos do gateway M3 para transportador que cotou mas não foi selecionado. Acrescentada segunda cotação de outro transportador à fixture M5: ele conserva a própria cotação, mas não recebe eventos após seleção de outro transportador, tentativas, ocorrências ou repasses da carga. Repetida a suíte PGlite M1–M5 após esse ajuste: aprovada. O ajuste é exclusivamente de migration/teste de banco; não altera o layout revisto.
+
+Pendências: aplicar migrations ausentes e validar no Supabase demo mediante autorização própria; testar concorrência de pagamento/cancelamento, Auth/RLS reais, reload, troca dos três perfis na aplicação conectada e erros de rede; avaliação humana. Não foram executados scripts remotos, aplicadas migrations ou criadas fixtures no Supabase. Não há pagamento, transporte físico, repasse, API externa ou cobrança real. Sem push, merge ou deploy. A ausência da RPC M5 mantém consulta M3 com aviso explícito; o fallback foi revisado no código, sem teste remoto nesta entrega.
+
+
+## Feedback de erros visível — 09/11/2026
+
+Branch feature/feedback-validacao criada a partir da dev limpa. Fetch concluído e comparação dev...origin/dev retornou 0/0 em 25cdca9. Responsável pela implementação e verificações abaixo: Codex. Avaliação humana e autorização de publicação/integração pendentes.
+
+Avisos de ações em ofertas, demandas/composição/propostas, transporte/M5 e entrada demo recebem foco e rolagem para a área visível, com título, ícone e texto maior. Consultas não mudam o foco. Cotação tem erro remoto junto do botão e validação local das datas por campo; datas são interpretadas no horário do dispositivo e a data da entrega é comparada em America/Sao_Paulo, conforme o banco existente. Falha não limpa campos. Transporte mantém aviso também quando a recarga move a proposta para o Histórico ou remove o registro da lista retornada; esse fallback foi revisto no código, sem injeção de mudança de estado no demo.
+
+- npm run lint: aprovado após exportar o componente da nova bancada para atender ao Fast Refresh.
+- npm test: 29 testes aprovados; três novos casos cobrem limites de validade/saída, ordem da entrega, virada UTC/São Paulo e entradas ausentes/inválidas.
+- npm run build: aprovado; aviso herdado de chunk principal acima de 500 kB (595,98 kB na rodada final).
+- Bancada tests/ui/feedback.html com QuoteForm, ErrorNotice e OfferForm reais, respostas controladas e nenhuma chamada Supabase: revisão em 1366×900 e 360×800. No celular, scrollWidth 345 para viewport 360, sem overflow horizontal; modal também sem overflow interno.
+- Validade após a reserva: campo expires_at marcado e focado. Entrega antes da saída no celular: delivery_time marcado, focado e visível. Correção permite chegar ao envio controlado.
+- Falha remota controlada: aviso focado e totalmente visível nas duas larguras, junto do botão; saída/local/frete/datas preservados. Repetição da cotação mantém foco no aviso. Sucesso controlado limpa o erro e reseta o formulário.
+- Falha no modal em 360 px: aviso visível dentro do diálogo, foco e quantidade preservada; repetição retorna foco ao aviso. Fechar devolve foco ao botão de abertura.
+- Erro de consulta controlado: foco permaneceu no botão que o revelou.
+
+Capturas feedback-desktop.png e feedback-mobile.png em C:/Users/Murilo/.codex/visualizations/2026/11/10/01a1c334-f71a-7c71-8791-a96548210ec1. A bancada fica fora da entrada do build de produção. Sem teste conectado, execução de RPC/migration no Supabase, nova suíte de banco, auditoria completa de teclado/leitor de tela ou aceite humano. Não houve mudança de persistência, RLS ou estados de M1–M5. Sem push, merge ou deploy nesta entrega.
+
+
+## Revisões de cotação, negociação e desistência simulada — 09–10/11/2026
+
+Implementação local na feature/feedback-validacao, preservando o commit 1037ff4. Antes da mudança, checkout limpo; fetch e dev/origin/dev sem divergência em 25cdca9. Usuário aprovou as regras de urgência e ambos os destinatários da taxa; não aprovou envio/integração/migration remota. Responsável pelos testes descritos: Codex.
+
+- npm run lint aprovado.
+- npm test: 32 testes Node aprovados, incluindo estados de cotação confirmada, bloqueio de edição após pagamento, preservação do instante no horário do dispositivo e vencimento opcional separado da disponibilidade.
+- npm run test:db: seis scripts M1–M5/revisões aprovados na rodada final, usando todas as migrations em ordem. A primeira tentativa da extensão M3 encontrou INSERT com mais valores que colunas por diferença de CRLF no trecho substituído; corrigida a substituição do snapshot por expressão regular tolerante a espaços/quebras e repetidas as suítes. Banco é PGlite com auth.uid simulado, sem concorrência remota ou Supabase Auth real.
+- npm run build aprovado; aviso de chunk principal acima de 500 kB mantido (625,03 kB na rodada final, sem novas dependências).
+
+A nova suíte quote-revisions-database.mjs exercita revisão candidata e selecionada, histórico/supersessão, frete imutável e rejeição de recotação para contornar bloqueio; isolamento por papel/carga; veículo incompatível, datas e payload adulterados; notificações dos três destinatários com antes/depois e leitura exclusiva; snapshot de vencimento preservado após editar oferta. Seleção de outra cotação encerra negociação obsoleta sem taxa. Revisão selecionada elimina validade dos aceites antigos e exige todos na versão nova.
+
+Negociação testada: recusa preserva R$80 e permite manter original sem taxa; nova aprovação usa R$100,07 persistidos, ignora valor adulterado do navegador, atualiza total para R$350,07 e exige novos aceites. Pagamento fica bloqueado durante negociação. Testes de urgência usam relógio real e timestamps de fixture local para 96h/48h/12h, cobrindo 5%/15%/30%, centavos e vencimento próximo predominante; ausência de vencimento tem flag explícita. Taxa desatualizada é recusada. Desistência cria taxa única, parcelas cuja soma é exata, reabre a carga, preserva saldo de João em 5 kg e dois fornecimentos para futura seleção; duplicação/recotação pela desistente são rejeitadas. Com veículo compatível, outra transportadora é notificada sem dados de negociação/parcelas; sem compatível, replacement_carrier_id é null e não é criada cotação fictícia. Substituta envia cotação própria, todos confirmam nova versão e pagamento simulado é aprovado; edição posterior é rejeitada. RLS restringe avisos/negociação/taxa/parcelas; produtor consulta só sua parcela; comprador alheio/anon e escrita direta bloqueados.
+
+Bancada tests/ui/quote-revisions.html em 1366×900 e 360×800 usa QuoteStatus, CarrierQuote, QuoteModificationForm, FreightNegotiation, CancellationFees e TransportNotifications reais com estado/respostas controlados. Conferidos contraste estrutural entre cartão confirmado e aberto; editor sem campo de preço, veículo/saída alterados e revisão 2; comprador/produtor com aviso, antes/depois e marcar leitura; proposta de R$100 mantendo R$80 até aprovação, aprovação e segunda proposta recusada, prévia de 15% e confirmação de desistência, parcelas e aviso à transportadora seguinte. A bancada não valida o servidor nem simula as permissões dos dados por si só.
+
+Foi encontrado overflow horizontal na prévia da taxa em 360 px; corrigidos min-width e quebra dos botões. Medições finais: viewport/scrollWidth 1366/1351 no desktop e 360/345 no celular, inclusive editor e prévia da taxa, sem elementos além do viewport. Editor conferido com zero campos de preço editável. Capturas quote-confirmed-desktop.png, quote-confirmed-mobile.png e quote-fee-mobile.png em C:/Users/Murilo/.codex/visualizations/2026/11/10/01a1c334-f71a-7c71-8791-a96548210ec1. Viewport restaurado ao encerrar. Sem auditoria completa de leitor de tela/teclado, teste de falha real de conexão ou percurso conectado.
+
+Pendências: aplicar 202611090002_quote_revisions.sql ao demo depois da avaliação/autorização, conferir migrations anteriores exigidas, Auth/RLS/concorrência/reload e avisos entre sessões reais; garantir outra transportadora demo com veículo compatível para demonstrar reenvio. Sem isso, a interface informa atualização pendente para editar e não inventa substituta. Fallback do cadastro de ofertas sem vencimento em schema legado e fallback de erro quando a cotação deixa de ser editável foram revistos no código, sem injeção de falha conectada. Sem cobrança, mensagem externa, push, merge, deploy ou migration remota nesta entrega. Marcos M1–M5 e limites anteriores preservados.
