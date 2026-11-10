@@ -5,7 +5,7 @@ Estes IDs são a referência canônica deste pacote e substituem a numeração d
 ## Cadastros
 
 - RN01: cada oferta pertence a um produtor; demanda a um comprador; cotação a um transportador.
-- RN02: oferta exige produto, quantidade positiva, unidade, preço unitário de venda, mínimo líquido unitário, coleta e período de disponibilidade. Venda unitária não pode ficar abaixo do mínimo.
+- RN02: oferta exige produto, quantidade positiva, unidade, preço unitário de venda, mínimo líquido unitário, coleta e período de disponibilidade. Venda unitária não pode ficar abaixo do mínimo. Vencimento do produto é opcional e separado da disponibilidade; quando informado, não pode anteceder seu fim e é preservado no snapshot da composição.
 - RN03: demanda exige produto, quantidade positiva, unidade, destino e data desejada.
 - RN04: oferta publicada ou demanda registrada não é venda confirmada.
 - RN05: só comparar unidades iguais ou com conversão explícita. Peso para logística precisa ser conhecido; não presumir peso de caixa, maço ou unidade.
@@ -54,7 +54,7 @@ Estes IDs são a referência canônica deste pacote e substituem a numeração d
 
 ## Confirmação e execução
 
-- RN36: mudanças de produtos, quantidades, preço, roteiro, frete ou datas invalidam os aceites afetados; registrar nova versão antes de pedir confirmação.
+- RN36: mudanças de produtos, quantidades, preço, roteiro, veículo, frete ou datas invalidam os aceites afetados; registrar nova versão antes de pedir confirmação. Antes do pagamento, transportadora pode revisar seu veículo/horários/validade, com frete preservado e aviso persistido no site ao comprador e produtores. Cotação selecionada revisada volta a exigir todos os aceites finais; candidata revisada ainda depende da seleção e de todos os aceites finais.
 - RN37: no MVP não editar valores de operação paga; cancelar com estorno simulado antes do transporte e criar nova proposta.
 - RN38: só pagamento simulado aprovado libera agendamento. Pagamento pendente ou recusado não libera transporte.
 - RN39: operação e pagamento têm estados separados. Todos acompanham os mesmos dados persistidos.
@@ -68,3 +68,6 @@ Estes IDs são a referência canônica deste pacote e substituem a numeração d
 - RN44: recebimento confirmado sem divergência registra repasses simulados aos produtores e transportador, uma única vez.
 - RN45: chat/WhatsApp posterior usa os mesmos dados e validações; texto/áudio interpretado exige prévia e confirmação antes de salvar.
 - RN46: dados fictícios, estimativas, ausência de dados e impactos não validados devem estar explicitamente identificados. Nunca fabricar economia sem uma base comparável.
+- RN47: após confirmar cotação, frete fica bloqueado na edição. Novo valor exige registro de conversa direta e aprovação explícita do comprador. Negociação pendente/recusada não muda o preço e bloqueia seleção, aceites e pagamento dessa cotação até aprovação, manutenção do valor original ou desistência. Aprovação cria revisão, avisa os envolvidos e, se selecionada, exige novos aceites. Não editar após pagamento aprovado.
+- RN48: se comprador recusa novo frete e transportadora também não aceita o original, a desistência registra taxa exclusivamente simulada sobre o frete original: 5% acima de 72h, 15% com mais de 24h até 72h, 30% com até 24h. Usar o menor prazo entre entrega cotada e fim do dia de vencimento informado dos itens (São Paulo). Vencimento ausente usa entrega naquele item, com aviso. Registrar snapshot de prazo/percentual/base/valor no momento da desistência e exigir nova confirmação se o cálculo mudar. Não há cobrança real. Metade para comprador; metade para produtores, proporcional ao valor dos alimentos. Centavo ímpar vai ao comprador; resíduos dos produtores ficam com o último por UUID. Se alimentos totalizarem zero, dividir a metade dos produtores igualmente, preservando resíduos.
+- RN49: desistência após recusa reabre a proposta com reservas e fornecimentos preservados, invalida aceites finais e encaminha aviso à próxima transportadora demo com veículo de capacidade/conservação compatível, ordenada por nome/UUID, excluindo quem já desistiu da carga. Não presume cotação, aceite ou preço da substituta. Sem candidata compatível, informar pendência e manter aberta para transporte. A desistente não recota a mesma carga; demais operações permanecem disponíveis. Taxa não altera frete futuro nem os valores dos alimentos.

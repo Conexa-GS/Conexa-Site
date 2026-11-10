@@ -68,6 +68,11 @@ Entrega local preparada em `feature/m5-fechamento-operacao`, a partir da dev. Ar
 
 - [x] Tornar falhas de ações visíveis e orientar correção das datas da cotação — `components/ui.jsx`, `App.css`, formulários/listas de ofertas e demandas, transporte/M5 e entrada demo. Criada `feature/feedback-validacao` a partir da dev sincronizada com origin/dev em `25cdca9`. Codex verificou lint, 29 testes Node, build e bancada local em desktop/360 px; detalhes e limites em `validation.md`. Avaliação humana e autorização de publicação/integração pendentes; não altera o aceite dos marcos.
 
+## Ajuste transversal — revisão de cotação e negociação — 09–10/11/2026
+
+- [x] Diferenciar cotação confirmada, revisar veículo/horários com avisos persistidos, negociar frete com aprovação do comprador e registrar desistência/taxa simulada por urgência com encaminhamento a outra transportadora — código, migration `202611090002_quote_revisions.sql`, teste `quote-revisions-database.mjs` e bancada `tests/ui/quote-revisions.html` preparados na mesma feature já derivada da dev. Vencimento opcional acrescentado à oferta e aos snapshots; faixas 5%/15%/30% e destinatários comprador/produtores aprovados pelo usuário nesta conversa. Verificações locais por Codex em `validation.md`.
+- [ ] Aplicar a migration no Supabase demo e percorrer revisões/negociação/notificações nos perfis conectados, incluindo concorrência e recarga; avaliação humana e autorização de publicação/integração continuam pendentes. Nenhum marco é declarado concluído por estes testes locais.
+
 ## M6 — Evolução de acessibilidade
 
 - [ ] T29 Chat demonstrativo opcional com confirmação e mesmo serviço de ofertas; verificar AC22.

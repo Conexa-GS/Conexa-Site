@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { financialSummary, validateQuoteDates } from '../src/domain/transport.js'
+import { financialSummary, validateQuoteDates, confirmedQuoteFor, canReviseQuote, localDateTime } from '../src/domain/transport.js'
 
 test('financial summary preserves individual minimums, zero fee and separate freight', () => {
   const load = { items:[{producer_id:'ana',producer_name:'Ana',gross_cents:15000,minimum_cents:12000},{producer_id:'joao',producer_name:'João',gross_cents:10000,minimum_cents:9000}],quotes:[{id:'quote',total_cents:8000}],selected_quote_id:'quote' }
@@ -32,4 +32,21 @@ test('quote dates handle missing and malformed inputs without throwing during co
   for (const value of ['', 'invalid']) {
     assert.deepEqual(Object.keys(validateQuoteDates({ departure_time: value, delivery_time: value, expires_at: value }, load, now)).sort(), ['delivery_time', 'departure_time', 'expires_at'])
   }
+})
+
+test('confirmed presentation uses the current carrier quote and editing respects selected and paid states', () => {
+  const q = { id: 'q', carrier_id: 'carrier', status: 'confirmed', load_version: 2 }
+  const current = { version: 2, status: 'awaiting_quotes', quotes: [{ ...q, id: 'old', superseded_at: '2026-11-09T00:00:00Z' }, { ...q, id: 'old-version', load_version: 1 }, q] }
+  assert.equal(confirmedQuoteFor(current, { id: 'carrier', role: 'carrier' }).id, 'q')
+  assert.equal(confirmedQuoteFor(current, { id: 'other', role: 'carrier' }), undefined)
+  assert.equal(canReviseQuote(current, q), true)
+  assert.equal(canReviseQuote({ ...current, selected_quote_id: 'other' }, q), false)
+  assert.equal(canReviseQuote({ ...current, version: 3 }, q), false)
+  assert.equal(canReviseQuote({ ...current, status: 'scheduled' }, q), false)
+  assert.equal(canReviseQuote({ ...current, payments: [{ outcome: 'approved' }] }, q), false)
+})
+
+test('editing a timestamp in device local time preserves the instant without silently shifting hours', () => {
+  const instant = '2026-11-10T15:00:00.000Z'
+  assert.equal(new Date(localDateTime(instant)).toISOString(), instant)
 })

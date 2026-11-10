@@ -8,7 +8,7 @@ export function comparableQuotes(load, now = Date.now()) {
   if (!weightKnown || !minimumsPreserved || !['awaiting_quotes', 'awaiting_final_approval', 'awaiting_payment'].includes(load.status) || !(Date.parse(load.expires_at) > now)) return []
   const subtotal = load.items.reduce((sum, i) => sum + Number(i.gross_cents), 0)
   for (const quote of load.quotes) {
-    if (quote.status !== 'confirmed' || quote.load_version !== load.version || !(Date.parse(quote.expires_at) > now)
+    if (quote.status !== 'confirmed' || quote.superseded_at || quote.load_version !== load.version || !(Date.parse(quote.expires_at) > now)
       || !quote.departure_address || !quote.departure_time || !quote.delivery_time || !quote.conservation_required
       || !requiredServices.every(service => quote.services_included?.[service] === true)) continue
     const key = JSON.stringify([quote.departure_address, quote.return_address || null,

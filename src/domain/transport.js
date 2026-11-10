@@ -1,5 +1,16 @@
 export const conservationLabel = value => ({ ambient: 'Ambiente protegido', refrigerated: 'Refrigerado' })[value] || 'A confirmar'
 
+export const currentQuotes = load => load.quotes.filter(q => q.status === 'confirmed' && !q.superseded_at && q.load_version === load.version).sort((a, b) => (Date.parse(b.created_at) || 0) - (Date.parse(a.created_at) || 0) || b.id.localeCompare(a.id))
+export function confirmedQuoteFor(load, session) {
+  const quotes = currentQuotes(load)
+  return session.role === 'carrier' ? quotes.find(q => q.carrier_id === session.id && q.id === load.selected_quote_id) || quotes.find(q => q.carrier_id === session.id) || load.quotes.filter(q => q.status === 'confirmed' && !q.superseded_at && q.carrier_id === session.id).sort((a,b) => b.load_version-a.load_version || (Date.parse(b.created_at) || 0)-(Date.parse(a.created_at) || 0))[0] : quotes.find(q => q.id === load.selected_quote_id) || quotes[0]
+}
+export const canReviseQuote = (load, quote) => Boolean(quote && !quote.superseded_at && quote.load_version === load.version && ['awaiting_quotes', 'awaiting_final_approval', 'awaiting_payment'].includes(load.status) && (!load.selected_quote_id || load.selected_quote_id === quote.id) && !(load.payments || []).some(p => p.outcome === 'approved'))
+export function localDateTime(value) {
+  const date = new Date(value)
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16)
+}
+
 // Matches M3's timestamps and delivery date in São Paulo, regardless of device timezone.
 export function validateQuoteDates(input, load, now = Date.now()) {
   const errors = {}
