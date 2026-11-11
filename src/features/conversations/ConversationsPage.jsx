@@ -108,7 +108,7 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
   </section>
 }
 
-export default function ConversationsPage({ session, service = conversationService, botService }) {
+export default function ConversationsPage({ session, service = conversationService, botService, voice }) {
   const inbox = useConversations(session, service)
   const [selected, setSelected] = useState(null)
   const [drafts, setDrafts] = useState({})
@@ -139,7 +139,7 @@ export default function ConversationsPage({ session, service = conversationServi
       <div className="conversation-main">{conversation ? <>
         <button className="conversation-back text-link" onClick={back}><ArrowLeft size={18} aria-hidden="true" />Voltar às conversas</button>
         {conversation.kind === 'bot'
-          ? <BotThread key={conversation.id} conversation={conversation} session={session} service={botService} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />
+          ? <BotThread key={conversation.id} conversation={conversation} session={session} service={botService} voice={voice} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />
           : <Thread key={conversation.id} conversation={conversation} session={session} service={service} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', key: null, locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />}
       </> : <div className="conversation-welcome"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /><h2>Escolha uma conversa.</h2><p>O Bot Conexa fica no início da lista. Para falar com uma pessoa, escolha um contato demo.</p></div>}</div>
     </div>

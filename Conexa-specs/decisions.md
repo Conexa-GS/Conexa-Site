@@ -152,6 +152,20 @@ Nova migration guarda rascunho/revisões, snapshot/versão/saldo e pedidos com c
 
 Sem mudança nas regras de negócio ou API paga. Evidências locais em validation.md e contrato em conversas-site.md. PGlite não comprova corrida entre sessões reais nem Auth/websocket/F5 remoto. Revisão visual restrita à bancada em memória; voz T39/T40 não iniciada, T42 continua do usuário e T43/integração dependem de avaliação/autorização. Migrations somente preparadas/testadas localmente, sem aplicar no demo.
 
+## D021 — IA/voz opcional com controle no servidor — 11/11/2026
+
+Status: implementada/verificada **localmente para avaliação**, sem aceite, implantação, sessão paga ou teste de áudio real. Origem: pedido de continuar as implementações da tasks.md, preservando a restrição de testes pagos exclusivos do usuário (D018).
+
+A proposta inicial de T39 emitia credencial efêmera ao navegador. A documentação oficial informa que configurações associadas ao token podem ser sobrescritas pelo cliente; expiração do token não comprova duração da chamada. Substituída essa proposta técnica por WebRTC unificado: servidor autentica o demo/bot, reserva cota durável e cria chamada; navegador recebe apenas SDP e ID local. Chave permanente fica no servidor; sideband acompanha respostas/configuração/perda de controle e servidor solicita hangup. Nenhuma mudança na confirmação de ofertas ou autorização para uso pago.
+
+Broker Node 24 local com SQLite, lock de instância única e limites obrigatórios de duração, tentativas por participante/dia de São Paulo, respostas e tokens de saída por resposta. Reserva conta mesmo em falha; resultado incerto bloqueia novas chamadas e exige conciliação, sem repetição paga automática. Recuperação encerra leases conhecidos; não libera automaticamente criação sem ID. Os limites são operacionais, não garantia de valor exato cobrado. Queda do processo ainda exige recuperação/supervisão e impede tratar este broker como infraestrutura pública pronta.
+
+A única ferramenta sugere comando em texto. Transcrição/sugestão podem ser corrigidas e transferidas ao campo simulado, encerrando sessão sem envio/escrita. Intérprete T36, prévia/revisão e confirmação atômica T37 permanecem obrigatórios. Modelo não recebe DM, catálogo completo, localização, SQL, token Auth ou autoridade de confirmar; papel comprador continua consulta. Resposta da IA é texto nesta fatia, sem fala sintetizada.
+
+Arquivos: `server/voice*.mjs`, `server/openai-voice.mjs`, `VoicePanel.jsx`, serviços/contrato de voz, testes e [voz-manual.md](voz-manual.md). Flags desabilitadas por padrão; sem migrations novas. `ws` 8.22.2, já instalado transitivamente por jsdom, passa a dependência explícita do servidor; lock sincronizado offline. Evidências locais em validation.md. T35/T38/T41 remotos, T42, T43 e aceites M6/M5 continuam pendentes. Não há autorização implícita de publicação/integração nem de migrations demo.
+
+Fontes oficiais consultadas em 11/11/2026: [credenciais efêmeras](https://developers.openai.com/api/reference/resources/realtime/subresources/client_secrets/methods/create), [WebRTC](https://developers.openai.com/api/docs/guides/voice-webrtc), [sideband](https://developers.openai.com/api/docs/guides/voice-server-controls?api=realtime&voice-api=realtime), [hangup](https://developers.openai.com/api/reference/resources/realtime/subresources/calls/methods/hangup). Consulta não comprova acesso, custo ou funcionamento real do provedor no demo.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

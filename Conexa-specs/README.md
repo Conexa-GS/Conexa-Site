@@ -1,5 +1,7 @@
 # Conexa — Pacote de especificações
 
+11/11/2026 — terceira fatia local de Conversas: T39/T40 preparadas na `feature/conversas-voz-opcional` da dev `aaa0adb`. Broker opcional Node 24 com cotas locais persistentes, WebRTC/sideband e transcrição/sugestão corrigíveis; resposta da IA em texto. D021 substitui credencial efêmera por SDP intermediado no servidor. Desabilitado por padrão; agente usou apenas mocks e bancada sem microfone/API paga. Roteiro [voz-manual.md](voz-manual.md), evidências em validation.md. T35/T38/T41 remotos, T42, avaliação M6 e M5/T28 continuam pendentes; nenhuma integração/publicação ou migration remota presumida.
+
 Versão: 1.0 | Preparado em: 06/11/2026 | Estado: pronto para orientar o início da implementação.
 
 Este pacote usa desenvolvimento guiado por especificação (Spec-Driven Development). A primeira implementação visual foi preparada em 07/11/2026 com base no piloto Conexa. Consulte `validation.md` para distinguir código e verificações locais de funcionalidades remotas ainda pendentes.

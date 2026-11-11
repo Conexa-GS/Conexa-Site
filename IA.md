@@ -1150,3 +1150,35 @@ Revisão dirigida real da bancada em 1366×900 e 360×800, sem overflow horizont
 ### Análise crítica
 
 Intenções delimitadas permitem avaliar a experiência sem tokens, mas exigem frases documentadas e esclarecimento de saldo/datas; não oferecem entendimento arbitrário. Gateway comum reduz divergência entre formulário e bot; resultado e comando na mesma transação protegem replay. Compatibilidade temporária preserva o demo sem migration, mas precisa validação remota e retirada futura quando o schema estiver uniforme. Locks e RLS testados em PGlite não comprovam corridas/eventos remotos; mocks de perda de resposta não comprovam falha de rede real. Próximos passos são aplicação/testes autorizados no demo e avaliação; OpenAI/voz permanecem etapas separadas do usuário. Sem push, merge, deploy, alteração da main, autorização presumida ou encerramento de M6/M5/T30.
+
+## Interação 046 — IA/voz opcional nas Conversas — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura, implementação React/Node e documentação; PowerShell/Git e apply_patch para branch/alterações/verificações; Node 24/SQLite, React/Vite/jsdom e PGlite para testes locais; skill OpenAI Docs e documentação oficial para contrato Realtime; skill Computer Use e navegador in-app para bancada visual/teclado. Sem subagentes, chamadas de modelo no produto, sessão paga, microfone ou escrita remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas
+
+Resposta representativa real: “A base de Conversas e o bot por texto já estão na dev. Vou avançar com o adaptador opcional de IA e a voz (T39/T40), mantendo o texto simulado como padrão e testando o provedor apenas com mocks, sem chamadas pagas.” Consultas/esclarecimentos não são novos prompts de programação; nenhuma avaliação humana ou autorização de integração/migration inventada.
+
+### Aplicação no projeto
+
+Criada `feature/conversas-voz-opcional` da dev limpa `aaa0adb`. Preparados broker local Node 24 autenticado por Supabase Auth/participante/bot, cotas duráveis SQLite, origem exata, duração/respostas, hangup/recuperação e adaptador WebRTC/sideband; D021 substitui a proposta de credencial efêmera pelo SDP intermediado no servidor. Única ferramenta propõe comando corrigível em texto, sem autoridade de escrita. Painel de IA/voz opcional desabilitado por padrão, modo de IA por texto sem microfone, transcrição/sugestão corrigíveis, transferência manual ao bot sem envio, cleanup ao sair/ocultar/trocar conversa/conta ou falhar. Intérprete/prévia/confirmação T36/T37 preservados. Respostas do provedor em texto nesta fatia.
+
+Novos exemplos de ambiente público/servidor separados, dependência explícita ws 8.22.2 já instalada via jsdom, testes/fixture/bancada e roteiro voz-manual.md. Atualizados tasks, contratos, decisão D021, README/planejamento, critérios e validação; T39/T40 marcadas como implementação local, não voz real validada. Sem nova migration; T35/T38/T41 remotos, T42/T43 e aceites M6/M5 continuam pendentes. Não houve ativação de endpoint remoto ou integração com WhatsApp.
+
+### Validação das respostas
+
+Codex executou lint sem avisos, 83 testes (15 novos), oito scripts PGlite e build aprovado (679,01 kB principal; aviso herdado >500 kB). SQLite real local usado somente para cotas de sessões fictícias; autenticação/provedor/WebRTC/mídia simulados. Testes verificam limites, isolamento, concorrência de início, cotas após reabrir banco, resultado incerto/tardio, hangup com falha, recusa de ferramenta indevida, liberação de mídia, troca de conversa/conta, pagehide e cadeia sugestão → envio → prévia → confirmação. Adaptador HTTP exercitado com fetch injetado; nenhum socket externo foi aberto. Broker iniciado desabilitado sem `.env.voice` e encerrado após conferir a mensagem de ausência de API.
+
+Bancada real em 1366×900 e 360×800, sem overflow horizontal observado; transcrição/sugestão corrigidas, transferência para campo com foco, Tab/Enter até prévia e encerramento mock. Capturas fora do repositório; viewport restaurado. Não equivale a voz real, persistência remota, teste de leitor de tela ou aceite humano. Teste inicial encontrou aviso de encerramento roubando foco do campo; corrigido. Lint confundiu helper useText com hook e acusou timer sem import; corrigidos sem supressão. Após alterações de código, sessão antiga mock preservada por HMR foi descartada por recarga da bancada. Tentativas de instalação ws falharam por cache/rede; lock/dependência existente reconciliados offline sem baixar pacote. Diff/estado conferidos para preparar commit local; sem push, merge ou deploy.
+
+### Análise crítica
+
+Manter texto simulado e exigir início manual evita custo ao abrir a aba e permite avaliar o fluxo sem áudio. Controle de chamada no servidor e cotas persistentes evitam confiar só no cronômetro ou na validade de token efêmero, mas são limites operacionais, não garantia de custo em reais. Resposta incerta não pode disparar repetição paga; foi adotado bloqueio conservador com conciliação. Queda do broker exige recuperação/supervisão, e este servidor local de instância única não é implantação pública pronta. Saída do modelo continua não confiável; sugestão só entra no fluxo de oferta após revisão/envio explícitos, e confirmação/estoque continuam no banco. Mocks não comprovam precisão da transcrição, negociação WebRTC, Auth/sideband/hangup reais ou consumo. Esses testes e T42 ficam com o usuário; M6/M5/T30 e publicação dependem de seus próprios critérios/autorizações.
+
+Complemento de autorização da interação 046 — 11/11/2026: após apresentação do commit f36db6d e pergunta explícita sobre publicar/integrar a feature, usuário respondeu “pode integrar na dev”. Autoriza publicação da feature e integração/publicação da dev no origin conferido https://github.com/Conexa-GS/Conexa-Site.git. Checkout limpo na feature antes da operação; fetch repetido com permissão de escrita Git após bloqueio inicial do FETCH_HEAD. Preservadas as verificações da entrega (lint, 83 testes, oito scripts PGlite, build e bancada desktop/360 px); sem alteração de runtime ou novos testes nesta autorização. Não inclui main, migrations remotas, ativação de voz, chamada paga ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.

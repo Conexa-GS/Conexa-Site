@@ -5,6 +5,7 @@ import { siteBotService } from '../../services/site-bot'
 import { botQuestion, canConfirmBot, interpretSiteBot, offerFields } from '../../domain/site-bot'
 import { offerChatSteps } from '../../domain/offer-chat'
 import { currency, quantity } from '../../domain/offers'
+import VoicePanel from './VoicePanel'
 
 function Preview({ draft, catalog }) {
   if (!draft || !['create', 'edit', 'archive'].includes(draft.intent)) return null
@@ -25,7 +26,7 @@ function Preview({ draft, catalog }) {
   </section>
 }
 
-export default function BotThread({ conversation, session, service = siteBotService, refresh, revision, composer, setComposer }) {
+export default function BotThread({ conversation, session, service = siteBotService, refresh, revision, composer, setComposer, voice }) {
   const [context, setContext] = useState(null)
   const [history, setHistory] = useState({ messages: [], has_more: false })
   const [busy, setBusy] = useState(false)
@@ -112,7 +113,7 @@ export default function BotThread({ conversation, session, service = siteBotServ
   const choices = missing?.name === 'product_id' ? context.catalog.products.map(p => ({ id: p.id, title: p.name })) : missing?.name === 'pickup_location_id' ? context.catalog.locations.map(l => ({ id: l.id, title: l.display_address })) : []
   return <section className="conversation-thread" aria-labelledby="bot-title" aria-busy={busy}>
     <header className="conversation-thread-heading"><span className="conversation-avatar bot"><Robot size={25} aria-hidden="true" /></span><div><h2 id="bot-title" ref={heading} tabIndex={-1}>Bot Conexa</h2><p>Interpretação simulada por texto · sem API paga</p></div></header>
-    <p className="conversation-agreement">Use dados fictícios. Escreva consultar, criar oferta, editar alface ou arquivar alface. Quantidade: total 20 kg; correções: preço: 7,00, início: 20/11/2026. Voz ainda indisponível.</p>
+    <p className="conversation-agreement">Use dados fictícios. Escreva consultar, criar oferta, editar alface ou arquivar alface. Quantidade: total 20 kg; correções: preço: 7,00, início: 20/11/2026.</p>
     {error && <ErrorNotice autoFocus title="Não foi possível continuar" retry={composer.pending ? undefined : () => { void load().catch(error => setError(error.message)) }}>{error} Seu rascunho foi preservado.</ErrorNotice>}
     {!context && !error && <p role="status">Carregando bot e ofertas…</p>}
     {!context && error && <button className="text-link" disabled={busy} onClick={() => { setError(''); void load().catch(error => setError(error.message)) }}>Recarregar bot</button>}
@@ -132,6 +133,7 @@ export default function BotThread({ conversation, session, service = siteBotServ
       {(!missing || draft?.status === 'conflict') && <Preview draft={draft} catalog={context.catalog} />}
       {draft?.status === 'conflict' && <button className="button button-secondary" disabled={blocked} onClick={() => prepare('Preparar nova prévia após conflito', { ...draft })}>Preparar nova prévia</button>}
       {canConfirmBot(draft, context.catalog) && <button className="button bot-confirm" disabled={blocked} onClick={() => void execute('confirm', { conversation_id: cid, request_id: crypto.randomUUID(), revision: draft.revision })}>Confirmar revisão {draft.revision}</button>}
+      <VoicePanel conversationId={cid} disabled={blocked} {...voice} onUseText={text => { setComposer({ body: text, locked: false }); input.current?.focus() }} />
       <form className="conversation-composer" onSubmit={send}><label htmlFor="bot-message">Mensagem para o Bot Conexa</label><textarea id="bot-message" ref={input} rows={3} maxLength={2000} value={composer.body} disabled={blocked} onChange={event => setComposer({ body: event.target.value, locked: false })} aria-describedby="bot-help" /><div className="conversation-send-row"><small id="bot-help">Corrija com campo: valor. Cancelar descarta o rascunho. “Sim” não confirma.</small><button className="button" disabled={blocked || !composer.body.trim()}>Enviar ao bot</button></div></form>
       {composer.pending && <button className="button" disabled={busy} onClick={() => void execute(composer.pending.action, composer.pending.payload)}>Verificar pedido pendente</button>}
     </>}

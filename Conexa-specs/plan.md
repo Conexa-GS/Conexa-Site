@@ -1,5 +1,7 @@
 # Plano de implementação
 
+Terceira fatia de Conversas — 11/11/2026: T39/T40 preparadas localmente na `feature/conversas-voz-opcional` da dev `aaa0adb`; complementa o histórico abaixo. Broker Node 24 opcional, WebRTC unificado/sideband, cotas SQLite duráveis e painel de transcrição/sugestão corrigível. D021 substitui a proposta de token efêmero. Sem ativação/implantação ou teste pago; [voz-manual.md](voz-manual.md) prepara T42. Continuam prioritárias as validações autorizadas no demo de T35/T38/T41 e o aceite de texto/DM/M6; nenhuma conclusão de M5/T28/T30 é inferida. Broker local de uma instância não é infraestrutura pública pronta.
+
 ## Arquitetura proposta
 
 React + Vite + Tailwind → serviços de aplicação → Supabase (Auth demo, PostgreSQL/RLS, funções transacionais). Rotas externas por função no servidor. Não criar backend completo separado sem necessidade.
