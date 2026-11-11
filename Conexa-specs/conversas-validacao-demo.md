@@ -46,6 +46,8 @@ O mesmo cenário passou no PGlite via `tests/conversations-acceptance-database.m
 
 ## Percurso conectado ainda pendente
 
+Complemento executado em 11/11/2026 (D024): sessão de Ana e 40 mensagens existentes do bot retomadas após recarga real em desktop; comprador independente retomado em 360 px; saída deste perfil persistiu após recarga, sem encerrar Ana. Teclado Enter para bot/Voltar/saída e foco do título da lista conferidos. Isso cobre retomada e consulta de histórico existente; os passos de criação/DM/rede abaixo continuam pendentes. Duas abas novas agora isolam armazenamento e canal Auth; evitar duplicar aba, pois o navegador pode copiar a sessão inicial. Não houve novo envio/confirmação nem aplicação de migration.
+
 Depois do script autorizado, usar o site conectado, com voz desabilitada, em 360 px e desktop:
 
 1. Como produtor, abrir Bot Conexa, preparar/corrigir/cancelar uma oferta e conferir ausência de escrita; criar outra apenas por prévia/confirmar. Registrar seu ID, recarregar com F5 e conferir histórico/resultado. Conferir a mesma oferta no comprador.

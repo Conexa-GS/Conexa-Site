@@ -1276,3 +1276,35 @@ Revisão Computer Use no site conectado ao demo, em 1366×900 e 360×800, entrad
 Reunir o cadastro em um único bot evita manter duas experiências distintas e torna as opções guiadas acessíveis pelo atalho já conhecido. Seleção inicial aguarda dados sem disparar comandos e Voltar permanece sob controle da pessoa. Sem configuração do Supabase, Conversas informa indisponibilidade; o atalho não usa o cadastro em memória como se fosse persistência remota. Teste integrado protege navegação/ausência de modal, enquanto revisão conectada é limitada ao acesso, sem novo CRUD ou auditoria completa. Pendências de M6/M5 e integração/publicação desta feature permanecem independentes.
 
 Complemento de autorização das interações 048/049 — 11/11/2026: após apresentação de `64c3227` (opções guiadas) e `d4f17bc` (atalho direto), usuário respondeu “sim” à solicitação de publicar/integrar ambos na dev. Autoriza publicação da `feature/bot-opcoes-guiadas` e integração/publicação na dev no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Sem promoção para main, deploy, migration, voz paga ou aceite de marco. Checkout limpo antes do registro; preservadas as verificações finais: lint, 89 testes, build e revisão do atalho conectado em desktop/360 px. Sem alteração funcional nesta autorização; resultado das referências conferido na entrega, sem force push.
+
+## Interação 050 — Continuação T41: retomada da sessão demo — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, implementação JavaScript/React, testes e documentação; PowerShell/Git/apply_patch e Node/Vite/jsdom para verificações locais; skill Computer Use/navegador in-app para recargas e revisão conectada desktop/360 px. Documentação oficial Supabase consultada na web e SDK instalado inspecionado para contrato Auth/BroadcastChannel. Sem subagentes, migrations, ferramentas administrativas, microfone ou API paga.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> continue a implementação das tasks do projeto, pergunte o que não estiver claro
+
+Resposta representativa real: “A `dev` já reúne o bot guiado e o atalho para Conversas. A próxima etapa é a T41, que ainda tem pendências de recarga e recuperação após falhas. Encontrei um ponto a corrigir: a interface perde o participante selecionado ao recarregar, embora o Supabase mantenha a autenticação. Vou tratar essa retomada e verificar o histórico persistido.” A observação inicial sobre Auth foi corrigida após leitura da configuração: `persistSession` também estava desativado. Não houve esclarecimento de produto necessário, autorização de publicação ou aprovação humana presumida.
+
+### Aplicação no projeto
+
+Criada `feature/t41-retomada-sessao` da dev limpa `785442d`; primeira tentativa de criar branch bloqueada pelo sandbox, repetida com escalonamento aprovado. `demo-auth.js` centraliza Auth, validação do participante por servidor/RLS, contas/papéis permitidos e saída local; `tab-session-storage.js` usa storage por aba e mapeia chave exclusiva de documento para nome estável de projeto. Isso permite retomar e impede BroadcastChannel do SDK de sincronizar identidades entre abas. Modo local continua em memória. `useDemoSession` passa a retomar, observar saída, ignorar respostas obsoletas e tratar falhas; App mostra carregamento/erro e só navega após saída bem sucedida. Login explícito encerra sessão anterior antes de trocar. Demo informa a retomada e saída.
+
+Revisão por teclado detectou foco perdido ao voltar à lista no celular; `ConversationsPage` foca o título após a lista ficar visível. Acrescentados testes Auth/storage/hook e asserção de foco em teste existente. Spec, decisão D024, roteiro, README, tasks e validation atualizados, incluindo correção de instruções antigas sobre modal/migrations no README. Nenhuma alteração em SQL, permissões, estoque, dinheiro ou interpretação de ofertas.
+
+### Validação das respostas
+
+Codex executou lint aprovado, **102 testes aprovados**, zero falhas, e build aprovado; principal 682,59 kB/gzip 195,17 kB, aviso herdado de chunk grande. Treze testes novos cobrem identidade validada, perfil inválido/forjado, rede, saída/troca/erros, isolamento e storage bloqueado, chaves de broadcast, concorrência de retomada/seleção e eventos SIGNED_OUT. Suite SQL e runner remoto não repetidos porque schema/regras não mudaram. Diff/estado conferidos para entrega; sem push/merge/deploy.
+
+Computer Use conectado ao demo: Ana desktop 1366×900, bot aberto pelo atalho, 40 mensagens existentes iguais após recarga real; comprador em segunda aba nova, recargas mantendo sua identidade, inclusive em 360×800. Saída do comprador persistiu após recarga e acesso à rota protegida; Ana continuou autenticada. ScrollWidth 1351/345, painel móvel 279, sem overflow observado; Enter em abrir/Voltar/saída e foco final no título da lista. Não houve envio/turn/confirmar/CRUD pelo agente. Viewport inicialmente afetou somente aba mais recente; innerWidth revelou a diferença e apenas comprador a 360 foi contado como mobile. Primeira comparação de histórico foi feita durante carregamento e repetida após carregar, com igualdade confirmada. Capturas/limites em validation.md, viewport restaurado. Último ajuste de saída antes do login e evento durante troca validado automaticamente após essa revisão visual, sem alegar nova execução no navegador.
+
+### Análise crítica
+
+Retomar uma sessão exige tanto token quanto participante atual validado, e storage personalizado sozinho não isola o broadcast interno do Auth. Chave exclusiva por documento resolve eventos cruzados sem trocar a fonte de dados do domínio. sessionStorage tem limites de disponibilidade/cópia/restauração do navegador; não é autenticação de produção e requer saída explícita. Testes simulam Auth/rede e não comprovam todos os fluxos remotos. Revisão conectada comprova retomada/consulta do histórico existente e perfis separados; não é novo CRUD/DM ou falha física de rede. T35/T38/T41 continuam parciais, T42/voz paga é do usuário, M6/T43 e M5/T28 dependem de suas verificações/aceites. Integração/publicação desta feature exige avaliação e autorização conforme workflow.
+
+Complemento de autorização da interação 050 — 11/11/2026: após apresentação do commit `4e02c7d`, verificações e limites, usuário respondeu “sim autorizo” à publicação da feature e integração na dev. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo antes do registro; fetch executado antes de integrar. Autorização restrita a feature/dev, sem promover main, deploy, migrations, voz paga ou aceite de marcos. Verificações funcionais da entrega preservadas; este complemento é documental. Publicação sem force push e referências conferidas ao concluir.

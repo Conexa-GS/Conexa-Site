@@ -1,5 +1,7 @@
 # Conexa — Pacote de especificações
 
+11/11/2026 — complemento local T41/D024 na `feature/t41-retomada-sessao`: retomada de sessão por aba e revalidação remota, isolamento de Auth e foco de Voltar corrigidos. Recarga real do bot/histórico de Ana e do perfil comprador em abas distintas verificada no site conectado, desktop/360 px; saída do comprador preservou Ana. Sem novo CRUD/envio ou teste pago. [Evidências e limites](validation.md). T41, avaliação M6 e M5/T28 continuam pendentes; integração/publicação desta feature dependem de autorização.
+
 11/11/2026 — execução autorizada de Conversas: duas migrations aplicadas ao demo `conexa`; nove grupos de testes passaram com Auth/RLS, concorrência e Realtime reais, uma oferta própria arquivada e 82 mensagens fictícias preservadas. Publicação/integração da feature na dev autorizadas pelo usuário. [Evidências e versões remotas](validation.md); F5/percurso conectado e T42/M6/M5 continuam pendentes. Os registros anteriores de migrations ainda não aplicadas são históricos.
 
 11/11/2026 — preparação de T41 em `feature/conversas-validacao-demo`, da dev `96e5f33`: teste manual de texto/DM, configuração offline e cenário compartilhado exercitado no PostgreSQL local. Não houve autenticação, mensagens ou migrations remotas. [Roteiro do demo](conversas-validacao-demo.md) descreve autorização, efeitos persistentes e percurso F5/duas sessões ainda pendente. T35/T38/T41, T42 e aceite M6 continuam abertos.

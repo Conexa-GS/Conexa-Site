@@ -1,6 +1,7 @@
 import { futureDate, today } from '../domain/offers'
 import { isRemote, supabase } from './supabase'
 import { m2 } from './m2'
+import { createDemoAuth } from './demo-auth'
 
 export const accounts = [
   { id: 'ana', name: 'Ana Oliveira', role: 'producer', label: 'Sítio Boa Semente', email: import.meta.env.VITE_DEMO_ANA_EMAIL || 'ana@conexa.invalid', art: 'produtora' },
@@ -16,16 +17,14 @@ let localOffers = [
 ].map(offer => ({ ...offer, available_from: today(), available_until: futureDate(14), status: 'published', version: 1 }))
 const hydrate = offer => ({ ...offer, products: products.find(p => p.id === offer.product_id), participants: { display_name: accounts.find(a => a.id === offer.producer_id)?.name }, locations: locations.find(l => l.id === offer.pickup_location_id) })
 const check = result => { if (result.error) throw new Error('Não foi possível acessar os dados. Verifique a conexão e a configuração do Supabase.'); return result.data }
-export async function signInDemo(account) {
-  if (!isRemote) return { ...account, display_name: account.name }
-  const { error } = await supabase.auth.signInWithPassword({ email: account.email, password: import.meta.env.VITE_DEMO_PASSWORD || '' })
-  if (error) throw new Error('Não foi possível abrir a sessão de demonstração. Confira os usuários fictícios e a configuração do ambiente.')
-  const { data: { user } } = await supabase.auth.getUser()
-  const participant = check(await supabase.from('participants').select('*').eq('id', user.id).single())
-  if (!participant.is_demo || participant.role !== account.role) { await supabase.auth.signOut(); throw new Error('Esse participante não corresponde ao perfil de demonstração selecionado.') }
-  return { ...account, ...participant }
+export const demoSessionService = isRemote ? createDemoAuth(supabase, accounts, import.meta.env.VITE_DEMO_PASSWORD || '') : {
+  restore: async () => null,
+  enter: async account => ({ ...account, display_name: account.name }),
+  leave: async () => {},
+  subscribe: () => () => {},
 }
-export const signOutDemo = async () => { if (isRemote) await supabase.auth.signOut() }
+export const signInDemo = account => demoSessionService.enter(account)
+export const signOutDemo = () => demoSessionService.leave()
 export async function listCatalog(session) {
   if (!isRemote) return { products, locations: locations.filter(l => l.owner_id === session.id) }
   const [productResult, locationResult] = await Promise.all([supabase.from('products').select('*').order('name'), supabase.from('locations').select('*').eq('owner_id', session.id)])

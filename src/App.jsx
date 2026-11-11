@@ -3,7 +3,7 @@ import { useRouter, navigate } from './hooks/useRouter'
 import { useDemoSession } from './hooks/useDemoSession'
 import AppLayout from './components/AppLayout'
 import { homeFor } from './domain/profiles'
-import { ActionLink, EmptyState, Logo } from './components/ui'
+import { ActionLink, EmptyState, ErrorNotice, Logo } from './components/ui'
 import Demo from './pages/Demo'
 import OffersPage from './features/offers/OffersPage'
 import { OperationPage, PaymentPage } from './pages/Previews'
@@ -31,6 +31,8 @@ export default function App() {
   if (path === '/') return <Suspense fallback={<div className="initial-loading" role="status">Preparando o caminho…</div>}><Landing /></Suspense>
   if (path === '/demo') return <Demo auth={auth} />
   if (!route) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Esse caminho ainda não existe." action={<ActionLink href="/">Voltar ao início</ActionLink>}>Confira o endereço ou retorne à página inicial.</EmptyState></div>
+  if (auth.restoring) return <div className="initial-loading" role="status">Retomando sua sessão de demonstração…</div>
+  if (!auth.session && auth.error) return <div className="app-shell"><header className="app-header"><Logo /></header><ErrorNotice title="Não foi possível retomar a sessão">{auth.error}</ErrorNotice><ActionLink href="/demo">Escolher participante e tentar novamente</ActionLink></div>
   if (!auth.session) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Vamos escolher seu perfil?" action={<ActionLink href="/demo">Entrar na demonstração</ActionLink>}>Abra uma sessão fictícia para explorar este espaço.</EmptyState></div>
   const role = auth.session.role
   let page
@@ -45,5 +47,5 @@ export default function App() {
   else if (path === '/transportador/veiculos') page = <TransportPage key={`${auth.session.id}-vehicles`} session={auth.session} vehiclesOnly />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
   else page = <OperationPage role={role} />
-  return <AppLayout session={auth.session} path={path} leave={async () => { await auth.leave(); navigate('/demo') }}>{page}</AppLayout>
+  return <AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate('/demo') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout>
 }
