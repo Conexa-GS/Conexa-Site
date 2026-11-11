@@ -48,6 +48,8 @@ Primeira fatia de 11/11/2026: AC24/AC23 verificados no escopo da bancada local d
 
 Texto/DM e voz têm evidências separadas. Mocks não comprovam custo, áudio ou sessão real; aceite de voz depende de T42. Aplicação remota do novo schema depende da autorização correspondente.
 
+Evidência local adicional — 11/11/2026, D021/T39/T40: configuração desligada, endpoint autenticado simulado, cotas SQLite duráveis, controle de duração/respostas, cleanup/tardios e proposta sem escrita exercitados em testes; painel revisto em desktop/360 px/teclado. AC31 tem evidência local, AC32 somente comportamento simulado. Nenhuma sessão OpenAI, permissão de microfone ou teste de voz real pelo agente. Supabase Auth do broker e sideband/hangup reais dependem de configuração/testes do usuário; T42 e critérios remotos T35/T38/T41 continuam pendentes. Roteiro em [voz-manual.md](voz-manual.md), resultados em validation.md.
+
 ### Métodos
 
 - Testes unitários para cálculos monetários, mínimo individual, compatibilidade e transições relevantes.

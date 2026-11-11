@@ -56,6 +56,14 @@
 .bot-offer-options small { display: block; margin: 6px 0; }
 .bot-choices { display: flex; flex-wrap: wrap; gap: 12px; }
 .bot-confirm { margin-bottom: 16px; white-space: normal; }
+.voice-panel { border: 1px solid #b6c5a7; border-radius: 14px; background: #f7f3e7; padding: 16px; margin-block: 18px; overflow-wrap: anywhere; }
+.voice-panel h3 { font-size: 17px; }
+.voice-panel p { font-size: 13px; line-height: 1.6; margin-block: 10px; }
+.voice-panel label { display: block; margin-top: 14px; font-size: 13px; font-weight: 600; }
+.voice-panel textarea { width: 100%; min-width: 0; background: #fffdf7; border: 1px solid #8c9c7d; border-radius: 10px; padding: 10px; font: inherit; font-size: 14px; color: #174d38; }
+.voice-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.voice-panel button { white-space: normal; }
+.voice-active { border-left: 4px solid #9c4329; padding-left: 10px; font-weight: 600; }
 .conversations-layout :focus-visible { outline: 3px solid #9c4329; outline-offset: 3px; }
 @media (max-width: 760px) {
   .conversations-layout { display: block; min-height: 400px; border-radius: 14px; }

@@ -35,7 +35,7 @@ npm run preview
 | Participantes fictícios | `/demo` | Ana, João, restaurante e transportador |
 | Ofertas do produtor | `/produtor/ofertas` | Criar, consultar, editar, excluir e filtrar |
 | Cadastro por conversa | `/produtor/ofertas` → Cadastrar por conversa | M6 em avaliação: perguntas guiadas, correção e prévia antes da confirmação |
-| Conversas internas | `/produtor/conversas`, `/comprador/conversas` | Mensagens e bot por texto preparados localmente; migrations demo/validação remota pendentes; voz em preparação |
+| Conversas internas | `/produtor/conversas`, `/comprador/conversas` | Texto/DM e IA/voz opcional preparados localmente; voz desabilitada; migrations demo/validação real pendentes |
 | Consulta do comprador | `/comprador/ofertas` | Mesma fonte de ofertas |
 | Propostas do produtor | `/produtor/propostas` | Aceite/recusa persistidos, prazo e valores acordados |
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
@@ -61,7 +61,7 @@ T29 implementada e comportamento AC22 verificado automaticamente. Teste remoto m
 
 ## Experimentar a aba Conversas — primeira fatia local
 
-Produtor e comprador têm **Conversas** na navegação. A aba apresenta Bot Conexa identificado e mensagens individuais entre os contatos demo permitidos. O bot interpreta intenções delimitadas por texto, sem API paga: consultar, criar, editar e arquivar ofertas próprias, com perguntas, correção e prévia antes da confirmação. Voz permanece pendente. Mensagens humanas não executam mudanças em ofertas ou operações. Não use informações pessoais reais: as contas são compartilhadas.
+Produtor e comprador têm **Conversas** na navegação. A aba apresenta Bot Conexa identificado e mensagens individuais entre os contatos demo permitidos. O bot interpreta intenções delimitadas por texto, sem API paga: consultar, criar, editar e arquivar ofertas próprias, com perguntas, correção e prévia antes da confirmação. IA/voz opcional está preparada localmente e desabilitada por padrão, com validação real pendente. Mensagens humanas não executam mudanças em ofertas ou operações. Não use informações pessoais reais: as contas são compartilhadas.
 
 Serviços: `site_chat` da migration `202611110001_site_conversations.sql` e `site_bot`/`save_offer` da `202611110002_site_offer_bot.sql`. **As duas migrations ainda aguardam aplicação/validação autorizadas no demo**. Sem schema/configuração, a aba explica a indisponibilidade e não inventa histórico. O envio usa chave idempotente, mensagens paginadas, leitura por membro e reconciliação por cursor; persistência/Realtime entre sessões reais ainda precisam ser validados. O formulário passa a compartilhar o gateway de escrita do bot quando disponível; enquanto o demo não recebe a migration, mantém o CRUD anterior sob os mesmos triggers/RLS. Contrato e restrições em [conversas-site.md](Conexa-specs/conversas-site.md).
 
@@ -70,6 +70,8 @@ Para avaliar sem rede/escrita remota, execute Vite e abra `/tests/ui/conversatio
 No bot, experimente `editar alface total 20 kg e preço 7,00`, depois `mínimo: 4,00` ou `fim: 25/11/2026`. Para criar, escreva `criar oferta` e responda às perguntas; selecione alimento/coleta nas opções. Datas exigem dia/mês/ano ou ISO, e vencimento aceita `não sei`. Havendo duas ofertas do alimento, escolha o identificador mostrado. `Cancelar` descarta; `sim` não autoriza salvar. Use **Confirmar revisão N**. Mudança de versão/saldo exige nova prévia; resposta perdida bloqueia correção até **Verificar pedido pendente**. O intérprete não entende linguagem arbitrária nem converte saldo livre em quantidade total.
 
 ## Conectar o Supabase de demonstração
+
+IA/voz opcional T39/T40 preparada localmente: configuração desabilitada por padrão, broker Node 24 separado, WebRTC com respostas em texto e sugestão corrigível antes do fluxo de prévia/confirmar. Não foi implantada nem testada com microfone/provedor reais. Consulte [configuração e roteiro T42](Conexa-specs/voz-manual.md) antes de ativar manualmente; não coloque chave OpenAI em variáveis `VITE_`. A bancada de Conversas simula esses controles em memória sem áudio/API paga. Os requisitos de migrations/demo e aceite da M6 continuam pendentes.
 
 1. Escolher um projeto de demonstração do grupo. O projeto demo configurado recebeu M1–M3 em 07/11/2026 e M4/M5/revisões em 10/11/2026 mediante autorização; não reaplicá-las nele. O histórico remoto tem versões diferentes dos nomes locais; conferir o mapeamento em validation.md.
 2. Em instalação nova, aplicar os arquivos SQL de `supabase/migrations` em ordem de nome. Em projeto existente, aplicar apenas migrations ausentes conforme histórico; M3 tem a migration principal e complementos de compatibilidade/totais.

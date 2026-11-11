@@ -2,6 +2,8 @@
 
 Data: 11/11/2026. Status: **segunda fatia local implementada para avaliação**: aba T34, base de mensagens T35/T38 e bot por texto/comandos T36/T37. Duas migrations de Conversas ainda não aplicadas ao demo; voz pendente. Direção solicitada pelo usuário após os testes de integração WhatsApp. Tarefas T34–T43 em [tasks.md](tasks.md); decisões D018–D020 em [decisions.md](decisions.md). T29 é a base existente; T30 fica pausada. Não representa aceite da M6 nem conclusão da M5/T28.
 
+Atualização posterior na mesma data: **terceira fatia local T39/T40** preparada na `feature/conversas-voz-opcional` da dev `aaa0adb`. O contrato D021 abaixo substitui a proposta de token efêmero, sem alterar o histórico das duas primeiras fatias. Voz/provedor reais continuam sem teste; T42/aceite M6 pendentes. Configuração e roteiro em [voz-manual.md](voz-manual.md).
+
 ## Experiência e escopo
 
 Aba **Conversas** nas contas de produtor e comprador, com interação familiar de mensageiro: lista de contatos/conversas, Bot Conexa destacado, balões, horários, não lidas e campo para escrever. Desktop mostra lista e conversa lado a lado; em 360 px mostra uma área por vez. Preservar identidade Conexa (creme, verde, laranja, marca vetorial e ilustrações locais), acessibilidade e navegação por teclado. Identificar como conversa dentro da Conexa; não usar marca ou estado que sugira WhatsApp conectado.
@@ -95,7 +97,7 @@ Intérprete determinístico reaproveita T29: `consultar`, `criar oferta`, `edita
 
 Evidências: três testes de domínio, quatro de componente, script PostgreSQL local do bot e bancada 1366×900/360×800/teclado. Sem Supabase remoto, websocket, chamadas de OpenAI, voz ou aceite humano. T35/T38/T41 e M6 continuam abertos pelos critérios pendentes; histórico da primeira fatia acima é preservado.
 
-## Adaptador de IA e voz propostos
+## Proposta inicial de IA/voz — contrato substituído pelo D021 abaixo
 
 - Endpoint autenticado de sessão verifica participante, modo habilitado, limites por usuário e duração antes de contatar a OpenAI. Chave permanente em segredo de servidor; nunca em variável `VITE_*`, bundle, histórico ou logs. Credencial efêmera não fica persistida no histórico.
 - Navegador usa WebRTC apenas após ação explícita; indica microfone e sessão paga ativos. Fornecer transcrição corrigível e alternativa por texto. Não guardar áudio bruto nesta fatia; enviar ao provedor apenas contexto necessário da conversa com o bot, sem mensagens privadas entre pessoas.
@@ -105,6 +107,16 @@ Evidências: três testes de domínio, quatro de componente, script PostgreSQL l
 - Provedor indisponível, chave ausente, permissão de microfone negada ou limite atingido mantém texto simulado disponível e não gera sucesso fictício.
 
 ## Verificação e aceite
+
+### Contrato local T39/T40 — D021
+
+O servidor opcional `npm run dev:voice` (Node 24+, uma instância local) expõe `POST /api/voice/sessions` e `GET`/`DELETE /api/voice/sessions/:id`. Exige origem exata, JWT validado por Supabase Auth, participante demo produtor/comprador e acesso ao próprio bot via `site_bot state` antes de criar chamada. Só recebe `conversation_id`/SDP; ignora identidade/modelo/limites do navegador. Devolve SDP, ID opaco local, expiração e teto de respostas; nenhuma chave OpenAI chega ao browser. Sem configuração explícita, responde indisponível antes de autenticar/chamar provedor. Não foi implantado nem autenticado no demo nesta rodada.
+
+Interface unificada de WebRTC cria a chamada no servidor; sideband acompanha respostas/configuração/perda de controle e hangup é solicitado pelo servidor. `.voice-data/quotas.sqlite` reserva tentativa antes de contatar provedor, aplica limite por participante/dia de São Paulo e uma sessão ativa; duração começa nessa reserva. Limites configurados no servidor: duração, tentativas diárias, respostas e saída por resposta. São tetos operacionais, não garantia de cobrança máxima exata: chamadas em andamento/áudio/transcrição e eventual queda do processo têm limites descritos em voz-manual.md. Erro incerto não repete chamada e bloqueia novas sessões; cotas persistem e leases conhecidos são encerrados na recuperação. Servidor não pode ser usado em múltiplas instâncias/serverless sem evolução de armazenamento/supervisão.
+
+IA recebe somente instruções de domínio e papel do participante, além de texto/áudio enviado explicitamente nesta sessão. Sem histórico de DM, catálogo completo, localização ou credenciais. A única ferramenta `propose_offer_command` sugere comando em texto; argumentos/nomes desconhecidos são rejeitados. Nenhuma ferramenta escreve, confirma, chama RPC ou executa SQL. Transcrição e sugestão são corrigíveis; transferir ao campo simulado encerra a sessão sem enviar o comando. Depois, T36 interpreta, T37 registra rascunho/prévia e só o botão confirma a revisão pelo banco. Comprador continua somente consulta. Não há entendimento garantido de frase arbitrária ou catálogo pela IA.
+
+Browser pede microfone apenas em Iniciar voz paga; Iniciar IA paga por texto usa a mesma API sem microfone. Respostas da IA são texto, sem síntese/reprodução de fala nesta fatia. Cleanup ao sair/ocultar/trocar conta/conversa, envio/cancelamento local, limite ou falha; sem reconexão paga automática. Nenhum áudio bruto é persistido. O histórico do bot recebe apenas o texto que a pessoa efetivamente envia pelo fluxo existente. Tudo fica desabilitado por padrão; sem servidor/configuração mantém texto simulado. Testes reais pagos continuam exclusivos do usuário, T42.
 
 Critérios AC24–AC32 em [acceptance.md](acceptance.md): primeira evidência local de interface/mensagens em `validation.md`; verificações remotas, bot e voz ainda pendentes. T41 prepara testes sem custo de API, com domínio/componentes/provedor simulado e banco local. Teste remoto de texto/DM deve demonstrar RLS, persistência com F5 e duas sessões separadas, após autorização para a migration correspondente. Não atribuir persistência real a mocks/PGlite nem percepção visual a jsdom.
 

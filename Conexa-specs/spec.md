@@ -57,4 +57,6 @@ Direção vigente de 11/11/2026 (D018): T30 fica pausada após os experimentos d
 
 ## Fora do escopo
 
+Atualização local T39/T40 em 11/11/2026: adaptador Realtime opcional e entrada de voz/transcrição preparados, desabilitados por padrão, com respostas em texto; D021 substitui emissão efêmera pelo SDP intermediado no servidor. Continua sem voz/provedor reais verificados. Testes pagos T42 exclusivos do usuário e requisitos de configuração/implantação em [voz-manual.md](voz-manual.md); não encerra M6.
+
 Dinheiro real, transporte físico, autenticação de produção, WhatsApp oficial como dependência da nova entrega (T30 pausada), otimização global de frota, múltiplos compradores por carga, certificação de segurança alimentar e integração obrigatória com os trabalhos das outras matérias. Transcrição/voz via OpenAI é exceção demo opcional planejada para teste manual pago pelo usuário; não é funcionalidade implementada. Grupos, anexos, chamadas entre participantes e escrita de demandas/transporte/pagamentos/aceites pelo bot ficam fora desta fatia.

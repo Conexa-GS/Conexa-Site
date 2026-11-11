@@ -1,5 +1,7 @@
 # Contratos de serviços propostos
 
+Contrato local T39/T40 (11/11/2026, D021): [conversas-site.md](conversas-site.md#contrato-local-t39t40--d021) descreve `POST /api/voice/sessions` (`conversation_id`, SDP) e `GET`/`DELETE /api/voice/sessions/:id`. Auth/participante/bot verificados no servidor, origem exata e limites locais persistentes; devolve SDP/ID local/prazo, sem chave OpenAI. Ferramenta apenas propõe texto corrigível, sem RPC de confirmação ou escrita; envio/prévia/confirmar continuam em `site_bot`. Flags desligadas por padrão. Interface unificada substitui a emissão efêmera originalmente proposta. Testes somente locais/simulados; configuração e limites de implantação em [voz-manual.md](voz-manual.md).
+
 Interfaces abaixo são contratos lógicos, não endpoints de backend já implementados. CRUD simples usa cliente Supabase com RLS. Operações compostas usam funções transacionais; rotas externas usam servidor.
 
 T30/WhatsApp: contrato separado em [t30-whatsapp.md](t30-whatsapp.md), com protocolo de texto e handler local sem adaptador persistente. `acceptBatch` deve garantir recebimento durável do lote antes de responder 200; `publish_offer` é pedido, não confirmação de gravação. Banco, identidade e envio externo ainda não implementados.
