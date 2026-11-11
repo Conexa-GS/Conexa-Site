@@ -2,6 +2,9 @@ import assert from 'node:assert/strict'
 import { JSDOM } from 'jsdom'
 import { createServer } from 'vite'
 import react from '@vitejs/plugin-react'
+import { mkdtemp, rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join, resolve } from 'node:path'
 
 // Component contract tests only: jsdom has no layout, native modal focus trap or browser keyboard navigation.
 export async function createChatEnvironment(env = {}) {
@@ -17,7 +20,10 @@ export async function createChatEnvironment(env = {}) {
     this.querySelector('button')?.focus()
   }
   dom.window.HTMLDialogElement.prototype.close = function () { this.open = false }
-  const server = await createServer({ configFile: false, envDir: false, plugins: [react()], optimizeDeps: { noDiscovery: true, include: [] }, server: { middlewareMode: true, ws: false, watch: null }, define: Object.fromEntries(Object.entries(env).map(([name, value]) => [`import.meta.env.${name}`, JSON.stringify(value)])) })
+  // Separate SSR-test cache: concurrent suites must not replace the running dev server's optimizer metadata.
+  const cachePrefix = join(tmpdir(), 'conexa-chat-tests-')
+  const cacheDir = await mkdtemp(cachePrefix)
+  const server = await createServer({ configFile: false, envDir: false, cacheDir, plugins: [react()], optimizeDeps: { noDiscovery: true, include: [] }, server: { middlewareMode: true, ws: false, watch: null }, define: Object.fromEntries(Object.entries(env).map(([name, value]) => [`import.meta.env.${name}`, JSON.stringify(value)])) })
   const { createElement, act } = await import('react')
   const { createRoot } = await import('react-dom/client')
   const { default: OfferChat } = await server.ssrLoadModule('/src/features/offers/OfferChat.jsx')
@@ -42,6 +48,9 @@ export async function createChatEnvironment(env = {}) {
   return {
     document, act, click, respond, findButton,
     load: path => server.ssrLoadModule(path),
+    async mountComponent(Component, props, key) {
+      await act(async () => { root.render(createElement(Component, { ...props, key })) })
+    },
     async mount(props) {
       document.getElementById('opener').focus()
       await act(async () => { root.render(createElement(OfferChat, props)) })
@@ -51,6 +60,8 @@ export async function createChatEnvironment(env = {}) {
     async dispose() {
       await act(async () => { root.unmount() })
       await server.close()
+      if (!resolve(cacheDir).startsWith(resolve(cachePrefix))) throw new Error('Unexpected test cache path')
+      await rm(cacheDir, { recursive: true, force: true })
       dom.window.close()
       for (const [name, descriptor] of originals) {
         if (descriptor) Object.defineProperty(globalThis, name, descriptor)

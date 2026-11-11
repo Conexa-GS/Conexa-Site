@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "test": "node --test tests/*.test.js",
     "demo:whatsapp": "node scripts/whatsapp-demo.mjs",
-    "test:db": "node tests/database.mjs && node tests/m2-database.mjs && node tests/m3-database.mjs && node tests/m4-database.mjs && node tests/m5-database.mjs && node tests/quote-revisions-database.mjs",
+    "test:db": "node tests/database.mjs && node tests/m2-database.mjs && node tests/m3-database.mjs && node tests/m4-database.mjs && node tests/m5-database.mjs && node tests/quote-revisions-database.mjs && node tests/conversations-database.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
