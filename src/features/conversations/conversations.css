@@ -55,6 +55,19 @@
 .bot-offer-options li { padding: 14px 0; border-bottom: 1px solid #ccd4bd; font-size: 13px; overflow-wrap: anywhere; }
 .bot-offer-options small { display: block; margin: 6px 0; }
 .bot-choices { display: flex; flex-wrap: wrap; gap: 12px; }
+.bot-action-menu { margin-block: 18px; padding: 18px; border: 1px solid #b6c5a7; border-radius: 14px; background: #f1f2e2; }
+.bot-action-menu h3, .bot-field-options h3 { font-size: 17px; }
+.bot-action-menu p, .bot-free-text p { font-size: 13px; line-height: 1.6; margin-block: 10px; }
+.bot-action-menu .button, .bot-field-answer .button, .bot-choices .button { white-space: normal; }
+.bot-history-empty { min-height: 0; }
+.bot-field-options { margin-block: 18px; }
+.bot-field-options .bot-choices { margin-top: 12px; }
+.bot-field-answer { margin-block: 16px; padding: 16px; border: 1px solid #b6c5a7; border-radius: 12px; background: #fffdf7; }
+.bot-field-answer label { display: block; font-size: 14px; font-weight: 600; }
+.bot-field-answer p { font-size: 12px; margin-block: 10px; }
+.bot-field-answer input { display: block; width: 100%; padding: 12px; margin-block: 12px; border: 1px solid #8c9c7d; border-radius: 8px; background: #fffdf7; color: #174d38; font: inherit; }
+.bot-free-text { margin-block: 20px; }
+.bot-free-text summary { cursor: pointer; font-size: 14px; font-weight: 600; padding-block: 12px; }
 .bot-confirm { margin-bottom: 16px; white-space: normal; }
 .voice-panel { border: 1px solid #b6c5a7; border-radius: 14px; background: #f7f3e7; padding: 16px; margin-block: 18px; overflow-wrap: anywhere; }
 .voice-panel h3 { font-size: 17px; }

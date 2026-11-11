@@ -5,15 +5,16 @@ import { createConversationsFixture } from './helpers/conversations-fixture.mjs'
 import { createBotFixture } from './helpers/site-bot-fixture.mjs'
 import { futureDate, today } from '../src/domain/offers.js'
 
-async function setup() {
+async function setup(role = 'producer') {
   const ui = await createChatEnvironment()
   const { default: Page } = await ui.load('/src/features/conversations/ConversationsPage.jsx')
   const people = createConversationsFixture(), bot = createBotFixture()
-  await ui.mountComponent(Page, { session: { id: 'ana', role: 'producer' }, service: people.service, botService: bot.service }, 'ana')
+  await ui.mountComponent(Page, { session: { id: 'ana', role }, service: people.service, botService: bot.service }, 'ana')
   const choose = async text => { await ui.act(async () => { [...ui.document.querySelectorAll('.conversation-list button')].find(b => b.textContent.includes(text)).click() }) }
   await choose('Bot Conexa')
   async function write(text) {
     await ui.act(async () => {
+      ui.document.querySelector('.bot-free-text').open = true
       const input = ui.document.getElementById('bot-message')
       Object.getOwnPropertyDescriptor(ui.document.defaultView.HTMLTextAreaElement.prototype, 'value').set.call(input, text)
       input.dispatchEvent(new ui.document.defaultView.Event('input', { bubbles: true }))
@@ -27,6 +28,83 @@ async function setup() {
   }
   return { ui, bot, choose, write, confirm }
 }
+
+async function answerValue(ui, value) {
+  await ui.act(async () => {
+    const input = ui.document.getElementById('bot-field-answer')
+    Object.getOwnPropertyDescriptor(ui.document.defaultView.HTMLInputElement.prototype, 'value').set.call(input, value)
+    input.dispatchEvent(new ui.document.defaultView.Event('input', { bubbles: true }))
+  })
+  await ui.click('Usar este valor')
+}
+
+test('Bot UI: ações visíveis e criação guiada sem digitar comandos, com confirmação separada', async () => {
+  const { ui, bot, confirm } = await setup()
+  try {
+    for (const action of ['Consultar ofertas', 'Criar oferta', 'Editar oferta', 'Arquivar oferta']) assert.ok(ui.findButton(action))
+    assert.equal(ui.document.querySelector('.bot-free-text').open, false)
+    assert.equal(bot.requests.length, 0, 'Abrir o bot não inicia pedido')
+    await ui.click('Criar oferta')
+    await ui.click('Alface')
+    await answerValue(ui, '20,125')
+    await answerValue(ui, '5,07')
+    await answerValue(ui, '4,00')
+    await answerValue(ui, today())
+    await answerValue(ui, futureDate(7))
+    await ui.click('Não sei informar')
+    await ui.click('Sítio Boa Semente · coleta fictícia')
+    assert.match(ui.document.querySelector('.bot-preview').textContent, /20,125 kg/)
+    assert.equal(bot.writes.length, 0)
+    await confirm()
+    assert.equal(bot.writes.length, 1)
+    assert.equal(bot.writes[0].quantity_total, 20.125)
+    assert.equal(bot.writes[0].unit_price_cents, 507)
+    assert.equal(bot.writes[0].expires_on, null)
+    assert.ok(ui.findButton('Criar oferta'))
+  } finally { await ui.dispose() }
+})
+
+test('Bot UI: escolher oferta/campo, validação, cancelar e pedido incerto preservam controle da escrita', async () => {
+  const { ui, bot, choose, confirm } = await setup()
+  try {
+    await ui.click('Editar oferta')
+    assert.equal(ui.document.querySelector('.bot-field-options'), null, 'Escolher oferta antes de mostrar campos')
+    assert.equal(ui.document.querySelector('.bot-preview'), null)
+    await ui.click('Escolher esta oferta')
+    await ui.click('Alterar quantidade (kg)')
+    assert.equal(ui.document.activeElement.id, 'bot-field-answer')
+    assert.equal(ui.document.querySelector('.bot-confirm'), null, 'Valor em edição não pode ser confirmado antes de usar')
+    await answerValue(ui, '0')
+    assert.ok(ui.document.querySelector('[role=alert]'))
+    assert.equal(bot.writes.length, 0)
+    await answerValue(ui, '22')
+    assert.match(ui.document.querySelector('.bot-preview').textContent, /Depois: 22 kg/)
+    await ui.click('Cancelar rascunho')
+    assert.equal(bot.writes.length, 0)
+    await ui.click('Arquivar oferta'); await ui.click('Escolher esta oferta')
+    bot.loseResponse()
+    await confirm()
+    assert.equal(bot.writes.length, 1)
+    assert.equal(ui.document.querySelector('.bot-action-menu button').disabled, true)
+    await choose('Restaurante'); await choose('Bot Conexa')
+    assert.equal(ui.findButton('Criar oferta').disabled, true)
+    await ui.click('Verificar pedido pendente')
+    assert.equal(bot.writes.length, 1)
+    assert.equal(ui.findButton('Criar oferta').disabled, false)
+  } finally { await ui.dispose() }
+})
+
+test('Bot UI: comprador encontra consulta sem opções de mutação', async () => {
+  const { ui, bot } = await setup('buyer')
+  try {
+    const menu = ui.document.querySelector('.bot-action-menu')
+    assert.equal(menu.querySelectorAll('button').length, 1)
+    await ui.click('Consultar ofertas')
+    assert.match(ui.document.querySelector('.bot-offer-options').textContent, /Alface/)
+    assert.equal(ui.document.querySelector('.bot-confirm'), null)
+    assert.equal(bot.writes.length, 0)
+  } finally { await ui.dispose() }
+})
 
 test('Bot UI: prévia antes/depois, correção, cancelamento e confirmação única', async () => {
   const { ui, bot, write, confirm } = await setup()

@@ -34,6 +34,10 @@ Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos 
 
 ## Requisitos de qualidade
 
+Bot Conexa oferece ações visíveis desde a abertura: consultar, criar, editar e arquivar ofertas para o produtor; consulta para o comprador. Seleção da oferta e do campo a corrigir usa botões; números/datas são informados em campos guiados, com catálogo/coleta e vencimento desconhecido selecionáveis. Palavras-chave ficam como alternativa opcional. As mesmas validações, prévia e confirmação explícita continuam obrigatórias (D022).
+
+“Cadastrar por conversa”, em Minhas ofertas, leva diretamente ao Bot Conexa dentro da aba Conversas, na mesma aba do navegador. Não abre diálogo separado nem inicia cadastro automaticamente; preserva o rascunho existente (D023).
+
 - RNF01: layout utilizável em celular e desktop, sem rolagem horizontal na largura de 360 px nas telas principais.
 - RNF02: formulários com labels, mensagens associadas e navegação por teclado; cor não é a única indicação de estado. Falhas de ações recebem foco e são trazidas à área visível; a cotação mostra erros junto da confirmação e orientações nos campos de datas inválidas.
 - RNF03: carregamento, vazio, sucesso e erro em todas as consultas e mutações remotas.

@@ -35,7 +35,7 @@ export default function App() {
   const role = auth.session.role
   let page
   if (route[0] && route[0] !== role) page = <EmptyState title="Cada perfil tem seu caminho." action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
-  else if (path.endsWith('/conversas')) page = <ConversationsPage key={auth.session.id} session={auth.session} />
+  else if (path.endsWith('/conversas')) page = <ConversationsPage key={auth.session.id} session={auth.session} initialBot={new URLSearchParams(window.location.search).get('conversa') === 'bot'} />
   else if (path.endsWith('/ofertas')) page = <OffersPage key={auth.session.id} session={auth.session} />
   else if (path === '/produtor/propostas') page = <ProducerProposals key={auth.session.id} session={auth.session} />
   else if (path === '/comprador/demandas') page = <DemandsPage key={auth.session.id} session={auth.session} />
