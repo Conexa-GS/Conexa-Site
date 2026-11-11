@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ChatCircleDots, PaperPlaneTilt, Robot } from '@phosphor-icons/react'
-import { ActionLink, ErrorNotice, PageHeading } from '../../components/ui'
+import { ErrorNotice, PageHeading } from '../../components/ui'
 import { useConversations } from '../../hooks/useConversations'
 import { conversationService } from '../../services/conversations'
 import './conversations.css'
+import BotThread from './BotThread'
 
 const time = value => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo' }).format(new Date(value))
 const merge = (previous, next) => [...new Map([...previous, ...next].map(message => [message.id, message])).values()].sort((a, b) => BigInt(a.seq) < BigInt(b.seq) ? -1 : BigInt(a.seq) > BigInt(b.seq) ? 1 : 0)
@@ -23,7 +24,6 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
   const newestSeq = useRef(null)
   const scrollState = useRef({ height: 0, lastId: null })
   const id = conversation.id
-  const bot = conversation.kind === 'bot'
 
   useEffect(() => {
     const scroller = historyRef.current
@@ -36,7 +36,6 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
 
   useEffect(() => { alive.current = true; heading.current?.focus(); return () => { alive.current = false } }, [])
   useEffect(() => {
-    if (bot) return
     const lifecycle = request.current
     const current = ++lifecycle.value
     void (async () => {
@@ -61,7 +60,7 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
       }
     })().catch(error => { if (alive.current && current === lifecycle.value) setHistory(previous => ({ ...previous, loading: false, error: error.message })) })
     return () => { lifecycle.value++ }
-  }, [id, bot, service, revision, conversation.last_read_seq, refresh])
+  }, [id, service, revision, conversation.last_read_seq, refresh])
 
   async function older() {
     const current = ++request.current.value
@@ -92,8 +91,7 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
   }
 
   return <section className="conversation-thread" aria-labelledby="thread-title" aria-busy={sending}>
-    <header className="conversation-thread-heading"><span className={`conversation-avatar ${bot ? 'bot' : ''}`} aria-hidden="true">{bot ? <Robot size={25} /> : <ChatCircleDots size={25} />}</span><div><h2 ref={heading} id="thread-title" tabIndex={-1}>{conversation.title}</h2><p>{bot ? 'Assistente guiado · sem API paga' : 'Participante fictício · conversa individual'}</p></div></header>
-    {bot ? <div className="conversation-bot-content"><div className="conversation-bubble"><strong>Olá! Sou o Bot Conexa.</strong><p>O cadastro guiado já ajuda você a publicar uma oferta, com perguntas e confirmação da prévia.</p><p>A interpretação de texto livre, edição e arquivamento nesta conversa estão em preparação. Nenhuma mensagem aqui altera suas ofertas.</p></div><ActionLink href={session.role === 'producer' ? '/produtor/ofertas' : '/comprador/ofertas'}>{session.role === 'producer' ? 'Abrir ofertas e cadastro guiado' : 'Consultar alimentos disponíveis'}</ActionLink><p className="field-help">Voz opcional ainda indisponível. Abrir esta aba não inicia consumo de API.</p></div> : <>
+    <header className="conversation-thread-heading"><span className="conversation-avatar" aria-hidden="true"><ChatCircleDots size={25} /></span><div><h2 ref={heading} id="thread-title" tabIndex={-1}>{conversation.title}</h2><p>Participante fictício · conversa individual</p></div></header>
       <p className="conversation-agreement" role="note">Acordos por mensagem precisam ser formalizados nos fluxos de ofertas, demandas e confirmações. Use apenas dados fictícios; contas demo são compartilhadas.</p>
       {history.error && <ErrorNotice retry={refresh}>{history.error}</ErrorNotice>}
       <div ref={historyRef} className="conversation-history" role="region" tabIndex={0} aria-label="Histórico de mensagens">
@@ -107,11 +105,10 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
         <textarea ref={input} id="conversation-message" maxLength={2000} rows={3} value={composer.body} disabled={sending || composer.locked} onChange={event => setComposer({ body: event.target.value, key: null, locked: false })} aria-describedby="message-help" />
         <div className="conversation-send-row"><small id="message-help">{composer.locked ? 'Envio a verificar. Reenvie com a mesma chave para evitar duplicação.' : `${composer.body.length}/2000 · texto dentro da Conexa`}</small><button className="button" disabled={sending || !composer.body.trim()} type="submit">{sending ? 'Enviando…' : composer.locked ? 'Verificar envio' : 'Enviar'}<PaperPlaneTilt size={18} aria-hidden="true" /></button></div>
       </form>{sendError && <ErrorNotice autoFocus title="Não foi possível confirmar o envio">{sendError} Seu texto foi preservado. Verifique o envio antes de escrever outra mensagem.</ErrorNotice>}<p className="sr-only" role="status">{notice}</p></div>
-    </>}
   </section>
 }
 
-export default function ConversationsPage({ session, service = conversationService }) {
+export default function ConversationsPage({ session, service = conversationService, botService }) {
   const inbox = useConversations(session, service)
   const [selected, setSelected] = useState(null)
   const [drafts, setDrafts] = useState({})
@@ -130,7 +127,7 @@ export default function ConversationsPage({ session, service = conversationServi
   function back() { setSelected(null); listHeading.current?.focus() }
   return <>
     <PageHeading eyebrow="ENCONTROS DENTRO DA CONEXA" title="Boas conversas," accent="novas conexões.">Converse com participantes fictícios e encontre o Bot Conexa.</PageHeading>
-    <p className="preview-notice">M6 · Prévia em avaliação. Mensagens internas dependem da nova migration no Supabase demo. Bot por texto livre e voz em preparação.</p>
+    <p className="preview-notice">M6 · Prévia em avaliação. Mensagens e bot por texto dependem das migrations no Supabase demo. Interpretação simulada sem custo; voz em preparação.</p>
     {inbox.error && <ErrorNotice retry={inbox.reload}>{inbox.error}</ErrorNotice>}
     {actionError && <ErrorNotice autoFocus>{actionError}</ErrorNotice>}
     <div className={`conversations-layout ${conversation ? 'has-selection' : ''}`}>
@@ -139,7 +136,12 @@ export default function ConversationsPage({ session, service = conversationServi
         <ul className="conversation-list">{inbox.conversations.map(item => <li key={item.id}><button aria-current={item.id === selected ? 'true' : undefined} onClick={() => setSelected(item.id)}><span className={`conversation-avatar ${item.kind === 'bot' ? 'bot' : ''}`} aria-hidden="true">{item.kind === 'bot' ? <Robot size={24} /> : <ChatCircleDots size={24} />}</span><span className="conversation-list-copy"><strong>{item.title}</strong><small>{item.kind === 'bot' ? 'Assistente Conexa · cadastro guiado' : item.last_body || 'Comece uma conversa'}</small>{item.last_at && <time dateTime={item.last_at}>{time(item.last_at)}</time>}</span>{item.unread > 0 && <span className="conversation-unread" aria-label={`${item.unread} mensagens não lidas`}>{item.unread}</span>}</button></li>)}</ul>
         {!inbox.loading && !inbox.error && <><h3>Contatos demo</h3><p className="field-help">Inicie uma conversa individual.</p><ul className="conversation-contacts">{inbox.contacts.map(peer => <li key={peer.id}><button disabled={opening} onClick={() => openContact(peer.id)}>{peer.display_name}<small>{peer.role === 'producer' ? 'Produtor' : 'Comprador'} fictício</small></button></li>)}</ul></>}
       </aside>
-      <div className="conversation-main">{conversation ? <><button className="conversation-back text-link" onClick={back}><ArrowLeft size={18} aria-hidden="true" />Voltar às conversas</button><Thread key={conversation.id} conversation={conversation} session={session} service={service} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', key: null, locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} /></> : <div className="conversation-welcome"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /><h2>Escolha uma conversa.</h2><p>O Bot Conexa fica no início da lista. Para falar com uma pessoa, escolha um contato demo.</p></div>}</div>
+      <div className="conversation-main">{conversation ? <>
+        <button className="conversation-back text-link" onClick={back}><ArrowLeft size={18} aria-hidden="true" />Voltar às conversas</button>
+        {conversation.kind === 'bot'
+          ? <BotThread key={conversation.id} conversation={conversation} session={session} service={botService} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />
+          : <Thread key={conversation.id} conversation={conversation} session={session} service={service} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', key: null, locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />}
+      </> : <div className="conversation-welcome"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /><h2>Escolha uma conversa.</h2><p>O Bot Conexa fica no início da lista. Para falar com uma pessoa, escolha um contato demo.</p></div>}</div>
     </div>
   </>
 }

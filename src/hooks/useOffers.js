@@ -5,6 +5,7 @@ export function useOffers(session) {
   const [state, setState] = useState({ offers: [], products: [], locations: [], loading: true, error: '' })
   const [revision, setRevision] = useState(0)
   const reload = useCallback(() => setRevision(value => value + 1), [])
+  useEffect(() => { window.addEventListener('conexa:offers-changed', reload); return () => window.removeEventListener('conexa:offers-changed', reload) }, [reload])
   useEffect(() => {
     let active = true
     Promise.all([listOffers(session), listCatalog(session)]).then(([offers, catalog]) => {

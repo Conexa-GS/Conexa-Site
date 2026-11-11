@@ -20,12 +20,12 @@ async function setup(count) {
   return { ui, fixture, Page, choose, write }
 }
 
-test('Conversas: bot destacado sem envio livre; contatos abrem mensagem; texto humano não executa HTML ou altera ofertas', async () => {
+test('Conversas: bot indisponível sem configuração; contatos abrem mensagem; texto humano não executa HTML ou altera ofertas', async () => {
   const { ui, fixture, choose, write } = await setup()
   try {
     assert.match(ui.document.querySelector('.conversation-list button').textContent, /Bot Conexa/)
     await choose('Bot Conexa')
-    assert.match(ui.document.querySelector('.conversation-thread').textContent, /texto livre.*preparação/)
+    assert.match(ui.document.querySelector('.conversation-thread').textContent, /Bot por texto precisa do Supabase demo configurado/)
     assert.equal(ui.document.querySelector('textarea'), null)
     assert.equal(fixture.sends.length, 0)
     await choose('Restaurante')
