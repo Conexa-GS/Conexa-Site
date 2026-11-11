@@ -1,6 +1,6 @@
 # Conversas no site — planejamento da evolução M6
 
-Data: 11/11/2026. Status: **planejado, sem implementação nesta atualização**. Direção solicitada pelo usuário após os testes de integração WhatsApp. Tarefas T34–T43 em [tasks.md](tasks.md); decisão D018 em [decisions.md](decisions.md). T29 é a base existente; T30 fica pausada. Não representa aceite da M6 nem conclusão da M5/T28.
+Data: 11/11/2026. Status: **primeira fatia local implementada para avaliação**: aba T34 e base de mensagens T35/T38; bot livre, comandos e voz pendentes. Nova migration ainda não aplicada ao demo. Direção solicitada pelo usuário após os testes de integração WhatsApp. Tarefas T34–T43 em [tasks.md](tasks.md); decisões D018/D019 em [decisions.md](decisions.md). T29 é a base existente; T30 fica pausada. Não representa aceite da M6 nem conclusão da M5/T28.
 
 ## Experiência e escopo
 
@@ -40,7 +40,7 @@ Arquivar segue RN06; exclusão física via bot fica fora da primeira entrega. At
 
 ## Persistência e serviços propostos
 
-Modelo abaixo orienta T35; nomes finais e SQL ainda não existem. Registrar contratos finais antes de aplicar migration.
+Modelo abaixo orienta a entrega completa de T35. Contrato final da primeira fatia está registrado a seguir; rascunhos/comandos do bot ainda serão implementados.
 
 | Entidade proposta | Dados e restrições |
 | --- | --- |
@@ -56,6 +56,24 @@ Paginar histórico e usar ordem determinística do servidor; manter rascunho de 
 
 Reutilizar `src/domain/offer-chat.js`, `src/domain/offers.js`, `src/services/offers.js`, `useOffers` e protocolo T30 quando útil. Estender serviços compartilhados para gateway transacional se necessário; não criar um segundo caminho com validações mais fracas que o formulário. Os experimentos Twilio estão em outra feature, não são dependência nem entram por merge implícito neste planejamento.
 
+## Contrato implementado da primeira fatia (local)
+
+Migration `202611110001_site_conversations.sql`: `site_conversations`, `site_conversation_members`, `site_messages`; gateway `site_chat(p_action text, p_payload jsonb)`. Não cria tabelas de comandos/rascunhos do bot, não altera ofertas e não substitui seus serviços. Sem endpoint OpenAI. Rascunho de mensagem humana é volátil por conta/conversa; recarga descarta o rascunho, não promete recuperação durável.
+
+| Ação | Payload / resultado |
+| --- | --- |
+| `inbox` | Sem identidade no payload. Garante bot privado único; retorna `conversations` (bot primeiro, título, último texto/horário, não lidas, cursor) e `contacts` demo permitidos. |
+| `open_direct` | `peer_id`; retorna `id`, reutilizando par único ordenado. Exatamente dois membros inseridos pelo gateway. Permite produtor↔produtor e produtor↔comprador, sem transportador/autocontato/comprador↔comprador. |
+| `messages` | `conversation_id`, opcional `before_seq` **ou** `after_seq`; retorna até 40 mensagens em ordem crescente e `has_more`. Sem cursor traz a última página; `before_seq` pagina passado, `after_seq` reconcilia mensagens novas, incluindo múltiplas páginas. `seq` é string decimal para não perder precisão no JavaScript. |
+| `send` | `conversation_id`, `client_send_id` UUID, `body` (1–2000 caracteres após trim). Remetente e horário vêm da sessão/banco; não aceita mensagem em conversa bot nesta fatia. Unicidade remetente/chave; repetir conteúdo devolve mesmo registro, alterar conteúdo/conversa com a mesma chave é rejeitado. Retorna registro confirmado. |
+| `read` | `conversation_id`, `seq` existente nessa conversa. Atualiza somente cursor do próprio membro, monotonicamente; não lidas conta mensagens de outros remetentes depois do cursor. |
+
+RLS de SELECT usa `site_is_member(uuid)` com identidade atual; INSERT/UPDATE/DELETE diretos não são concedidos. Gateway SECURITY DEFINER com search_path vazio verifica participante demo/papel/membro em cada ação; não há autoridade de bot/SQL no frontend. Advisory lock por remetente/chave e lock de conversa antecedem a geração da ordem da mensagem. A serialização evita cursor avançar sobre mensagem dessa conversa ainda sem commit; concorrência real ainda precisa teste no demo.
+
+Migration adiciona somente `site_messages` à publicação `supabase_realtime` quando existente; policy de SELECT limita o assinante. Serviço assina INSERT, reconcilia ao conectar/voltar à aba/rede e a cada 30s, e remove canal/listeners/timer ao desmontar. A página tem chave por conta; histórico e rascunhos em memória não são reaproveitados após troca de perfil. Interface conserva texto/chave após resultado incerto e exige verificar o mesmo envio antes de nova mensagem. Até aplicar/validar a migration, o site mostra impedimento explícito; a bancada `/tests/ui/conversations.html` usa memória identificada.
+
+Evidências locais em `validation.md`; aplicação no demo e teste real de Realtime dependem de autorização.
+
 ## Adaptador de IA e voz propostos
 
 - Endpoint autenticado de sessão verifica participante, modo habilitado, limites por usuário e duração antes de contatar a OpenAI. Chave permanente em segredo de servidor; nunca em variável `VITE_*`, bundle, histórico ou logs. Credencial efêmera não fica persistida no histórico.
@@ -67,7 +85,7 @@ Reutilizar `src/domain/offer-chat.js`, `src/domain/offers.js`, `src/services/off
 
 ## Verificação e aceite
 
-Critérios AC24–AC32 em [acceptance.md](acceptance.md), todos pendentes. T41 prepara testes sem custo de API, com domínio/componentes/provedor simulado e banco local. Teste remoto de texto/DM deve demonstrar RLS, persistência com F5 e duas sessões separadas, após autorização para a migration correspondente. Não atribuir persistência real a mocks/PGlite nem percepção visual a jsdom.
+Critérios AC24–AC32 em [acceptance.md](acceptance.md): primeira evidência local de interface/mensagens em `validation.md`; verificações remotas, bot e voz ainda pendentes. T41 prepara testes sem custo de API, com domínio/componentes/provedor simulado e banco local. Teste remoto de texto/DM deve demonstrar RLS, persistência com F5 e duas sessões separadas, após autorização para a migration correspondente. Não atribuir persistência real a mocks/PGlite nem percepção visual a jsdom.
 
 Roteiro T42 para o usuário: configurar segredo no servidor sem enviá-lo ao chat; conferir limites; iniciar voz manualmente; ditar criação e edição de oferta; corrigir transcrição/campo; cancelar uma prévia; confirmar outra; conferir a oferta persistida pelo comprador; interromper sessão; negar microfone/testar queda; verificar encerramento e consumo no provedor. Agente registra apenas os resultados que o usuário relatar. Até lá, voz permanece “validação manual pendente”.
 
@@ -77,4 +95,4 @@ Revisar UI em 360 px e desktop, teclado/foco, erro de envio, não lidas, histór
 
 T30 fica pausada na prioridade, sem apagar código, migrations, evidências ou o trabalho preservado em `feature/t30-twilio-supabase`. Há endpoint demo implantado nessa evolução; pausar tarefas não o desativa. Nesta solicitação não há chamada, alteração ou remoção remota. Ao implementar a nova entrada, retirar o incentivo a depender do vínculo WhatsApp e explicar o canal interno; eventual desativação/limpeza remota exige conferir uso e autorização específica.
 
-Entrega atual apenas documental em `feature/planejamento-conversas-site`, criada de `dev` (`3197eaf`). Sem feature funcional, migração, deploy ou API paga nesta etapa. Apresentar para avaliação antes de solicitar autorização de publicação/integração na dev. Main, M5/T28 e o aceite da M6 permanecem independentes.
+Planejamento inicial documental em `feature/planejamento-conversas-site`, criada de `dev` (`3197eaf`), depois integrado por autorização. Primeira implementação em `feature/conversas-base`, da dev `c72392e`, com interface e migration somente locais; sem deploy, aplicação remota ou API paga. Apresentar para avaliação antes de solicitar autorização de publicação/integração na dev. Main, M5/T28 e o aceite da M6 permanecem independentes.

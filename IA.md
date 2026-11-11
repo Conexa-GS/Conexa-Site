@@ -1088,3 +1088,33 @@ Separar texto simulado de integração opcional permite implementar e testar sem
 Resultado das verificações desta atualização documental: npm.cmd run lint aprovado; npm.cmd test aprovado com 55 testes, zero falhas; npm.cmd run build aprovado, com aviso de chunk principal acima de 500 kB já presente na base. git diff --check aprovado. Nenhuma alteração de UI: revisão em 360 px/desktop não executada nesta rodada e permanece tarefa da implementação. Sem chamadas pagas ou testes remotos. Estes testes verificam a base da dev, não implementam nem validam AC24–AC32. Revisão de links, escopo e estado Git feita antes da entrega; commit local documental preparado sem autorização presumida de publicação.
 
 Complemento de autorização da interação 043 — 11/11/2026: usuário respondeu “pode integrar” à apresentação do commit 559a64a e à pergunta explícita sobre publicar/integrar o planejamento na dev. Autoriza publicar a feature e integrar/publicar dev no origin https://github.com/Conexa-GS/Conexa-Site.git; main preservada. Fetch confirmou dev/origin/dev em 3197eaf e checkout limpo. Conteúdo restrito aos dez arquivos documentais apresentados. Mantidos lint, 55 testes e build já aprovados; sem alteração de runtime ou nova execução de testes nesta autorização. Integração/publicação serão conferidas pelas referências Git antes da resposta final, sem presumir conclusão da funcionalidade ou dos marcos.
+
+## Interação 044 — Primeira implementação de Conversas no site — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, implementação React/SQL, testes e documentação; PowerShell/Git para branch/verificações; apply_patch para alterações; React/Vite/jsdom e PGlite para testes locais; skill computer-use e navegador in-app para bancada visual/teclado. Sem subagentes, IA externa no produto, chamadas pagas, voz/microfone, WhatsApp ou escrita remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas
+
+Resposta representativa real: “A prioridade atual é Conversas no site; o WhatsApp está pausado. Vou começar pela aba para produtor/comprador e pela persistência de mensagens com RLS. O Bot Conexa ficará identificado, com acesso ao cadastro guiado já existente; edição por texto e voz entram nas próximas etapas. A nova migration será testada localmente, sem aplicação no demo ou chamadas pagas.” Consultas/esclarecimentos não registrados como prompts de programação; nenhum aceite humano inventado.
+
+### Aplicação no projeto
+
+Branch `feature/conversas-base` criada da dev limpa `c72392e`; primeira tentativa sem permissão de índice falhou e criação repetida com permissão antes de editar. T34 local: rotas/navegação, lista, bot fixo identificado, balões/horários, campo, paginação, feedback e layout responsivo. Bot remete à T29/consulta; texto livre e alterações por bot ainda não existem. Base parcial T35/T38: migration de conversas/membros/mensagens/leitura, RPC `site_chat`, serviço e hook, pares únicos, RLS, identidade por sessão, reenvio por chave vinculada ao conteúdo e cursores anterior/posterior. Adaptador Realtime com reconciliação/cleanup preparado, ainda sem websocket real. Rascunhos humanos ficam em memória por conta/conversa; comandos e rascunhos duráveis do bot ficam para T36/T37. Sem alteração nos serviços de ofertas/estoque. Testes e bancada novos; helper SSR passou a usar cache temporário isolado. Documentação/tasks atualizadas com contratos, evidências e limites; T35/T38/T41 continuam parciais, M6/M5 não encerradas.
+
+### Validação das respostas
+
+Codex executou `npm.cmd run lint` (sem avisos final), `npm.cmd test` (61 testes, seis novos de componente), `npm.cmd run test:db` (sete scripts PGlite) e `npm.cmd run build` (aprovado, 654,62 kB principal; aviso herdado >500 kB). Script de Conversas repetido após evolução dos cursores e aprovado. Diff/estado conferidos antes do commit local. Nenhum teste remoto, concorrência real ou aprovação humana atribuído ao grupo.
+
+Componente: bloqueio de envio duplo, HTML literal, falha preservando chave/texto entre conversas, timeout após persistência simulada, paginação e reconexão com 91 mensagens novas, descarte/cleanup na troca de conta e ausência de histórico fabricado. PGlite: RLS/leitura privada, permissões diretas bloqueadas, identidade derivada, bot/par únicos, chave com conteúdo imutável, validação do texto, cursores e leitura monotônica. Bancada visual no navegador em 1366×900 e 360×800 sem overflow horizontal dirigido; Enter/Tab, foco do título e alerta, envio/falha e bot revistos. Capturas locais ignoradas pelo Git. Primeira renderização ficou vazia por disputa de cache Vite entre testes/dev; isolado cache dos testes, reiniciado dev e revisado com sucesso. Primeiros avisos de lint em refs corrigidos. Medições e limites detalhados em `validation.md`; não equivalem a F5 no Supabase, websocket ou auditoria completa de acessibilidade.
+
+### Análise crítica
+
+Separar entrega visual/mensagens do intérprete e da aplicação de ofertas torna a primeira fatia avaliável sem custo de IA e preserva RN45. RLS/idempotência no banco evitam confiar no remetente ou reenvio fornecidos pelo cliente; PGlite não prova concorrência com sessões remotas nem autorização de eventos Realtime. Rascunho humano volátil não substitui persistência de comandos, e bot não deve anunciar recursos futuros como ativos. Nova migration precisa autorização e testes demo; publicação/integração depende da avaliação posterior exigida pelo workflow. Sem push, merge, deploy, alteração remota, uso de microfone ou aceite de M6/M5 nesta rodada. T30/experimentos preservados, sem desativar endpoint.
+
+Complemento de autorização — 11/11/2026: usuário respondeu “pode integrar com a dev” à entrega do commit `3b9fbf2`. Autoriza publicação da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e fetch executado antes da integração. Registro preparado na feature, preservando as verificações da implementação (lint, 61 testes, sete scripts locais de banco e build); nenhuma alteração de runtime nesta rodada ou novo teste atribuído ao usuário. Migration/testes no Supabase não incluídos nesta autorização específica; main, aceite M6/M5 e voz permanecem independentes. Referências serão conferidas após publicação, sem force push.

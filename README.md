@@ -35,6 +35,7 @@ npm run preview
 | Participantes fictícios | `/demo` | Ana, João, restaurante e transportador |
 | Ofertas do produtor | `/produtor/ofertas` | Criar, consultar, editar, excluir e filtrar |
 | Cadastro por conversa | `/produtor/ofertas` → Cadastrar por conversa | M6 em avaliação: perguntas guiadas, correção e prévia antes da confirmação |
+| Conversas internas | `/produtor/conversas`, `/comprador/conversas` | Primeira fatia local; nova migration demo pendente; bot livre/voz em preparação |
 | Consulta do comprador | `/comprador/ofertas` | Mesma fonte de ofertas |
 | Propostas do produtor | `/produtor/propostas` | Aceite/recusa persistidos, prazo e valores acordados |
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
@@ -57,6 +58,14 @@ A prévia permite corrigir qualquer resposta; **Confirmar e publicar oferta** us
 Para revisão isolada sem escrita remota, execute Vite e abra `/tests/ui/m6.html`. A bancada tem contadores de tentativas/gravações em memória, catálogo vazio e falha controlada. `npm test` inclui domínio e cinco testes do componente real em [jsdom](https://github.com/jsdom/jsdom), sem carregar `.env` ou escrever no demo. Verificam confirmação explícita, descarte, correção, falha/reenvio, bloqueio durante envio, catálogo vazio e foco programático. jsdom é uma dependência de desenvolvimento e não verifica layout, teclado nativo ou leitor de tela.
 
 T29 implementada e comportamento AC22 verificado automaticamente. Teste remoto manual: `node tests/remote-offer-chat.mjs`, com credenciais demo de `.env`, restrito ao projeto autorizado. Exercita o componente em DOM simulado com `saveOffer` real, leitura pelo comprador após nova autenticação e Auth/RLS; cria uma oferta fictícia própria e a arquiva ao terminar. Relatório em `artifacts/offer-chat-remote.local.json`, ignorado pelo Git, sem credenciais. Não é executado por `npm test`. Revisão visual/teclado em 360 px/desktop, recarga real no navegador e aceite humano da M6 continuam pendentes: a ferramenta de navegador Windows permaneceu bloqueada. Evidências em [validation.md](Conexa-specs/validation.md).
+
+## Experimentar a aba Conversas — primeira fatia local
+
+Produtor e comprador têm **Conversas** na navegação. A aba apresenta Bot Conexa identificado e mensagens individuais entre os contatos demo permitidos. O bot orienta para o cadastro guiado/consulta existentes; interpretação livre, edição/arquivamento de ofertas e voz ainda não foram implementados nesta fatia. Mensagens humanas não executam mudanças em ofertas ou operações. Não use informações pessoais reais: as contas são compartilhadas.
+
+O serviço usa a nova migration `202611110001_site_conversations.sql` e RPC `site_chat`. **Não foi aplicada ao demo nesta entrega**; sua aplicação/verificação requer autorização. Sem schema/configuração, a aba explica a indisponibilidade e não inventa histórico. O envio usa chave idempotente, mensagens paginadas, leitura por membro e reconciliação por cursor; persistência/Realtime entre sessões reais ainda precisam ser validados. Contrato e restrições em [conversas-site.md](Conexa-specs/conversas-site.md).
+
+Para avaliar sem rede/escrita remota, execute Vite e abra `/tests/ui/conversations.html`. A bancada usa memória, histórico longo e falha controlada, explicitamente identificados. Ela foi revista em 1366×900 e 360×800 e com teclado. `npm test` inclui seis testes novos do componente; `npm run test:db` inclui o teste de SQL/RLS em PGlite. Esses procedimentos não comprovam Supabase real, websocket, F5 conectado ou voz. Rascunhos de mensagens humanas são voláteis e limpos ao trocar de conta; em falha, o mesmo texto/chave é preservado até verificar o envio. Evidências em [validation.md](Conexa-specs/validation.md).
 
 ## Conectar o Supabase de demonstração
 

@@ -32,7 +32,7 @@ Estes cenários são a especificação da verificação futura. Nenhum está mar
 
 ### Evolução planejada — Conversas no site (11/11/2026)
 
-Todos os critérios abaixo estão **pendentes de implementação/verificação**; não ampliam o aceite de T29. Detalhes em [conversas-site.md](conversas-site.md). AC23 também se aplica à nova aba.
+Primeira fatia de 11/11/2026: AC24/AC23 verificados no escopo da bancada local de Conversas; mensagens/isolamento/reenvio têm evidências parciais de componente e PGlite para AC25/26/29/30. Critérios remotos, comandos do bot e voz continuam pendentes; não ampliam o aceite de T29 nem encerram M6. Detalhes e limites em [validation.md](validation.md) e [conversas-site.md](conversas-site.md).
 
 | ID | Cenário e resultado esperado | Requisito / regras | Tarefas |
 | --- | --- | --- | --- |

@@ -132,6 +132,16 @@ Texto simulado sem custo é padrão. OpenAI Realtime é opção técnica propost
 
 Arquivos afetados: tasks.md, conversas-site.md, spec.md, business-rules.md (RN45), acceptance.md (AC24–32), plan.md, README do pacote, t30-whatsapp.md e IA.md. Branch `feature/planejamento-conversas-site` criada da dev `3197eaf`, preservando a feature Twilio. Entrega apenas documental, sem código/migration/deploy, teste humano inventado ou encerramento de M5/T28/M6. Publicação/integração depende de autorização após avaliação conforme workflow.md.
 
+## D019 — Primeira fatia de Conversas: interface e mensagens; bot livre posterior — implementada localmente, em avaliação — 11/11/2026
+
+Origem: pedido “comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas”. Criada `feature/conversas-base` da dev limpa `c72392e`, sem fetch/alterações remotas. Escopo inicial T35+T34 seguido de T36/T37, conforme execução incremental do pacote; nenhuma nova regra de negócio exigiu pergunta bloqueante.
+
+T34 implementada com rotas/navegação produtor/comprador, lista e conversa responsivas, Bot Conexa fixo identificado, horários, histórico paginado, envio/erro e orientação de formalização. Nesta fatia, bot encaminha para cadastro guiado T29/consulta; não interpreta texto livre nem persiste respostas fictícias. T36/T37 implementarão rascunhos, comandos e escrita de ofertas. Mínimos/estoque/snapshots/serviços anteriores permanecem sob suas regras existentes.
+
+Base T35/T38: novas tabelas `site_conversations`, `site_conversation_members`, `site_messages` e RPC `site_chat`; tabela de mensagens na publicação Realtime se disponível. Identidade deriva de Auth; leitura só por membros; escrita direta revogada. Par direto único, bot por dono, cursor monotônico, ordem de servidor e chave por remetente vinculada ao conteúdo. Serialização por chave/conversa antes de alocar sequência; testes concorrentes reais pendentes. Cursores anterior/posterior paginam 40 mensagens e permitem reconciliação sem lacuna após longas desconexões. Assinaturas/timers/listeners são limpos ao sair; rascunhos humanos em memória são privados à conta/conversa, sem promessa de durabilidade após reload.
+
+Aba depende do novo schema; ausência mostra impedimento. Bancada explícita em memória permite avaliar sem tocar no demo. Testes SSR recebem caches Vite temporários isolados, pois o cache compartilhado com dev estava deixando o navegador sem renderizar durante as suítes; após isolar e reiniciar dev, revisão visual ficou disponível. Evidências locais/limites em `validation.md`, contratos em `conversas-site.md`. Sem OpenAI, microfone, WhatsApp, Supabase remoto, autorização de publicação presumida ou aceite dos marcos. T35/T38/T41 continuam parciais; T30 pausada, M5/T28 e avaliação M6 preservadas.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

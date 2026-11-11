@@ -43,6 +43,8 @@ Complemento em 10/11/2026 — T29: `feature/t29-chat-validacao`, da dev `11f295f
 
 ## Origem e precedência
 
+Atualização em 11/11/2026 — primeira implementação de Conversas: `feature/conversas-base` criada da dev `c72392e`; T34 local e base de mensagens T35/T38 preparadas. Rotas dos dois perfis, interface, RPC/migration local com RLS/idempotência/paginação/leitura e adaptador Realtime. Lint, 61 testes, sete scripts PGlite e build aprovados; bancada revista em desktop/360 px/teclado. Sem aplicar migration no demo ou validar websocket/Auth remotos. T35/T38/T41 parciais; T36/T37 e voz pendentes. Não encerra M6/M5 nem altera T30. Contrato final da fatia em `conversas-site.md`, decisão D019 e evidências em `validation.md`; integração depende de autorização após avaliação.
+
 Atualização em 10/11/2026 — T30: especificação separada em `t30-whatsapp.md` e base local de conversa/webhook preparadas na `feature/t30-preparacao`, enquanto a conta Meta aguarda liberação. Demonstrador exclusivamente em memória, sem mensagens externas nem escrita no Supabase. Vínculo por telefone, persistência/idempotência no banco, envio pela Meta e aceite continuam pendentes. Não conclui M6 ou altera M5/T28.
 
 - Briefing: `Desafio-FIAP-GS-CitizenTech 1ES Paulista e Lins.pdf`, fornecido pelo usuário.
