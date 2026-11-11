@@ -1,5 +1,7 @@
 # Conversas no site — planejamento da evolução M6
 
+Atualização de execução em 11/11/2026: migrations `site_conversations`/`site_offer_bot` aplicadas com autorização ao demo `conexa`, versões `20261111223622`/`20261111223632`. Roteiro de texto/DM passou em nove grupos com Auth/RLS, concorrência e websocket reais; nova autenticação conserva mensagem/leitura. Isso substitui a indicação de aplicação remota pendente nos registros históricos abaixo. F5/percurso conectado, rede real e demais limites de T35/T38/T41, T42 e aceite M6 permanecem pendentes. Evidências em [validation.md](validation.md), sem API paga/voz real.
+
 Data: 11/11/2026. Status: **segunda fatia local implementada para avaliação**: aba T34, base de mensagens T35/T38 e bot por texto/comandos T36/T37. Duas migrations de Conversas ainda não aplicadas ao demo; voz pendente. Direção solicitada pelo usuário após os testes de integração WhatsApp. Tarefas T34–T43 em [tasks.md](tasks.md); decisões D018–D020 em [decisions.md](decisions.md). T29 é a base existente; T30 fica pausada. Não representa aceite da M6 nem conclusão da M5/T28.
 
 Atualização posterior na mesma data: **terceira fatia local T39/T40** preparada na `feature/conversas-voz-opcional` da dev `aaa0adb`. O contrato D021 abaixo substitui a proposta de token efêmero, sem alterar o histórico das duas primeiras fatias. Voz/provedor reais continuam sem teste; T42/aceite M6 pendentes. Configuração e roteiro em [voz-manual.md](voz-manual.md).
