@@ -108,15 +108,15 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
   </section>
 }
 
-export default function ConversationsPage({ session, service = conversationService, botService, voice }) {
+export default function ConversationsPage({ session, service = conversationService, botService, voice, initialBot = false }) {
   const inbox = useConversations(session, service)
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(initialBot ? 'bot' : null)
   const [drafts, setDrafts] = useState({})
   const [opening, setOpening] = useState(false)
   const [actionError, setActionError] = useState('')
   const openRef = useRef(false)
   const listHeading = useRef(null)
-  const conversation = inbox.conversations.find(item => item.id === selected)
+  const conversation = inbox.conversations.find(item => selected === 'bot' ? item.kind === 'bot' : item.id === selected)
   async function openContact(peer) {
     if (openRef.current) return
     openRef.current = true; setOpening(true); setActionError('')
@@ -133,7 +133,7 @@ export default function ConversationsPage({ session, service = conversationServi
     <div className={`conversations-layout ${conversation ? 'has-selection' : ''}`}>
       <aside className="conversation-sidebar" aria-label="Lista de conversas"><div className="conversation-list-heading"><h2 ref={listHeading} tabIndex={-1}>Conversas</h2><button className="text-link" onClick={inbox.reload}>Atualizar</button></div>
         {inbox.loading && <p role="status">Carregando conversas…</p>}
-        <ul className="conversation-list">{inbox.conversations.map(item => <li key={item.id}><button aria-current={item.id === selected ? 'true' : undefined} onClick={() => setSelected(item.id)}><span className={`conversation-avatar ${item.kind === 'bot' ? 'bot' : ''}`} aria-hidden="true">{item.kind === 'bot' ? <Robot size={24} /> : <ChatCircleDots size={24} />}</span><span className="conversation-list-copy"><strong>{item.title}</strong><small>{item.kind === 'bot' ? 'Assistente Conexa · cadastro guiado' : item.last_body || 'Comece uma conversa'}</small>{item.last_at && <time dateTime={item.last_at}>{time(item.last_at)}</time>}</span>{item.unread > 0 && <span className="conversation-unread" aria-label={`${item.unread} mensagens não lidas`}>{item.unread}</span>}</button></li>)}</ul>
+        <ul className="conversation-list">{inbox.conversations.map(item => <li key={item.id}><button aria-current={item.id === conversation?.id ? 'true' : undefined} onClick={() => setSelected(item.id)}><span className={`conversation-avatar ${item.kind === 'bot' ? 'bot' : ''}`} aria-hidden="true">{item.kind === 'bot' ? <Robot size={24} /> : <ChatCircleDots size={24} />}</span><span className="conversation-list-copy"><strong>{item.title}</strong><small>{item.kind === 'bot' ? 'Assistente Conexa · cadastro guiado' : item.last_body || 'Comece uma conversa'}</small>{item.last_at && <time dateTime={item.last_at}>{time(item.last_at)}</time>}</span>{item.unread > 0 && <span className="conversation-unread" aria-label={`${item.unread} mensagens não lidas`}>{item.unread}</span>}</button></li>)}</ul>
         {!inbox.loading && !inbox.error && <><h3>Contatos demo</h3><p className="field-help">Inicie uma conversa individual.</p><ul className="conversation-contacts">{inbox.contacts.map(peer => <li key={peer.id}><button disabled={opening} onClick={() => openContact(peer.id)}>{peer.display_name}<small>{peer.role === 'producer' ? 'Produtor' : 'Comprador'} fictício</small></button></li>)}</ul></>}
       </aside>
       <div className="conversation-main">{conversation ? <>
@@ -141,7 +141,7 @@ export default function ConversationsPage({ session, service = conversationServi
         {conversation.kind === 'bot'
           ? <BotThread key={conversation.id} conversation={conversation} session={session} service={botService} voice={voice} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />
           : <Thread key={conversation.id} conversation={conversation} session={session} service={service} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', key: null, locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />}
-      </> : <div className="conversation-welcome"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /><h2>Escolha uma conversa.</h2><p>O Bot Conexa fica no início da lista. Para falar com uma pessoa, escolha um contato demo.</p></div>}</div>
+      </> : <div className="conversation-welcome"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /><h2>{selected === 'bot' ? inbox.loading ? 'Abrindo Bot Conexa…' : 'Bot Conexa indisponível.' : 'Escolha uma conversa.'}</h2><p>{selected === 'bot' ? inbox.loading ? 'Carregando seu histórico e as opções do bot.' : 'Use Atualizar para tentar carregar seu bot novamente.' : 'O Bot Conexa fica no início da lista. Para falar com uma pessoa, escolha um contato demo.'}</p></div>}</div>
     </div>
   </>
 }

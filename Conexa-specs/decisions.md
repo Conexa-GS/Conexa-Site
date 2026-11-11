@@ -174,6 +174,10 @@ Menu inicial do produtor: consultar, criar, editar e arquivar ofertas. Comprador
 
 Não há inferência de valores/datas, confirmação por “sim” ou mudança de permissões. Escolher opção prepara `turn` auditável; somente a confirmação da revisão chama `confirm`. Correção ainda não enviada oculta confirmar; resultado incerto bloqueia ações até verificar o mesmo pedido. Campos/prévia de edição só aparecem após escolher alvo. Sem alteração de SQL/serviços remotos, API paga ou ampliação de aceite M6/M5. Arquivos: `BotThread.jsx`, `conversations.css`, três novos testes de componente e documentação. Bancada em memória e DOM não equivalem a novo percurso conectado no demo.
 
+## D023 — Cadastro por conversa aponta ao Bot Conexa — 11/11/2026
+
+Origem: usuário pediu que “Cadastrar por conversa” encaminhasse ao bot, sem janela separada. Complemento de D022 na mesma feature derivada da dev; avaliação/integração pendentes. `OffersPage` usa link interno para `/produtor/conversas?conversa=bot`; App transmite seleção inicial ao carregar Conversas. Seleção aguarda a caixa, destaca o bot e abre a mesma interface em celular/desktop. Não dispara `turn` ou confirmação, não substitui rascunho nem muda o acesso normal à lista/Voltar. Removida somente a entrada do antigo modal em ofertas; componente/testes históricos preservados. Sem mudança de banco/permissões ou API paga. Teste do App completo detectou chave React duplicada entre notificações e página, corrigida com prefixo próprio nas notificações. Arquivos: OffersPage, App, ConversationsPage, AppLayout e teste de entrada. Evidências em validation.md.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

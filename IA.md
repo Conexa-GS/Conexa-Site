@@ -1246,3 +1246,31 @@ Bancada real via Computer Use em 1366×900 e 360×800: opções iniciais, editar
 ### Análise crítica
 
 Opções antecipam as ações suportadas e dispensam memorizar comandos; números/datas continuam informados pela pessoa, evitando inventar valores. A seção opcional preserva o caminho de texto e a transferência de sugestões de voz. O menu prepara pedidos auditáveis, sem contornar confirmação ou permissões. Bloquear confirmação enquanto um valor está em edição reduz confusão entre o texto digitado e a prévia persistida. Testes de componente e bancada cobrem o fluxo local; integração remota desta interface e avaliação humana permanecem pendentes, assim como os limites anteriores de M6/M5/T42. A mudança não torna o intérprete uma IA de linguagem geral nem valida voz real.
+
+## Interação 049 — Atalho direto ao bot na aba Conversas — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para ajuste React/roteamento e documentação; PowerShell/Git/apply_patch, Node/Vite/jsdom para implementação/verificações; skill Computer Use e navegador in-app para revisão dirigida do atalho no site conectado. Sem subagentes, ferramentas administrativas remotas, migration, microfone ou API paga.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> cadastrar pro conversa ja deveria mandar o usuario para o bot, sem abrir uma janela diferente
+
+Resposta representativa real: “Vou fazer o botão ‘Cadastrar por conversa’ levar diretamente ao Bot Conexa na aba Conversas e retirar a abertura da janela separada.” Pedido tratado como complemento da feature de opções guiadas, mantendo `64c3227` e sem presumir integração da melhoria anterior ou deste complemento.
+
+### Aplicação no projeto
+
+`OffersPage` usa link interno na mesma aba para `/produtor/conversas?conversa=bot`, removendo estado/import/renderização do modal OfferChat nessa página. App transmite preferência inicial; ConversationsPage seleciona o bot quando a caixa carrega, informa abertura e mantém Voltar/lista normal. Não inicia cadastro ou descarta rascunho existente. Componente/modal antigo permanece somente nas bancadas/testes históricos. Teste integrado do App revelou colisão de chave React entre notificações e conteúdo; prefixo das notificações corrigido em AppLayout. Contrato/spec/tasks, D023 e validation atualizados.
+
+### Validação das respostas
+
+Lint, 89 testes e build aprovados na rodada final; principal 679,13 kB/gzip 194,11 kB, aviso herdado de chunk grande. Novo teste usa App/roteador/ofertas reais com sessão local e serviços de Conversas/bot em memória: clique abre URL interna/bot selecionado sem modal/pedido; Voltar/atualizar mantêm lista. Primeira rodada exibiu aviso de chave duplicada, corrigido e suíte repetida sem aviso. SQL/serviços não mudaram; sem repetir suíte de banco/runner remoto.
+
+Revisão Computer Use no site conectado ao demo, em 1366×900 e 360×800, entrada como produtor fictício e acionamento do atalho por clique/Enter, com Bot Conexa aberto automaticamente e zero diálogos. ScrollWidth 1351/345, sem overflow observado. Capturas locais fora do repositório; viewport restaurado. Nenhuma ação de criação/envio/confirmação pelo agente, apenas login/navegação/consulta de histórico existente. Após HMR da chave React, nova carga/login conferiu uma única área de notificações; isso não comprova F5 persistente da sessão. Diff/estado conferidos para commit local; sem push/merge/deploy ou novo aceite.
+
+### Análise crítica
+
+Reunir o cadastro em um único bot evita manter duas experiências distintas e torna as opções guiadas acessíveis pelo atalho já conhecido. Seleção inicial aguarda dados sem disparar comandos e Voltar permanece sob controle da pessoa. Sem configuração do Supabase, Conversas informa indisponibilidade; o atalho não usa o cadastro em memória como se fosse persistência remota. Teste integrado protege navegação/ausência de modal, enquanto revisão conectada é limitada ao acesso, sem novo CRUD ou auditoria completa. Pendências de M6/M5 e integração/publicação desta feature permanecem independentes.
