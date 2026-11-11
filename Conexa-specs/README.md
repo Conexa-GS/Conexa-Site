@@ -1,5 +1,7 @@
 # Conexa — Pacote de especificações
 
+11/11/2026 — execução autorizada de Conversas: duas migrations aplicadas ao demo `conexa`; nove grupos de testes passaram com Auth/RLS, concorrência e Realtime reais, uma oferta própria arquivada e 82 mensagens fictícias preservadas. Publicação/integração da feature na dev autorizadas pelo usuário. [Evidências e versões remotas](validation.md); F5/percurso conectado e T42/M6/M5 continuam pendentes. Os registros anteriores de migrations ainda não aplicadas são históricos.
+
 11/11/2026 — preparação de T41 em `feature/conversas-validacao-demo`, da dev `96e5f33`: teste manual de texto/DM, configuração offline e cenário compartilhado exercitado no PostgreSQL local. Não houve autenticação, mensagens ou migrations remotas. [Roteiro do demo](conversas-validacao-demo.md) descreve autorização, efeitos persistentes e percurso F5/duas sessões ainda pendente. T35/T38/T41, T42 e aceite M6 continuam abertos.
 
 11/11/2026 — terceira fatia local de Conversas: T39/T40 preparadas na `feature/conversas-voz-opcional` da dev `aaa0adb`. Broker opcional Node 24 com cotas locais persistentes, WebRTC/sideband e transcrição/sugestão corrigíveis; resposta da IA em texto. D021 substitui credencial efêmera por SDP intermediado no servidor. Desabilitado por padrão; agente usou apenas mocks e bancada sem microfone/API paga. Roteiro [voz-manual.md](voz-manual.md), evidências em validation.md. T35/T38/T41 remotos, T42, avaliação M6 e M5/T28 continuam pendentes; nenhuma integração/publicação ou migration remota presumida.

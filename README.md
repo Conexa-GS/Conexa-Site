@@ -136,6 +136,8 @@ Sem a RPC M5, a consulta mantém o M3 e informa M5 em preparação; nenhum contr
 
 ## Organização do código
 
+Atualização de 11/11/2026: migrations de Conversas aplicadas ao Supabase demo com autorização; `npm run test:conversations:demo` passou em nove grupos com Auth/RLS, concorrência e websocket reais. Oferta própria arquivada; 82 mensagens fictícias e auditoria preservadas. [Resultados e limites](Conexa-specs/validation.md). F5/percurso visual conectado, voz real e aceite M6 continuam pendentes; nova autenticação por API não substitui recarga do navegador.
+
 Preparação T41 de Conversas: `npm run test:conversations:check` confere `.env` **offline**, sem login ou escrita. O roteiro manual `npm run test:conversations:demo` depende de autorização para migrations/testes no demo e cria histórico fictício persistente; não está incluído nas suítes automáticas. Cenário equivalente verificado localmente em PGlite, com identidade simulada/conexão serial. Instruções, efeitos/limpeza e percurso conectado pendente em [conversas-validacao-demo.md](Conexa-specs/conversas-validacao-demo.md). Não comprova F5, concorrência/Auth/websocket remotos ou aceite M6.
 
 `src/components` contém layout e elementos compartilhados; `pages` reúne entrada e prévias; `features/offers`, `features/demands` e `features/transport` contêm os fluxos M1–M5; `hooks` coordena sessão e consultas; `services` isola Supabase e demonstração local; `domain` mantém validações e dinheiro; `pilot` preserva o estudo fornecido. Os vetores locais ficam em `public/assets`.

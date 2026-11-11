@@ -1,5 +1,32 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Conversas — migrations e teste demo autorizados — 11/11/2026
+
+Após apresentação do commit `76e306c`, usuário respondeu **“autorizo os dois”**: autoriza migrations/teste de texto/DM no demo e publicação/integração da feature na dev. Não é aceite de M6, T42, M5/T28, deploy ou promoção para main. Responsável pela execução: Codex, na `feature/conversas-validacao-demo`; checkout inicialmente limpo, dev e origin/dev em `96e5f33` após fetch; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`.
+
+Conector identificou `conexa` (`ppbneiusqlitvewwoact`), ACTIVE_HEALTHY, PostgreSQL 17. Inspeção de tabelas/histórico e `to_regclass`/`to_regprocedure` confirmou ausência de ambas as estruturas/RPCs; publicação `supabase_realtime` já existia. Aplicados os arquivos locais integrais, em ordem, por `apply_migration`, sem alteração do SQL ou reaplicação de M1–M5/WhatsApp. Versões geradas pelo conector:
+
+| Arquivo local | Nome remoto | Versão remota |
+| --- | --- | --- |
+| `202611110001_site_conversations.sql` | `site_conversations` | `20261111223622` |
+| `202611110002_site_offer_bot.sql` | `site_offer_bot` | `20261111223632` |
+
+Mantidas as divergências históricas de versões já documentadas: não usar `db push`/repair por suposição. Conferência posterior: RLS nas cinco tabelas, SELECT concedido a authenticated, INSERT/UPDATE/DELETE diretos negados, `site_messages` na publicação; gateways com `search_path` vazio e EXECUTE negado a anon; `conexa_private.write_offer` sem EXECUTE para anon/authenticated.
+
+`npm.cmd run test:conversations:demo`, executado com rede autorizada, **aprovado na primeira rodada**, processo finalizado com código 0. Relatório local ignorado pelo Git: `artifacts/conversations-36611d27-d93f-4940-97ab-54c4f067a6e9.local.json`, status `passed`, nove grupos, 11/11/2026 19h36–19h37 em São Paulo. Auth real de quatro perfis mais segunda sessão independente de Ana; clientes com chave pública, sem autoridade administrativa. Resultados efetivos:
+
+- Prévia não publica; confirmação concorrente pela mesma chave e replay recuperam o mesmo resultado/oferta, 20,125 kg, 507 centavos, mínimo 400; chave com revisão alterada rejeitada.
+- Correção invalida revisão antiga; confirmação com duas chaves diferentes tem um único vencedor. Gateway compartilhado com formulário altera versão, prévia antiga retorna conflito sem aplicar; nova prévia/confirmar persiste preço 600 centavos.
+- Comprador consulta a oferta persistida e não edita; João não altera a oferta nem lê bot/rascunhos/pedidos da Ana. Transportador/anônimo não acessam bot/conversa. SELECT filtrado por RLS real e rejeições conferidas por código de regra/permissão.
+- Par direto único, remetente autenticado apesar de payload forjado, envio/replay sem duplicação e conteúdo diferente com mesma chave rejeitado. Mensagem humana com texto de comando conserva oferta/saldo.
+- Comprador recebeu INSERT por websocket real. João não recebeu mensagens da conversa durante a janela observada, com canais inscritos e sem falha registrada; ausência por três segundos é evidência limitada, não garantia irrestrita.
+- Não lidas/leitura e nova autenticação do comprador conservaram mensagem/cursor. Recuperação de 81 mensagens adicionais em três páginas sem lacunas/duplicação; leitura não retrocedeu.
+- Cancelar prévia de arquivamento preservou oferta; nova prévia/confirmar arquivou. A única oferta criada, `92e04676-9d17-4e32-89a3-1a7a0f3a0804`, foi conferida como arquivada. Permanecem 82 mensagens humanas fictícias e auditoria do bot; nenhum dado anterior apagado, nenhuma conta criada ou mensagem externa enviada.
+
+Advisors de segurança consultados após DDL: cinco INFO de RLS sem policies nas tabelas privadas preexistentes de WhatsApp; WARN de funções SECURITY DEFINER executáveis por authenticated (gateways intencionais, incluindo quatro de Conversas) e proteção de senha vazada desabilitada. Revisados grants, identidade/autorização no código e testes negativos; não removida a autoridade necessária dos gateways nem alterado Auth/WhatsApp fora do escopo. Referências: [gateways SECURITY DEFINER](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable), [RLS sem policy](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy), [proteção de senha](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). Não é declaração de ausência de riscos ou auditoria completa.
+
+Sem mudança de runtime/migrations/testes locais nesta rodada; preservados lint, 85 testes, nove scripts PGlite e build aprovados da entrega `76e306c`. Não repetidos sem mudança funcional. Skill Supabase/documentação oficial de Realtime/changelog consultados. Nenhuma API OpenAI, microfone, voz real ou gasto de modelo. **T35/T38/T41 seguem parciais:** F5/percurso conectado 360 px/desktop, falha física da rede e avaliação humana não executados; reservas/compromissos/snapshots do bot não receberam nova cobertura remota. Nova autenticação por API não equivale a F5. T42, aceite M6 e M5/T28/T30 permanecem independentes.
+
 ## Conversas — preparação T41 do roteiro demo — 11/11/2026
 
 Responsável: Codex, `feature/conversas-validacao-demo`, criada da dev limpa `96e5f33`. Código de teste e documentação; nenhum componente/estilo ou migration alterado. Sem aplicação de schema, login/Auth remoto, websocket remoto, mensagens remotas, API paga, microfone, push/merge/deploy ou aceite presumido. T35/T38/T41/T42 e M6/M5/T28/T30 continuam com suas pendências.

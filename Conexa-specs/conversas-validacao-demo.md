@@ -1,12 +1,12 @@
 # Conversas — preparação e roteiro T35/T38/T41
 
-11/11/2026. Preparado em `feature/conversas-validacao-demo`, criada da dev limpa `96e5f33`. **Execução remota ainda não autorizada/executada nesta entrega.** Não encerra T35/T38/T41, T42, M6 ou M5/T28. Texto e mensagens usam participantes fictícios. Não há OpenAI, microfone, WhatsApp ou cobrança.
+11/11/2026. Preparado em `feature/conversas-validacao-demo`, criada da dev limpa `96e5f33`. **Execução remota autorizada e aprovada em nove grupos**, após apresentação do commit `76e306c`: migrations aplicadas ao demo, uma oferta própria arquivada e 82 mensagens fictícias preservadas. Relatório e versões em [validation.md](validation.md). Não encerra os critérios completos de T35/T38/T41, T42, M6 ou M5/T28. Sem OpenAI, microfone, WhatsApp ou cobrança.
 
 ## Avaliação antes da execução
 
 A implementação já integrada contém `202611110001_site_conversations.sql` e `202611110002_site_offer_bot.sql`. A primeira cria conversas/membros/mensagens, RPC `site_chat`, RLS e publicação de mensagens no Supabase Realtime; a segunda acrescenta rascunhos/pedidos privados, `site_bot` e `save_offer`, compartilhado com o formulário. Esta preparação não altera esses arquivos.
 
-Pedir autorização para aplicar as duas migrations ausentes **e executar os testes de texto/DM no projeto demo `ppbneiusqlitvewwoact`**. Antes de aplicar, conferir projeto, histórico remoto e tabelas/RPCs; aplicar somente as ausentes, em ordem. Há divergências históricas de nomes/versões já registradas em `validation.md`: não usar `db push`, reset ou reaplicar SQL por comparação cega de nomes. Se houver aplicação parcial ou definição diferente, investigar antes de continuar.
+O usuário autorizou esta rodada de migrations/testes e a publicação/integração da feature na dev. A autorização foi utilizada no **projeto demo `ppbneiusqlitvewwoact`**; não pedir novamente para concluir essa rodada nem reaplicar suas migrations. Em nova execução/ambiente, conferir escopo autorizado, projeto, histórico remoto e tabelas/RPCs; aplicar somente migrations ausentes, em ordem. Há divergências históricas de nomes/versões em `validation.md`: não usar `db push`, reset ou reaplicar SQL por comparação cega de nomes. Se houver aplicação parcial ou definição diferente, investigar antes de continuar.
 
 Consultas de inspeção, sem escrita:
 
