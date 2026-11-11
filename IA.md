@@ -1118,3 +1118,35 @@ Componente: bloqueio de envio duplo, HTML literal, falha preservando chave/texto
 Separar entrega visual/mensagens do intérprete e da aplicação de ofertas torna a primeira fatia avaliável sem custo de IA e preserva RN45. RLS/idempotência no banco evitam confiar no remetente ou reenvio fornecidos pelo cliente; PGlite não prova concorrência com sessões remotas nem autorização de eventos Realtime. Rascunho humano volátil não substitui persistência de comandos, e bot não deve anunciar recursos futuros como ativos. Nova migration precisa autorização e testes demo; publicação/integração depende da avaliação posterior exigida pelo workflow. Sem push, merge, deploy, alteração remota, uso de microfone ou aceite de M6/M5 nesta rodada. T30/experimentos preservados, sem desativar endpoint.
 
 Complemento de autorização — 11/11/2026: usuário respondeu “pode integrar com a dev” à entrega do commit `3b9fbf2`. Autoriza publicação da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e fetch executado antes da integração. Registro preparado na feature, preservando as verificações da implementação (lint, 61 testes, sete scripts locais de banco e build); nenhuma alteração de runtime nesta rodada ou novo teste atribuído ao usuário. Migration/testes no Supabase não incluídos nesta autorização específica; main, aceite M6/M5 e voz permanecem independentes. Referências serão conferidas após publicação, sem force push.
+
+## Interação 045 — Bot por texto e comandos de ofertas — 11/11/2026
+
+Autorização posterior de integração — 11/11/2026: após apresentação do commit `e58d861` e pergunta sobre publicar/integrar a feature na dev, usuário respondeu “mande para dev”. Autoriza publicação da feature e integração/publicação da dev no origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo; fetch confirmou dev/origin/dev em `b1867a5`. Preservadas as verificações da entrega (lint, 68 testes, oito scripts PGlite e build); sem mudança de runtime ou novos testes nesta autorização. Não inclui main, migrations/testes no Supabase, voz ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura, implementação React/SQL, testes e documentação; PowerShell/Git e apply_patch para branch/alterações/verificações; React/Vite/jsdom e PGlite para testes locais. Skill computer-use e navegador in-app para bancada desktop/360 px/teclado. Sem subagentes, IA externa no produto, OpenAI paga, microfone, WhatsApp ou operação remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário nesta solicitação:
+
+> comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas
+
+Resposta representativa real: “A próxima etapa é o bot por texto (T36) e a aplicação confirmada das alterações (T37), completando os rascunhos e comandos da T35. Vou implementar essa fatia localmente, com prévia obrigatória, proteção de estoque e confirmação por revisão. A validação no Supabase demo e a voz ficam pendentes de suas etapas específicas.” Consultas e esclarecimentos não registrados como prompts de programação; não há nova autorização humana de integração ou uso remoto nesta interação.
+
+### Aplicação no projeto
+
+Criada `feature/conversas-bot-ofertas` da dev limpa `b1867a5`. Implementados intérprete determinístico delimitado reutilizando T29, perguntas/correções/cancelamento, consulta do comprador, criação/edição/arquivamento de ofertas próprias, escolha de alvo, total versus saldo e datas explícitas. Componente `BotThread` mostra histórico, perguntas, prévia antes/depois e confirmação da revisão por botão; mensagens de pessoas permanecem separadas do bot. Sem compreensão geral de linguagem por modelo; voz continua indisponível.
+
+Migration `202611110002_site_offer_bot.sql` cria rascunhos e pedidos privados com RLS, revisão esperada, snapshot/versão/saldo, resultado atômico e replay pela mesma chave/conteúdo. Gateway `save_offer`/função privada de escrita compartilhados pelo formulário e bot, preservando triggers de estoque/vínculos e snapshots. Serviço do formulário mantém CRUD antigo somente quando a função não existe; bot não tem fallback sem auditoria. Falhas conservam rascunho; conflito exige nova prévia; resposta incerta conserva pedido e bloqueia correção até verificar. Atualização de listas só após oferta confirmada; mensagens do bot reconciliam por cursor. Nova bancada/fixtures/testes; tasks, contratos, decisão D020, README e validação atualizados. T36/T37 locais; T35/T38/T41/M6 continuam com pendências remotas/aceite.
+
+### Validação das respostas
+
+Codex executou lint (rodada final sem avisos), 68 testes Node/jsdom (sete novos), oito scripts de banco PGlite e build aprovado (669,77 kB principal; aviso herdado >500 kB). `git diff --check` aprovado durante a revisão; estado/diff conferidos antes da preparação do commit local. Testes novos cobrem ambiguidades, catálogo/datas/mínimos/precisão, prévia/descarte sem escrita, confirmação única, resultado perdido com replay, correção/versão obsoleta, conflitos de saldo/versão, preservação de snapshots, permissões e RLS local. Compromisso usa fixture administrativa local para exercitar proteção; pagamento real do fluxo fica na suíte M5. Componente recupera 90 mensagens após atualização simulada sem lacunas. Não equivale a concorrência, Auth, websocket ou F5 remotos.
+
+Revisão dirigida real da bancada em 1366×900 e 360×800, sem overflow horizontal medido; bot, prévia/confirmar, envio por Tab/Enter, foco de erro/resultado, falha controlada/verificação, cancelamento e perguntas de criação. Capturas locais ignoradas pelo Git, somente conteúdo fictício, viewport restaurado. Limites e medidas em validation.md. Ajustados perguntas visíveis e resumo parcial de criação, evento de recarga da janela, cleanup/respostas obsoletas e cursor progressivo. Lint intermediário apontou efeito/ref, corrigidos sem supressão; fixture adicional de compromisso inicialmente usou coluna incorreta, corrigida e suíte repetida. Nenhum teste ou aprovação atribuído ao usuário. Sem nova dependência, teste pago ou escrita no demo.
+
+### Análise crítica
+
+Intenções delimitadas permitem avaliar a experiência sem tokens, mas exigem frases documentadas e esclarecimento de saldo/datas; não oferecem entendimento arbitrário. Gateway comum reduz divergência entre formulário e bot; resultado e comando na mesma transação protegem replay. Compatibilidade temporária preserva o demo sem migration, mas precisa validação remota e retirada futura quando o schema estiver uniforme. Locks e RLS testados em PGlite não comprovam corridas/eventos remotos; mocks de perda de resposta não comprovam falha de rede real. Próximos passos são aplicação/testes autorizados no demo e avaliação; OpenAI/voz permanecem etapas separadas do usuário. Sem push, merge, deploy, alteração da main, autorização presumida ou encerramento de M6/M5/T30.

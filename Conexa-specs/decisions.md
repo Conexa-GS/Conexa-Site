@@ -142,6 +142,16 @@ Base T35/T38: novas tabelas `site_conversations`, `site_conversation_members`, `
 
 Aba depende do novo schema; ausência mostra impedimento. Bancada explícita em memória permite avaliar sem tocar no demo. Testes SSR recebem caches Vite temporários isolados, pois o cache compartilhado com dev estava deixando o navegador sem renderizar durante as suítes; após isolar e reiniciar dev, revisão visual ficou disponível. Evidências locais/limites em `validation.md`, contratos em `conversas-site.md`. Sem OpenAI, microfone, WhatsApp, Supabase remoto, autorização de publicação presumida ou aceite dos marcos. T35/T38/T41 continuam parciais; T30 pausada, M5/T28 e avaliação M6 preservadas.
 
+## D020 — Bot por texto e escrita de ofertas compartilhada — implementação local em avaliação — 11/11/2026
+
+Origem: continuação do pedido de iniciar as implementações atualizadas de tasks.md, respeitando o fluxo incremental D018/D019. Branch `feature/conversas-bot-ofertas` criada da dev limpa `b1867a5`. Sem subagentes ou ações remotas. T36/T37 recebem conclusão de implementação/verificação local, sem encerrar os critérios remotos de T35/T38/T41, M6 ou M5/T28.
+
+Interpretação determinística por intenções delimitadas e perguntas T29. Datas relativas exigem data exata; quantidade tem semântica explícita de total incluindo reservas/compromissos. Alvos ambíguos exigem seleção. Texto livre não é compreensão geral por IA; consultas do comprador não autorizam edição. Botão confirma revisão, `sim` não executa. Cancelamento não altera catálogo; respostas incertas bloqueiam novos pedidos até reconciliar a mesma chave.
+
+Nova migration guarda rascunho/revisões, snapshot/versão/saldo e pedidos com conteúdo/resultado imutáveis por chave e dono. RPC deriva identidade, restringe bot ao dono, serializa chave/conversa e revalida oferta sob lock. Mutação e resultado são atômicos; conflito/falha preserva campos com estado conflict, exigindo nova prévia. Formulário e bot compartilham a função privada `write_offer`, mantendo triggers de estoque/vínculos e regras de centavos/datas. Serviço do formulário preserva CRUD anterior somente quando a nova RPC não existe, para não bloquear a demo ainda sem migration; bot não escreve por esse fallback.
+
+Sem mudança nas regras de negócio ou API paga. Evidências locais em validation.md e contrato em conversas-site.md. PGlite não comprova corrida entre sessões reais nem Auth/websocket/F5 remoto. Revisão visual restrita à bancada em memória; voz T39/T40 não iniciada, T42 continua do usuário e T43/integração dependem de avaliação/autorização. Migrations somente preparadas/testadas localmente, sem aplicar no demo.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

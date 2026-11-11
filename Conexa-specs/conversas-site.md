@@ -1,6 +1,6 @@
 # Conversas no site — planejamento da evolução M6
 
-Data: 11/11/2026. Status: **primeira fatia local implementada para avaliação**: aba T34 e base de mensagens T35/T38; bot livre, comandos e voz pendentes. Nova migration ainda não aplicada ao demo. Direção solicitada pelo usuário após os testes de integração WhatsApp. Tarefas T34–T43 em [tasks.md](tasks.md); decisões D018/D019 em [decisions.md](decisions.md). T29 é a base existente; T30 fica pausada. Não representa aceite da M6 nem conclusão da M5/T28.
+Data: 11/11/2026. Status: **segunda fatia local implementada para avaliação**: aba T34, base de mensagens T35/T38 e bot por texto/comandos T36/T37. Duas migrations de Conversas ainda não aplicadas ao demo; voz pendente. Direção solicitada pelo usuário após os testes de integração WhatsApp. Tarefas T34–T43 em [tasks.md](tasks.md); decisões D018–D020 em [decisions.md](decisions.md). T29 é a base existente; T30 fica pausada. Não representa aceite da M6 nem conclusão da M5/T28.
 
 ## Experiência e escopo
 
@@ -73,6 +73,27 @@ RLS de SELECT usa `site_is_member(uuid)` com identidade atual; INSERT/UPDATE/DEL
 Migration adiciona somente `site_messages` à publicação `supabase_realtime` quando existente; policy de SELECT limita o assinante. Serviço assina INSERT, reconcilia ao conectar/voltar à aba/rede e a cada 30s, e remove canal/listeners/timer ao desmontar. A página tem chave por conta; histórico e rascunhos em memória não são reaproveitados após troca de perfil. Interface conserva texto/chave após resultado incerto e exige verificar o mesmo envio antes de nova mensagem. Até aplicar/validar a migration, o site mostra impedimento explícito; a bancada `/tests/ui/conversations.html` usa memória identificada.
 
 Evidências locais em `validation.md`; aplicação no demo e teste real de Realtime dependem de autorização.
+
+## Contrato implementado da segunda fatia (local)
+
+Migration `202611110002_site_offer_bot.sql`: `site_bot_drafts` (um rascunho por conversa, dono, intenção, revisão, campos, alvo, snapshot/versão/saldo e estado) e `site_bot_requests` (chave por dono, ação/payload imutável e resultado). SELECT privado por dono/membro; INSERT/UPDATE/DELETE diretos revogados. `site_messages.speaker` distingue humano/bot sem criar participante fictício com autoridade de escrita. Respostas de histórico vêm do servidor, em texto; perguntas contextuais vêm do intérprete local e dos campos persistidos, sem fabricar mensagens remotas.
+
+RPC `site_bot(p_action,p_payload)` aceita somente o dono autenticado do bot demo:
+
+| Ação | Contrato |
+| --- | --- |
+| `state` | `conversation_id`; devolve rascunho, ofertas visíveis pelo perfil com saldo e catálogo/coletas próprias. Comprador consulta ofertas publicadas vigentes, sem mutação. |
+| `messages` | `conversation_id`, `before_seq` ou `after_seq` opcional; páginas de 40 ordenadas, `seq` em string, `speaker` e `has_more`. Cursores mutuamente exclusivos. Atualizar/reconectar reconcilia todas as páginas novas, preservando anteriores já carregadas. |
+| `turn` | `request_id`, `revision` esperada (0 inicialmente), texto, intenção delimitada, campos em strings, alvo e `offer_version` quando houver. Não altera catálogo. Serializa conversa, cria revisão, captura snapshot/saldo reais e persiste mensagem/resposta junto do resultado. Cancelar conserva registro com estado cancelled; consulta não escreve oferta. |
+| `confirm` | `request_id`, `revision` atual. Só produtor confirma create/edit/archive. Revalida versão e saldo sob lock da oferta; usa a função compartilhada de escrita e registra resultado na mesma transação. Falha de validação ou conflito retorna estado conflict, sem alterar oferta. Nova prévia/confirmar necessários. |
+
+Repetir chave/conteúdo retorna o mesmo resultado; mudar ação/payload com a chave é rejeitado. Locks por chave/conversa e checks estão preparados; concorrência real ainda não verificada. Revisão defasada é rejeitada antes de escrever. Resultado incerto conserva o mesmo pedido na interface e bloqueia correção/cancelamento até verificar. Após F5, rascunho/estado são consultados do banco; testes locais não comprovam F5 remoto. Mensagem em conversa direta continua no gateway humano e não executa bot.
+
+`conexa_private.write_offer` é usada pelo bot e pela RPC `save_offer` do formulário/arquivamento. Deriva dono da sessão; aceita valores canônicos em centavos/milésimos, mantém triggers existentes de datas/coleta, saldo reservado/comprometido e identidade de ofertas vinculadas. Não muda snapshots de cargas. Serviço de formulário tenta o gateway novo e só usa o CRUD anterior quando a função não existe; preserva RLS/triggers e compatibilidade do vencimento opcional. O bot não faz fallback de mutação sem sua migration/comando auditável. Resultado de sucesso com oferta confirmada dispara recarga das listas montadas; navegar para ofertas reconsulta o banco.
+
+Intérprete determinístico reaproveita T29: `consultar`, `criar oferta`, `editar alface`, `arquivar alface`; identificador ou botão resolve múltiplos alvos. `total 20 kg`, `preço 7,00`, `mínimo: 4,00` e correções `campo: valor`. Criação pergunta os oito campos e oferece catálogo/coleta; vencimento aceita `não sei`. “Agora tenho 20 kg” pede distinguir total/saldo; datas relativas pedem data exata em São Paulo. Não converte unidades nem inventa preço/mínimo/local/datas. `sim` não autoriza mutação; botão confirma a revisão visível. Não é compreensão geral de linguagem natural. Prévia completa mostra antes/depois e saldo; durante perguntas de criação fica oculta para facilitar uso no celular. Formulário continua acessível.
+
+Evidências: três testes de domínio, quatro de componente, script PostgreSQL local do bot e bancada 1366×900/360×800/teclado. Sem Supabase remoto, websocket, chamadas de OpenAI, voz ou aceite humano. T35/T38/T41 e M6 continuam abertos pelos critérios pendentes; histórico da primeira fatia acima é preservado.
 
 ## Adaptador de IA e voz propostos
 
