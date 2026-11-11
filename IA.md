@@ -1053,3 +1053,36 @@ Resultado desta rodada: commit de autorização `ea3ba0e` criado na feature. A r
 Trabalho autorizado não afetado: preparar este complemento na feature e integrá-la localmente à dev com merge que preserva histórico, sem conflitos esperados. A conferência final usará referências locais e as remotas obtidas no fetch; origin/dev permanece em `af7174f` enquanto o push estiver bloqueado. Main e sistemas Meta/Supabase não serão alterados. Nenhum teste de aplicação repetido nesta correção documental.
 
 Confirmação posterior do usuário: “mande para o github”, em resposta à pergunta que identificou explicitamente `https://github.com/Conexa-GS/Conexa-Site`, branches `feature/t30-preparacao` e `dev`, e conteúdo (código, testes, documentação T30, IA.md e configuração de exemplo vazia). Autoriza retomar a publicação nesse destino após o bloqueio automático. Integração local já concluída sem conflitos em `c0d70d0`; fetch confirmou origin/dev sem avanço e dev quatro commits à frente. Confirmação registrada na feature antes de incorporá-la à dev e enviar ambas as branches, sem force push. Main permanece em `169b1b4`. Esta atualização documental não repete testes nem amplia a autorização para Meta/Supabase/deploy; envio será conferido nas referências remotas antes da resposta final.
+
+## Interação 043 — Planejamento de Conversas no site — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para revisão das especificações e atualização do planejamento de implementação; PowerShell/Git para leitura, branch e verificações locais; apply_patch para documentação. Skill OpenAI Docs e consulta somente à documentação oficial Realtime/WebRTC. Sem subagentes, chamadas à API paga, sessão de voz, envio de mensagens ou alterações no Supabase.
+
+### Interações realizadas
+
+Prompt de programação/planejamento integral do usuário:
+
+> apos testes com apis de integração no whatsapp, deveriamos voltar atras e implementar o sistema de atualização de ofertas por convensa através do proprio site, simulando uma conversa no whatsapp.
+> A ideia é abrir uma nova aba dentro das respectivas contas (produtor, comprador), onde vai ter um layout parecido com o WhatsApp, onde você podera conversar com o Bot principal que vai atualizar as ofertas automaticamente conforme vocÊ fala com ele, e poderia conversar com outros produtores e vendedores, combinando acordos e parcerias.
+>
+> Atualize as tasks para a implementação dessa feature, pensei que poderia usar a api de gpt live apenas para simular o funcionamento real, deixa que eu faço os testes de voz para que não gaste os tokens, afinal é uma api paga
+
+Resposta representativa: “Vou revisar as especificações e o planejamento atual para atualizar as tarefas dessa experiência de conversa dentro do site. Vou incluir a opção de voz e deixar os testes pagos para você, sem chamar a API nesta etapa.” Não registrar consultas/esclarecimentos como novas interações de programação.
+
+### Aplicação no projeto
+
+Criada feature/planejamento-conversas-site a partir da dev 3197eaf, com checkout inicialmente limpo. Primeira troca de branch bloqueada por permissão de escrita no índice; repetida com a permissão correspondente e concluída. Preservada feature/t30-twilio-supabase com seus commits e experimentos, sem integrá-la implicitamente. IDs D017 e interações 039–042 existem nessa feature separada; este registro usa 043 para evitar colisão futura.
+
+Atualizados tasks.md com T34–T43 pendentes, spec.md/RF11–12, RN45, AC24–32, plan.md, README do pacote, status histórico T30 e D018. Novo conversas-site.md descreve aba produtor/comprador, bot para criar/editar/arquivar ofertas próprias, mensagens individuais, persistência/RLS, confirmação versionada, execução idempotente, interpretação simulada padrão e OpenAI/voz opcional. Nenhum componente, serviço, migration ou integração implementado nesta solicitação. M5/T28 e aceite M6 continuam pendentes.
+
+### Validação das respostas
+
+Leitura do código existente confirmou domínio T29, serviços compartilhados de ofertas e rotas por perfil como bases do plano. Documentação oficial consultada para Realtime, WebRTC e credenciais efêmeras; não houve chamada de modelo ou medição de consumo. Verificações locais e revisão do diff serão registradas abaixo após execução. Nenhuma revisão visual de interface é atribuída a esta mudança documental, nem teste de voz/aceite humano. Não houve push, merge, deploy, desativação do endpoint Twilio ou alteração remota.
+
+### Análise crítica
+
+Separar texto simulado de integração opcional permite implementar e testar sem gastar tokens. Persistência das conversas e alterações deve ser real no Supabase demo quando conectada, mesmo com interpretação simulada; testes locais não provam isso. Prévia e confirmação preservam RN45 e evitam que linguagem ambígua altere estoque ou acordos existentes. Mensagens entre pessoas não autorizam bot ou mutações de operações. Voz exige teste manual real do usuário; mocks não comprovam áudio, cobrança, limites efetivos ou experiência final. A pausa de T30 preserva evidências e não desativa o endpoint já implantado.
+
+Resultado das verificações desta atualização documental: npm.cmd run lint aprovado; npm.cmd test aprovado com 55 testes, zero falhas; npm.cmd run build aprovado, com aviso de chunk principal acima de 500 kB já presente na base. git diff --check aprovado. Nenhuma alteração de UI: revisão em 360 px/desktop não executada nesta rodada e permanece tarefa da implementação. Sem chamadas pagas ou testes remotos. Estes testes verificam a base da dev, não implementam nem validam AC24–AC32. Revisão de links, escopo e estado Git feita antes da entrega; commit local documental preparado sem autorização presumida de publicação.

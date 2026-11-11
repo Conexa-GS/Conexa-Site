@@ -60,6 +60,8 @@ M4 iniciada localmente em 08/11/2026: pesquisa de T21 e roteiro manual autentica
 
 ## Prioridade e prazo
 
+Atualização de prioridade em 11/11/2026 — D018: após testes WhatsApp, o usuário pediu retomar conversas dentro do próprio site. T30 fica pausada; preservar a feature de experimentos sem integração implícita. Próxima entrega M6 planejada em T34–T43: aba Conversas produtor/comprador, persistência/RLS, bot para criar/editar/arquivar ofertas próprias, mensagens individuais e OpenAI Realtime/voz opcionais. [conversas-site.md](conversas-site.md) detalha arquitetura, modelo proposto, confirmação versionada, execução única e limites de consumo. Texto simulado e testes do agente não usam API paga; usuário executa a voz real. Esta prioridade substitui a recomendação genérica abaixo de cortar o chat para a entrega solicitada, preservando CRUD/persistência e pendências M5/T28. Nenhum novo código/migration ou ativação nesta rodada.
+
 Concluir M1 antes de iniciar M2; não esperar mapas, pagamentos ou WhatsApp. Prazo oficial informado no briefing: 19/11/2026 às 23h55. Meta proposta: fluxo central pronto até 14/11, revisão e apresentação de 15 a 18/11. Ajustar ao esforço real e preservar critérios acadêmicos.
 
 Para reduzir escopo, cortar chat, refinamentos de ranking e mapas avançados antes de cortar CRUD real, persistência, validações, clareza financeira ou documentação. Integração de rotas faz parte do produto planejado, mas não é pré-requisito do primeiro marco.

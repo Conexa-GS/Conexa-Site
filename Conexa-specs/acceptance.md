@@ -30,6 +30,26 @@ Estes cenários são a especificação da verificação futura. Nenhum está mar
 
 ## Estratégia de verificação
 
+### Evolução planejada — Conversas no site (11/11/2026)
+
+Todos os critérios abaixo estão **pendentes de implementação/verificação**; não ampliam o aceite de T29. Detalhes em [conversas-site.md](conversas-site.md). AC23 também se aplica à nova aba.
+
+| ID | Cenário e resultado esperado | Requisito / regras | Tarefas |
+| --- | --- | --- | --- |
+| AC24 | Produtor e comprador abrem Conversas, distinguem bot de pessoas e navegam lista/conversa em 360 px/desktop por teclado, sem sugerir WhatsApp conectado | RF11–12 / RNF01–03,07 | T34, T41 |
+| AC25 | Mensagem chega a outra sessão membro, persiste após F5, reenvio/reconexão não duplica e não lidas/leitura se reconciliam | RF12 / RNF03–04 | T35, T38, T41 |
+| AC26 | Terceiro/anônimo não lê/envia mensagens, forja remetente, entra em conversa alheia ou recebe eventos privados; troca de conta limpa histórico/assinaturas/voz. Contas demo não recebem dados pessoais reais | RF11–12 / RN01,45–46; RNF04 | T35, T38, T40–T41 |
+| AC27 | Produtor cria/edita/arquiva oferta própria pelo bot; perguntas resolvem oferta/quantidade ambíguas; prévia mostra antes/depois; cancelar/não confirmar não muda catálogo; confirmar mostra dado persistido também ao comprador | RF01,11 / RN01–06,45 | T36–T37, T41 |
+| AC28 | Comprador/outro produtor não altera oferta alheia; mínimo, unidades, coleta, datas, reservas/compromissos e snapshots mantêm as regras do formulário/banco. Modelo não contorna permissão nem confirma por fala incidental | RF01,11 / RN01–06,13–14,29,36,45 | T36–T37, T39, T41 |
+| AC29 | Correção/edição concorrente invalida prévia antiga; confirmação duplicada ou timeout com reconciliação aplica comando no máximo uma vez. Falha preserva rascunho e não anuncia sucesso | RF11 / RN45; RNF03,05 | T35–T37, T41 |
+| AC30 | Produtor conversa com produtor/comprador sobre acordo; mensagem humana não chama bot nem muda oferta/estoque/preço/reserva/aceite. Formalização é orientada ao fluxo atual | RF12 / RN04,12–14,33,36,45 | T38, T41 |
+| AC31 | Modo simulado funciona sem chave/API paga. Modo OpenAI exige ação/configuração explícitas, endpoint autenticado e limites no servidor; chave permanente ausente do bundle/logs. Abrir aba/CI/reconectar não inicia consumo | RF11 / RN45; RNF04 | T39–T42 |
+| AC32 | Usuário testa voz real: microfone consentido, transcrição corrigível, prévia/confirmar/cancelar e encerramento ao sair/trocar conta/atingir limite; falhas mantêm alternativa por texto. Agente testa com mocks; resultado real só por relato/evidência do usuário | RF11 / RN45; RNF02–04,07 | T40–T42 |
+
+Texto/DM e voz têm evidências separadas. Mocks não comprovam custo, áudio ou sessão real; aceite de voz depende de T42. Aplicação remota do novo schema depende da autorização correspondente.
+
+### Métodos
+
 - Testes unitários para cálculos monetários, mínimo individual, compatibilidade e transições relevantes.
 - Testes de integração do banco para RLS, reserva concorrente e idempotência antes de concluir os marcos respectivos.
 - Verificação de interface do fluxo principal com Supabase real de demonstração; não tratar mocks como prova de persistência remota.

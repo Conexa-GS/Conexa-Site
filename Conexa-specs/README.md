@@ -6,6 +6,8 @@ Este pacote usa desenvolvimento guiado por especificação (Spec-Driven Developm
 
 ## Ordem de leitura
 
+Direção vigente em 11/11/2026: [Conversas no site](conversas-site.md), tarefas T34–T43 e D018 planejam aba de mensagens para produtor/comprador, Bot Conexa para criação/atualização de ofertas e acordos entre participantes. T30/WhatsApp externo fica pausada; histórico e experimentos preservados. Texto simulado é padrão; OpenAI Realtime/voz opcional terá testes pagos pelo usuário, sem chamadas da API pelo agente. Esta atualização é somente planejamento e não encerra M6 ou M5/T28.
+
 1. `constitution.md`: princípios e limites.
 2. `spec.md`: escopo, requisitos e histórias de usuário.
 3. `business-rules.md`: regras consolidadas da operação.

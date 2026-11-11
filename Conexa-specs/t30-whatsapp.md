@@ -1,5 +1,7 @@
 # T30 — WhatsApp oficial: especificação e preparação local
 
+**Atualização de 11/11/2026: T30 pausada por mudança de direção do usuário (D018).** Priorizar [conversas-site.md](conversas-site.md) e T34–T43. Texto abaixo é histórico; preservar também os experimentos em `feature/t30-twilio-supabase`, sem declarar o canal concluído nem desativar recursos remotos nesta atualização documental.
+
 Data: 10/11/2026. Status: **em avaliação, integração externa inativa**.
 
 Origem: “vamos seguir com o resto então”, respondendo à proposta de preparar especificação e estrutura local enquanto a criação do portfólio Meta está bloqueada. Autoriza esta preparação; não representa liberação da conta, custos, deploy, mensagens reais ou aplicação remota de SQL.

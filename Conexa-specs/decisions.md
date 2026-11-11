@@ -120,6 +120,18 @@ Primeira fatia proposta reaproveita perguntas/validações da T29, com protocolo
 
 Contratos de identidade, gateway privado, inbox/sessão/publicação/outbox, autorização, concorrência e ativação estão em `t30-whatsapp.md`. Banco e envio externo são próxima fatia, não promessas de idempotência/durabilidade já verificadas. Sem IA externa, áudio, contatos reais ou mudança nas regras de dinheiro/estoque. Testes/lint/build e limites em validation.md; T30/M6 seguem em avaliação e M5/T28 preservadas. Publicação/integração dependem da autorização do usuário após avaliação.
 
+## D018 — Conversas no site como prioridade; voz opcional testada pelo usuário — direção solicitada, implementação planejada — 11/11/2026
+
+Origem: usuário pede atualizar as tarefas após os testes com integrações WhatsApp: aba semelhante a mensageiro nas contas produtor/comprador, bot que atualiza ofertas e conversas para acordos/parcerias; sugere “api de gpt live” para demonstração e reserva para si os testes de voz por ser API paga.
+
+Priorizar T34–T43 e pausar T30, sem declarar conclusão ou apagar experimentos. D015/T29 permanece base; D016 e a evolução Twilio na feature separada deixam de ser caminho prioritário. ID D017 reservado ao registro Twilio já existente nessa feature não integrada. Não incorporar código/histórico da feature Twilio nem alterar o endpoint demo nesta atualização.
+
+Aba Conversas terá bot e mensagens individuais entre produtores e compradores. Atualização automática prepara campos por conversa e aplica após prévia/confirmar, preservando RN45. Bot produtor gerencia apenas ofertas próprias; comprador consulta e conversa. Conversas humanas não executam acordos/estoque/pagamento nem ampliam o bot para demandas ou transporte. Vendedor usa o papel produtor existente.
+
+Texto simulado sem custo é padrão. OpenAI Realtime é opção técnica proposta para interpretação/voz demo, com credencial efêmera via servidor autenticado, ferramentas restritas e limites. Documentação oficial consultada, sem teste da API. Agente prepara implementação/testes simulados; usuário executa voz paga. Modelo, orçamento e ativação permanecem configurações a validar na implementação, sem gasto autorizado para o agente.
+
+Arquivos afetados: tasks.md, conversas-site.md, spec.md, business-rules.md (RN45), acceptance.md (AC24–32), plan.md, README do pacote, t30-whatsapp.md e IA.md. Branch `feature/planejamento-conversas-site` criada da dev `3197eaf`, preservando a feature Twilio. Entrega apenas documental, sem código/migration/deploy, teste humano inventado ou encerramento de M5/T28/M6. Publicação/integração depende de autorização após avaliação conforme workflow.md.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.
