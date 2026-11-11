@@ -6,6 +6,8 @@ Data: 11/11/2026. Status: **segunda fatia local implementada para avaliação**:
 
 Atualização posterior na mesma data: **terceira fatia local T39/T40** preparada na `feature/conversas-voz-opcional` da dev `aaa0adb`. O contrato D021 abaixo substitui a proposta de token efêmero, sem alterar o histórico das duas primeiras fatias. Voz/provedor reais continuam sem teste; T42/aceite M6 pendentes. Configuração e roteiro em [voz-manual.md](voz-manual.md).
 
+Complemento T41/D024 em 11/11/2026: aplicação retoma Auth da mesma aba e valida participante no servidor antes de montar as páginas protegidas. Tokens ficam em sessionStorage por projeto, com canal Auth exclusivo por documento; não há sincronização automática de identidade entre abas. Trocar participante encerra a sessão local. Rascunhos humanos e pedidos incertos em memória continuam voláteis no F5; o histórico e o rascunho estruturado do bot são consultados do banco. Recarga de histórico existente foi verificada, sem novo CRUD/DM nesta rodada; limites em validation.md.
+
 ## Experiência e escopo
 
 Atualização local D023: “Cadastrar por conversa”, em Minhas ofertas, navega na mesma aba para `/produtor/conversas?conversa=bot`, com o Bot Conexa selecionado após carregar a caixa. Acesso normal a Conversas mantém a lista inicial; Voltar continua disponível. O atalho não inicia um rascunho, não descarta o existente e não abre `OfferChat` em modal. O componente antigo e suas bancadas/testes permanecem como histórico técnico, sem entrada na página de ofertas.

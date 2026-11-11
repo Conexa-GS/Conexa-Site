@@ -15,6 +15,8 @@ Território real e evidência de escuta: pendentes de preenchimento pelo grupo. 
 
 Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos de autenticação de produção ficam fora do MVP.
 
+Retomada demo D024: com Supabase, recarregar a mesma aba revalida Auth/participante e mantém o acesso ao perfil. Sessão é armazenada por aba e Trocar participante a encerra; outro documento não recebe os eventos Auth dessa aba. Sem configuração ou com storage bloqueado, não prometer retomada persistente. A sessão salva não substitui validação no servidor nem RLS.
+
 ## Histórias e requisitos
 
 | História | Requisito | Resultado observável |

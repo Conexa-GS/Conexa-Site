@@ -178,6 +178,16 @@ Não há inferência de valores/datas, confirmação por “sim” ou mudança d
 
 Origem: usuário pediu que “Cadastrar por conversa” encaminhasse ao bot, sem janela separada. Complemento de D022 na mesma feature derivada da dev; avaliação/integração pendentes. `OffersPage` usa link interno para `/produtor/conversas?conversa=bot`; App transmite seleção inicial ao carregar Conversas. Seleção aguarda a caixa, destaca o bot e abre a mesma interface em celular/desktop. Não dispara `turn` ou confirmação, não substitui rascunho nem muda o acesso normal à lista/Voltar. Removida somente a entrada do antigo modal em ofertas; componente/testes históricos preservados. Sem mudança de banco/permissões ou API paga. Teste do App completo detectou chave React duplicada entre notificações e página, corrigida com prefixo próprio nas notificações. Arquivos: OffersPage, App, ConversationsPage, AppLayout e teste de entrada. Evidências em validation.md.
 
+## D024 — Retomada da sessão demo na mesma aba — 11/11/2026
+
+Origem: continuação das tasks solicitada pelo usuário; lacuna de recarga da T41 encontrada na configuração `persistSession: false` e no hook que só mantinha o participante em memória. Implementada para avaliação em `feature/t41-retomada-sessao`, criada da dev `785442d`.
+
+Auth passa a usar sessionStorage por aba, sem fallback para localStorage. Cada documento tem `storageKey` exclusivo para isolar também o BroadcastChannel interno do SDK; adaptador mapeia as chaves a um nome estável por projeto no storage da aba. Recarregar retoma o token, consulta `getUser` no servidor e carrega o participante com RLS; somente email demo configurado, `is_demo` e papel correspondentes são admitidos. Perfil não é aceito a partir do storage. Sessões e ofertas locais sem Supabase continuam voláteis.
+
+Saída usa scope local e troca explícita encerra a sessão anterior antes de autenticar o novo participante. Hook ignora resultados obsoletos e limpa dados ao receber SIGNED_OUT; falha de retomada/saída recebe mensagem. Enquanto valida, páginas internas mostram carregamento. Storage bloqueado limita a sessão à memória. Abas duplicadas podem copiar a sessão inicial por comportamento do navegador; os eventos Auth posteriores permanecem isolados. Fechar/reabrir abas pode restaurar sessionStorage conforme o navegador, portanto usar Trocar participante para sair explicitamente. Não há promessa de autenticação de produção.
+
+Revisão dirigida também corrigiu foco de Voltar às conversas: título da lista é focado após ela voltar a ficar visível. Evidências e limites em validation.md; sem mudança de SQL, regras de oferta ou aceite M6/M5. T41 continua parcial; publicação/integração dependem de autorização após avaliação. Referências oficiais: [getUser](https://supabase.com/docs/reference/javascript/auth-getuser), [getSession](https://supabase.com/docs/reference/javascript/auth-getsession), [eventos Auth](https://supabase.com/docs/reference/javascript/auth-onauthstatechange); comportamento de broadcast conferido no SDK instalado.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

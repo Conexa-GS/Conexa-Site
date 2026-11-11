@@ -116,6 +116,13 @@ export default function ConversationsPage({ session, service = conversationServi
   const [actionError, setActionError] = useState('')
   const openRef = useRef(false)
   const listHeading = useRef(null)
+  const returnToList = useRef(false)
+  useEffect(() => {
+    if (selected === null && returnToList.current) {
+      returnToList.current = false
+      listHeading.current?.focus()
+    }
+  }, [selected])
   const conversation = inbox.conversations.find(item => selected === 'bot' ? item.kind === 'bot' : item.id === selected)
   async function openContact(peer) {
     if (openRef.current) return
@@ -124,7 +131,7 @@ export default function ConversationsPage({ session, service = conversationServi
     catch (error) { setActionError(error.message) }
     finally { openRef.current = false; setOpening(false) }
   }
-  function back() { setSelected(null); listHeading.current?.focus() }
+  function back() { returnToList.current = true; setSelected(null) }
   return <>
     <PageHeading eyebrow="ENCONTROS DENTRO DA CONEXA" title="Boas conversas," accent="novas conexões.">Converse com participantes fictícios e encontre o Bot Conexa.</PageHeading>
     <p className="preview-notice">M6 · Prévia em avaliação. Mensagens e bot por texto dependem das migrations no Supabase demo. Interpretação simulada sem custo; voz em preparação.</p>

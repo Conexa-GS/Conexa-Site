@@ -42,6 +42,8 @@ test('Conversas: bot indisponível sem configuração; contatos abrem mensagem; 
     await ui.click('João · Horta da FamíliaProdutor fictício')
     assert.match(ui.document.getElementById('thread-title').textContent, /João/)
     assert.equal(ui.document.querySelectorAll('.conversation-history li').length, 0)
+    await ui.click('Voltar às conversas')
+    assert.equal(ui.document.activeElement, ui.document.querySelector('.conversation-list-heading h2'))
   } finally { await ui.dispose() }
 })
 
