@@ -1,5 +1,7 @@
 # Tarefas e marcos
 
+Preparação adicional T41 — 11/11/2026: `feature/conversas-validacao-demo`, criada da dev `96e5f33`, acrescenta roteiro executável manual de texto/DM, guardas de destino/chave pública e relatório por rodada. Mesmo cenário exercitado em PGlite; somente configuração offline conferida no demo, sem login/escrita. Lint, 85 testes, nove scripts PGlite e build aprovados. [Roteiro e efeitos persistentes](conversas-validacao-demo.md). T35/T38/T41 continuam abertas: migrations/testes remotos e F5 não executados; T42/M6/M5/T28/T30 preservadas.
+
 Terceira fatia local — 11/11/2026: T39/T40 preparadas em `feature/conversas-voz-opcional`, criada da dev limpa `aaa0adb`. Broker Node local autenticado, cotas SQLite, WebRTC/sideband e painel opcional; tudo desabilitado por padrão. D021 substitui a emissão de credencial efêmera pelo SDP intermediado no servidor. Provedor/áudio somente simulados pelo agente. Roteiro [voz-manual.md](voz-manual.md), evidências em validation.md; T42/aceite M6 e validação remota T35/T38/T41 continuam pendentes. Não é voz real validada ou serviço implantado.
 
 Atualização desta entrega — 11/11/2026: **T36/T37 implementadas e verificadas localmente**, em `feature/conversas-bot-ofertas`, da dev `b1867a5`. Rascunhos/comandos completam a estrutura local de T35. Nova migration `202611110002_site_offer_bot.sql`; nenhuma das duas migrations de Conversas aplicada ao demo. T35/T38/T41 continuam abertas pelos critérios remotos; voz T39–T42 e avaliação T43 pendentes. Evidências e limites em `validation.md` e contrato em `conversas-site.md`. Sem aceite de M6/M5, push ou integração presumidos.
@@ -121,6 +123,8 @@ IDs T31–T33 preservados para o fechamento acadêmico. T29 continua como base e
 | [ ] T43 Avaliação e documentação da entrega | Consolidar evidências de texto/DM/voz separadamente, pendências e uso real de IA. Apresentar para avaliação e solicitar autorização antes de push/integração na dev. M6 só encerra com seu aceite; M5/T28 e T30 continuam independentes. | T41; T42 para declarar voz validada | AC23–AC32 e aceite humano |
 
 Ordem proposta: T35 + T34 → T36 → T37 → T38 → T39 → T40 → T41 → T42 → T43. Texto e mensagens podem ser avaliados antes da voz, com esse limite declarado. Não criar dependência de Meta, Twilio, telefone ou gasto com OpenAI para demonstrar texto e persistência.
+
+Preparação T41 desta rodada: `tests/remote-conversations.mjs`, cenário compartilhado `tests/helpers/conversations-acceptance.mjs`, guardas/configuração e `tests/conversations-acceptance-database.mjs`. `npm run test:conversations:check` não faz chamadas remotas; `npm run test:conversations:demo` depende de autorização, migrations conferidas e contas ociosas. Teste remoto deixa histórico fictício auditável e arquiva sua única oferta; instruções/limites em [conversas-validacao-demo.md](conversas-validacao-demo.md). Não marcar T41 ou critérios remotos como concluídos pela execução PGlite. Sem alteração de interface nesta entrega; nova revisão visual não se aplica ao código alterado e o percurso conectado segue pendente.
 
 Para cada tarefa concluída registrar: arquivos/commit, critério verificado, resultado, responsável e data. Responsáveis ainda não definidos; não atribuir nomes automaticamente.
 

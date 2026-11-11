@@ -1,5 +1,24 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Conversas — preparação T41 do roteiro demo — 11/11/2026
+
+Responsável: Codex, `feature/conversas-validacao-demo`, criada da dev limpa `96e5f33`. Código de teste e documentação; nenhum componente/estilo ou migration alterado. Sem aplicação de schema, login/Auth remoto, websocket remoto, mensagens remotas, API paga, microfone, push/merge/deploy ou aceite presumido. T35/T38/T41/T42 e M6/M5/T28/T30 continuam com suas pendências.
+
+Implementação: `tests/remote-conversations.mjs` manual, guardas de URL/chave pública/configuração, relatório por UUID ignorado pelo Git; cenário SQL compartilhado `tests/helpers/conversations-acceptance.mjs` e adaptador local `tests/conversations-acceptance-database.mjs`. O runner exige flag explícita, limita chamadas HTTP e assinatura/espera de eventos e fecha canais/sessões. Não aplica migrations. Arquiva só a oferta própria identificada, consultando pedido auditável se perder a resposta da criação, sem executar confirmação durante limpeza. Histórico de mensagens/pedidos permanece e interrupção pode exigir revisão manual do rascunho. Roteiro detalhado em [conversas-validacao-demo.md](conversas-validacao-demo.md).
+
+| Verificação executada | Resultado e limite |
+| --- | --- |
+| `npm.cmd run lint` | Aprovado; configuração inclui os novos módulos `.mjs` de teste. |
+| `npm.cmd test` | 85 testes aprovados, zero falhas: 83 existentes e dois de configuração, com destino alternativo/URL com credenciais, senha/chave ausentes, chave administrativa e anon de outro projeto rejeitados. Sem autenticação/rede. |
+| `npm.cmd run test:db` | Nove scripts PGlite aprovados. Novo cenário completo em sete grupos, aplicado com todas as migrations/seed locais. Identidade simulada e operação serial; sem prova de concorrência real. |
+| `npm.cmd run build` | Aprovado; principal 679,01 kB / gzip 194,04 kB; aviso herdado de chunk >500 kB preservado. Sem alteração no bundle funcional. |
+| `npm.cmd run test:conversations:check` | Aprovado com `.env` local: somente validação offline da configuração/destino/chave pública. Zero login, websocket, RPC ou escrita remota. |
+| `node tests/conversations-acceptance-database.mjs` | Repetido após exigir códigos de rejeição de regra/permissão; sete grupos aprovados. Acrescentada e aprovada simulação de resposta perdida após criação já confirmada no banco: consulta auditoria, arquiva somente a nova oferta e não repete confirmação na limpeza. Falha de rede/schema não conta como permissão negada. |
+
+O novo cenário cobre prévia sem publicação; confirmação duplicada/replay por chave; revisão corrigida/obsoleta; confirmação com chaves diferentes; edição via gateway do formulário invalidando prévia; comprador lendo a oferta e impedimentos de mutação; bot/rascunhos/pedidos privados; par direto único; remetente derivado da sessão; não lidas/cursor monotônico; mensagem humana sem efeito na oferta/saldo; recuperação de 81 mensagens em três páginas; cancelar e confirmar arquivamento. No PGlite, `Promise.all` usa fila que mantém identidade+consulta juntas, impedindo troca acidental de sessão na conexão única; não demonstra corrida entre conexões. O trecho Auth/Realtime do runner remoto não foi executado; o script não comprova F5 nem queda física da rede. Reservas/compromissos/mínimos/snapshots mantêm sua cobertura nos testes anteriores do bot, sem nova verificação remota.
+
+Sem alteração de interface, não houve nova bancada visual/teclado nesta rodada. Percurso conectado 360 px/desktop, contextos de navegador independentes, F5 e falha real continuam pendentes; o roteiro descreve os passos sem atribuir execução ao usuário. Próxima ação concreta depende de autorização para conferir/aplicar as duas migrations ausentes e executar testes no demo; integração/publicação da feature na dev também exige autorização após avaliação.
+
 ## Aceite T20/M3 e promoção autorizada — 07/11/2026
 
 Prompt integral: “pode aprovar o t20 e depois pode subir para a main”. Usuário autoriza explicitamente encerrar T20/M3 e promover dev → main. Aceite registrado em `feature/m3-aceite-t20`, criada de dev, antes da integração e promoção. Fonte do encerramento: aprovação humana nesta conversa, somada às verificações locais/remotas descritas abaixo. Não foram fornecidos procedimentos individuais de revisão visual/teclado, nem executados novos testes visuais pelo Codex. O bloqueio histórico do navegador permanece como limite da evidência do agente, não como tarefa aberta após o aceite explícito. Próximo marco: M4/T21.

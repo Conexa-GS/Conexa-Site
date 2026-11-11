@@ -1182,3 +1182,33 @@ Bancada real em 1366×900 e 360×800, sem overflow horizontal observado; transcr
 Manter texto simulado e exigir início manual evita custo ao abrir a aba e permite avaliar o fluxo sem áudio. Controle de chamada no servidor e cotas persistentes evitam confiar só no cronômetro ou na validade de token efêmero, mas são limites operacionais, não garantia de custo em reais. Resposta incerta não pode disparar repetição paga; foi adotado bloqueio conservador com conciliação. Queda do broker exige recuperação/supervisão, e este servidor local de instância única não é implantação pública pronta. Saída do modelo continua não confiável; sugestão só entra no fluxo de oferta após revisão/envio explícitos, e confirmação/estoque continuam no banco. Mocks não comprovam precisão da transcrição, negociação WebRTC, Auth/sideband/hangup reais ou consumo. Esses testes e T42 ficam com o usuário; M6/M5/T30 e publicação dependem de seus próprios critérios/autorizações.
 
 Complemento de autorização da interação 046 — 11/11/2026: após apresentação do commit f36db6d e pergunta explícita sobre publicar/integrar a feature, usuário respondeu “pode integrar na dev”. Autoriza publicação da feature e integração/publicação da dev no origin conferido https://github.com/Conexa-GS/Conexa-Site.git. Checkout limpo na feature antes da operação; fetch repetido com permissão de escrita Git após bloqueio inicial do FETCH_HEAD. Preservadas as verificações da entrega (lint, 83 testes, oito scripts PGlite, build e bancada desktop/360 px); sem alteração de runtime ou novos testes nesta autorização. Não inclui main, migrations remotas, ativação de voz, chamada paga ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
+
+## Interação 047 — Preparação da verificação demo de Conversas — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, implementação do roteiro técnico e documentação; PowerShell/Git e apply_patch para branch/alterações; Node, Supabase JS instalado e PGlite para configuração offline e validação local dos contratos SQL. Sem subagentes, navegador, ferramentas administrativas remotas, API paga, microfone ou mensagens remotas.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> continue a implementação das tasks do projeto, pergunte o que não estiver claro
+
+Resposta representativa real: “As etapas locais de Conversas, bot e voz opcional já estão na `dev`. Vou avançar na T41: preparar a validação de persistência, permissões, concorrência e mensagens entre sessões no Supabase demo.” Consultas e esclarecimentos não registrados como prompts de programação; nenhuma aprovação humana, migration ou integração presumida.
+
+### Aplicação no projeto
+
+Criada `feature/conversas-validacao-demo` da dev limpa `96e5f33`. Roteiro `tests/remote-conversations.mjs` com flag manual, configuração offline, destino restrito ao demo, chave pública, sessões Auth independentes, RPCs com parâmetros nomeados, observação Realtime de membro/terceiro e relatório por rodada. Cenário compartilhado de bot/mensagens com adaptador PostgreSQL local; teste PGlite acrescentado à suíte de banco, dois testes de configuração e lint dos novos módulos. Sem alteração de interface, serviços do produto, schema ou dependências.
+
+Prévia/confirmar/replay, revisão obsoleta, escrita pelo gateway do formulário, isolamento e recuperação paginada preparados para execução autorizada no demo. Limpeza arquiva somente a oferta própria, consultando auditoria se perder a resposta da criação, sem repetir mutação durante limpeza. Histórico fictício permanece; rascunhos ativos e mensagens anteriores não lidas impedem prosseguimento em vez de serem descartados. Roteiro `Conexa-specs/conversas-validacao-demo.md`, README, tasks e validation atualizados. T35/T38/T41 e aceites M6/M5 permanecem pendentes.
+
+### Validação das respostas
+
+Codex executou lint aprovado, 85 testes Node/jsdom sem falhas (83 anteriores e dois novos), nove scripts PGlite aprovados e build aprovado, principal 679,01 kB/gzip 194,04 kB com aviso herdado de chunk grande. `npm run test:conversations:check` conferiu configuração local offline, sem autenticar/abrir websocket/enviar RPC ou escrever remotamente. Novo cenário PGlite passou em sete grupos; repetido após exigir código de regra/permissão esperado nas rejeições, evitando considerar falha de rede/schema como acesso bloqueado. Fila local preserva identidade+consulta na conexão única; não é prova de concorrência real. Nenhum teste visual atribuído ao usuário; não houve alteração de interface ou novo percurso no navegador.
+
+Revisão final acrescentou ao script PGlite uma segunda execução com resposta de criação perdida após commit local: teste aprovado, consulta auditável recupera o ID, somente essa nova oferta é arquivada e não há confirmação extra na limpeza. Uma aplicação de patch documental falhou por título de validation.md diferente do esperado; nenhuma alteração parcial foi aplicada, título conferido e patch reaplicado. Conferência final de lint/diff/estado após documentação registrada na entrega. Sem execução do runner remoto, migrations, push, merge ou aceite humano.
+
+### Análise crítica
+
+Compartilhar o cenário entre PostgreSQL local e runner remoto reduz erro de contrato no roteiro, mas não verifica HTTP/Auth/websocket nem corridas entre conexões sem a execução remota. Guardas de destino e chave pública evitam apontar a rotina para outro projeto ou usar autoridade administrativa. O teste deixa 82 mensagens fictícias e auditoria no histórico; isso exige avaliação/autorização e contas ociosas. Observação de três segundos sem evento ao terceiro é evidência limitada, complementada por SELECT/RLS, não garantia irrestrita. A limpeza não promete rollback de histórico nem recuperação após interrupção do processo/rede. F5, contextos de navegador independentes, falha real e reservas/compromissos remotos continuam pendentes; voz paga permanece exclusiva do usuário em T42. A preparação não encerra T41 ou qualquer marco.
