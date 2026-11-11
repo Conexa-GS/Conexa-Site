@@ -166,6 +166,14 @@ Arquivos: `server/voice*.mjs`, `server/openai-voice.mjs`, `VoicePanel.jsx`, serv
 
 Fontes oficiais consultadas em 11/11/2026: [credenciais efêmeras](https://developers.openai.com/api/reference/resources/realtime/subresources/client_secrets/methods/create), [WebRTC](https://developers.openai.com/api/docs/guides/voice-webrtc), [sideband](https://developers.openai.com/api/docs/guides/voice-server-controls?api=realtime&voice-api=realtime), [hangup](https://developers.openai.com/api/reference/resources/realtime/subresources/calls/methods/hangup). Consulta não comprova acesso, custo ou funcionamento real do provedor no demo.
 
+## D022 — Opções visíveis e valores guiados no Bot Conexa — 11/11/2026
+
+Origem: usuário relatou que só descobriu as palavras-chave após receber erro e pediu opções no lugar de depender de comandos digitados. Implementação local em `feature/bot-opcoes-guiadas`, criada da dev `727930c`; avaliação/integração pendentes.
+
+Menu inicial do produtor: consultar, criar, editar e arquivar ofertas. Comprador recebe consulta. Durante preparo, cancelar fica visível; edição/arquivamento primeiro pedem selecionar oferta, e edição oferece campos para escolher. Criação e correção usam `answerOfferChat`/mesmo catálogo/validações, com valores numéricos e datas em campos rotulados; alimento/coleta e vencimento desconhecido têm opções. Texto livre com exemplos permanece em seção opcional; sugestão de voz abre essa seção antes de focar o texto.
+
+Não há inferência de valores/datas, confirmação por “sim” ou mudança de permissões. Escolher opção prepara `turn` auditável; somente a confirmação da revisão chama `confirm`. Correção ainda não enviada oculta confirmar; resultado incerto bloqueia ações até verificar o mesmo pedido. Campos/prévia de edição só aparecem após escolher alvo. Sem alteração de SQL/serviços remotos, API paga ou ampliação de aceite M6/M5. Arquivos: `BotThread.jsx`, `conversations.css`, três novos testes de componente e documentação. Bancada em memória e DOM não equivalem a novo percurso conectado no demo.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

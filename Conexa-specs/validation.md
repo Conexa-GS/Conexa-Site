@@ -1,5 +1,20 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Bot Conexa — opções guiadas D022 — 11/11/2026
+
+Responsável: Codex. `feature/bot-opcoes-guiadas`, criada da dev limpa `727930c`. Usuário relatou dificuldade de descobrir palavras-chave antes do erro. `BotThread.jsx` oferece ações iniciais, seleção de oferta/campos e valores/datas rotulados; `conversations.css` preserva paleta/identidade. Criação, correção, consulta e arquivamento seguem os mesmos `turn`/`confirm`, `answerOfferChat`, catálogo/validações; confirmação permanece separada. Texto é alternativa opcional e sugestão de voz abre o campo antes do foco. Não houve nova migration, alteração de serviços/backend, escrita remota, microfone, API paga ou aceite/integracão/publicação nesta rodada.
+
+- `npm.cmd run lint`: aprovado sem avisos na rodada final.
+- `npm.cmd test`: 88 testes aprovados, zero falhas (85 anteriores mais três novos de componente). Criação inteira por opções/valores, sem comandos e sem salvar antes de confirmar; edição exige alvo antes dos campos, erro conserva entrada, cancelar não escreve, resposta perdida bloqueia opções/reconcilia sem duplicar; comprador só recebe consulta. Testes usam DOM simulado/serviço em memória, sem prova remota.
+- `npm.cmd run build`: aprovado; principal 684,60 kB / gzip 195,55 kB. Aviso herdado de chunk >500 kB preservado.
+- `git diff --check`: aprovado durante revisão; estado/diff conferidos antes do commit local. Suíte de banco/runner remoto não repetidos, pois schema, regras e serviços não mudaram.
+
+Primeira rodada teve um teste novo com revisão fixa incorreta ao confirmar; substituído pelo botão da revisão efetivamente disponível e suíte completa repetida/aprovada. Revisão no navegador encontrou campos/prévia aparecendo antes de escolher a oferta em edição; corrigido e acrescentadas asserções para esse estado, com lint/test/build repetidos. Sem atribuir execução ou aprovação ao usuário.
+
+Computer Use no navegador in-app, exclusivamente `/tests/ui/conversations.html` em memória identificada: desktop 1366×900 e celular 360×800, quatro opções iniciais; edição por botão → escolha da oferta → quantidade, campo recebe foco, Tab alcança “Usar este valor” e Enter prepara prévia de 22 kg sem salvar; cancelamento retorna ao menu. Celular: criar → alimento → quantidade 20 → pergunta de preço, cancelamento. Não foram usados microfone/IA, confirmação remota ou F5 conectado. Criação completa/confirmar coberta em componente, não atribuída ao percurso visual.
+
+Medições DOM dirigidas: desktop scrollWidth 1351 para viewport 1366; celular scrollWidth 345 para viewport 360 e largura de menu/campo 279. Sem overflow horizontal observado nesses estados. Capturas fora do repositório em `C:/Users/Murilo/.codex/visualizations/2026/11/11/01a1ccb3-5b1b-70f2-97d2-29c045eaa400/bot-opcoes-desktop.png` e `bot-opcoes-360.png`; viewport temporário restaurado. Não é auditoria completa de acessibilidade, validação remota desta melhoria ou aceite humano. T35/T38/T41 restantes, T42, M6/M5/T28/T30 preservados. Publicação/integração na dev dependem de autorização após avaliação desta feature.
+
 ## Conversas — migrations e teste demo autorizados — 11/11/2026
 
 Após apresentação do commit `76e306c`, usuário respondeu **“autorizo os dois”**: autoriza migrations/teste de texto/DM no demo e publicação/integração da feature na dev. Não é aceite de M6, T42, M5/T28, deploy ou promoção para main. Responsável pela execução: Codex, na `feature/conversas-validacao-demo`; checkout inicialmente limpo, dev e origin/dev em `96e5f33` após fetch; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`.

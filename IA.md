@@ -1218,3 +1218,31 @@ Complemento autorizado da interação 047 — 11/11/2026: após apresentação d
 Teste `npm.cmd run test:conversations:demo` passou na primeira execução com rede autorizada, nove grupos, processo finalizado com código 0; relatório ignorado pelo Git `artifacts/conversations-36611d27-d93f-4940-97ab-54c4f067a6e9.local.json`. Auth real de quatro perfis mais segunda sessão de Ana; confirmação/replay concorrentes, revisão antiga/corrigida, conflito com gateway do formulário, permissões/SELECT RLS, par direto/remetente, não lidas/leitura, nova autenticação, três páginas com 81 mensagens recuperadas e arquivamento confirmados. Comprador recebeu INSERT por websocket; João não recebeu mensagens da conversa na janela observada, com canais saudáveis. Uma oferta própria criada/arquivada; 82 mensagens humanas fictícias e auditoria preservadas. Nenhum dado anterior excluído, conta criada, segredo registrado, mensagem externa, microfone ou API paga.
 
 Advisors de segurança consultados: INFO em cinco tabelas privadas preexistentes do WhatsApp sem policies, WARN nos gateways SECURITY DEFINER autenticados e proteção de senha vazada desabilitada. Grants/identidade/regras conferidos sem retirar autoridade necessária dos gateways nem mudar Auth/WhatsApp fora do escopo. Evidências e links de remediação em validation.md. Nenhuma mudança de runtime/SQL/teste local exigida pela rodada; preservadas as verificações da entrega (lint, 85 testes, nove scripts PGlite e build). Documentação atualizada na feature; F5/percurso conectado/rede física, reservas/compromissos remotos do bot, voz real/T42 e aceites M6/M5 continuam pendentes. Publicação/integração Git segue a autorização; resultado de refs conferido na entrega, sem force push e sem promover main.
+
+## Interação 048 — Opções guiadas para descobrir e usar o bot — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para implementação React/CSS/testes e documentação; PowerShell/Git/apply_patch para branch e alterações; Node/React/Vite/jsdom para verificações locais; skill Computer Use e navegador in-app para bancada desktop/celular/teclado. Sem subagentes, ferramenta administrativa Supabase, escrita remota, microfone ou API paga.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> para falar com o bot precisa de palavras chaves por enquanto, porque já não colocar as opções ao invés de escrever, por exemplo, eu não sabia o que eu poderia mandar até dar erro e eu procurar o que estava acontecendo
+
+Resposta representativa real: “Vou tornar as ações do bot visíveis ao abrir a conversa, com opções para consultar, criar, editar e arquivar ofertas. Também vou conferir as orientações durante o fluxo para que a pessoa saiba como continuar antes de receber um erro.” Consultas/esclarecimentos não são novos prompts de programação. A autorização anterior cobria a feature de validação já integrada; não foi usada para presumir publicação desta nova melhoria.
+
+### Aplicação no projeto
+
+Criada `feature/bot-opcoes-guiadas` da dev limpa `727930c`. `BotThread.jsx` recebe menu inicial por perfil, escolha de alvo antes dos campos/prévia, correções selecionáveis, campo para valores/data, opções de alimento/coleta e vencimento desconhecido. Campo em correção oculta confirmar até usar o valor ou voltar. Cancelar fica visível durante preparo; pedidos incertos bloqueiam as opções até reconciliar. `answerOfferChat` e mesmos turn/confirm preservam validações, revisão, prévia e autoridade de escrita existentes. Texto com exemplos fica em seção opcional; sugestão de voz abre a seção antes de focar o campo. `conversations.css` mantém identidade e largura móvel. Três testes de componente acrescentados; spec, contrato, tasks, decisão D022 e validation atualizados. Sem mudança de schema, serviço ou regra de negócio.
+
+### Validação das respostas
+
+Codex executou lint sem avisos, 88 testes aprovados (85 anteriores e três novos) e build aprovado, principal 684,60 kB/gzip 195,55 kB, mantendo o aviso herdado de chunk grande. Testes exercitam criação completa por opções/valores sem comandos, prévia sem escrita e confirmação separada; alvo/campo, erro/cancelar, resultado incerto/replay e papel comprador. Primeiro teste novo falhou por revisão fixa incorreta; corrigido para usar a revisão disponível. Navegador detectou campos/prévia aparecendo antes da seleção da oferta; corrigido, acrescentadas asserções e repetidos lint/test/build com sucesso.
+
+Bancada real via Computer Use em 1366×900 e 360×800: opções iniciais, editar/escolher alvo/quantidade, foco e Tab/Enter para usar valor, prévia e cancelar; criação móvel até pergunta de preço. Desktop scrollWidth 1351 no viewport 1366; celular 345 no viewport 360, menu/campo 279. Sem overflow horizontal observado; capturas locais fora do repositório, viewport restaurado. Bancada explicitamente em memória; não equivale a nova persistência/F5 remotos nem aceite humano. Suíte SQL/runner remoto não repetidos, pois SQL/regras/serviços não mudaram. Diff/estado conferidos antes do commit local; sem push/merge/deploy.
+
+### Análise crítica
+
+Opções antecipam as ações suportadas e dispensam memorizar comandos; números/datas continuam informados pela pessoa, evitando inventar valores. A seção opcional preserva o caminho de texto e a transferência de sugestões de voz. O menu prepara pedidos auditáveis, sem contornar confirmação ou permissões. Bloquear confirmação enquanto um valor está em edição reduz confusão entre o texto digitado e a prévia persistida. Testes de componente e bancada cobrem o fluxo local; integração remota desta interface e avaliação humana permanecem pendentes, assim como os limites anteriores de M6/M5/T42. A mudança não torna o intérprete uma IA de linguagem geral nem valida voz real.

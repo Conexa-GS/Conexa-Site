@@ -8,6 +8,8 @@ Atualização posterior na mesma data: **terceira fatia local T39/T40** preparad
 
 ## Experiência e escopo
 
+Atualização local D022, 11/11/2026: menu inicial de ações por perfil, escolha de oferta/campos por botões e entrada guiada de valores/datas. Criar/editar/arquivar não exigem palavras-chave; texto livre fica em “Escrever uma mensagem (opcional)”. Vencimento permite “Não sei informar”. Durante preparo, cancelar fica visível; pedidos incertos bloqueiam opções até reconciliação. Campo em correção não apresenta confirmação até usar o valor ou voltar aos campos. Botões usam `turn`/`confirm` existentes, sem mudar RPCs/schema ou as permissões/validações. Avaliação/integração desta melhoria pendentes.
+
 Aba **Conversas** nas contas de produtor e comprador, com interação familiar de mensageiro: lista de contatos/conversas, Bot Conexa destacado, balões, horários, não lidas e campo para escrever. Desktop mostra lista e conversa lado a lado; em 360 px mostra uma área por vez. Preservar identidade Conexa (creme, verde, laranja, marca vetorial e ilustrações locais), acessibilidade e navegação por teclado. Identificar como conversa dentro da Conexa; não usar marca ou estado que sugira WhatsApp conectado.
 
 O produtor conversa com o bot para consultar, criar, atualizar e arquivar suas ofertas. O bot prepara os campos automaticamente a partir do que foi dito e aplica a revisão **após prévia e confirmação explícita**, mantendo RN45. A automação reduz preenchimento manual; não publica alterações ambíguas ou sem confirmação. O formulário continua disponível e compartilha serviços/validações com o chat.
