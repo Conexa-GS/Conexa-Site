@@ -1121,6 +1121,8 @@ Complemento de autorização — 11/11/2026: usuário respondeu “pode integrar
 
 ## Interação 045 — Bot por texto e comandos de ofertas — 11/11/2026
 
+Autorização posterior de integração — 11/11/2026: após apresentação do commit `e58d861` e pergunta sobre publicar/integrar a feature na dev, usuário respondeu “mande para dev”. Autoriza publicação da feature e integração/publicação da dev no origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo; fetch confirmou dev/origin/dev em `b1867a5`. Preservadas as verificações da entrega (lint, 68 testes, oito scripts PGlite e build); sem mudança de runtime ou novos testes nesta autorização. Não inclui main, migrations/testes no Supabase, voz ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
+
 ### Ferramentas utilizadas
 
 OpenAI Codex para leitura, implementação React/SQL, testes e documentação; PowerShell/Git e apply_patch para branch/alterações/verificações; React/Vite/jsdom e PGlite para testes locais. Skill computer-use e navegador in-app para bancada desktop/360 px/teclado. Sem subagentes, IA externa no produto, OpenAI paga, microfone, WhatsApp ou operação remota no Supabase.
