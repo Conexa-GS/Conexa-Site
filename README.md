@@ -169,6 +169,8 @@ Nenhum deploy realizado. Ao hospedar o build `dist`, configurar fallback de rota
 
 ## Revisão de cotação e negociação — em avaliação
 
+Percurso conectado verificado pelo Codex em 12/11/2026: revisão, recusa/manutenção, aprovação de novo frete/aceites, pagamento pausado, desistência/taxa e avisos em quatro sessões, com recarga; comprador em 360 px/desktop. Segunda transportadora não testada: banco/seletor oferecem somente Transporte Caminho, sem conta nova criada. Fixtures próprias liberadas/arquivadas; avaliação humana permanece pendente. [Evidências e limites](Conexa-specs/validation.md#cotações--percurso-conectado-recarga-e-desistência--12112026).
+
 A feature/feedback-validacao preserva o feedback de erros e acrescenta cartão distinto após confirmar cotação, Modificar proposta para veículo/horários/validade e avisos persistidos dentro do site. O preço permanece protegido: após conversa direta, transportadora registra novo frete e o comprador aprova ou recusa. Aprovação gera revisão; cotação selecionada exige todos os aceites finais novamente. Edição/negociação não são permitidas após pagamento aprovado.
 
 Se o comprador recusar, a transportadora pode manter o original ou desistir com taxa exclusivamente simulada. Faixas aprovadas para a demo: 5% acima de 72h, 15% com mais de 24h até 72h, 30% com até 24h, pelo menor prazo até entrega/vencimento informado. Vencimento é opcional na oferta e separado da disponibilidade; ausência usa entrega com aviso. Metade da taxa fica para o comprador e metade para produtores, proporcional aos alimentos. A desistência preserva reservas e reabre a proposta, notificando outra transportadora com veículo compatível. Sem alternativa, informa pendência, sem inventar cotação ou aceite.

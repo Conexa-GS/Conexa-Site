@@ -1409,3 +1409,33 @@ Advisors de segurança antes/depois sem novos achados: avisos prévios de funç�
 O percurso nominal passava, mas um valor válido nas fronteiras de arredondamento deixava a entrega paga sem conclusão. Preservar zero no registro evita criar preço mínimo artificial ou omitir beneficiário. Concorrência real, reautenticação, leitura final e navegador complementam PGlite: repetição sequencial isolada não comprova corrida, e clicar não comprova persistência. Fixtures próprias mantêm rastreabilidade, com custo de histórico fictício permanente no demo; arquivamento não libera compromissos de cargas entregues. Isolamento de outra transportadora, auditoria integral de acessibilidade, aceite humano e publicação não foram inferidos dos testes executados.
 
 Complemento de autorização da interação 053 — 12/11/2026: após apresentação do commit `ba8f30b`, verificações e evidências, usuário respondeu “pode integrar” à pergunta explícita sobre publicar a feature e integrá-la na dev. Autoriza push de `feature/t28-m5-verificacao` e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Não inclui main, deploy ou aceite humano M5 por pressuposição. Verificações funcionais da entrega preservadas; não repetir escritas no demo para integração sem mudança funcional. Referências remotas conferidas ao concluir.
+
+## Interação 054 — verificação conectada de cotações — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para validação técnica do software e documentação das evidências, sem alteração do código da aplicação. PowerShell/Git/Node/npm, roteiro remoto existente, habilidades de navegador e Supabase. Navegador integrado para ações normais, quatro sessões e recarga; CDP somente para tamanho/capturas. Conector Supabase para leitura/auditoria; chave pública/Auth real para preparação e arquivamento de fixtures próprias. Sem subagentes, nova conta, migration, API paga ou mensagem externa.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de verificação técnica:
+
+> Verifique no site conectado a revisão de cotações, negociação de frete, desistência e avisos entre participantes, incluindo recarga. Teste encaminhamento para outra transportadora se já houver uma conta demo compatível; caso contrário, registre essa limitação.
+
+Resposta inicial real: “Vou conferir as regras do projeto e o site conectado, depois testar esses fluxos com as contas demo disponíveis e verificar se os dados permanecem após recarregar.” Nenhuma pergunta/consulta de configuração adicionada; não se presume aprovação humana.
+
+### Aplicação no projeto
+
+Branch `feature/cotacoes-validacao-conectada` criada da dev limpa `828c002`, com escalonamento aprovado após bloqueio de escrita Git. Reutilizado `tests/remote-m5.mjs --prepare-ui` para uma carga própria, sem modificar o roteiro nem alegar nova execução completa de T28. Revisão e decisões posteriores pela interface normal. Somente documentação versionada: validation, estado, tarefas e READMEs; este registro descreve o uso de IA na verificação do software. Sem mudança funcional, de schema ou de regras.
+
+### Verificação, testes e ajustes reais
+
+Carga `2591b394-e8a6-44a0-a24a-d54332ec44a6`: revisão de veículo/saída com R$80 preservado e aceites invalidados; aviso com antes/depois e leitura própria; recusa de R$90/manutenção original sem taxa; aprovação de R$100,07, total R$350,07 e quatro novos aceites; negociação R$110 pausando pagamento, recusa e desistência confirmada com prévia de 15% = R$15,01. Recargas conservaram estados/sessões; parcelas R$7,51/R$4,50/R$3,00, produtores só veem a própria. Avisos de revisão/aprovação/recusa/desistência abertos nos perfis correspondentes. SQL conferiu duas reservas preservadas antes da limpeza, uma taxa/três parcelas, zero pagamentos e 16 avisos. Banco/seletor confirmaram uma única transportadora; não foi testada substituta ou criada conta.
+
+Primeiro fetch remoto no sandbox falhou sem login/escrita; preparação com rede autorizada passou. Consulta inicial usou nome de tabela inexistente e foi corrigida após conferir a migration local. Dois locators não encontraram controles; snapshots atuais identificaram combobox e botão de Histórico, e a continuação verificou os resultados. Captura padrão reduzida foi substituída por CDP do viewport real. Comprador revisto em 360×800/1366×900, conteúdo 345/1351 sem overflow observado; demais perfis desktop. Override removido, abas fechadas. Nenhum defeito funcional encontrado no percurso. Lint e build aprovados, 109 testes Node aprovados; aviso herdado de chunk >500 kB. PGlite/concorrência/RLS negativos não repetidos, sem mudança de aplicação/SQL.
+
+Comprador cancelou somente a carga própria pelo site; nova Auth arquivou duas ofertas/demanda da rodada. SQL final confirmou cancelamento, reservas liberadas, cadastros arquivados, taxa/histórico preservados e zero pagamentos. IDs, relatório e capturas em validation.md. Sem push/merge/deploy, aceite humano ou encerramento de marco presumidos.
+
+### Análise crítica
+
+A recarga real e as sessões independentes complementam as provas anteriores por API: confirmam o estado que cada perfil efetivamente recebe. Conferência SQL distingue sucesso visual de persistência e comprova a soma das parcelas, sem transformar leitura administrativa em prova nova de RLS. A falta de segunda conta impede validar encaminhamento completo; registrar a ausência é mais fiel que fabricar uma substituta. As fixtures deixam histórico fictício permanente, embora estoque e cadastros próprios tenham sido liberados/arquivados. Revisão dirigida não substitui auditoria completa de acessibilidade, concorrência ou avaliação humana.
