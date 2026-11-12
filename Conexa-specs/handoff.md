@@ -1,4 +1,20 @@
-# Passagem para o chat implementador
+# Passagem para continuidade do projeto
+
+## Solicitação vigente para copiar
+
+Continue o site **Conexa** existente. Leia [estado-atual.md](estado-atual.md), spec.md, business-rules.md e workflow.md; depois tasks.md, validation.md e os contratos do escopo escolhido. Inspecione branch, alterações e código antes de editar. Trabalhe em feature/* criada da dev, preservando o trabalho existente.
+
+M1–M4 já têm aceite humano nos limites registrados. Não iniciar o projeto novamente. T35/T38 estão encerradas tecnicamente para texto/DM; bot guiado, atalho direto, retomada de sessão e pedidos incertos após F5 já estão integrados. A próxima verificação de T41 é a interrupção física de rede; falhas controladas com persistência real já foram exercitadas. Voz/T42 depende dos testes pagos do usuário; T43/aceite M6 e T28/aceite M5 continuam pendentes, com seus próprios critérios.
+
+O demo Supabase já recebeu as migrations registradas em validation.md; nomes locais e versões remotas diferem. Não reaplicar SQL nem executar reset/repair por suposição. Identifique ambiente, histórico e escopo autorizado antes de nova operação remota. Não use segredos no navegador ou no registro de IA.
+
+Preserve creme, verde, laranja, marca vetorial e ilustrações locais. Transporte, pagamento e repasses são fictícios; M5/M6 e páginas de exemplo continuam identificados como prévias/demonstração. T30 está pausada; não ativar WhatsApp ou voz por pressuposição.
+
+Execute npm run lint, npm test e npm run build após mudanças; se houver interface, confira 360 px e desktop. Registre somente procedimentos reais com ambiente, responsável e limites. Diferencie implementação, verificação técnica, aceite humano e integração Git. IA.md recebe somente prompts de programação e uso real correspondente, conforme workflow.md. Apresente o resultado para avaliação e peça autorização antes de subir/integrar a nova feature na dev; não promova main automaticamente.
+
+## Histórico da solicitação inicial
+
+O texto abaixo preserva a instrução de origem e seu estado em 07/11. “Iniciar”, “comece por M0/M1” e “não há site” não são instruções para a continuidade atual.
 
 ## Solicitação pronta para copiar
 

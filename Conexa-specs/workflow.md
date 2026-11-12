@@ -24,6 +24,17 @@ Exemplos: `feat(ofertas): add producer offer management`; `fix(ofertas): preserv
 
 Commits devem corresponder a mudanças reais e coerentes. Não dividir artificialmente trabalho para atingir a contagem acadêmica.
 
+## Documentação e evidências
+
+Ao atualizar o estado do projeto, separar:
+
+- Implementação: arquivos e comportamento preparados.
+- Verificação técnica: procedimento executado, ambiente, responsável, resultado e limites; distinguir mocks/PGlite de Supabase e navegador reais.
+- Aceite humano: manifestação explícita do usuário, restrita ao escopo apresentado; não presumir testes individuais sem relato.
+- Integração/publicação Git: autorização e commits/branches correspondentes; não comprova deploy ou aceite de marco.
+
+[estado-atual.md](estado-atual.md) consolida o estado vigente e aponta para os relatos datados em validation.md, decisões e registros de autorização. Preservar os relatos anteriores identificando seu contexto histórico; corrigir as instruções de continuidade quando uma evidência posterior as substituir. Uma pendência técnica não é encerrada apenas por integração Git, e um aceite com limites não deve ser ampliado por interpretação.
+
 ## Registro obrigatório de IA
 
 O arquivo canônico é `IA.md`. `AI.md` aponta para ele para compatibilidade com o briefing. Registrar somente prompts de programação e o uso real de IA correspondente, distinguindo transcrição de resumo e preservando o histórico anterior. Perguntas, consultas e esclarecimentos não entram no registro. Cada registro de programação deve conter:

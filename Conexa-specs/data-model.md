@@ -1,6 +1,8 @@
-# Modelo de dados proposto
+# Modelo de dados — implementação e evolução
 
-Proposta técnica, a converter em migrations versionadas. Não criar todas as tabelas no M1. Supabase/PostgreSQL é a persistência; serviços não podem contornar integridade financeira ou de estoque.
+Estado vigente em [estado-atual.md](estado-atual.md): M4/M5/revisões e Conversas aplicados ao demo. Seções datadas descrevem a implementação naquela etapa; WhatsApp está pausado por D018 e o demonstrador inicial não representa todos os experimentos posteriores. Modelo/contrato de Conversas em conversas-site.md, D020–D025. Nenhuma nova migration nesta consolidação.
+
+Modelo lógico e registros das implementações por marco. Migrations existentes definem o schema implementado; tabelas conceituais não são automaticamente tabelas criadas. Supabase/PostgreSQL é a persistência; serviços não podem contornar integridade financeira ou de estoque.
 
 T30: entidades planejadas de vínculo, sessão, inbox, publicação idempotente e outbox em [t30-whatsapp.md](t30-whatsapp.md). Nenhuma migration/tabela WhatsApp criada nesta preparação; o demonstrador usa memória e não substitui a fonte de ofertas do Supabase.
 
@@ -37,7 +39,7 @@ T30: entidades planejadas de vínculo, sessão, inbox, publicação idempotente 
 
 Dados da rota externa: consultar sob demanda; não persistir respostas, geocodificação, polylines ou estimativas de fornecedor sem verificar seus termos de uso e armazenamento. Cotação acordada e roteiro próprio podem ser registrados; não tratá-los como cópia de resposta externa.
 
-Primeira fatia M4 (08/11/2026): nenhuma tabela nova. `m4('route')` monta o roteiro próprio dos snapshots de `load_items`, `loads` e `transport_quotes`, ordenando coletas por UUID; não cria `route_stops` nem armazena conteúdo externo. `m4('candidates')` retorna somente agregados de cargas distintas `delivered` por produtor e idade de oferta; estados de entrega ainda dependem de M5. Não expõe registros de outras vendas nem cria histórico sintético. Migration preparada localmente, com validação remota pendente; detalhes em `m4-routes.md`.
+Primeira fatia M4 (08/11/2026): nenhuma tabela nova. `m4('route')` monta o roteiro próprio dos snapshots de `load_items`, `loads` e `transport_quotes`, ordenando coletas por UUID; não cria `route_stops` nem armazena conteúdo externo. `m4('candidates')` retorna somente agregados de cargas distintas `delivered` por produtor e idade de oferta; estados de entrega ainda dependem de M5. Não expõe registros de outras vendas nem cria histórico sintético. Migration aplicada ao demo em 10/11, sem comprovar o percurso M4 completo conectado; detalhes em `m4-routes.md`.
 
 ## Relações centrais
 
@@ -57,11 +59,11 @@ Guardar preço/mínimo acordados nos itens. Atualizar uma oferta não altera sil
 
 ## Acesso no modo de demonstração
 
-Implementação M5 local em 09/11/2026: migration `202611090001_m5_operation_closure.sql` cria `payment_attempts`, `simulated_payouts` e `delivery_occurrences` com RLS e escrita exclusiva via RPC. `payment_attempts.outcome` preserva o resultado solicitado; `status` pode passar de approved para refunded com `refunded_at`. Chave UUID única e índice parcial sobre outcome=approved impedem segunda aprovação mesmo após estorno. Repasse tem unicidade carga/destinatário/tipo. Ocorrência guarda autor, chave de repetição, descrição, status, resolução, comprador responsável e datas. Histórico reutiliza `load_events` existente, sem criar `operation_events` paralelos. Uma demanda entregue permanece atendida; só cancelada/expirada permite remontagem. Arquivar demanda com carga scheduled/in_transit/delivery_review é bloqueado. Compromissos pagos não expiram com a reserva original. Migration/testes remotos ainda pendentes; PGlite não comprova Auth/RLS do demo.
+Implementação M5 local em 09/11/2026: migration `202611090001_m5_operation_closure.sql` cria `payment_attempts`, `simulated_payouts` e `delivery_occurrences` com RLS e escrita exclusiva via RPC. `payment_attempts.outcome` preserva o resultado solicitado; `status` pode passar de approved para refunded com `refunded_at`. Chave UUID única e índice parcial sobre outcome=approved impedem segunda aprovação mesmo após estorno. Repasse tem unicidade carga/destinatário/tipo. Ocorrência guarda autor, chave de repetição, descrição, status, resolução, comprador responsável e datas. Histórico reutiliza `load_events` existente, sem criar `operation_events` paralelos. Uma demanda entregue permanece atendida; só cancelada/expirada permite remontagem. Arquivar demanda com carga scheduled/in_transit/delivery_review é bloqueado. Compromissos pagos não expiram com a reserva original. Migration aplicada ao demo em 10/11 e testes de API/Auth/RLS parciais registrados; PGlite continua separado da prova remota. Entrega/divergência/repasses completos no demo e aceite M5 pendentes.
 
 Não usar seletor visual como identidade confiável. Plano técnico inicial: usuários fictícios previamente criados no Supabase Auth, um por participante, para o servidor/banco aplicar RLS; o seletor abre uma sessão de demonstração correspondente. Sem cadastro público de pessoas reais.
 
-Escolher e documentar o mecanismo de sessão antes do M1: credenciais de demo têm acesso deliberadamente limitado, ou função servidor cria a sessão. Nunca expor service_role. Se a configuração ainda não existir, oferecer apenas modo local explicitamente simulado; isso não completa o aceite do CRUD remoto.
+Sessão escolhida em D006 e atualizada em D024: Supabase Auth com credenciais demo limitadas por RLS, retomada validada pelo servidor e armazenamento por aba; modo sem Supabase em memória identificada. Nunca expor service_role. Se a configuração ainda não existir, oferecer apenas modo local explicitamente simulado; isso não completa o aceite do CRUD remoto.
 
 Políticas mínimas: produtor modifica suas ofertas; comprador modifica suas demandas; transportador modifica seus veículos/cotações. Comprador consulta ofertas publicadas; cada participante consulta cargas em que participa. Transições protegidas em funções com validação de identidade. Público não pode atualizar indiscriminadamente todos os registros. Testar RLS com identidades diferentes.
 
@@ -75,4 +77,4 @@ Políticas mínimas: produtor modifica suas ofertas; comprador modifica suas dem
 - carrier_cancellation_fees: única por negociação, base original, percentual 5/15/30, total em centavos, prazo considerado, flag de vencimento ausente, responsável e is_simulated sempre true. carrier_fee_shares: parcelas por beneficiário/tipo; soma preserva o total, sem alterar alimentos/frete/repasse M5.
 - loads.replacement_carrier_id: transportadora compatível notificada automaticamente, sem aceitar/preencher cotação por ela; null quando não encontrada. Reservas existentes permanecem ativas e sujeitas ao prazo original.
 
-Sem escrita REST direta em negociações, notificações, taxas ou parcelas. Gateways privados e advisory lock já usado pelas reservas/aceites/pagamento serializam mutações. Nenhum dado novo inventa vencimentos históricos, contas financeiras ou cobrança real. Contratos, distribuição e permissões em contracts.md; aplicação remota pendente.
+Sem escrita REST direta em negociações, notificações, taxas ou parcelas. Gateways privados e advisory lock já usado pelas reservas/aceites/pagamento serializam mutações. Nenhum dado novo inventa vencimentos históricos, contas financeiras ou cobrança real. Contratos, distribuição e permissões em contracts.md; migration aplicada e verificação remota parcial em 10/11, com limites em validation.md.

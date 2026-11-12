@@ -1,5 +1,7 @@
 # Conexa
 
+Estado consolidado em **12/11/2026**: consulte [implementação, verificação técnica e aceite humano](Conexa-specs/estado-atual.md). M1–M4 aceitos no escopo registrado; texto/DM tecnicamente verificado no demo e integrado. T41/rede física, T42/voz real, T43/aceite M6 e T28/aceite M5 continuam pendentes. Integração Git não comprova deploy.
+
 Do campo pra cidade. Mais juntos.
 
 Aplicação React da Conexa, baseada no piloto visual fornecido pelo grupo. A home usa as ilustrações de referência locais, o caminhão guiado pela rolagem e a opção de movimento reduzido. Marca vetorial, creme, verde e laranja são preservados; as telas internas compartilham os novos personagens.
@@ -59,7 +61,7 @@ A prévia permite corrigir campos; **Confirmar revisão N** aplica a alteração
 
 Para revisão isolada sem escrita remota, execute Vite e abra `/tests/ui/m6.html`. A bancada tem contadores de tentativas/gravações em memória, catálogo vazio e falha controlada. `npm test` inclui domínio e cinco testes do componente real em [jsdom](https://github.com/jsdom/jsdom), sem carregar `.env` ou escrever no demo. Verificam confirmação explícita, descarte, correção, falha/reenvio, bloqueio durante envio, catálogo vazio e foco programático. jsdom é uma dependência de desenvolvimento e não verifica layout, teclado nativo ou leitor de tela.
 
-T29 implementada e comportamento AC22 verificado automaticamente. Teste remoto manual: `node tests/remote-offer-chat.mjs`, com credenciais demo de `.env`, restrito ao projeto autorizado. Exercita o componente em DOM simulado com `saveOffer` real, leitura pelo comprador após nova autenticação e Auth/RLS; cria uma oferta fictícia própria e a arquiva ao terminar. Relatório em `artifacts/offer-chat-remote.local.json`, ignorado pelo Git, sem credenciais. Não é executado por `npm test`. Revisão visual/teclado em 360 px/desktop, recarga real no navegador e aceite humano da M6 continuam pendentes: a ferramenta de navegador Windows permaneceu bloqueada. Evidências em [validation.md](Conexa-specs/validation.md).
+T29 implementada e comportamento AC22 verificado automaticamente. Teste remoto manual: `node tests/remote-offer-chat.mjs`, com credenciais demo de `.env`, restrito ao projeto autorizado. Exercita o componente em DOM simulado com `saveOffer` real, leitura pelo comprador após nova autenticação e Auth/RLS; cria uma oferta fictícia própria e a arquiva ao terminar. Relatório em `artifacts/offer-chat-remote.local.json`, ignorado pelo Git, sem credenciais. Não é executado por `npm test`. Esse teste refere-se ao componente T29 antigo, hoje restrito às bancadas. O bloqueio de navegador relatado em 10/11 é histórico: o Bot Conexa vigente teve revisão dirigida em 360 px/desktop/teclado e F5 conectado em 11/11 (D023–D025). Isso não valida o modal antigo nem encerra o aceite M6 ou a auditoria global de acessibilidade. Evidências em [validation.md](Conexa-specs/validation.md).
 
 ## Experimentar a aba Conversas — texto/DM em avaliação
 

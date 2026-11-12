@@ -1,5 +1,7 @@
 # M4 — Preparação de rotas e inclusão — 08/11/2026
 
+Estado atualizado em 12/11/2026: M4 aceito em 09/11 no escopo manual; migration aplicada ao demo em 10/11. API externa e comparação total entre composições cotadas continuam fora do escopo executado. Os relatos de preparação abaixo preservam seus limites originais; aplicação remota posterior não comprova percurso conectado completo. [Evidências consolidadas](estado-atual.md).
+
 ## Estado desta entrega
 
 Primeira fatia implementada em `feature/m4-rotas-inclusao`, criada da dev e publicada na dev em `5598cc7`. Em 09/11/2026, o usuário confirmou explicitamente o M4 e autorizou marcar T21–T24 como concluídos no escopo demonstrado. M5/M6 permanecem prévias. Migration M4 foi preparada e verificada em PostgreSQL local, sem aplicação remota. Não houve ativação de fornecedor, credencial criada, cobrança ou deploy; esses limites não são convertidos em evidência técnica pelo aceite humano.

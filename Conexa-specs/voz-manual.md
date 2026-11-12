@@ -1,10 +1,12 @@
 # IA/voz opcional — configuração e roteiro T42
 
+Atualização documental em 12/11/2026: migrations de texto/DM já aplicadas com autorização em 11/11 e percurso conectado verificado em D025. Isso não valida Auth/provedor/áudio do broker. T42/voz real e aceite M6 continuam pendentes; não houve novo teste nesta revisão. [Estado e evidências](estado-atual.md).
+
 11/11/2026. Implementação local para avaliação; **nenhuma sessão paga, microfone ou voz real testada pelo agente**. T42 e aceite M6 permanecem abertos. O bot continua usando texto simulado por padrão. A bancada `/tests/ui/conversations.html` simula IA/voz em memória, inclusive os indicadores; não chama OpenAI nem pede microfone.
 
 ## Preparação pelo usuário
 
-1. Avaliar a feature e obter autorização específica para aplicar/verificar as duas migrations de Conversas no Supabase demo. Antes da API paga, conferir que o bot por texto abre, prepara uma prévia e confirma pelo gateway existente. Não ativar voz para contornar schema ausente.
+1. Conferir ambiente e histórico: as duas migrations de Conversas já foram aplicadas ao demo autorizado, conforme validation.md; não reaplicá-las. Em ambiente novo, aplicar somente as ausentes no escopo autorizado. Antes da API paga, conferir o bot por texto e seu gateway no ambiente escolhido. Não ativar voz para contornar schema ausente.
 2. Usar Node **24+** para o broker (SQLite nativo), uma única instância local e armazenamento persistente em `.voice-data/`. O site continua com seus requisitos anteriores. Não instalar esse broker como função serverless, cluster ou serviço público. Para outro ambiente, preparar armazenamento compartilhado, supervisão e proxy HTTPS antes de ativar.
 3. Copiar `.env.voice.example` para `.env.voice` e preencher a chave OpenAI **somente no servidor**, URL/chave pública do mesmo Supabase demo e modelos Realtime/transcrição disponíveis na conta. Não enviar a chave ao chat, não usar `VITE_OPENAI_*`, não versionar `.env.voice`. Nenhum preço/modelo é presumido pelo código. Conferir disponibilidade e orçamento na conta do provedor antes de ativar.
 4. Conferir limites: exemplo de 60 segundos por sessão, duas tentativas por participante/dia (São Paulo), quatro respostas e 256 tokens máximos por resposta. Todos são obrigatórios no servidor; o exemplo deixa `CONEXA_VOICE_ENABLED=false`. Tentativas reservadas contam mesmo quando falham; uma ativa por participante. Esses tetos limitam uso, **não garantem custo em reais ou um teto financeiro exato**. Configure também os controles de orçamento disponíveis na conta OpenAI. Áudio de entrada, transcrição e chamadas em andamento podem gerar cobrança.
