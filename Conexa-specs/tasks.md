@@ -94,6 +94,8 @@ Entrega em `feature/m3-transporte-financeiro`, migrations `20261107223721_m3_tra
 
 ## M4 — Rotas e inclusão; confirmado no escopo demonstrado
 
+Complemento técnico de 12/11: histórico/justificativas/candidatas/roteiro/nulos verificados no Supabase demo com Auth/RLS reais, site conectado, F5 de comprador/transportador e comprador em 360 px/desktop. Substitui os limites históricos de M4 ainda sem execução remota/conectada para esses itens. `tests/remote-m4.mjs`, seis grupos, fixtures encerradas/arquivadas; sem defeito funcional ou API externa. Duas cotações remotas equivalentes e total entre composições com seus fretes não exercitados. [Evidências](validation.md#m4--rotas-manuais-e-sugestões-inclusivas-no-demo--12112026); publicação/integração desta feature pendentes, sem novo aceite humano presumido.
+
 - [x] T21 Validar fornecedor de rotas, credenciais, termos, cobertura e orçamento autorizado — Google Routes avaliado como candidato; sem território roteável, credencial ou orçamento autorizados, a ativação externa foi rejeitada para este escopo e o fallback manual foi aceito.
 - [x] T22 Função de rotas no servidor, roteiro completo, nulos e fallback manual explícito — gateway M4 preparado, roteiro manual autenticado com saída, coletas, destino e retorno; distância, duração e pedágio desconhecidos permanecem nulos/a confirmar.
 - [x] T23 Comparação de composições e justificativa inclusiva baseada no histórico — candidatas por preço dos alimentos e por menos vendas concluídas/maior espera, com mínimos preservados, frete pendente e sem alegar ótimo global.

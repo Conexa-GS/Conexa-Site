@@ -10,6 +10,8 @@ Complemento cotações, 12/11: revisão, negociação, desistência/taxa e aviso
 
 ## Leitura para continuar o projeto
 
+Complemento M4, 12/11: histórico, justificativas, candidatas inclusivas, roteiro manual e valores desconhecidos verificados no demo com Auth/RLS reais e site/F5; comprador em 360 px/desktop. Fixtures próprias encerradas/arquivadas, sem API externa ou alteração da aplicação/schema. [Evidências e limites](validation.md#m4--rotas-manuais-e-sugestões-inclusivas-no-demo--12112026). Feature para avaliação, sem publicação/integração presumida; aceite anterior M4 preservado.
+
 1. [Estado atual e evidências](estado-atual.md): implementação, verificação, aceite, integrações e próximos passos.
 2. [spec.md](spec.md) e [business-rules.md](business-rules.md): requisitos e regras de produto.
 3. [workflow.md](workflow.md): branches, avaliação, autorização e registro de IA.
