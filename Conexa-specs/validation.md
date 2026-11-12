@@ -37,6 +37,8 @@ Capturas fora do Git em `C:/Users/Murilo/.codex/visualizations/2026/11/12/01a1d1
 
 Aceite humano da mudança e autorização de publicação/integração ainda pendentes. A escolha de adiar a prova física não equivale a aceite técnico desse cenário ou a encerramento de T41/M6.
 
+Autorização posterior — 12/11/2026: após apresentação do commit `0c6e564` e seus limites, usuário respondeu “autorizo” à publicação da feature e integração na dev. Substitui a pendência de autorização acima e nos textos da entrega. Checkout limpo, origin conferido e fetch concluído; sem autorização de promoção para main, deploy ou encerramento de T41/M6. Registro em IA.md, interação 052; resultado Git conferido nas referências remotas após o push.
+
 ## Leitura das evidências — consolidação em 12/11/2026
 
 Título de origem preservado; este arquivo reúne verificações de 07–11/11. [estado-atual.md](estado-atual.md) consolida o resultado vigente. Cada seção registra sua rodada: bloqueios de navegador, ausência de migration e publicação pendente não descrevem automaticamente o ambiente atual. D025 complementa D024 e as primeiras fatias de Conversas; autorizações posteriores estão em IA.md (048–051) e Git. Integração dev/main já observada não comprova deploy ou aceite M5/M6. Nenhum procedimento remoto repetido nesta revisão documental.

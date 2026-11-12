@@ -32,6 +32,8 @@ Fontes de cada linha: seções datadas de [validation.md](validation.md#atualiza
 
 ## Git e autorizações já utilizadas
 
+T41/D026 — autorização posterior em 12/11: usuário respondeu “autorizo” após apresentação de `0c6e564`, autorizando publicação de `feature/t41-rede-recuperacao` e integração/publicação na dev. Substitui as indicações de autorização pendente da entrega D026; não inclui main/deploy ou conclusão da prova física/T41/M6. Registro em IA.md (052) e validation.md; o merge e as referências remotas identificam o resultado da publicação.
+
 Referências observadas no checkout em 12/11, sem nova consulta ao servidor Git:
 
 | Referência local conhecida | Commit | Evidência |
