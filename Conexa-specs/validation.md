@@ -2,6 +2,8 @@
 
 ## T28/M5 — fechamento completo no demo — 12/11/2026
 
+Autorização posterior na mesma data: após a apresentação de `ba8f30b`, usuário respondeu “pode integrar” à publicação da feature e integração na dev. Substitui as indicações de autorização pendente desta entrega; não inclui main/deploy nem aceite humano M5. Integração sem mudança funcional adicional, preservando verificações abaixo; referências Git remotas conferidas ao concluir. Registro em IA.md, interação 053.
+
 Responsável: **Codex**, em `feature/t28-m5-verificacao`, criada da dev limpa `3bdeee6`. Pedido explícito de verificar/corrigir pagamento simulado até repasses, permissões, persistência e idempotência no demo. **T28 encerrada tecnicamente; aceite humano M5 pendente.** Sem autorização presumida de push/integração/main/deploy, dinheiro ou transporte reais.
 
 Ambientes: Node 24/PGlite local; Vite `http://127.0.0.1:5174`, navegador integrado e Supabase `conexa` / `ppbneiusqlitvewwoact`, PostgreSQL 17.11. Inspeção inicial confirmou migrations M4/M5/revisões/Conversas existentes, políticas, ACL/search_path e wrapper público M5 invoker; não foram reaplicadas. Cliente usa chave pública, Auth real de Ana/João/comprador/transportador e segunda sessão independente do comprador. SQL do conector para inspeção/auditoria; escritas de negócio pelas RPCs com Auth/RLS. Nova migration corretiva aplicada pelo conector no escopo autorizado de corrigir o demo. Nenhuma conta nova, escrita administrativa de negócio ou credencial privada no cliente.
