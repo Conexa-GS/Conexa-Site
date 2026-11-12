@@ -37,7 +37,7 @@ Referências observadas no checkout em 12/11, sem nova consulta ao servidor Git:
 | `origin/dev` | `5d25fa2` | Integra recuperação de Conversas `18c7c72` |
 | `main` / `origin/main` | `e10883c` | Promoção da recuperação a partir da dev |
 
-As interações 048/049, 050 e 051 de IA.md registram autorizações posteriores às entregas D022–D025. Opções guiadas/atalho e retomada de sessão foram integrados na dev; a interação 051 autorizou também a promoção para main do conteúdo acumulado, observada no histórico Git. As frases antigas “integração pendente” descrevem a entrega antes dessas autorizações. Nenhuma dessas autorizações encerra M5/M6, ativa voz ou comprova deploy. A presente consolidação está em `feature/consolidacao-documentacao`, criada de `origin/dev` em `5d25fa2`, e precisa de sua própria avaliação/autorização antes de subir/integrar.
+As interações 048/049, 050 e 051 de IA.md registram autorizações posteriores às entregas D022–D025. Opções guiadas/atalho e retomada de sessão foram integrados na dev; a interação 051 autorizou também a promoção para main do conteúdo acumulado, observada no histórico Git. As frases antigas “integração pendente” descrevem a entrega antes dessas autorizações. Nenhuma dessas autorizações encerra M5/M6, ativa voz ou comprova deploy. A presente consolidação foi preparada em `feature/consolidacao-documentacao`, criada de `origin/dev` em `5d25fa2`. Após apresentação do commit `d2e5edf`, usuário respondeu “autorizado” em 12/11/2026 à publicação da feature e integração na dev. Esta autorização não inclui promoção para main nem aceite de marcos; contexto em validation.md.
 
 ## Supabase demo: o que já foi aplicado
 
