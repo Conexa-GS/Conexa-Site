@@ -198,6 +198,12 @@ Antes da chamada de envio/turno/confirmação, guardar texto/payload e chave em 
 
 Rejeição definitiva por revisão concorrente remove a prévia antiga e exige estado atual, inclusive quando a reconsulta falha. Falhas controladas no limite do serviço com banco real/F5 demonstraram recuperação sem duplicação, e Auth/RLS real verificou reservas/compromissos/snapshots sem alterar regras de negócio. T35/T38 recebem conclusão técnica; T41 mantém interrupção física de rede pendente; T42, avaliação T43/M6 e M5/T28 preservadas. Evidências em validation.md. Sem API paga, nova migration ou autorização presumida de push/integração.
 
+## D026 — Recuperação da consulta não confirma envio incerto — 12/11/2026
+
+Status: implementada/verificada para avaliação na `feature/t41-rede-recuperacao`, da dev `5634533`; sem autorização de publicação/integração. Origem: pedido explícito de continuar T41 e corrigir falhas de recuperação, mantendo os tipos de interrupção distintos.
+
+Na continuação de T41, separar o erro da consulta do bot do erro de uma ação. Carregar estado/histórico com sucesso remove o alerta da consulta anterior, mas não elimina o alerta de um pedido incerto, não desbloqueia seu compositor e não limpa sua chave durável. Somente o resultado do reenvio explícito correspondente pode reconciliar o pedido (D025). Teste de regressão e bancada em memória verificam essa distinção; evidências remotas e limites de rede são registrados separadamente em validation.md.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

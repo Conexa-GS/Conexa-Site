@@ -1341,3 +1341,35 @@ Roteiro remoto criou reserva real e pagamento exclusivamente simulado para compr
 Idempotência no banco só protege reenvio quando o cliente conserva a mesma chave: o journal fecha a lacuna de F5 e a verificação explícita evita nova escrita automática. Conferir chave antes de limpar também protege contra respostas de componentes desmontados. Storage é recuperabilidade local, não autorização; histórico/estoque continuam sob RPC/RLS. Testes controlados exercitam as duas posições da falha com persistência real, mas não equivalem a desligar fisicamente a rede ou validar websocket sob uma queda real. Voz segue simulada e depende de T42; avaliação humana/publicação desta feature continuam separadas conforme workflow.
 
 Complemento de autorização da interação 051 — 11/11/2026: após apresentação do commit `18c7c72`, verificações e limites, usuário solicitou explicitamente “suba para a dev e de merge com a main”. Autoriza publicar a feature, integrá-la/publicá-la na dev e promover a dev para main no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e referências locais/remotas sincronizadas antes do registro, após fetch. A promoção inclui o conteúdo já acumulado na dev desde a última integração na main, preservando o histórico das duas branches. Não autoriza deploy, migrations adicionais, uso pago ou encerramento das pendências T41/T42/T43/M6/M5 por pressuposição. Resultados funcionais da entrega preservados: lint, 108 testes, nove scripts PGlite, build e quatro grupos remotos aprovados; sem repetir escritas fictícias no demo nesta autorização. Integrações sem force push e referências remotas conferidas ao concluir.
+
+## Interação 052 — T41: rede emulada, reenvio e erro de consulta — 12/11/2026
+
+### Ferramentas de IA utilizadas
+
+Codex para revisar código/especificações, corrigir o componente React e criar regressão/bancada; terminal para Git e verificações locais. Skills Supabase e Computer Use, documentação oficial de Realtime, navegador integrado com CDP para offline/observação de rede/viewport, conector Supabase para consultas de leitura. Sem subagentes, Firefox automatizado nesta continuação, microfone, OpenAI paga, migration ou transporte/pagamento.
+
+### Prompts e respostas representativos
+
+Transcrição dos pedidos de programação, sem incluir perguntas/esclarecimentos de configuração:
+
+> Continue a T41: teste desconexão e reconexão de Conversas, recuperação após recarga e reenvio pela mesma chave. Verifique ausência de duplicação e corrija os problemas encontrados. Diferencie falha controlada de interrupção real de rede.
+
+> Continue a T41 usando @Browser, sem automatizar o Firefox. Inicie ou confira o servidor local. Teste desconexão/reconexão, recarga e reenvio pela mesma chave; confira duplicação no Supabase demo e corrija os problemas. Diferencie falha controlada, modo offline do navegador e interrupção física de rede.
+
+Resposta representativa real: “Vou retomar a T41 na branch existente usando o navegador integrado. Vou conferir o servidor, testar a recuperação e o reenvio pela mesma chave, e comparar o resultado com o Supabase demo. Registrarei separadamente falha controlada, modo offline do navegador e interrupção física de rede.”
+
+### Aplicação no projeto
+
+`feature/t41-rede-recuperacao` criada da dev `5634533`, antes de editar; primeira criação no sandbox foi impedida e repetida com escalonamento aprovado. `BotThread.jsx` separa erro de carregamento de erro de ação: consulta bem-sucedida limpa erro obsoleto, mas não apaga pedido incerto/chave ou seu alerta. Teste em `site-bot-ui.test.js` e falha de consulta controlável na bancada em memória `tests/ui/conversations.jsx`. Decisão D026 e documentação de estado, tarefas e roteiro atualizadas, mantendo relatos anteriores e T41 parcial. Nenhuma mudança de SQL/RLS/regras de negócio.
+
+### Validação das respostas
+
+Suíte de 108 testes passou antes da alteração. Novo teste falhou na ausência de limpeza do erro, depois passou com a correção; suíte completa: **109 aprovados**, lint e build aprovados, com aviso de chunk principal >500 kB. Tentativas iniciais da regressão foram interrompidas enquanto a asserção tentava formatar um elemento DOM inteiro; trocada por asserção booleana com mensagem, que expôs a falha de forma direta. Bancada local revista em 360×800/1366×900. Configuração demo inicialmente sem senha local; após o usuário preencher o arquivo correto, checagem offline e login reais funcionaram. Sem registrar valores de credenciais.
+
+Navegador integrado/demo: falha controlada antes de chamar o serviço, descarte após persistência de DM e pedido do bot, F5 e replay explícito. Offline CDP produziu fetch `ERR_INTERNET_DISCONNECTED`, preservou chave/texto e SQL confirmou ausência da DM antes do replay. Outra sessão enviou enquanto a primeira estava offline; retorno/F5 recuperaram histórico e mesma chave. No site normal, retirada do offline reconciliou inbox/estado do bot automaticamente, limpou erro de consulta e recuperou mensagem nova sem F5. Conferência SQL final: cada uma das cinco DMs `T41-20261112-` existe uma vez; pedido do bot `e98229de-05fe-4c88-8096-3471fa810280` tem uma linha auditável, revisão 40 e consulta sem alteração de oferta. Journal final vazio após recarga. Histórico fictício preservado, sem exclusões ou novas ofertas/operações. Resultados, IDs, limites e capturas em validation.md.
+
+Prova física foi preparada, mas usuário escolheu deixá-la pendente; mensagem preparada não foi enviada e seu texto foi retirado. Nenhuma queda/reabertura de WebSocket foi observada na janela do modo offline; não declarar isso como rede física testada. Primeira sondagem offline com recarga atingiu a página de erro interna bloqueada pela ferramenta; continuou em outra aba integrada, sem contornar a política. Verificações efetivas retiraram a emulação antes de F5. Viewport global inicialmente atingiu outra aba; tamanho real conferido e 360 px aplicado diretamente à aba via CDP, com remoção posterior dos overrides. Não é auditoria completa de acessibilidade ou aceite humano. Sem publicação/integração, voz real ou encerramento de T41/T42/T43/M6/T28/M5.
+
+### Análise crítica
+
+Banco idempotente exige chave durável e replay correspondente; F5 e contagem remota confirmam mais do que um clique isolado. Recuperar uma consulta não pode ser anunciado como confirmação de uma escrita incerta. A regressão protege essa diferença e evita alerta obsoleto que fazia a recuperação parecer malsucedida. Falha no serviço, emulação offline e interrupção física têm alcances diferentes; a última foi adiada explicitamente, e o WebSocket existente não foi comprovadamente interrompido pela emulação. Testes locais e navegador real são complementares, com evidências separadas de aceite/publicação.

@@ -1,5 +1,42 @@
 # Verificação da primeira versão — 07/11/2026
 
+## T41/D026 — recuperação controlada e modo offline do navegador — 12/11/2026
+
+Responsável: Codex, em `feature/t41-rede-recuperacao`, criada da dev `5634533`. Pedido explícito de continuar desconexão/reconexão, F5, reenvio pela mesma chave e conferência de duplicação no demo, usando o navegador integrado e sem automatizar Firefox. **T41 permanece parcial:** usuário optou por deixar a interrupção física pendente; T42, T43/aceite M6 e T28/M5 não foram encerrados. Sem migration, push, integração, deploy ou API paga.
+
+Correção D026 em `BotThread.jsx`: o erro de consulta permanecia após uma reconsulta bem-sucedida. Teste de regressão reproduziu a falha antes da correção. Separados erros de carregamento e de ação: recuperar estado/histórico limpa o primeiro, preservando alerta, bloqueio e journal de um envio ainda incerto até verificação explícita da mesma chave. `tests/ui/conversations.jsx` ganhou controle de falha de consulta exclusivamente em memória, fora da entrada de produção.
+
+Ambiente: Vite em `http://127.0.0.1:5173`, navegador integrado e Supabase demo `ppbneiusqlitvewwoact`, com Auth real de Ana e comprador em abas novas e sessionStorage independentes. A primeira tentativa de login falhou porque a senha demo no `.env` local estava vazia; a edição que o usuário via estava no VS Code Web, sem sincronização com esse arquivo local. Usuário preencheu o arquivo local pelo painel; checagem offline passou e os logins seguintes funcionaram. Nenhuma credencial registrada/commitada. A tentativa anterior em Firefox foi bloqueada pela ferramenta; não conta como teste da aplicação.
+
+| Tipo de falha | Procedimento e resultado efetivamente observados | Limite |
+| --- | --- | --- |
+| Controlada antes da chamada | Bancada conectada: DM A preservou texto/chave. Consulta SQL antes do replay retornou zero registros; F5 e Verificar envio resultaram em uma mensagem | Exceção no limite do serviço, sem interrupção de rede |
+| Controlada depois da persistência | Bancada descartou a resposta da DM B; erro, texto bloqueado, F5 e mesma chave recuperaram uma mensagem. Consulta do bot E também perdeu resposta; F5 e Verificar pedido pendente recuperaram um pedido auditável, revisão 40, sem alterar ofertas | Banco real, entrega da resposta manipulada pela bancada |
+| Offline da aba | CDP `Network.emulateNetworkConditions` bloqueou o fetch de C com `net::ERR_INTERNET_DISCONNECTED`; texto/chave ficaram bloqueados. SQL antes do replay: zero mensagens C. Comprador enviou D na outra aba; não apareceu na aba offline. Retirada a emulação, F5 revalidou Ana; verificação pela mesma chave recuperou C e histórico incluiu D | Emulação de conectividade do navegador; não desliga Wi-Fi/cabo do computador |
+| Reconexão sem F5 | Site normal `/produtor/conversas`, sem wrapper de falha: offline provocou erros de inbox e estado do bot. Comprador enviou F. Ao retirar a emulação, consultas voltaram automaticamente, erro de consulta do bot desapareceu e abrir a DM mostrou F uma vez. F5 final manteve as cinco DMs, compositor vazio e zero journals pendentes | Não foi observado `Network.webSocketClosed`/novo socket na janela desta emulação. Não atribuir ao teste uma queda/reabertura real do WebSocket existente |
+| Interrupção física | Mensagem G foi apenas preparada para o procedimento manual. Usuário escolheu “Prefiro deixar o teste físico pendente”; texto não enviado foi retirado | Nenhum desligamento físico, envio G ou verificação desse cenário declarado |
+
+Chaves conferidas por leitura no conector Supabase após o percurso; cada DM abaixo existe **uma vez**, por texto e chave. Consulta inicial global encontrou 204 mensagens e zero grupos de chaves duplicadas de DM/pedido de bot; não é substituto para o replay desta rodada.
+
+| Identificador da rodada | Chave persistida | Registros finais |
+| --- | --- | --- |
+| DM A, antes da chamada | `3a0a36a8-d988-4803-a503-f2f5e8917cd9` | 1 |
+| DM B, resposta descartada | `a983a969-9d80-4d6b-aab9-8292617b87fb` | 1 |
+| DM C, offline da aba | `887aff64-216a-437f-b76b-2d6bea65e890` | 1 |
+| DM D, comprador durante offline | `5d46fb06-fbe8-491b-a543-63dc48833034` | 1 |
+| DM F, comprador antes da reconexão automática | `21b406e5-4894-4a9a-94f6-70c01b39dad9` | 1 |
+| Pedido E, consulta do bot | `e98229de-05fe-4c88-8096-3471fa810280` | 1 pedido, resposta “Consulta de ofertas. Nenhuma alteração realizada.” |
+
+DMs têm prefixo `T41-20261112-`; conversa `49a3d874-a72c-4a28-b7ca-f12f6ee921df`. Bot `bb63b8f2-240e-4a1f-95e6-4874bb632e13`, revisão 39→40 exclusivamente de consulta. Cinco DMs e auditoria/histórico do bot permanecem; não foram criadas/alteradas ofertas, reservas ou operações nesta rodada. Abrir histórico sincronizou leitura dos participantes; não houve exclusão de dados anteriores. Na recuperação de C, a primeira interação não confirmou envio; estado foi inspecionado e novo clique explícito em Verificar envio foi observado no tráfego com a chave original. Resultado final conferido no banco, sem atribuir sucesso ao clique inicial.
+
+Verificações locais: `npm.cmd run lint` aprovado; `npm.cmd test` com **109 testes aprovados**, zero falhas; `npm.cmd run build` aprovado, com aviso de chunk principal >500 kB (684,56 kB/gzip 195,77 kB na rodada final). `npm.cmd run test:conversations:check` aprovado após configuração local. Suítes SQL/PGlite e os runners remotos antigos não foram repetidos: não houve mudança de schema/serviço de banco; esta rodada usou o navegador e consultas de leitura dirigidas. Teste novo verifica recuperação do alerta e manutenção de pedido incerto/chave. A suíte anterior de 108 testes também passou antes da mudança.
+
+Revisão visual dirigida: bancada em memória em 360×800 e 1366×900; scrollWidth 345/1351, erro de consulta recebe foco e Recarregar bot remove o alerta após sucesso. Site conectado também inspecionado em desktop (viewport real 1280, distinto do override aplicado a outra aba) e em CSS 360×800 por CDP, innerWidth 360/scrollWidth 345. Primeiros overrides globais não atingiram a aba conectada; não contados como teste de 360 px. Captura por CDP e dimensões conferidas na aba correta; overrides temporários removidos. Sem auditoria completa de acessibilidade. Notificação independente de transporte também mostrou erro offline e recuperou por seu ciclo próprio; não foi confundida com erro persistente de Conversas.
+
+Capturas fora do Git em `C:/Users/Murilo/.codex/visualizations/2026/11/12/01a1d166-4ab3-7581-b5d0-cf650369a8d0/`: `t41-consulta-falha-360.jpg`, `t41-consulta-recuperada-360.jpg`, `t41-consulta-recuperada-desktop.jpg`, `t41-demo-offline.jpg`, `t41-demo-recuperado-desktop.jpg` e `t41-demo-recuperado-360.jpg`. Uma recarga durante a primeira sondagem offline, antes do login válido, produziu a página de erro local do navegador (`ERR_INTERNET_DISCONNECTED`); a política da ferramenta bloqueou a URL interna dessa página e impediu restaurar/interagir com aquela aba. A continuação usou outra aba integrada, sem contornar a política nem usar Firefox; nos testes efetivos de envio, a emulação foi retirada **antes** do F5. Essa sondagem não comprova recuperação do chat.
+
+Aceite humano da mudança e autorização de publicação/integração ainda pendentes. A escolha de adiar a prova física não equivale a aceite técnico desse cenário ou a encerramento de T41/M6.
+
 ## Leitura das evidências — consolidação em 12/11/2026
 
 Título de origem preservado; este arquivo reúne verificações de 07–11/11. [estado-atual.md](estado-atual.md) consolida o resultado vigente. Cada seção registra sua rodada: bloqueios de navegador, ausência de migration e publicação pendente não descrevem automaticamente o ambiente atual. D025 complementa D024 e as primeiras fatias de Conversas; autorizações posteriores estão em IA.md (048–051) e Git. Integração dev/main já observada não comprova deploy ou aceite M5/M6. Nenhum procedimento remoto repetido nesta revisão documental.
