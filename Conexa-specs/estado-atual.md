@@ -2,6 +2,8 @@
 
 Consolidação em **12/11/2026**, a partir dos registros até 11/11/2026 e do checkout inspecionado. Este documento orienta a continuidade; os relatos datados em [validation.md](validation.md), [decisions.md](decisions.md) e [IA.md](../IA.md) preservam o que se sabia em cada entrega. Não houve nova execução remota nesta consolidação.
 
+Complemento funcional posterior na mesma data, T41/D026 em `feature/t41-rede-recuperacao` (da dev `5634533`): alerta de consulta do bot corrigido; lint, 109 testes e build aprovados. Falhas controladas, offline da aba, F5/replay e recuperação automática com duas sessões verificados no navegador integrado/Supabase; cinco DMs e um pedido do bot únicos. Não houve queda observada do WebSocket na emulação. Prova física adiada por escolha do usuário; T41 permanece parcial. [Evidências](validation.md#t41d026--recuperação-controlada-e-modo-offline-do-navegador--12112026). Feature ainda sem autorização de publicação/integração; não altera os aceites dos marcos.
+
 ## Como interpretar o estado
 
 - **Implementação:** código, migrations ou interface existentes; não comprova execução no demo.
@@ -30,6 +32,8 @@ Fontes de cada linha: seções datadas de [validation.md](validation.md#atualiza
 
 ## Git e autorizações já utilizadas
 
+T41/D026 — autorização posterior em 12/11: usuário respondeu “autorizo” após apresentação de `0c6e564`, autorizando publicação de `feature/t41-rede-recuperacao` e integração/publicação na dev. Substitui as indicações de autorização pendente da entrega D026; não inclui main/deploy ou conclusão da prova física/T41/M6. Registro em IA.md (052) e validation.md; o merge e as referências remotas identificam o resultado da publicação.
+
 Referências observadas no checkout em 12/11, sem nova consulta ao servidor Git:
 
 | Referência local conhecida | Commit | Evidência |
@@ -55,7 +59,7 @@ M1 foi aplicado manualmente e não tem entrada no histórico remoto; M2/M3 já e
 
 ## Próximos passos sustentados pelas evidências
 
-1. Concluir a parte aberta de T41: interrupção física de rede no navegador e recuperação com a mesma chave; falhas controladas já verificadas não substituem isso.
+1. Quando o usuário quiser retomar, concluir a parte aberta de T41: interrupção física de rede no navegador e recuperação com a mesma chave. Falhas controladas e modo offline da aba já verificados não substituem isso; prova física foi explicitamente adiada em 12/11. Não atribuir queda/reabertura de WebSocket à emulação sem evento observado.
 2. Manter T42 separada: usuário configura e testa voz real conforme [voz-manual.md](voz-manual.md), se desejar ativá-la. Texto/DM pode ser avaliado com voz ainda pendente.
 3. Apresentar texto/DM e limites para T43/aceite humano M6; esta consolidação prepara a documentação, sem marcar a tarefa inteira como concluída.
 4. Retomar T28/M5 e a extensão de cotações com seus roteiros próprios; não aproveitar o sucesso de Conversas para encerrá-los.

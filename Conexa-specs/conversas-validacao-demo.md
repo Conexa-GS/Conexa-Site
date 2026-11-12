@@ -1,5 +1,9 @@
 # Conversas — preparação e roteiro T35/T38/T41
 
+Complemento D026, 12/11/2026: navegador integrado verificou novamente falhas controladas antes/depois da persistência, F5 e mesma chave; também modo offline da aba via CDP e recuperação automática no site normal com duas sessões. Cinco DMs e um pedido do bot únicos no demo. Corrigido alerta de consulta obsoleto; não apagar avisos/chaves de envios incertos ao recuperar consultas. Usuário preferiu deixar a interrupção física pendente; a emulação não mostrou fechamento do WebSocket. [Resultados, chaves e limites](validation.md#t41d026--recuperação-controlada-e-modo-offline-do-navegador--12112026). Não repetir runners antigos ou aplicar migrations para reproduzir apenas esses cenários.
+
+Para repetir offline da aba, manter a página carregada, emular offline, enviar dado fictício, conferir erro/texto/chave e ausência ou presença no banco. Retirar a emulação **antes** de recarregar e verificar explicitamente o pedido original; conferir chave e unicidade no Supabase. Também testar reconciliação por `online` sem F5, com mensagem de outra sessão durante o intervalo. Modo offline é emulação do navegador, não Wi-Fi/cabo desconectado. O Vite não oferece abertura offline garantida; recarga enquanto offline pode mostrar a página de erro do próprio navegador, cuja URL interna pode ser bloqueada pela ferramenta. Não usar isso como prova de falha do journal ou contornar a política.
+
 Complemento D025 executado em 11/11/2026: criação/edição pelo bot com F5, consulta pelo comprador, mensagens entre sessões e recuperação controlada foram verificadas no navegador conectado. T35/T38 encerradas tecnicamente; T41 continua parcial por rede física, e T42/avaliação M6 permanecem abertas. [Evidências atuais](validation.md). Os registros de percurso pendente abaixo descrevem o estado anterior a esse complemento.
 
 ## Roteiros adicionais da continuação D025

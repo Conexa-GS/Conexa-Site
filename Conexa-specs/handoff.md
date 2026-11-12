@@ -6,6 +6,8 @@ Continue o site **Conexa** existente. Leia [estado-atual.md](estado-atual.md), s
 
 M1–M4 já têm aceite humano nos limites registrados. Não iniciar o projeto novamente. T35/T38 estão encerradas tecnicamente para texto/DM; bot guiado, atalho direto, retomada de sessão e pedidos incertos após F5 já estão integrados. A próxima verificação de T41 é a interrupção física de rede; falhas controladas com persistência real já foram exercitadas. Voz/T42 depende dos testes pagos do usuário; T43/aceite M6 e T28/aceite M5 continuam pendentes, com seus próprios critérios.
 
+Complemento posterior D026 de 12/11, na `feature/t41-rede-recuperacao`: alerta de consulta recuperada corrigido, 109 testes/lint/build aprovados e offline da aba/F5/replay/reconciliação automática verificados no navegador integrado/demo, com cinco DMs e um pedido do bot únicos. Prova física adiada pelo usuário, sem queda de WebSocket observada na emulação. Não confundir esses níveis de falha. Feature deve ser avaliada e autorizada antes de publicação/integração; não consta integrada nas referências anteriores. Evidências/chaves em validation.md.
+
 O demo Supabase já recebeu as migrations registradas em validation.md; nomes locais e versões remotas diferem. Não reaplicar SQL nem executar reset/repair por suposição. Identifique ambiente, histórico e escopo autorizado antes de nova operação remota. Não use segredos no navegador ou no registro de IA.
 
 Preserve creme, verde, laranja, marca vetorial e ilustrações locais. Transporte, pagamento e repasses são fictícios; M5/M6 e páginas de exemplo continuam identificados como prévias/demonstração. T30 está pausada; não ativar WhatsApp ou voz por pressuposição.

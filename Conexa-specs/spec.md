@@ -21,6 +21,8 @@ Retomada demo D024: com Supabase, recarregar a mesma aba revalida Auth/participa
 
 Recuperação D025: antes de enviar DM/turno/confirmação do bot, guardar o pedido incerto e sua chave em sessionStorage por participante/aba. Após recarga, a pessoa abre a conversa e verifica explicitamente pela mesma chave; não reenviar automaticamente. Só limpar o journal ao confirmar o resultado correspondente, sem deixar resposta tardia apagar pedido novo. Texto ainda não enviado continua volátil; storage indisponível impede iniciar envio sem chave durável. Rascunho estruturado, oferta e histórico permanecem no Supabase. Rejeição definitiva de revisão exige consultar estado atual antes de oferecer nova confirmação.
 
+Recuperação D026: consultar estado/histórico com sucesso limpa o erro da consulta anterior do bot, preservando erro, bloqueio e chave de um envio ainda incerto. Recuperar a consulta não confirma o pedido. Falha controlada, offline emulado da aba e interrupção física são evidências distintas; a última permanece pendente nesta rodada.
+
 ## Histórias e requisitos
 
 | História | Requisito | Resultado observável |
