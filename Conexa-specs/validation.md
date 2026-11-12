@@ -1,5 +1,17 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Leitura das evidências — consolidação em 12/11/2026
+
+Título de origem preservado; este arquivo reúne verificações de 07–11/11. [estado-atual.md](estado-atual.md) consolida o resultado vigente. Cada seção registra sua rodada: bloqueios de navegador, ausência de migration e publicação pendente não descrevem automaticamente o ambiente atual. D025 complementa D024 e as primeiras fatias de Conversas; autorizações posteriores estão em IA.md (048–051) e Git. Integração dev/main já observada não comprova deploy ou aceite M5/M6. Nenhum procedimento remoto repetido nesta revisão documental.
+
+## Consolidação documental — 12/11/2026
+
+Responsável: Codex, em `feature/consolidacao-documentacao`, criada de `origin/dev` em `5d25fa2`. Fontes: especificações, registros datados deste arquivo, autorizações de IA.md e referências Git locais conhecidas. Criado estado-atual.md; alinhados README, handoff, plano, tarefas, critérios, modelo, contratos e roteiros. Relatos históricos preservados; nenhuma alteração funcional, de interface, SQL ou configuração.
+
+Verificações desta rodada: `npm.cmd run lint` aprovado; `npm.cmd test` com **108 testes aprovados**, zero falhas; `npm.cmd run build` aprovado (principal 468,91 kB/gzip 141,06 kB, Landing separado 16,32 kB/gzip 6,03 kB). Conferidos 96 links locais nos 19 arquivos Markdown alterados/criado, incluindo âncoras usadas, sem destino ausente; `git diff --check` aprovado. O build atual não emitiu o aviso histórico de chunk >500 kB; os números/avisos antigos permanecem como evidências das respectivas rodadas, sem atribuir a esta revisão mudanças no bundle.
+
+Não houve nova verificação visual (interface inalterada), teste SQL, chamada remota, migration, uso pago, deploy ou aceite humano. IA.md preservado: este pedido é exclusivamente documental, sem novo prompt de programação a registrar. A consolidação prepara a documentação de T43, sem concluir a tarefa ou os marcos M5/M6. Publicação/integração desta feature depende de avaliação e autorização próprias conforme workflow.md.
+
 ## T41/D025 — bot e mensagens após recarga, recuperação e estoque — 11/11/2026
 
 Responsável: Codex. Branch `feature/t41-bot-persistencia`, criada da dev limpa `b4f203e`. Pedido explícito para verificar/corrigir criação/edição pelo bot após recarga, mensagens entre sessões, recuperação e proteção de reservas/compromissos/histórico, atualizando tasks.md. T35/T38 encerradas **tecnicamente** com as evidências anteriores de Auth/RLS/concorrência/Realtime e as desta rodada; T41 continua parcial pela interrupção física de rede não exercitada. T42/voz real, avaliação T43/M6 e M5/T28 preservadas. Sem nova migration, push, integração, deploy ou aprovação humana presumida.

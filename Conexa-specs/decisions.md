@@ -1,5 +1,7 @@
 # Registro de decisões
 
+Leitura vigente em 12/11/2026: [estado-atual.md](estado-atual.md) consolida execução e autorizações posteriores. As decisões datadas preservam o contexto original: D009/T20/M3 receberam aceite explícito; D022–D025 foram integradas conforme IA.md e Git. D021 substitui o token efêmero proposto; D023 substitui a entrada pelo modal; D025 substitui pedidos incertos apenas em memória. Publicação Git não encerra M5/M6. Esta revisão organiza evidências, sem criar decisão de produto ou novo aceite.
+
 ## D001 — Direção do produto — consolidada em 06/11/2026
 
 Site como produto central, React/Vite/Tailwind, Supabase, três perfis, WhatsApp posterior. Origem: decisões da conversa; Vite escolhido no planejamento técnico.

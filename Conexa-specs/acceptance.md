@@ -1,6 +1,6 @@
 # Critérios de aceite e rastreabilidade
 
-Estes cenários são a especificação da verificação futura. Nenhum está marcado como executado neste pacote.
+Estes cenários definem resultados esperados; execução técnica e aceite humano são registrados separadamente em [validation.md](validation.md) e [estado-atual.md](estado-atual.md). A existência de um critério não comprova sua execução completa.
 
 | ID | Cenário e resultado esperado | Requisito / regras | Marco |
 | --- | --- | --- | --- |
@@ -30,9 +30,11 @@ Estes cenários são a especificação da verificação futura. Nenhum está mar
 
 ## Estratégia de verificação
 
-### Evolução planejada — Conversas no site (11/11/2026)
+### Conversas no site — critérios e evidências
 
-Primeira fatia de 11/11/2026: AC24/AC23 verificados no escopo da bancada local de Conversas; mensagens/isolamento/reenvio têm evidências parciais de componente e PGlite para AC25/26/29/30. Critérios remotos, comandos do bot e voz continuam pendentes; não ampliam o aceite de T29 nem encerram M6. Detalhes e limites em [validation.md](validation.md) e [conversas-site.md](conversas-site.md).
+Estado vigente em 12/11: AC24–AC30 têm evidências técnicas de texto/DM locais e remotas somadas nas rodadas autorizadas e D025; rede física ainda aberta em T41. AC23 tem revisão dirigida de Conversas, sem auditoria completa/global; AC31 é parcial e AC32 só simulado, com execução real em T42. T43/aceite M6 continua pendente.
+
+Histórico da primeira fatia de 11/11/2026: AC24/AC23 verificados no escopo da bancada local de Conversas; mensagens/isolamento/reenvio têm evidências parciais de componente e PGlite para AC25/26/29/30. Critérios remotos, comandos do bot e voz continuam pendentes; não ampliam o aceite de T29 nem encerram M6. Detalhes e limites em [validation.md](validation.md) e [conversas-site.md](conversas-site.md).
 
 | ID | Cenário e resultado esperado | Requisito / regras | Tarefas |
 | --- | --- | --- | --- |
@@ -46,9 +48,9 @@ Primeira fatia de 11/11/2026: AC24/AC23 verificados no escopo da bancada local d
 | AC31 | Modo simulado funciona sem chave/API paga. Modo OpenAI exige ação/configuração explícitas, endpoint autenticado e limites no servidor; chave permanente ausente do bundle/logs. Abrir aba/CI/reconectar não inicia consumo | RF11 / RN45; RNF04 | T39–T42 |
 | AC32 | Usuário testa voz real: microfone consentido, transcrição corrigível, prévia/confirmar/cancelar e encerramento ao sair/trocar conta/atingir limite; falhas mantêm alternativa por texto. Agente testa com mocks; resultado real só por relato/evidência do usuário | RF11 / RN45; RNF02–04,07 | T40–T42 |
 
-Texto/DM e voz têm evidências separadas. Mocks não comprovam custo, áudio ou sessão real; aceite de voz depende de T42. Aplicação remota do novo schema depende da autorização correspondente.
+Texto/DM e voz têm evidências separadas. Mocks não comprovam custo, áudio ou sessão real; aceite de voz depende de T42. O schema de texto/DM já foi aplicado com autorização em 11/11; não reaplicá-lo. Verificação de voz real continua separada.
 
-Evidência local adicional — 11/11/2026, D021/T39/T40: configuração desligada, endpoint autenticado simulado, cotas SQLite duráveis, controle de duração/respostas, cleanup/tardios e proposta sem escrita exercitados em testes; painel revisto em desktop/360 px/teclado. AC31 tem evidência local, AC32 somente comportamento simulado. Nenhuma sessão OpenAI, permissão de microfone ou teste de voz real pelo agente. Supabase Auth do broker e sideband/hangup reais dependem de configuração/testes do usuário; T42 e critérios remotos T35/T38/T41 continuam pendentes. Roteiro em [voz-manual.md](voz-manual.md), resultados em validation.md.
+Evidência local adicional — 11/11/2026, D021/T39/T40: configuração desligada, endpoint autenticado simulado, cotas SQLite duráveis, controle de duração/respostas, cleanup/tardios e proposta sem escrita exercitados em testes; painel revisto em desktop/360 px/teclado. AC31 tem evidência local, AC32 somente comportamento simulado. Nenhuma sessão OpenAI, permissão de microfone ou teste de voz real pelo agente. Supabase Auth do broker e sideband/hangup reais dependem de configuração/testes do usuário; T42 e rede física de T41 continuam pendentes; T35/T38 foram verificadas tecnicamente nas rodadas posteriores de texto/DM. Roteiro em [voz-manual.md](voz-manual.md), resultados em validation.md.
 
 ### Métodos
 
