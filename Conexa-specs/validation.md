@@ -2,6 +2,8 @@
 
 ## M4 — rotas manuais e sugestões inclusivas no demo — 12/11/2026
 
+Autorização posterior na mesma data: usuário respondeu “autorizo” após apresentação de `4ace62c`, autorizando publicação de `feature/m4-verificacao-demo` e integração/publicação na dev. Substitui as indicações de publicação/integração pendentes deste registro; não inclui main/deploy, API externa ou novo aceite de marco. Checkout limpo/origin conferidos e fetch concluído; testes anteriores preservados sem repetir escritas no demo. Registro em IA.md, interação 055; referências remotas conferidas ao concluir.
+
 Responsável: Codex, em `feature/m4-verificacao-demo`, criada da dev limpa `8f72440`. Pedido: “Verifique rotas manuais e sugestões inclusivas no Supabase demo. Confira histórico, justificativas, candidatas, roteiro e valores desconhecidos, sem ativar API externa de mapas.” **Escopo manual verificado por API/Auth/RLS reais e site conectado; nenhum defeito da aplicação encontrado.** Sem alteração funcional, de interface ou schema; sem migration, conta nova, mapa externo, pagamento, transporte físico, publicação/integração ou novo aceite humano.
 
 Ambiente: Node 24, Vite `http://127.0.0.1:5175`, navegador integrado e projeto `conexa` / `ppbneiusqlitvewwoact`. Conector Supabase usado para inspeção e auditoria somente leitura; fixtures e transições pelas RPCs normais com chave pública e Auth real dos quatro participantes existentes. Wrapper público M4 inspecionado como invoker, search_path vazio e EXECUTE restrito a authenticated/service_role. Produtores/anônimo rejeitados nas consultas M4 indevidas; não foi criada segunda conta de comprador/transportadora para testar outro dono do mesmo perfil. PGlite cobre esse isolamento com identidades simuladas.

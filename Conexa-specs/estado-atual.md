@@ -38,6 +38,8 @@ Fontes de cada linha: seções datadas de [validation.md](validation.md#atualiza
 
 ## Git e autorizações já utilizadas
 
+M4 — autorização posterior em 12/11: usuário respondeu “autorizo” após apresentação de `4ace62c`, autorizando publicação de `feature/m4-verificacao-demo` e integração/publicação na dev. Substitui as indicações de autorização pendente desta entrega; sem main/deploy, mapa externo ou ampliação do aceite M4. Registro em IA.md (055) e validation.md; referências remotas conferidas ao concluir.
+
 Cotações — autorização posterior em 12/11: usuário respondeu “autorizo” após apresentação de `82932d6`, autorizando publicação de `feature/cotacoes-validacao-conectada` e integração/publicação na `dev`. Substitui as indicações de autorização pendente deste registro; avaliação humana da extensão e encaminhamento à segunda transportadora continuam pendentes. Sem autorização de `main`/deploy. Registro em IA.md (054) e validation.md; referências remotas conferidas ao concluir.
 
 T28/D027 — autorização posterior em 12/11: usuário respondeu “pode integrar” após apresentação de `ba8f30b`, autorizando publicação de `feature/t28-m5-verificacao` e integração/publicação na dev. Substitui as indicações de publicação/integração pendentes da entrega T28 nos documentos; não inclui main/deploy ou aceite humano M5. Registro em IA.md (053) e validation.md; referências Git identificam a integração.
