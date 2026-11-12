@@ -2,6 +2,8 @@
 
 ## Cotações — percurso conectado, recarga e desistência — 12/11/2026
 
+Autorização posterior na mesma data: após apresentação do commit `82932d6`, usuário respondeu “autorizo” à publicação da feature e integração na `dev`. Substitui as indicações de autorização pendente deste registro; não inclui `main`, deploy, aceite humano da extensão ou teste com segunda transportadora. Checkout limpo e `origin` conferido antes do fetch; verificações funcionais preservadas, sem repetir escritas no demo. Registro em IA.md, interação 054; resultado da publicação conferido nas referências remotas ao concluir.
+
 Responsável: Codex, em `feature/cotacoes-validacao-conectada`, criada da dev limpa `828c002`. Pedido: verificar revisão, negociação, desistência e avisos, incluindo recarga; encaminhar a outra transportadora somente se já houvesse conta demo compatível. **Percurso conectado verificado; segunda transportadora indisponível; avaliação humana da extensão pendente.** Sem alteração de aplicação/schema/frota/contas, push/merge/deploy ou aceite de marco presumido.
 
 Ambiente: Vite `http://localhost:5173`, navegador integrado e Supabase demo `conexa` / `ppbneiusqlitvewwoact`. Quatro abas com Auth real e sessões independentes de comprador, Ana, João e Transporte Caminho. Habilidades de navegador/Supabase utilizadas; changelog e [RPC JavaScript](https://supabase.com/docs/reference/javascript/rpc) consultados. Sem bancadas em memória ou mutações de negócio por evaluate/CDP; CDP somente para dimensões/capturas.
