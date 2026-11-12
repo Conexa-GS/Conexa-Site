@@ -152,6 +152,26 @@ test('Bot UI: resposta perdida conserva pedido entre conversas e reconcilia sem 
   } finally { await ui.dispose() }
 })
 
+test('Bot UI: recarga após resposta perdida conserva confirmação e chave sem aplicar de novo', async () => {
+  const { ui, bot, choose, write, confirm } = await setup()
+  try {
+    await write('editar alface total 20 kg')
+    bot.loseResponse(); await confirm()
+    const key = bot.requests.at(-1).request_id
+    const { default: Page } = await ui.load('/src/features/conversations/ConversationsPage.jsx')
+    await ui.unmount()
+    const people = createConversationsFixture()
+    await ui.mountComponent(Page, { session: { id: 'ana', role: 'producer' }, service: people.service, botService: bot.service }, 'reloaded')
+    await choose('Bot Conexa')
+    assert.equal(ui.findButton('Criar oferta').disabled, true)
+    await ui.click('Verificar pedido pendente')
+    assert.equal(bot.requests.at(-1).request_id, key)
+    assert.equal(bot.writes.length, 1)
+    assert.equal(ui.findButton('Criar oferta').disabled, false)
+    assert.equal(ui.document.defaultView.sessionStorage.length, 0)
+  } finally { await ui.dispose() }
+})
+
 test('Bot UI: conflito preserva campos e exige nova prévia e confirmação', async () => {
   const { ui, bot, write, confirm } = await setup()
   try {
@@ -189,5 +209,25 @@ test('Bot UI: perguntas de criação, opções do catálogo e descarte sem escri
     await ui.click('Atualizar')
     assert.equal(ui.document.querySelectorAll('.conversation-history li').length, bot.messages.length)
     assert.match(ui.document.querySelector('.conversation-history').textContent, /Mensagem recuperada 89/)
+  } finally { await ui.dispose() }
+})
+
+test('Bot UI: rejeição de revisão por outra sessão recarrega a prévia; falha na revalidação esconde confirmação antiga', async () => {
+  const { ui, bot, write, confirm } = await setup()
+  try {
+    await write('editar alface total 20 kg')
+    const state = await bot.service.state()
+    await bot.service.turn({ conversation_id: 'bot-ana', request_id: 'other-session', revision: state.draft.revision, body: 'Cancelar em outra sessão', intent: 'cancel', fields: {} })
+    await confirm()
+    assert.equal(bot.writes.length, 0)
+    assert.equal(ui.document.querySelector('.bot-confirm'), null)
+    assert.ok(ui.findButton('Criar oferta'))
+    await write('editar alface total 20 kg')
+    const second = await bot.service.state()
+    await bot.service.turn({ conversation_id: 'bot-ana', request_id: 'other-again', revision: second.draft.revision, body: 'Cancelar em outra sessão', intent: 'cancel', fields: {} })
+    bot.service.state = async () => { throw new Error('Revalidação indisponível') }
+    await confirm()
+    assert.equal(ui.document.querySelector('.bot-confirm'), null)
+    assert.match(ui.document.querySelector('[role=alert]').textContent, /Revalidação indisponível/)
   } finally { await ui.dispose() }
 })

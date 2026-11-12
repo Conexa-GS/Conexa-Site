@@ -1,5 +1,15 @@
 # Conversas — preparação e roteiro T35/T38/T41
 
+Complemento D025 executado em 11/11/2026: criação/edição pelo bot com F5, consulta pelo comprador, mensagens entre sessões e recuperação controlada foram verificadas no navegador conectado. T35/T38 encerradas tecnicamente; T41 continua parcial por rede física, e T42/avaliação M6 permanecem abertas. [Evidências atuais](validation.md). Os registros de percurso pendente abaixo descrevem o estado anterior a esse complemento.
+
+## Roteiros adicionais da continuação D025
+
+`node tests/remote-bot-stock.mjs --check` confere configuração offline. `node tests/remote-bot-stock.mjs --run-demo`, somente no demo autorizado e com contas ociosas, usa chave pública/Auth/RLS: cria uma oferta própria pelo bot e demanda/carga com reserva de 10 kg; verifica prévia obsoleta, redução bloqueada e snapshots; usa veículo demo compatível já existente, aceita fornecimento/cotação e simula pagamento para converter a reserva em compromisso. Confere edição/arquivamento sem mudar operação paga/histórico. Em finally, cancela somente a carga criada, arquiva oferta/demanda próprias e encerra sessões. Histórico/comandos/cotação/pagamento/estorno fictícios permanecem. Guarda contra rascunho de bot em andamento; não substituir trabalho anterior para forçar passagem. Uma interrupção pode exigir consultar IDs/estado no relatório antes de repetir. Não aplica schema, usa administrador, movimenta dinheiro ou inicia transporte real.
+
+Resultado desta rodada: quatro grupos aprovados, relatório `artifacts/bot-stock-8b61aefc-0db5-4e6f-a1b7-8b050b753e6a.local.json`, oferta/demanda arquivadas, carga cancelada, pagamento refunded e reserva released. `.env` e relatório local não vão para o Git.
+
+`/tests/ui/conversations-connected.html` é entrada manual exclusiva do Vite dev, restrita à URL do demo. Usa componentes/serviços reais e permite selecionar uma falha única antes de enviar ou descartar o resultado depois que o serviço retornou a persistência. Selecionar falha não envia nada; a próxima mensagem/turno/confirmação consome a seleção uma vez. Após erro, recarregar, abrir a conversa e usar Verificar envio/Verificar pedido pendente. Conferir sucesso persistido, chave única e ausência de duplicação; não repetir o texto como novo envio. As mensagens fictícias permanecem no banco. Voz está desabilitada. A bancada não é incluída na entrada do build e **não demonstra interrupção física de rede**. Esta última continua uma subtarefa aberta de T41.
+
 11/11/2026. Preparado em `feature/conversas-validacao-demo`, criada da dev limpa `96e5f33`. **Execução remota autorizada e aprovada em nove grupos**, após apresentação do commit `76e306c`: migrations aplicadas ao demo, uma oferta própria arquivada e 82 mensagens fictícias preservadas. Relatório e versões em [validation.md](validation.md). Não encerra os critérios completos de T35/T38/T41, T42, M6 ou M5/T28. Sem OpenAI, microfone, WhatsApp ou cobrança.
 
 ## Avaliação antes da execução

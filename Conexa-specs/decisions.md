@@ -188,6 +188,14 @@ Saída usa scope local e troca explícita encerra a sessão anterior antes de au
 
 Revisão dirigida também corrigiu foco de Voltar às conversas: título da lista é focado após ela voltar a ficar visível. Evidências e limites em validation.md; sem mudança de SQL, regras de oferta ou aceite M6/M5. T41 continua parcial; publicação/integração dependem de autorização após avaliação. Referências oficiais: [getUser](https://supabase.com/docs/reference/javascript/auth-getuser), [getSession](https://supabase.com/docs/reference/javascript/auth-getsession), [eventos Auth](https://supabase.com/docs/reference/javascript/auth-onauthstatechange); comportamento de broadcast conferido no SDK instalado.
 
+## D025 — Pedidos incertos sobrevivem à recarga — 11/11/2026
+
+Status: implementada/verificada para avaliação em `feature/t41-bot-persistencia`, da dev `b4f203e`. Origem: pedido explícito de verificar e corrigir bot após recarga, mensagens entre sessões, recuperação e proteção de estoque/histórico, atualizando tasks.md. Substitui somente a limitação de D020/D024 que mantinha pedidos incertos exclusivamente em memória.
+
+Antes da chamada de envio/turno/confirmação, guardar texto/payload e chave em sessionStorage por aba/participante. Somente pedidos iniciados são retidos; texto ainda não enviado continua volátil e o histórico fica no Supabase. Ao recarregar, mostrar aviso para abrir a conversa e verificar explicitamente com a mesma chave; nunca reenviar sozinho. Remover somente o pedido cuja chave recebeu o resultado; respostas tardias não podem apagar pedidos novos. Storage bloqueado impede novo envio sem chave durável. Trocar participante oculta o journal anterior, mas o dono pode retomá-lo na mesma aba até conciliar; não apagar uma chave incerta ao sair. RLS/identidade/revisão permanecem no servidor.
+
+Rejeição definitiva por revisão concorrente remove a prévia antiga e exige estado atual, inclusive quando a reconsulta falha. Falhas controladas no limite do serviço com banco real/F5 demonstraram recuperação sem duplicação, e Auth/RLS real verificou reservas/compromissos/snapshots sem alterar regras de negócio. T35/T38 recebem conclusão técnica; T41 mantém interrupção física de rede pendente; T42, avaliação T43/M6 e M5/T28 preservadas. Evidências em validation.md. Sem API paga, nova migration ou autorização presumida de push/integração.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.
