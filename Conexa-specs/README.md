@@ -1,6 +1,8 @@
 # Conexa — Pacote de especificações
 
-Estado consolidado em **12/11/2026**: o site está implementado; M1–M4 têm aceite humano no escopo registrado. Texto/DM está tecnicamente verificado no demo, inclusive F5; T35/T38 encerradas tecnicamente. T41 mantém rede física pendente; voz/T42, avaliação T43/M6 e M5/T28 continuam abertas.
+Estado consolidado em **12/11/2026**: o site está implementado; M1–M4 têm aceite humano no escopo registrado. Texto/DM está tecnicamente verificado no demo, inclusive F5; T35/T38 encerradas tecnicamente. T28/M5 também encerrada tecnicamente no demo; aceite M5 pendente. T41 mantém rede física pendente; voz/T42 e avaliação T43/M6 continuam abertas.
+
+Complemento T28/D027, 12/11: AC18–21 verificados com Auth/RLS e concorrência reais; pagamento até entrega/divergência/resolução/repasses percorridos no navegador conectado dos três perfis, com F5 e revisão em 360 px/desktop. Corrigido bloqueio de recebimento quando o alimento arredonda a zero centavos; migration corretiva aplicada ao demo. [Evidências](validation.md#t28m5--fechamento-completo-no-demo--12112026). Feature `feature/t28-m5-verificacao` ainda em avaliação, sem autorização presumida de publicação/integração.
 
 Complemento local D026, 12/11: recuperação de consulta do bot corrigida; offline da aba, reconciliação automática, F5 e reenvio único de DM/pedido do bot verificados no navegador integrado/demo. Lint, 109 testes/build aprovados; cinco DMs e um pedido auditável únicos. Usuário optou por adiar a prova física; a emulação não comprovou queda do WebSocket. Feature ainda em avaliação, sem publicação/integração presumida. [Evidências](validation.md#t41d026--recuperação-controlada-e-modo-offline-do-navegador--12112026).
 

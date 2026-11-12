@@ -1375,3 +1375,35 @@ Prova física foi preparada, mas usuário escolheu deixá-la pendente; mensagem 
 Banco idempotente exige chave durável e replay correspondente; F5 e contagem remota confirmam mais do que um clique isolado. Recuperar uma consulta não pode ser anunciado como confirmação de uma escrita incerta. A regressão protege essa diferença e evita alerta obsoleto que fazia a recuperação parecer malsucedida. Falha no serviço, emulação offline e interrupção física têm alcances diferentes; a última foi adiada explicitamente, e o WebSocket existente não foi comprovadamente interrompido pela emulação. Testes locais e navegador real são complementares, com evidências separadas de aceite/publicação.
 
 Complemento de autorização da interação 052 — 12/11/2026: após apresentação do commit `0c6e564`, verificações, evidências e pendência física, usuário respondeu “autorizo” à publicação da `feature/t41-rede-recuperacao` e integração na `dev`. Origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, checkout limpo e fetch concluído antes de registrar. Autoriza push da feature e integração/publicação na dev, sem force push; não inclui promoção para main, deploy, nova migration, teste pago ou encerramento de T41/M6. Verificações anteriores preservadas, sem repetir escritas no demo para uma integração sem mudança funcional adicional. Referências remotas devem ser conferidas após publicação.
+
+## Interação 053 — T28/M5: ciclo completo, permissões e repasses no demo — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para ler especificações/código, preparar roteiro e regressão, corrigir SQL e documentar evidências. PowerShell/Git/apply_patch, Node/npm/PGlite/Vite; skill Supabase, referência de segurança/RLS Postgres e documentação oficial/changelog. Conector Supabase para projetos/migrations/logs/advisors, consultas de leitura e aplicação da migration corretiva; cliente com chave pública/Auth/RLS para todas as escritas de negócio. Navegador integrado para interface real, F5 e viewports; CDP somente para dimensões/capturas, sem mutações de negócio. Sem subagentes, nova conta demo, API paga, mensagem externa, transporte físico ou dinheiro real.
+
+### Prompts e respostas representativos
+
+Transcrição integral do prompt de programação:
+
+> Execute a verificação técnica pendente da T28/M5 no Supabase demo. Percorra pagamento simulado, agendamento, viagem fictícia, divergência, resolução, recebimento e repasses. Confira permissões, persistência e idempotência, corrigindo as falhas encontradas.
+
+Resposta inicial real: “Vou ler as especificações e o estado da T28/M5, verificar o fluxo no Supabase demo e corrigir as falhas encontradas. Vou usar a skill do Supabase para orientar a verificação.” Sem registrar consultas/esclarecimentos ou inventar aprovação humana.
+
+### Aplicação no projeto
+
+`feature/t28-m5-verificacao` criada da dev limpa `3bdeee6`; sandbox impediu gravação da branch, repetida com escalonamento aprovado antes de editar. `tests/remote-m5.mjs` cria fixtures próprias, confere ambiente/identidade, executa AC18–21 em sessões reais e chamadas concorrentes, conserva relatórios locais e arquiva seus cadastros sem apagar histórico. Opções de preparação/conferência de UI e recuperação da carga que falhou; scripts npm para checagem offline e execução autorizada. Escritas diretas exigem erro 42501, evitando falso positivo por outra restrição.
+
+Falha real: alimento de 0,001 kg a 1 centavo/kg com mínimo zero arredonda a zero; pagamento/frete/viagem funcionavam, mas recebimento falhava em `simulated_payouts.amount_cents > 0`. Regressão em `tests/m5-database.mjs` reproduziu antes de corrigir. Migration `20261112205456_m5_zero_cent_payouts.sql`, criada pela CLI oficial 3.1.0, permite zero e proíbe negativos, mantendo uma parcela por beneficiário, valores/simulação/unicidade/RLS. Aplicada ao demo autorizado como `20261112205536`. D027 registra a compatibilização com RN34/RN44. README, estado, tasks, handoff, plano, spec, regras, modelo/contrato e validation atualizados, sem apagar relatos históricos.
+
+### Verificação, testes e ajustes reais
+
+Lint aprovado; **109 testes Node**, **nove scripts PGlite**, build aprovado (principal 684,56 kB/gzip 195,77 kB, aviso herdado >500 kB); checagem offline/diff aprovados. PGlite reproduziu 23514 antes de corrigir; depois recebimento/replay criam parcelas [0,8000], e negativo é rejeitado. Primeiro comando remoto falhou no fetch do sandbox, zero login/fixtures; execução com rede autorizada confirmou seis grupos antes de encontrar o caso limite. Carga original recuperada após corrigir, sem duplicação. Duas suítes completas posteriores passaram em sete grupos; última exige 42501 em INSERT/UPDATE/DELETE para quatro perfis. Testes verificam total do servidor, chave/conteúdo, versões, bloqueios, compromisso sem dupla baixa, estorno único, resolução separada, recebimento concorrente, parcelas e reautenticação. Terceiro usa produtor alheio à carga, sem segunda transportadora nova.
+
+Navegador normal conectado em três abas/perfis: comprador registrou pendente/recusado/aprovado; transportador iniciou viagem fictícia; comprador registrou divergência, observou bloqueio, recarregou, registrou resolução, recarregou ainda sem repasses e confirmou recebimento. Histórico após novo F5 mantém R$150/R$100/R$80; Ana/transportador após F5 veem só R$150/R$80. Comprador revisto em 360×800/1366×900, demais perfis em 360 e consultados em desktop; sem overflow observado, sem alteração de UI. Captura desktop inicial recortada foi substituída pela captura CDP correta; viewports restritos a abas temporárias. Sem auditoria completa de teclado/acessibilidade. Relatórios/capturas locais e UUIDs em validation.md; consulta final conferiu dez cargas próprias (sete entregues/três canceladas), zero ocorrências abertas, ofertas/demandas próprias arquivadas. Histórico fictício e compromissos entregues preservados; não se alteraram operações anteriores.
+
+Advisors de segurança antes/depois sem novos achados: avisos prévios de funções públicas, tabelas WhatsApp privadas sem policy e senha vazada desabilitada registrados com links. Saúde sem achados; performance inicial registrada. Não representam certificação geral de segurança. Migrations antigas não reaplicadas; sem reset/repair/db push. T28 encerrada tecnicamente; aceite humano M5 e autorização para publicar/integrar esta feature continuam pendentes. T41/T42/T43/M6 e encaminhamento RN49 mantêm pendências próprias.
+
+### Análise crítica
+
+O percurso nominal passava, mas um valor válido nas fronteiras de arredondamento deixava a entrega paga sem conclusão. Preservar zero no registro evita criar preço mínimo artificial ou omitir beneficiário. Concorrência real, reautenticação, leitura final e navegador complementam PGlite: repetição sequencial isolada não comprova corrida, e clicar não comprova persistência. Fixtures próprias mantêm rastreabilidade, com custo de histórico fictício permanente no demo; arquivamento não libera compromissos de cargas entregues. Isolamento de outra transportadora, auditoria integral de acessibilidade, aceite humano e publicação não foram inferidos dos testes executados.

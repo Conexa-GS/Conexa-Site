@@ -204,6 +204,14 @@ Status: implementada/verificada para avaliação na `feature/t41-rede-recuperaca
 
 Na continuação de T41, separar o erro da consulta do bot do erro de uma ação. Carregar estado/histórico com sucesso remove o alerta da consulta anterior, mas não elimina o alerta de um pedido incerto, não desbloqueia seu compositor e não limpa sua chave durável. Somente o resultado do reenvio explícito correspondente pode reconciliar o pedido (D025). Teste de regressão e bancada em memória verificam essa distinção; evidências remotas e limites de rede são registrados separadamente em validation.md.
 
+## D027 — Repasse simulado de zero centavos preserva o recebimento — 12/11/2026
+
+Status: implementada e verificada localmente e no demo em `feature/t28-m5-verificacao`, criada da dev `3bdeee6`; avaliação humana/publicação/integração pendentes. Origem: pedido explícito de executar T28/M5 e corrigir falhas no demo.
+
+Quantidade válida de 0,001 kg a 1 centavo/kg, com mínimo zero, produz bruto e mínimo de zero centavos pela RN34. A operação era cotada/paga normalmente (frete R$80), mas `receive` falhava na restrição `amount_cents > 0`, deixando-a em trânsito. Manter uma parcela por beneficiário e permitir `amount_cents >= 0` em `simulated_payouts` reconcilia a restrição com o arredondamento já existente. Não elevar preço, alterar mínimo ou omitir beneficiário. Negativos, exclusividade de simulação, unicidade, RPC e RLS permanecem protegidos.
+
+Migration local `20261112205456_m5_zero_cent_payouts.sql`, criada pela CLI oficial, aplicada ao demo autorizado como versão `20261112205536`. Regressão PGlite reproduziu o erro antes da correção; recebimento/replay após correção geram parcelas 0/8000, com rejeição de valor negativo. A própria carga que revelou a falha foi concluída via Auth/RLS após corrigir o schema. Suíte remota completa e navegador também verificados; evidências/limites em validation.md. T28 encerrada tecnicamente, sem presumir aceite M5.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.

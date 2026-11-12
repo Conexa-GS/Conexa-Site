@@ -1,5 +1,7 @@
 # Modelo de dados — implementação e evolução
 
+Atualização T28/D027 — 12/11/2026: ciclo completo de entrega/divergência/resolução/repasses, permissões, persistência e idempotência verificados no demo por API e navegador dos três perfis. Aceite humano M5 pendente. Parcela simulada zero preserva arredondamento e uma parcela por beneficiário; negativos continuam proibidos. Evidências e versões em validation.md; relatos datados anteriores preservam seus limites históricos.
+
 Estado vigente em [estado-atual.md](estado-atual.md): M4/M5/revisões e Conversas aplicados ao demo. Seções datadas descrevem a implementação naquela etapa; WhatsApp está pausado por D018 e o demonstrador inicial não representa todos os experimentos posteriores. Modelo/contrato de Conversas em conversas-site.md, D020–D025. Nenhuma nova migration nesta consolidação.
 
 Modelo lógico e registros das implementações por marco. Migrations existentes definem o schema implementado; tabelas conceituais não são automaticamente tabelas criadas. Supabase/PostgreSQL é a persistência; serviços não podem contornar integridade financeira ou de estoque.
@@ -33,7 +35,7 @@ T30: entidades planejadas de vínculo, sessão, inbox, publicação idempotente 
 | transport_quotes | id, load_id, carrier_id, vehicle_id, source (carrier/producer_indication), indicated_by opcional, status, total_cents, expires_at, services_included, departure_time, load_version | M3 |
 | route_stops | id, load_id, position, location_id, kind (departure/pickup/destination/return), stop_minutes | M3 |
 | payment_attempts | id, load_id, proposal_version, amount_cents, status (pending/approved/declined/refunded), idempotency_key, is_simulated=true | M5 |
-| simulated_payouts | id, load_id, recipient_id, kind, amount_cents, status; único por carga/destinatário/tipo | M5 |
+| simulated_payouts | id, load_id, recipient_id, kind, amount_cents >= 0, status; único por carga/destinatário/tipo; zero preserva arredondamento RN34/D027 | M5 |
 | operation_events | id, load_id, participant_id, event_type, from_status, to_status, version, reason, created_at | M2+ |
 | delivery_occurrences | id, load_id, description, status, resolution, resolved_at | M5 |
 
