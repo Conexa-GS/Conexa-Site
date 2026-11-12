@@ -5,6 +5,7 @@ import { useConversations } from '../../hooks/useConversations'
 import { conversationService } from '../../services/conversations'
 import './conversations.css'
 import BotThread from './BotThread'
+import { createConversationOutbox } from '../../services/conversation-outbox'
 
 const time = value => new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Sao_Paulo' }).format(new Date(value))
 const merge = (previous, next) => [...new Map([...previous, ...next].map(message => [message.id, message])).values()].sort((a, b) => BigInt(a.seq) < BigInt(b.seq) ? -1 : BigInt(a.seq) > BigInt(b.seq) ? 1 : 0)
@@ -75,12 +76,12 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
     event.preventDefault()
     if (sendingRef.current || !composer.body.trim()) return
     const attempt = { body: composer.body.trim(), key: composer.key || crypto.randomUUID(), locked: true }
-    setComposer(attempt)
     sendingRef.current = true; setSending(true); setSendError(''); setNotice('')
     try {
+      setComposer(attempt)
       const message = await service.send(id, attempt.key, attempt.body)
       // O mesmo identificador acompanha reenvios, inclusive após troca de conversa.
-      setComposer({ body: '', key: null, locked: false })
+      if (!setComposer({ body: '', key: null, locked: false }, attempt.key)) return
       if (alive.current) {
         setHistory(previous => ({ ...previous, messages: merge(previous.messages, [message]) }))
         setNotice('Mensagem enviada.'); input.current?.focus(); end.current?.scrollIntoView({ block: 'nearest' })
@@ -111,7 +112,8 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
 export default function ConversationsPage({ session, service = conversationService, botService, voice, initialBot = false }) {
   const inbox = useConversations(session, service)
   const [selected, setSelected] = useState(initialBot ? 'bot' : null)
-  const [drafts, setDrafts] = useState({})
+  const [outbox] = useState(() => createConversationOutbox(session.id))
+  const [drafts, setDrafts] = useState(() => outbox.load())
   const [opening, setOpening] = useState(false)
   const [actionError, setActionError] = useState('')
   const openRef = useRef(false)
@@ -124,6 +126,11 @@ export default function ConversationsPage({ session, service = conversationServi
     }
   }, [selected])
   const conversation = inbox.conversations.find(item => selected === 'bot' ? item.kind === 'bot' : item.id === selected)
+  function updateComposer(id, draft, expectedKey) {
+    if (!outbox.save(id, draft, expectedKey)) return false
+    setDrafts(previous => ({ ...previous, [id]: draft }))
+    return true
+  }
   async function openContact(peer) {
     if (openRef.current) return
     openRef.current = true; setOpening(true); setActionError('')
@@ -137,6 +144,8 @@ export default function ConversationsPage({ session, service = conversationServi
     <p className="preview-notice">M6 · Prévia em avaliação. Mensagens e bot por texto dependem das migrations no Supabase demo. Interpretação simulada sem custo; voz em preparação.</p>
     {inbox.error && <ErrorNotice retry={inbox.reload}>{inbox.error}</ErrorNotice>}
     {actionError && <ErrorNotice autoFocus>{actionError}</ErrorNotice>}
+    {outbox.warning() && <p role="status">{outbox.warning()} Confira o histórico antes de iniciar outro envio.</p>}
+    {Object.values(drafts).some(draft => draft.locked) && <p role="status">Há envio a verificar nesta aba. Abra a conversa e use Verificar envio ou Verificar pedido pendente antes de iniciar outro.</p>}
     <div className={`conversations-layout ${conversation ? 'has-selection' : ''}`}>
       <aside className="conversation-sidebar" aria-label="Lista de conversas"><div className="conversation-list-heading"><h2 ref={listHeading} tabIndex={-1}>Conversas</h2><button className="text-link" onClick={inbox.reload}>Atualizar</button></div>
         {inbox.loading && <p role="status">Carregando conversas…</p>}
@@ -146,8 +155,8 @@ export default function ConversationsPage({ session, service = conversationServi
       <div className="conversation-main">{conversation ? <>
         <button className="conversation-back text-link" onClick={back}><ArrowLeft size={18} aria-hidden="true" />Voltar às conversas</button>
         {conversation.kind === 'bot'
-          ? <BotThread key={conversation.id} conversation={conversation} session={session} service={botService} voice={voice} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />
-          : <Thread key={conversation.id} conversation={conversation} session={session} service={service} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', key: null, locked: false }} setComposer={draft => setDrafts(previous => ({ ...previous, [conversation.id]: draft }))} />}
+          ? <BotThread key={conversation.id} conversation={conversation} session={session} service={botService} voice={voice} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', locked: false }} setComposer={(draft, expectedKey) => updateComposer(conversation.id, draft, expectedKey)} />
+          : <Thread key={conversation.id} conversation={conversation} session={session} service={service} revision={inbox.revision} refresh={inbox.reload} composer={drafts[conversation.id] || { body: '', key: null, locked: false }} setComposer={(draft, expectedKey) => updateComposer(conversation.id, draft, expectedKey)} />}
       </> : <div className="conversation-welcome"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /><h2>{selected === 'bot' ? inbox.loading ? 'Abrindo Bot Conexa…' : 'Bot Conexa indisponível.' : 'Escolha uma conversa.'}</h2><p>{selected === 'bot' ? inbox.loading ? 'Carregando seu histórico e as opções do bot.' : 'Use Atualizar para tentar carregar seu bot novamente.' : 'O Bot Conexa fica no início da lista. Para falar com uma pessoa, escolha um contato demo.'}</p></div>}</div>
     </div>
   </>

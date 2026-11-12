@@ -1,5 +1,45 @@
 # Verificação da primeira versão — 07/11/2026
 
+## T41/D025 — bot e mensagens após recarga, recuperação e estoque — 11/11/2026
+
+Responsável: Codex. Branch `feature/t41-bot-persistencia`, criada da dev limpa `b4f203e`. Pedido explícito para verificar/corrigir criação/edição pelo bot após recarga, mensagens entre sessões, recuperação e proteção de reservas/compromissos/histórico, atualizando tasks.md. T35/T38 encerradas **tecnicamente** com as evidências anteriores de Auth/RLS/concorrência/Realtime e as desta rodada; T41 continua parcial pela interrupção física de rede não exercitada. T42/voz real, avaliação T43/M6 e M5/T28 preservadas. Sem nova migration, push, integração, deploy ou aprovação humana presumida.
+
+Correções: `conversation-outbox.js` registra pedido incerto antes da chamada em sessionStorage, por aba/participante. Só guarda envios iniciados, não texto ainda não enviado nem histórico completo. F5 permite verificação explícita da mesma chave, sem envio automático. Se não consegue persistir a chave, não inicia a chamada. Resposta antiga não limpa pedido de outra chave. `ConversationsPage.jsx` usa o journal para DM/bot; `BotThread.jsx` esconde prévia antiga e revalida após rejeição definitiva de revisão, inclusive se a reconsulta falhar. Outro participante não recebe dados do journal; retornar ao dono na mesma aba permite concluir pedido incerto. Storage do navegador não é autorização: RPC/RLS continuam decidindo identidade, revisão e efeitos.
+
+| Verificação executada | Resultado |
+| --- | --- |
+| `npm.cmd run lint` | Aprovado, sem avisos na rodada final. Primeiro lint da bancada conectada exigiu exportar seu componente para Fast Refresh; corrigido. |
+| `npm.cmd test` | **108 testes aprovados**, zero falhas; seis novos sobre journal/recarga, resposta tardia e rejeição/revalidação. Domínio/componentes e voz simulada preservados. |
+| `npm.cmd run test:db` | Nove scripts PGlite aprovados: M1–M5, revisões, Conversas, bot e cenário de aceitação. Identidade simulada/conexão serial, sem atribuir concorrência remota a PGlite. |
+| `npm.cmd run build` | Aprovado; principal 684,46 kB/gzip 195,79 kB. Aviso herdado de chunk >500 kB. Bancada conectada fora da entrada de produção. |
+| `node tests/remote-bot-stock.mjs --check` | Configuração pública/destino demo conferidos offline. |
+| `node tests/remote-bot-stock.mjs --run-demo` | Quatro grupos aprovados com Auth/RLS e fluxo reserva→pagamento simulado reais no demo. Primeira tentativa no sandbox falhou no fetch, antes de criar fixtures; execução com rede autorizada passou. |
+
+Percurso no site normal conectado (`localhost:5173`, Supabase demo `ppbneiusqlitvewwoact`), via Computer Use:
+
+- Ana criou oferta pelo Bot Conexa com perguntas, 20,125 kg a 507 centavos, mínimo 400, disponibilidade 11–18/11 e vencimento desconhecido. F5 retomou prévia revisão 28 antes de confirmar; confirmou por Enter, resultado persistido e histórico sobreviveram a outra recarga.
+- Editou apenas sua oferta de teste para 22 kg; F5 retomou prévia revisão 29 sem aplicar, confirmação gerou versão 2. Comprador em outra aba nova, com Auth/storage independentes, consultou após F5 os mesmos 22 kg/R$5,07. Abas novas, sem duplicar sessão inicial.
+- Ana/comprador trocaram mensagem/resposta fictícias. Lista compradora atualizou não lidas (uma mensagem anterior mais a nova), abertura reconciliou leitura; F5 conservou o cursor. Produtor após F5 consultou resposta/não lida e abriu histórico. Ana/João também trocaram duas mensagens no site normal; João viu somente o histórico desse par, sem as mensagens de Ana/comprador. Essa observação de UI complementa RLS e janela Realtime anteriores; não é prova universal de ausência de vazamento.
+
+Recuperação controlada em `/tests/ui/conversations-connected.html`, **mesmos componentes e serviços reais**, sem fixture de ofertas/mensagens em memória: falha única antes de chamar o serviço conservou texto/chave; F5 e Verificar envio persistiram a mensagem. Em outro envio, serviço retornou resultado persistido e a bancada descartou a resposta antes de entregá-la ao componente; F5 manteve texto bloqueado e Verificar envio reconciliou. Repetido na versão final, sem HMR intermediário. Confirmação de edição da oferta própria para 600 centavos também perdeu resposta, recarregou e usou Verificar pedido pendente, mantendo versão 3 e uma única aplicação. Erro recebeu foco; resultado focou `.bot-feedback`; Enter usado para abrir, enviar, confirmar e verificar. Não houve sucesso anunciado antes da resposta recuperada.
+
+A bancada declara a falha no limite do serviço: **não é uma queda física de rede nem interrupção real do websocket**. Edições por HMR durante a revisão conservaram closures antigas do journal e geraram aviso de createRoot; descartadas por recarga completa e percurso final repetido. Em campo de data, fill da automação alterou o valor nativo sem atualizar React; ArrowUp/ArrowDown geraram evento e o rascunho remoto confirmou as datas corretas. Não foi atribuído esse comportamento à pessoa usuária.
+
+Revisão final após o navegador reforçou a comparação da chave contra o journal persistido, evitando que uma instância de página antiga limpe pedido da página nova. Teste desmonta a página, reconcilia o pedido na nova instância, inicia outro envio e libera a resposta antiga: texto/chave novos permanecem e o reenvio conclui uma vez. Lint, 108 testes e build repetidos/aprovados após esse ajuste; sem nova rodada visual, pois não altera a interface.
+
+Revisão dirigida em 360×800 (erro, F5, campo bloqueado, verificação e resultado do bot) e 1366×900 (histórico/resultado e DM). Medidas DOM: scrollWidth 345 com innerWidth 360; 1351 com innerWidth 1366, sem overflow horizontal observado. Viewport inicialmente afetou somente a aba mais recente; largura real foi medida, e a bancada móvel só foi contada após fechar essa aba e medir 360. Viewport restaurado. Não é auditoria completa de acessibilidade/teclado/leitor de tela. Capturas locais fora do Git em `C:/Users/Murilo/.codex/visualizations/2026/11/11/01a1ccfd-403e-7450-95b7-7a90aa092612/`: `t41-falha-360.jpg`, `t41-resposta-perdida-360.jpg`, `t41-bot-recuperado-360.jpg`, `t41-bot-recuperado-desktop.jpg`, `t41-mensagens-desktop.jpg`.
+
+Estoque/histórico remoto: relatório ignorado pelo Git `artifacts/bot-stock-8b61aefc-0db5-4e6f-a1b7-8b050b753e6a.local.json`, status passed. Script usa somente chave pública e sessões Auth reais; nenhuma escrita administrativa:
+
+1. Oferta própria 20 kg; reserva real de 10 kg após a prévia invalida confirmação antiga. Nova prévia de 5 kg é bloqueada pelo banco; saldo livre permanece 10 kg.
+2. Editar preço/vencimento do cadastro preserva a linha/snapshot da carga; trocar alimento vinculado é bloqueado.
+3. Fornecimento, cotação com veículo demo existente, seleção e três aceites levam a pagamento exclusivamente simulado aprovado. Reserva passa a compromisso sem dupla baixa. Reduzir para 9 kg é bloqueado; editar validamente para 25 kg/R$9 preserva compromisso, itens, eventos, valores/versão da carga, aceites e pagamento, deixando 15 kg livres.
+4. Arquivar pelo bot preserva registro físico, compromisso, snapshots e histórico do bot. Limpeza cancela a carga própria, estorna simulação e libera compromisso; arquiva demanda/oferta próprias. Nada apagado.
+
+Conferência final somente leitura pelo conector: oferta do navegador `a3f58628-cf64-4751-83df-7866cb3914cb` arquivada, versão 4, **um pedido auditável em cada versão 1/2/3/4**; sete mensagens humanas da rodada presentes **uma vez cada**. Oferta do script `eb94b5d4-b25b-4d4b-964a-fc2c6eadc37c` arquivada, versão 4; carga `d3d1963c-b3eb-4c4a-a6b6-473ce7bd3691` cancelada, um pagamento refunded, reserva de 10 kg released; demanda `4feb0028-7c7f-40e6-827a-47dd7367ead1` arquivada pelo script. Histórico fictício/comandos permanecem; dados anteriores preservados. Nove grupos remotos de concorrência/Realtime anteriores não foram repetidos nesta rodada sem alteração de SQL.
+
+Limites restantes: interrupção física de rede, serviço opcional de voz com Auth/provedor reais e T42, avaliação humana da M6/T43. Sem microfone, API paga ou mensagem externa. A entrega não encerra M5/T28 ou os itens acadêmicos T31–T33; autorização de integração/publicação deve ser solicitada após apresentar esta feature.
+
 ## T41 — Retomada da sessão demo e isolamento por aba D024 — 11/11/2026
 
 Responsável: Codex. Feature `feature/t41-retomada-sessao`, criada da dev limpa `785442d`. Configuração anterior desabilitava persistência Auth e o hook perdia o participante ao recarregar. Agora usa sessionStorage com chave persistente por projeto, canal Auth exclusivo por documento, validação `getUser` no servidor e consulta RLS do participante. Apenas conta configurada/is_demo/papel correspondente é retomada. Troca explícita encerra a sessão anterior; saída usa scope local. Carregamento e falha são apresentados; respostas atrasadas não substituem uma seleção nova. Voltar às conversas agora foca o título da lista após remontagem visível.

@@ -135,3 +135,57 @@ test('Conversas: reconexão recupera mais de uma página nova sem lacunas ou dup
     assert.match(ui.document.querySelector('.conversation-history li:last-child').textContent, /offline 93/)
   } finally { await ui.dispose() }
 })
+
+test('Conversas: resposta perdida e recarga do componente preservam texto/chave; outra conta não recebe o envio', async () => {
+  const { ui, fixture, Page, choose, write } = await setup()
+  const original = fixture.service.send
+  try {
+    await choose('Restaurante')
+    fixture.service.send = async (...args) => { await original(...args); throw new Error('Resposta perdida após gravar') }
+    await write('Verificação fictícia após recarga')
+    await ui.click('Enviar')
+    const key = fixture.sends[0].key
+    await ui.unmount()
+    await ui.mountComponent(Page, { session: { id: 'buyer', role: 'buyer' }, service: createConversationsFixture('buyer').service }, 'buyer')
+    assert.doesNotMatch(ui.document.body.textContent, /Há envio a verificar|Verificação fictícia após recarga/)
+    await ui.unmount()
+    await ui.mountComponent(Page, { session, service: fixture.service }, 'ana-reloaded')
+    assert.match(ui.document.body.textContent, /Há envio a verificar/)
+    await choose('Restaurante')
+    assert.equal(ui.document.getElementById('conversation-message').disabled, true)
+    assert.equal(ui.document.getElementById('conversation-message').value, 'Verificação fictícia após recarga')
+    fixture.service.send = original
+    await ui.click('Verificar envio')
+    assert.equal(fixture.sends.at(-1).key, key)
+    assert.equal(fixture.messages.filter(m => m.body === 'Verificação fictícia após recarga').length, 1)
+    assert.equal(ui.document.defaultView.sessionStorage.length, 0)
+  } finally { await ui.dispose() }
+})
+
+test('Conversas: resposta tardia de página desmontada não apaga um envio mais recente', async () => {
+  const { ui, fixture, Page, choose, write } = await setup()
+  const original = fixture.service.send
+  let release
+  try {
+    await choose('Restaurante')
+    fixture.service.send = async (...args) => { const message = await original(...args); await new Promise(resolve => { release = resolve }); return message }
+    await write('Primeiro envio demorado')
+    await ui.click('Enviar')
+    await ui.unmount()
+    await ui.mountComponent(Page, { session, service: fixture.service }, 'new-page')
+    await choose('Restaurante')
+    fixture.service.send = original
+    await ui.click('Verificar envio')
+    fixture.setFailure(true)
+    await write('Segundo envio a preservar')
+    await ui.click('Enviar')
+    await ui.act(async () => { release() })
+    assert.equal(ui.document.getElementById('conversation-message').value, 'Segundo envio a preservar')
+    assert.equal(ui.document.getElementById('conversation-message').disabled, true)
+    const stored = JSON.parse(ui.document.defaultView.sessionStorage.getItem('conexa-outbox-v1:ana'))
+    assert.equal(stored.direct.key, fixture.sends.at(-1).key)
+    fixture.setFailure(false)
+    await ui.click('Verificar envio')
+    assert.equal(fixture.messages.filter(m => m.body === 'Segundo envio a preservar').length, 1)
+  } finally { await ui.dispose() }
+})

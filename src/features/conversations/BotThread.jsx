@@ -86,10 +86,10 @@ export default function BotThread({ conversation, session, service = siteBotServ
   async function execute(action, payload) {
     if (lock.current) return
     lock.current = true; setBusy(true); setError(''); setNotice('')
-    setComposer({ ...composer, pending: { action, payload }, locked: true })
     try {
+      setComposer({ ...composer, pending: { action, payload }, locked: true })
       const result = await service[action](payload)
-      setComposer({ body: '', key: null, locked: false })
+      if (!setComposer({ body: '', key: null, locked: false }, payload.request_id)) return
       if (live.current) {
         setEditField(null)
         setContext(previous => ({ ...previous, draft: result.draft }))
@@ -98,8 +98,17 @@ export default function BotThread({ conversation, session, service = siteBotServ
         await load(); refresh()
       }
     } catch (error) {
-      if (error.definitive) setComposer({ ...composer, pending: null, locked: false })
-      if (live.current) setError(error.message)
+      let message = error.message
+      if (error.definitive) {
+        try {
+          if (!setComposer({ ...composer, pending: null, locked: false }, payload.request_id)) return
+          // Another session may have changed the draft. Hide stale controls
+          // even if revalidation fails; only a fresh state can confirm again.
+          if (live.current) setContext(null)
+          await load()
+        } catch (failure) { message += ` ${failure.message}` }
+      }
+      if (live.current) setError(message)
     } finally { lock.current = false; if (live.current) setBusy(false) }
   }
   function prepare(text, proposal) {
