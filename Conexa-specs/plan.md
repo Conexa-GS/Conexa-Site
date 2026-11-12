@@ -1,6 +1,6 @@
 # Plano de continuidade
 
-Estado e próximos passos em [estado-atual.md](estado-atual.md). M1–M4 têm aceite no escopo registrado; T35/T38 estão tecnicamente verificadas. Priorizar a pendência física de rede de T41 e a avaliação T43 de texto/DM; T42/voz real é do usuário. T28/M5 e a extensão de cotações mantêm roteiros próprios. Não reabrir marcos aceitos como implementação inicial.
+Estado e próximos passos em [estado-atual.md](estado-atual.md). M1–M4 têm aceite no escopo registrado; T35/T38 e T28 estão tecnicamente verificadas. T28 inclui Auth/RLS/concorrência e ciclo completo no demo, navegador dos três perfis/F5 e D027; aceite M5 e publicação/integração da feature pendentes. Priorizar a pendência física de rede de T41 e a avaliação T43 de texto/DM; T42/voz real é do usuário. A extensão de cotações mantém pendências próprias. Não reabrir marcos aceitos como implementação inicial.
 
 ## Arquitetura existente
 

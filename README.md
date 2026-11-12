@@ -1,6 +1,6 @@
 # Conexa
 
-Estado consolidado em **12/11/2026**: consulte [implementação, verificação técnica e aceite humano](Conexa-specs/estado-atual.md). M1–M4 aceitos no escopo registrado; texto/DM tecnicamente verificado no demo e integrado. T41/rede física, T42/voz real, T43/aceite M6 e T28/aceite M5 continuam pendentes. Integração Git não comprova deploy.
+Estado consolidado em **12/11/2026**: consulte [implementação, verificação técnica e aceite humano](Conexa-specs/estado-atual.md). M1–M4 aceitos no escopo registrado; texto/DM e T28/M5 tecnicamente verificados no demo. T41/rede física, T42/voz real, T43/aceite M6 e aceite M5 continuam pendentes. Integração Git não comprova deploy; a feature T28 ainda depende de autorização de publicação/integração.
 
 Do campo pra cidade. Mais juntos.
 
@@ -45,13 +45,13 @@ npm run preview
 | Demandas | `/comprador/demandas` | CRUD remoto, arquivo e propostas do comprador |
 | Composição | `/comprador/demandas/:id/composicao` | Busca compatível, seleção e candidata; envio cria reservas atômicas |
 | Solicitações e veículos | `/transportador/solicitacoes`, `/transportador/veiculos` | M3: cadastro de veículos e cotações persistidas |
-| Transporte e valores | `/operacoes` | M3 persistida; M5 em avaliação, com migration demo aplicada e testes parciais por API |
+| Transporte e valores | `/operacoes` | M3 persistida; T28/M5 verificada no demo por API/navegador, com aceite M5 pendente |
 | Operação e valores | `/operacoes/exemplo` | Roteiro textual e resumo fictício |
 | Pagamento | `/operacoes/exemplo/pagamento` | Prévia de mensagens, sem cobrar/agendar |
 
 O acesso a cada espaço exige selecionar um participante fictício. Com Supabase e sessionStorage disponível, recarregar a mesma aba retoma o participante validado. Não representa autenticação segura de produção.
 
-M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. M5 tem migration aplicada ao demo e testes remotos parciais de pagamento/cancelamento; entrega/divergência/repasses remotos e revisão conectada da interface permanecem pendentes. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3/M5 explicam a falta de configuração e não simulam gravação persistida.
+M2 e M3 usam Supabase para demandas, composição, reservas, transporte, totais e aceites. M5 foi verificada no demo em 12/11: pagamento, agendamento, viagem fictícia, divergência/resolução, recebimento e repasses, com Auth/RLS, concorrência e recarga nos três perfis. Aceite humano M5 pendente. Operação e pagamento de exemplo permanecem como prévias independentes. Sem Supabase, M2/M3/M5 explicam a falta de configuração e não simulam gravação persistida.
 
 ## Experimentar a M6 — prévia em avaliação
 
@@ -88,7 +88,7 @@ IA/voz opcional T39/T40 preparada localmente: configuração desabilitada por pa
 
 Com URL e chave configuradas, a aplicação usa Supabase Auth e PostgreSQL. Uma falha remota gera erro; não retorna silenciosamente ao mock. RLS limita acesso por participante. Produto, locais, preço/mínimo, datas, precisão, papel, versão e saldo são verificados no banco. Ofertas vinculadas preservam snapshots; excluir exige ausência de vínculos, e arquivar mantém o histórico.
 
-**M1–M4 concluídos por aceite do usuário; M5 em avaliação.** M4 foi confirmado em 09/11/2026 no escopo manual; sua migration foi aplicada em 10/11/2026, sem API externa. T25–T27 estão implementadas; T28 e aceite da M5 pendentes, mesmo após a aplicação de sua migration e testes parciais por API. O aceite humano não é apresentado como teste visual executado pelo agente. Evidências e limites em [validation.md](Conexa-specs/validation.md).
+**M1–M4 concluídos por aceite do usuário; M5 em avaliação.** M4 foi confirmado em 09/11/2026 no escopo manual; sua migration foi aplicada em 10/11/2026, sem API externa. T25–T27 estão implementadas; T28 foi encerrada tecnicamente em 12/11, com aceite humano M5 ainda pendente. Evidências e limites em [validation.md](Conexa-specs/validation.md#t28m5--fechamento-completo-no-demo--12112026).
 
 ## Experimentar a M2
 
@@ -126,7 +126,7 @@ Para avaliar componentes sem escrever no demo, inicie Vite e abra `/tests/ui/m4.
 
 ## M5 em avaliação
 
-Implementação originada em `feature/m5-fechamento-operacao`: `supabase/migrations/202611090001_m5_operation_closure.sql`, serviço M5 e controles em `/operacoes`. T25–T27 verificadas localmente; migration aplicada ao demo em 10/11/2026, com pagamento/cancelamento concorrentes testados por API. **Ciclo completo remoto, percurso visual conectado, T28 e aceite humano pendentes.** Aplicação do schema não encerra o marco.
+Implementação originada em `feature/m5-fechamento-operacao`: `supabase/migrations/202611090001_m5_operation_closure.sql`, serviço M5 e controles em `/operacoes`. **T28 tecnicamente verificada em 12/11/2026**, com API/Auth/RLS/concorrência reais e percurso conectado dos três perfis, recarga e revisão dirigida em 360 px/desktop. **Aceite humano M5 pendente.** Correção `20261112205456_m5_zero_cent_payouts.sql`, aplicada ao demo como `20261112205536`, permite repasse simulado de zero centavos quando o alimento arredonda a zero, preservando uma parcela por beneficiário; negativos continuam proibidos (D027).
 
 Após aplicar as migrations ausentes em ordem **no demo autorizado** e validar a configuração:
 
@@ -139,6 +139,8 @@ Após aplicar as migrations ausentes em ordem **no demo autorizado** e validar a
 Sem a RPC M5, a consulta mantém o M3 e informa M5 em preparação; nenhum controle de pagamento é habilitado. Não substitui falha de rede por dados em memória. Páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` seguem independentes e ilustrativas.
 
 `npm run test:db` cobre M1–M5 em PGlite com identidade simulada. Para revisar a interface sem escrever no demo, inicie Vite e abra `/tests/ui/m5.html`: bancada identificada com fixtures em memória, fora do build de produção. Não comprova Auth/RLS remoto ou persistência. Evidências e pendências em [validation.md](Conexa-specs/validation.md).
+
+Roteiro remoto M5: `npm run test:m5:check` valida configuração offline. **Somente com autorização para o demo**, `npm run test:m5:demo` cria suas próprias ofertas/demandas/cargas, autentica os participantes, verifica AC18–21 e arquiva apenas seus cadastros ao terminar. Histórico, compromissos entregues e repasses fictícios permanecem. Relatórios com UUIDs em `artifacts/m5-*.local.json`, ignorados no Git. Usa apenas chave pública e contas demo de `.env`, sem credencial administrativa. `node tests/remote-m5.mjs --prepare-ui` prepara uma carga em awaiting_payment para percurso manual; `--finish-ui artifacts/m5-….local.json` confere entrega/resolução/repasses e arquiva os cadastros dessa rodada. `--recover` usa o relatório de uma rodada que falhou no caso de zero centavos para concluir essa carga após a correção. Não executar `db push`/reset ou reaplicar migrations já registradas no demo.
 
 ## Organização do código
 

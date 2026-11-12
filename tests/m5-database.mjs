@@ -25,20 +25,29 @@ await as('carrier')
 const vehicle = await m3('save_vehicle', { description: 'Utilitário M5 fictício', capacity_kg: 500, vehicle_category: 'van', conservation_conditions: 'ambient' })
 await as('otherCarrier')
 const alternativeVehicle = await m3('save_vehicle', { description: 'Alternativa fictícia', capacity_kg: 500, vehicle_category: 'van', conservation_conditions: 'ambient' })
-async function prepare() {
+async function prepare(tiny = false) {
+  let tinyOffer
+  if (tiny) {
+    await as('ana')
+    tinyOffer = (await db.query(`select public.save_offer(jsonb_build_object(
+      'product_id',product_id,'pickup_location_id',pickup_location_id,'quantity_total',1,
+      'unit_price_cents',1,'minimum_net_unit_cents',0,'available_from',available_from,
+      'available_until',available_until)) result from public.offers where id='30000000-0000-4000-8000-000000000001'`)).rows[0].result
+  }
   await as('buyer')
-  const demand = await m2('save_demand', { product_id: '10000000-0000-4000-8000-000000000001', quantity: 50, desired_date: date, destination_id: destination })
-  const load = { ...await m2('draft', { ...demand, items: [{ offer_id: '30000000-0000-4000-8000-000000000001', quantity: 30 }, { offer_id: '30000000-0000-4000-8000-000000000002', quantity: 20 }], hours: 24 }), version: 1 }
+  const demand = await m2('save_demand', { product_id: '10000000-0000-4000-8000-000000000001', quantity: tiny ? 0.001 : 50, desired_date: date, destination_id: destination })
+  const items = tiny ? [{ offer_id: tinyOffer.id, quantity: 0.001 }] : [{ offer_id: '30000000-0000-4000-8000-000000000001', quantity: 30 }, { offer_id: '30000000-0000-4000-8000-000000000002', quantity: 20 }]
+  const load = { ...await m2('draft', { ...demand, items, hours: 24 }), version: 1 }
   await assert.rejects(pay(load, 'approved'), /fora de ordem/)
   await m2('submit', load)
-  for (const name of ['ana', 'joao']) { await as(name); await m2('respond', { ...load, decision: 'accepted' }) }
+  for (const name of tiny ? ['ana'] : ['ana', 'joao']) { await as(name); await m2('respond', { ...load, decision: 'accepted' }) }
   await as('carrier')
   const quoteInput = { ...load, vehicle_id: vehicle.id, total_cents: 8000, departure_address: 'Saída fictícia', departure_time: `${date}T10:00:00-03:00`, delivery_time: `${date}T12:00:00-03:00`, expires_at: new Date(Date.now() + 3600000).toISOString(), conservation_required: 'ambient', services_included: { fuel: true, tolls: true, pickups: true, unloading: true } }
   const quote = await m3('quote', quoteInput)
   await as('otherCarrier'); await m3('quote', { ...quoteInput, vehicle_id: alternativeVehicle.id, total_cents: 9000 })
   await as('buyer'); await m3('select_quote', { ...load, quote_id: quote.id }); load.version = 2
   await assert.rejects(pay(load, 'approved'), /fora de ordem/)
-  for (const name of ['ana', 'joao', 'carrier', 'buyer']) { await as(name); await m3('confirm', load) }
+  for (const name of tiny ? ['ana', 'carrier', 'buyer'] : ['ana', 'joao', 'carrier', 'buyer']) { await as(name); await m3('confirm', load) }
   return { ...load, demand_id: demand.id, demand_version: 1 }
 }
 const first = await prepare()
@@ -164,5 +173,16 @@ for (const name of ['outsider', 'otherCarrier']) {
 }
 await as('unknown'); await assert.rejects(m5('list'), /autorizado/)
 await db.exec('reset role; set role anon'); await assert.rejects(m5('list'))
+const tiny = await prepare(true)
+await pay(tiny, 'approved')
+await as('carrier'); await m5('start', tiny)
+await as('buyer'); await m5('receive', tiny); await m5('receive', tiny)
+const tinyDelivered = await current(tiny)
+assert.equal(tinyDelivered.status, 'delivered')
+assert.equal(tinyDelivered.payouts.length, 2)
+assert.deepEqual(tinyDelivered.payouts.map(p => p.amount_cents).sort((a,b) => a-b), [0,8000])
+await db.exec('reset role')
+await assert.rejects(db.query('update public.simulated_payouts set amount_cents=-1 where load_id=$1', [tiny.id]), /check constraint/)
+console.log('PASS D027 local: alimento arredondado a zero preserva parcela de produtor, recebimento/replay concluem uma vez, negativos rejeitados.')
 console.log('PASS M5 local: AC18–21, três perfis, total 330, idempotência sequencial, reserva→compromisso sem dupla baixa, validade/aceites/mínimos, cancelamento/estorno único, trânsito com ocorrência sem liberar estoque, divergência/resolução/recebimento e três repasses únicos, RLS e anonimato. PGlite com identidade simulada; sem concorrência real nem Supabase remoto.')
 await db.close()

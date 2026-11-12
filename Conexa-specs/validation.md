@@ -1,5 +1,63 @@
 # Verificação da primeira versão — 07/11/2026
 
+## T28/M5 — fechamento completo no demo — 12/11/2026
+
+Autorização posterior na mesma data: após a apresentação de `ba8f30b`, usuário respondeu “pode integrar” à publicação da feature e integração na dev. Substitui as indicações de autorização pendente desta entrega; não inclui main/deploy nem aceite humano M5. Integração sem mudança funcional adicional, preservando verificações abaixo; referências Git remotas conferidas ao concluir. Registro em IA.md, interação 053.
+
+Responsável: **Codex**, em `feature/t28-m5-verificacao`, criada da dev limpa `3bdeee6`. Pedido explícito de verificar/corrigir pagamento simulado até repasses, permissões, persistência e idempotência no demo. **T28 encerrada tecnicamente; aceite humano M5 pendente.** Sem autorização presumida de push/integração/main/deploy, dinheiro ou transporte reais.
+
+Ambientes: Node 24/PGlite local; Vite `http://127.0.0.1:5174`, navegador integrado e Supabase `conexa` / `ppbneiusqlitvewwoact`, PostgreSQL 17.11. Inspeção inicial confirmou migrations M4/M5/revisões/Conversas existentes, políticas, ACL/search_path e wrapper público M5 invoker; não foram reaplicadas. Cliente usa chave pública, Auth real de Ana/João/comprador/transportador e segunda sessão independente do comprador. SQL do conector para inspeção/auditoria; escritas de negócio pelas RPCs com Auth/RLS. Nova migration corretiva aplicada pelo conector no escopo autorizado de corrigir o demo. Nenhuma conta nova, escrita administrativa de negócio ou credencial privada no cliente.
+
+### Critérios no demo
+
+`tests/remote-m5.mjs` é roteiro manual, fora de `npm test`. `npm run test:m5:check` confere configuração offline/destino/chave pública; `npm run test:m5:demo` cria fixtures próprias. A primeira tentativa no sandbox falhou no fetch antes de login/escrita; repetição com rede autorizada executou o teste. Versão final passou em **sete grupos**, exigindo código `42501` nas escritas diretas, sem confundir erro de unicidade com prova de permissão.
+
+| Critério | Procedimento e resultado efetivamente executados |
+| --- | --- |
+| AC18 | Pendente/recusado em duas sessões concorrentes com mesma chave geram uma tentativa cada, mantêm awaiting_payment e bloqueiam viagem. Aprovação concorrente única libera scheduled; servidor ignora total malicioso de 1 centavo e usa R$330. Nova chave após aprovação, mesma chave com outro resultado e versão antiga rejeitadas. Duas reservas viram dois compromissos, sem dupla baixa; saldos livres 0 kg/Ana e 5 kg/João. Nova autenticação conserva o estado. |
+| AC19 | Cancelamento concorrente antes da saída produz um estorno/liberação, nenhum repasse; replay conserva datas/histórico. Após saída, cancelamento abre ocorrência única, preservando compromisso/pagamento aprovado, sem estorno automático. |
+| AC20 | Início repetido não duplica viagem. Divergência concorrente gera uma ocorrência por chave; conteúdo diferente na mesma chave rejeitado. Ocorrência aberta bloqueia recebimento. Resolução concorrente/repetida persiste sem concluir entrega nem criar parcela; outro texto após resolver rejeitado. Recebimento concorrente/replay gera somente Ana R$150, João R$100 e transporte R$80, soma R$330, todos simulados. Caminho sem divergência exercitado no caso de arredondamento. |
+| AC21/RLS | Produtor/transportador não pagam/cancelam/resolvem/recebem; comprador/produtor não iniciam viagem. João alheio à carga somente de Ana não vê carga/dados M5 nem a opera. Anônimo não executa M5/lê tabelas. Comprador vê tentativas e todas as parcelas; produtores/transportador selecionado veem somente o próprio repasse, zero tentativas. INSERT/UPDATE/DELETE REST nas três tabelas M5 rejeitados com 42501 para os quatro participantes. |
+
+Terceiro foi exercitado com produtor alheio à carga; não foi criada segunda transportadora. Isolamento de transportador não selecionado conserva cobertura local anterior. Encaminhamento RN49 à segunda transportadora continua pendente em escopo separado. Revisão de cotação versus pagamento verificada em 10/11 não foi repetida: mudança atual restrita a repasses.
+
+### Falha e correção D027
+
+Oferta válida de **0,001 kg a 1 centavo/kg**, mínimo zero, arredonda alimento a zero centavos pela RN34. Cotação/pagamento de frete R$80 e viagem funcionavam, mas `receive` abortava com **23514** em `simulated_payouts_amount_cents_check` (`amount_cents > 0`), preservando a carga em trânsito sem repasses. Reproduzido no demo e pela nova regressão PGlite antes de corrigir.
+
+Migration local **20261112205456_m5_zero_cent_payouts.sql**, gerada pela CLI oficial Supabase 3.1.0, altera somente essa restrição para **amount_cents >= 0**. Preserva uma parcela por beneficiário/valores acordados; não inventa cobrança mínima. Negativos, unicidade, is_simulated, ACL/RLS continuam protegidos. Aplicada no demo como **20261112205536 / m5_zero_cent_payouts**. Não executar reset/repair/db push por diferença de versões. Carga original `c1bbad38-ea54-41a8-8a79-d819d31487d4` recuperada por recebimento concorrente após corrigir: delivered, parcelas [0,8000]. Relatório conserva `original_failure` e registra recuperação, sem esconder a primeira falha.
+
+### Navegador conectado e F5
+
+`--prepare-ui` preparou a carga **72dc0990-6604-4f77-904b-b20c2d2fe539**, v2, em awaiting_payment após reservas/cotação/quatro aceites via RPC. Dali em diante, somente controles da interface normal `/operacoes`, sem fixture em memória ou mutação via evaluate/CDP:
+
+1. Comprador registrou pendente, recusado e aprovado (R$330); F5 conservou três tentativas/agendamento. Produtor e transportador viram o mesmo estado, sem tentativas; somente transportador tinha Iniciar viagem fictícia.
+2. Transportador iniciou viagem. Comprador registrou “T28 navegador: caixa fictícia danificada; conferir antes do recebimento.” Recebimento ficou desabilitado/repasses em análise; F5 conservou divergência e bloqueio.
+3. Comprador registrou resolução escrita em ação separada. Recebimento habilitado, repasses ainda em análise; F5 conservou resolução. Depois confirmou recebimento e abriu Histórico: parcelas R$80/R$100/R$150.
+4. Novo F5 do comprador/Histórico conservou registros. Produtor e transportador recarregaram abas independentes: ocorrência resolvida compartilhada, somente R$150 de Ana e somente R$80 do transporte. `--finish-ui` conferiu via nova Auth delivered/uma ocorrência resolved/três parcelas e arquivou somente os cadastros dessa rodada.
+
+Revisão dirigida: comprador em **360×800 e 1366×900**, produtor/transportador em **360×800**, também consultados no desktop durante o percurso. scrollWidth do comprador 345/1351 nos viewports 360/1366; produtor/transportador 345 em 360, sem overflow observado. Identidade visual preservada; nenhum arquivo de UI alterado. Captura desktop inicial da superfície veio recortada; substituída por captura CDP do viewport real. Overrides removidos e três abas temporárias fechadas ao terminar. Não é auditoria completa de teclado/acessibilidade ou dispositivo físico.
+
+Capturas locais ignoradas: `artifacts/t28-buyer-desktop.local.jpg`, `t28-buyer-360.local.jpg`, `t28-producer-360.local.jpg`, `t28-carrier-360.local.jpg`.
+
+### Evidências, limpeza e limites
+
+Relatórios em `artifacts/m5-<rodada>.local.json`, ignorados no Git:
+
+| Rodada | Resultado |
+| --- | --- |
+| 0e46c2b4-92b8-40af-8153-5c7c465e1016 | Fetch bloqueado no sandbox; zero fixtures |
+| 51e6fa9e-d2ca-49ef-8b1b-68c13c1d7d80 | Seis grupos antes da falha de zero centavos; recuperação posterior da própria carga, oito registros incluindo reautenticação/recuperação |
+| b0732244-ed3f-4662-8c08-09f39b04dbc0 | Sete grupos completos após corrigir |
+| e9ca39ac-a1b6-4855-a747-adbe8182b28a | Preparação/percurso UI/conferência final; três registros no relatório |
+| f6a76c78-3e7d-4716-9b0f-1f915e4e1dd4 | Versão final: sete grupos, escritas diretas exigem 42501 |
+
+Cargas da versão final: `f68276e3-4550-440b-8846-82bf201de0e1` (delivered, três tentativas/uma aprovação, duas ocorrências resolvidas, parcelas [8000,10000,15000]); `acef1433-87f7-4399-aa20-5d5b0e108a51` (cancelled, um estorno, sem parcela); `4431708d-2944-4b4b-bd00-682c4ff80c25` (delivered, parcelas [0,8000]). Leitura final do conector, filtrada pela saída fictícia T28, confirmou **dez cargas próprias: sete entregues, três canceladas, zero ocorrências abertas, ofertas/demandas próprias arquivadas**. Históricos, compromissos entregues e repasses fictícios preservados; operações anteriores não alteradas.
+
+Advisors antes/depois sem achados novos da mudança: cinco informes de RLS sem policy em tabelas privadas WhatsApp, seis avisos de funções públicas SECURITY DEFINER preexistentes e proteção de senha vazada desabilitada no demo. Não é atestado geral de segurança: [funções expostas](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable), [RLS sem policy](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy), [senhas](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection). Wrapper M5 invoker, função privada com identidade/papel/propriedade/versão/estado e search_path vazio, sem EXECUTE anon/PUBLIC. Performance inicial: sete FKs sem índice/18 índices sem uso, fora da restrição alterada; saúde sem achados. Consulta inicial de erros postgres/postgrest pelo filtro usado retornou zero; não equivale a auditoria de todos os logs. [Documentação RLS consultada](https://supabase.com/docs/guides/database/postgres/row-level-security).
+
+Verificações locais: lint sem avisos; **109 testes Node**, **nove scripts PGlite**; build aprovado (principal 684,56 kB / gzip 195,77 kB, aviso herdado >500 kB); checagem offline M5/diff aprovados. Regressão inclui recebimento repetido, duas parcelas [0,8000] e rejeição administrativa local de negativo. M5 permanece em avaliação humana; T41/T42/T43/M6 e extensão de cotações mantêm seus limites. Sem teste pago/voz, transporte físico ou dinheiro real.
+
 ## T41/D026 — recuperação controlada e modo offline do navegador — 12/11/2026
 
 Responsável: Codex, em `feature/t41-rede-recuperacao`, criada da dev `5634533`. Pedido explícito de continuar desconexão/reconexão, F5, reenvio pela mesma chave e conferência de duplicação no demo, usando o navegador integrado e sem automatizar Firefox. **T41 permanece parcial:** usuário optou por deixar a interrupção física pendente; T42, T43/aceite M6 e T28/M5 não foram encerrados. Sem migration, push, integração, deploy ou API paga.

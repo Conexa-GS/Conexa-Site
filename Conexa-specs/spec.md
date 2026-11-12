@@ -2,6 +2,8 @@
 
 Estado de execução consolidado em [estado-atual.md](estado-atual.md), 12/11/2026. Requisitos não são evidência de teste ou aceite; procedimentos e limites em validation.md.
 
+T28/M5 tecnicamente verificada no Supabase demo em 12/11, inclusive ciclo de entrega/divergência/resolução/repasses e percurso dos três perfis com F5; aceite humano M5 pendente. D027 preserva uma parcela simulada por beneficiário mesmo quando o valor do alimento arredonda a zero centavos, sem permitir negativos.
+
 ## Problema e proposta
 
 Pequenos produtores têm ofertas fragmentadas, dificuldade de acesso a compradores e custos de distribuição. A Conexa reúne ofertas para atender demandas de restaurantes e mercados, conecta transporte local e compara viabilidade e inclusão.
