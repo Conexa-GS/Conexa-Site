@@ -26,7 +26,7 @@ Commits devem corresponder a mudanças reais e coerentes. Não dividir artificia
 
 ## Registro obrigatório de IA
 
-O arquivo canônico é `IA.md`. `AI.md` aponta para ele para compatibilidade com o briefing. Registrar os prompts solicitados durante o projeto sem apagar o histórico anterior, distinguindo transcrição de resumo. Cada interação deve conter:
+O arquivo canônico é `IA.md`. `AI.md` aponta para ele para compatibilidade com o briefing. Registrar somente prompts de programação e o uso real de IA correspondente, distinguindo transcrição de resumo e preservando o histórico anterior. Perguntas, consultas e esclarecimentos não entram no registro. Cada registro de programação deve conter:
 
 1. Ferramentas de IA e suas finalidades.
 2. Prompts e respostas representativos, sem inventar interações.

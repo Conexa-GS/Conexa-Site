@@ -847,3 +847,497 @@ Fetch concluído. Dev local e origin/dev coincidem em 25cdca9. Main local estava
 ### Análise crítica
 
 A autorização amplia explicitamente o destino para main, respeitando a ordem solicitada sem presumir liberação anterior. Publicar código e migrations no Git não aplica schema ao banco: edição/negociação continuam dependentes da migration no demo e da validação conectada. Nenhuma cobrança, mensagem externa, conta ou migration remota é executada nesta interação.
+
+## Interação 031 — Migrations e validação real no demo — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para inspeção, roteiro de testes e registro; conector Supabase para identificar projeto, inspecionar schema/histórico, aplicar migrations e consultar RLS/advisors; PowerShell/Node e @supabase/supabase-js para Auth e concorrência reais; npm para verificações locais. Skill Computer Use lida para tentativa de revisão conectada; ferramenta bloqueou o navegador Windows por falta de suporte à política de URLs. Automação encerrada sem contornar o bloqueio.
+
+### Interações realizadas
+
+Prompt integral desta solicitação de ação: “consegue fazer isso por mim?”. Refere-se à aplicação no demo e percurso de revisões/negociação/notificações, concorrência e recarga apresentados na resposta anterior. A pergunta anterior foi excluída do registro conforme instrução expressa do usuário; seu texto não foi reproduzido aqui. Resposta representativa: “Vou conferir o projeto demo configurado e as ferramentas disponíveis para aplicar as migrations pendentes e testar os perfis conectados.” Autorização restrita às ações necessárias no demo identificado; sem nova autorização de publicação/integração Git.
+
+### Aplicação no projeto
+
+Checkout inicial limpo em feature/feedback-validacao, 8e785f8, feature já derivada da dev. Aplicados os arquivos M4, M5 e quote_revisions, nessa ordem, ao projeto conexa/ppbneiusqlitvewwoact. Versões geradas pelo conector: 20261110183413, 20261110183606 e 20261110183652; nomes e correspondência com fontes em validation.md. Nenhuma reaplicação das migrations anteriores nem modificação de arquivo SQL aplicado. Criado tests/remote-quote-revisions.mjs com hostname limitado ao demo, sessões independentes, fixtures próprias, cancelamento/arquivo e relatório local ignorado pelo Git. Atualizados tasks.md, validation.md e README.md para distinguir validação por API, limite de navegador e pendências reais.
+
+### Validação das respostas
+
+Lint, 32 testes Node, seis scripts PGlite e build aprovados, com aviso herdado de chunk 625,03 kB. Rede inicialmente bloqueada pelo sandbox; teste remoto executado com a permissão de rede correspondente. Primeira rodada interrompida por expectativa incorreta da mensagem de confirmação fora de ordem; fixture cancelada/arquivada, expectativa corrigida e teste adicional de confirmação bloqueada pela negociação. Duas rodadas completas passaram; última com 10 grupos de verificações, RLS direto dos avisos e rota M4 autenticada com quatro paradas. Não houve correção do código do produto.
+
+Auth real nos quatro participantes, mais duas sessões adicionais para concorrência. Revisões simultâneas produziram uma vencedora, preservando R$80; avisos/leitura restritos aos destinatários e nova autenticação preservando dados; revisão selecionada invalida aceites e rejeita versão antiga. Recusa/manutenção do preço sem taxa e aprovação concorrente de R$100,07 com total R$350,07, sem aceitar valor adulterado. Desistência concorrente gerou uma taxa simulada de R$15,01, parcelas exatas e saldo 5 kg; sem segunda transportadora, reabertura sem substituta inventada. Escrita direta/anon bloqueados. Dois pagamentos com mesma chave resultaram no mesmo registro; cancelamentos concorrentes estornaram uma vez e devolveram saldo 25 kg. Na corrida revisão versus pagamento, revisão venceu e impediu pagamento da versão antiga.
+
+Relatório artifacts/quote-revisions-remote.local.json e cópia datada, sem segredos. Três cargas da rodada final canceladas, seis ofertas/três demandas próprias arquivadas. Históricos/avisos/taxas simuladas/veículos preservados; contas não criadas. Oito cargas anteriores conferidas após a execução, mantendo status/versões. Novas tabelas com RLS habilitada; dois avisos de segurança legados documentados, sem alterações de configuração. Sem teste de navegador/F5/360 px/desktop conectado: Computer Use bloqueado pela política de URLs. Sem atribuição de avaliação humana ao usuário; nenhuma publicação/integração Git ou deploy desta rodada.
+
+### Análise crítica
+
+Concorrência e RLS com Auth real ampliam a evidência em relação ao PGlite, e a nova autenticação comprova persistência entre sessões. Essa evidência não demonstra recarga visual nem entrega de avisos pela interface. O demo contém somente uma transportadora; caminho com substituta e faixas 5%/30% permanecem cobertos apenas localmente. Aplicação de M5 não comprova todo o fluxo de entrega/divergência/repasses remoto nem encerra T28. Permanece necessário percurso visual conectado, segunda transportadora compatível, avaliação humana e autorização das novas alterações de teste/documentação. Não declarar marco concluído nem confundir taxas/pagamentos de demonstração com dinheiro real.
+
+## Interação 032 — Publicação da validação remota na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar o pedido e conferir o escopo; PowerShell/Git para inspeção, fetch, sincronização da feature, commit e publicação/integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Autoriza publicar o teste remoto e a documentação apresentados na interação 031 e integrá-los à dev do origin https://github.com/Conexa-GS/Conexa-Site.git. Resposta representativa: “Vou conferir a branch e as alterações, criar o commit e publicar na dev, preservando o histórico remoto.” Não autoriza nova promoção para main nem declara aceite dos testes visuais pendentes.
+
+### Aplicação no projeto
+
+Alterações preparadas na feature/feedback-validacao; após fetch, dev e origin/dev coincidem em 62d1d64, que já integra a feature anterior. Feature sincronizada por fast-forward de 8e785f8 para 62d1d64, sem diferença de árvore nem perda das alterações locais. Escopo do commit: tests/remote-quote-revisions.mjs, README.md, IA.md e Conexa-specs/README.md, tasks.md, validation.md. Registro da autorização atualizado sem marcar os percursos visuais/encaminhamento com substituta como concluídos. Publicação segue feature → dev, sem force push.
+
+### Validação das respostas
+
+Destino origin conferido, fetch concluído e diff sem erros de whitespace. .env e relatório artifacts/quote-revisions-remote.local.json confirmados como ignorados; não serão incluídos no commit. Mantidos os resultados reais da interação 031: lint, 32 testes Node, seis scripts locais, build e rodada remota final com 10 grupos aprovados. Esta interação muda somente o registro da autorização; não repete operações remotas de teste nem atribui avaliação humana ao usuário. Push e integração serão conferidos pelas referências remotas antes da resposta final.
+
+### Análise crítica
+
+A autorização contempla a dev e os arquivos apresentados, preservando as pendências de navegador, segunda transportadora e aceite humano. O teste remoto é manual e limitado ao demo; sua publicação não o executa automaticamente. Migrations já aplicadas não são reaplicadas nesta interação. Sem deploy ou nova alteração na main.
+
+## Interação 033 — Início da M6: cadastro por conversa — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, decisões, implementação, testes e documentação; PowerShell/Git para inspeção/fetch, branch e commit local; apply_patch para arquivos; npm/Node, ESLint e Vite para verificações. Skill Computer Use e documentação consultadas para revisão de interface; inventário/seleção do Firefox via ferramenta CUA bloqueados pela política de URLs no Windows. Sem subagentes, modelo de IA externo no produto ou ferramentas Supabase nesta interação.
+
+### Interações realizadas
+
+Prompt integral: “comece a implementar a M6, seguindo o padrão de branch e commits, atualizando a tasks.md e pergunte se algo não ficou claro”. Resposta representativa: “A M6 prevê um chat opcional para cadastrar ofertas, com prévia e confirmação antes de salvar. Vou começar por uma conversa guiada que reutiliza as validações e o serviço do formulário, sem IA externa, áudio ou WhatsApp.” Escopo suficiente para iniciar sem pergunta bloqueante. Formato guiado comunicado como decisão de implementação, sem atribuir ao usuário aprovação humana não dada. Pedido autoriza implementação e commit local; envio/integração na dev serão solicitados após apresentação.
+
+### Aplicação no projeto
+
+Checkout limpo na dev em `6741d8c`. Fetch confirmou dev/origin/dev iguais; criada `feature/m6-chat-acessivel` antes de editar. Escrita em `.git` exigiu permissão do ambiente para fetch/troca de branch; não se trabalhou em dev/main. Novo domínio `offer-chat.js`, componente `OfferChat.jsx`, entrada opcional em `OffersPage.jsx` e estilos com a paleta existente. Oito respostas explícitas usam catálogo do perfil, quantidade em kg, valores em reais, datas brasileiras/ISO e vencimento opcional. Dados não inferidos, consulta/correção das respostas, prévia e confirmação separada antes de `useOffers.save`/`saveOffer`, os mesmos do formulário. Rascunho em memória descartado ao fechar; falha preserva dados e recebe foco; envio pendente bloqueia repetição/correção/fechamento. Texto da conversa não é transmitido a IA nem persistido.
+
+Criados cinco testes de domínio e bancada `tests/ui/m6.*` com fixtures, falha e catálogo vazio. Atualizados tasks.md com subtarefas implementadas e T29 ainda aberta, READMEs, contratos/fluxos, D015 e validation.md. Sem migration, dependência nova, WhatsApp/T30, áudio ou mudança nas pendências M5/T28. Feature preparada para avaliação com Conventional Commit local; sem autorização de publicação/integração ou main.
+
+### Validação das respostas
+
+Lint aprovado; 37 testes Node aprovados, cinco novos verificando payload equivalente ao formulário, precisão/mínimos, datas inválidas, catálogo/unidade/coleta, correção e vencimento desconhecido. Build aprovado com aviso herdado de chunk acima de 500 kB (principal 633,68 kB). Primeira execução npm.ps1 foi bloqueada pela política PowerShell; usado npm.cmd sem alterar configuração. Lint inicial encontrou componente da bancada sem export, corrigido; lint/build repetidos após ajuste de semântica da lista de respostas. Nenhuma suíte de banco nem teste remoto repetido, pois serviço de persistência e SQL não foram alterados.
+
+Revisão estática confirma que somente o botão explícito da prévia chama escrita; testes de domínio não comprovam essa interação visual. Bancada preparada, mas não percorrida: host de browsers indisponível, Firefox bloqueado pela política da ferramenta. Automação encerrada com resumo, sem contorno nem screenshots. AC22/AC23 completos, teclado, 360 px/desktop, descarte/confirmação/falha por interface, consulta/recarga no demo e avaliação humana continuam pendentes. Não se atribui teste ou aceite ao usuário. Verificação local não encerra T29 ou M6.
+
+### Análise crítica
+
+Perguntas explícitas evitam interpretar incorretamente quantidade, valor ou disponibilidade e permitem implementar acessibilidade sem nova infraestrutura. Reutilizar formulário/serviço preserva a fonte de ofertas e as regras existentes; catálogo e calendário recebem controles adicionais no adaptador. O formato guiado não interpreta frases livres nem atende áudio; WhatsApp oficial exige escopo separado. Foco/labels/estilos preparados precisam de revisão real, que o bloqueio do navegador impediu.
+
+Bloqueio em memória evita confirmação simultânea no diálogo, mas não garante idempotência após resposta perdida ou entre abas; a interface orienta conferir a lista antes de repetir. Sem verificação do chat no demo não se afirma persistência/RLS nova, e sem avaliação humana não se declara marco concluído. Commit local conserva o trabalho para revisão; publicação e integração dependem de autorização específica conforme AGENTS.md/workflow.md.
+
+## Interação 034 — Publicação da M6 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registro da autorização; PowerShell/Git para conferir estado e referências, fetch, commit documental na feature, publicação e integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “pode subir para dev”. Autoriza publicar e integrar na dev a primeira fatia M6 apresentada na interação 033. Resposta representativa: “Vou publicar a feature da M6 e integrá-la na dev, conforme sua autorização.” Não autoriza promoção para main nem equivale a relato de testes visuais ou encerramento da M6.
+
+### Aplicação no projeto
+
+Checkout limpo na `feature/m6-chat-acessivel`, commit de implementação `5acf064`. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `6741d8c` e feature um commit à frente, sem divergência. Registro preparado na própria feature antes da publicação; fluxo feature → dev com histórico preservado, sem force push. Nenhuma edição de código diretamente em dev/main.
+
+### Validação das respostas
+
+Mantidos os resultados da interação 033: lint, 37 testes Node e build aprovados, com aviso herdado de chunk acima de 500 kB. Esta interação altera somente documentação de autorização, sem repetir testes ou operações no demo. Diff e estado Git conferidos antes do commit; publicação e integração serão verificadas pelas referências remotas antes da resposta final. T29/AC22 completo, revisão em 360 px/desktop/teclado e persistência via chat no demo continuam pendentes em tasks.md/validation.md.
+
+### Análise crítica
+
+A autorização permite publicar a implementação apresentada na dev, sem inventar aceite de critérios ainda não executados. Publicação não demonstra persistência ou acessibilidade e não conclui M6. Sem alteração na main, deploy solicitado ou migration nesta interação.
+
+## Interação 035 — Implementação e verificação da T29 — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, revisão do código existente, implementação, testes e documentação; PowerShell/Git para inspeção, fetch, branch e commit local; apply_patch para arquivos; npm/Node, React/Vite, jsdom e ESLint para testes de componente/lint/build. Documentação oficial de jsdom consultada em https://github.com/jsdom/jsdom; npm para conferir compatibilidade de Node e audit. Skill Computer Use lida e CUA usada para inventário/tentativa de inspeção do Firefox; ferramenta bloqueou o navegador Windows por falta de suporte à política de URLs. Sem subagentes, IA externa no produto ou uso de cliente administrativo do Supabase. Teste manual por serviços da aplicação com Supabase Auth/RLS reais.
+
+### Interações realizadas
+
+Prompt integral: “implemente a T29, seguindo o padrão de branch e commits, perguntando o que não estiver nitido”. Resposta representativa: “A T29 já tem uma primeira implementação na dev: conversa guiada, correção de respostas e confirmação antes de publicar pelo serviço de ofertas. Vou completar a verificação e corrigir as lacunas encontradas, mantendo esse escopo.” O pedido foi interpretado como conclusão da implementação/verificação dessa tarefa, preservando a decisão D015 já publicada, sem ampliar para interpretação livre, áudio ou WhatsApp. Não houve decisão de negócio pouco clara que exigisse pergunta bloqueante. Não houve resposta de aprovação humana nesta interação. Pedido autoriza implementação e commits locais; envio/integração na dev continuam dependentes da avaliação/autorização final exigida pelo workflow.
+
+### Aplicação no projeto
+
+Checkout inicial limpo na dev; fetch confirmou dev/origin/dev em `11f295f`. Criada `feature/t29-chat-validacao` dessa base antes de editar. Escrita em `.git` exigiu permissões do ambiente, sem desenvolver em dev/main. Preservada a implementação anterior. `OfferChat.jsx` passa a focar impedimento de catálogo/coleta; `Modal` recebe `closeDisabled` opcional, usado no chat para desabilitar Fechar durante o envio, além da guarda já existente. Nenhuma alteração no serviço de ofertas, hook, SQL, regras financeiras/estoque ou identidade visual.
+
+Adicionados cinco testes em `tests/offer-chat-ui.test.js`, ambiente de componente em `tests/helpers/offer-chat-dom.mjs` e teste remoto manual `tests/remote-offer-chat.mjs`. jsdom é dependência exclusiva de desenvolvimento; série 31 substituída por 27.4.0 para preservar compatibilidade com Node 22.12. Testes automáticos não carregam `.env` nem escrevem remotamente. Script manual usa catálogo, autenticação e `saveOffer` reais do demo já configurado; cria somente oferta fictícia própria e arquiva no final, com relatório local ignorado. Atualizados tasks.md, READMEs, contratos/fluxos, complemento D015 e validation.md. T29 registra implementação/AC22 automatizado; M6 continua prévia em avaliação visual e humana. Nenhum avanço de T30, M5/T28 ou demais marcos.
+
+### Validação das respostas
+
+Lint, 42 testes e build passaram na versão final com jsdom 27.4.0; build principal 633,88 kB, gzip 180,66 kB, mantendo aviso herdado de chunk acima de 500 kB. Cinco novos testes percorrem componente real por eventos DOM, verificando zero escrita ao responder/corrigir/descartar, reabertura limpa, payload igual ao formulário, confirmação simultânea única, bloqueio pendente, erro/reenvio, catálogo vazio, vencimento invalidado por correção e foco programático. Primeira rodada encontrou botão Fechar habilitado e catálogo sem foco; corrigidos e repetidos os testes. `showModal`, `close` e rolagem são simulações declaradas, sem medição visual ou teclado nativo. Sem repetição de suítes SQL, pois regras de banco/serviços não mudaram.
+
+Instalação inicial sem rede interrompida; npm executado com acesso correspondente. Audit identificou quatro avisos moderados preexistentes na cadeia ESLint/minimatch, sem aviso atribuído à nova dependência; sem `audit fix --force`. Primeira tentativa remota no sandbox não abriu sessão e não criou oferta. Primeira rodada conectada criou uma fixture, mas o teste checou conclusão antes de aguardar a rede; fixture arquivada no `finally` e espera do teste corrigida. Duas rodadas completas posteriores passaram, incluindo a versão final das dependências. Cinco grupos remotos: prévia/descarte sem escrita; confirmação única com centavos/vencimento; consulta pelo produtor e comprador após nova autenticação; RLS de comprador/outro produtor/anônimo; arquivamento de fixture própria. As três ofertas próprias das rodadas conectadas foram arquivadas. Relatório final `artifacts/offer-chat-remote.local.json`, ignorado, sem segredos; IDs/limites em validation.md. Não foi usado mock do banco, nem criada conta ou aplicada migration.
+
+Inventário CUA retornou host de browsers indisponível; selecionar o Firefox foi bloqueado pela política da ferramenta no Windows. Encerrado Computer Use sem contorno nem screenshot. Não houve revisão em 360 px/desktop, percurso por Tab/Escape físicos, leitor de tela, F5, execução do hook de recarga da página ou avaliação humana. Nova autenticação via serviço é evidência de persistência entre sessões, sem ser apresentada como recarga visual. Tarefas/documentação distinguem AC22 automatizado de AC23/revisão da M6 ainda pendentes. Diff e estado Git conferidos antes do commit local Conventional Commit; sem push/merge/deploy ou autorização presumida para dev/main.
+
+### Análise crítica
+
+Exercitar o componente amplia a evidência dos testes de domínio: permite demonstrar que a publicação depende do botão separado e que os dados são preservados na falha, além de detectar inconsistências de foco/estado. Associar esse componente ao serviço real e consultar pelo comprador após autenticar novamente demonstra persistência/RLS da oferta sem duplicar infraestrutura ou alterar a autoridade do banco. A restrição de hostname e o arquivamento limitado aos registros próprios reduzem interferência no demo; tentativas falhas também tiveram limpeza registrada.
+
+jsdom não substitui navegador e seus métodos de diálogo/rolagem são simulados. Os testes não comprovam layout, contraste, contenção nativa de foco ou uso com tecnologia assistiva; a ferramenta bloqueou a revisão visual, que permanece pendente junto do aceite humano da M6. O CRUD herdado continua sem idempotência após resposta perdida ou entre abas; uma chamada no mesmo diálogo durante envio não é garantia geral de publicação única. A implementação fica concreta para avaliação local na feature; autorização para publicar/integrar na dev será solicitada após apresentar o resultado, conforme AGENTS.md/workflow.md, sem promoção para main por pressuposição.
+
+## Interação 036 — Aprovação e publicação da T29 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para registrar a autorização e conferir o escopo; PowerShell/Git para inspeção, fetch, commit documental na feature, publicação e integração na dev.
+
+### Interações realizadas
+
+Prompt integral: “aprovado”. Responde à apresentação da T29 e à pergunta explícita “Após avaliar, autoriza publicar e integrar esta feature na dev?”. Autoriza publicar e integrar a `feature/t29-chat-validacao` apresentada, com implementação em `54b8780`. Resposta representativa: “Vou publicar a feature aprovada e integrá-la na dev, preservando o histórico e registrando sua autorização no IA.md.” Não contém relato de procedimentos visuais/teclado nem autoriza promoção para main.
+
+### Aplicação no projeto
+
+Checkout inicial limpo na `feature/t29-chat-validacao`; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Registro preparado na própria feature antes de publicar. Fluxo autorizado feature → dev, com Conventional Commits e sem force push. Nenhuma edição de código diretamente em dev/main, deploy ou operação remota no Supabase nesta interação.
+
+### Validação das respostas
+
+Fetch concluído e referências conferidas antes da integração. Mantidos os resultados reais da interação 035: lint, 42 testes e build aprovados; cinco grupos de verificação do componente com serviço real/Auth/RLS demo aprovados e fixtures próprias arquivadas. Mudança desta interação é documental, sem repetir testes ou ações remotas no banco. Diff e estado Git conferidos antes do commit; publicação/integração serão verificadas pelas referências remotas antes da resposta final.
+
+### Análise crítica
+
+A aprovação permite publicar a T29 apresentada na dev, preservando as limitações explicitadas. Não comprova revisão visual em 360 px/desktop, teclado nativo, leitor de tela ou F5; esses itens continuam registrados como pendentes, sem declarar M6 integralmente concluída. T28/M5 e demais marcos permanecem com seus estados anteriores. Sem autorização ou alteração da main nesta interação.
+
+## Interação 037 — Preparação local da T30 — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para especificação, implementação, revisão e testes; PowerShell/Git para leitura/estado/diff; apply_patch para alterações; Node/Web Crypto e npm para demonstrador, testes, lint e build. Documentação oficial Meta/WhatsApp e Supabase consultada na web. Sem subagentes, IA externa no produto ou cliente de banco nesta implementação.
+
+### Interações realizadas
+
+Prompt integral de programação: “vamos seguir com o resto então”. Contexto resumido: autorização para preparar especificação e estrutura local do T30 enquanto o cadastro Meta está temporariamente bloqueado. Resposta representativa: “Vou preparar a especificação do T30 e a estrutura local da integração enquanto a Meta libera sua conta.” Não são transcritas perguntas/consultas de orientação, conforme regra atual do usuário. Não houve aprovação de integração na dev, ativação, custos ou conclusão de M6.
+
+### Aplicação no projeto
+
+Mantida `feature/t30-preparacao`, já criada da dev local `af7174f`. Preservadas mudanças locais anteriores autorizadas em AGENTS.md/workflow.md: somente prompts de programação entram neste arquivo. Consulta de pré-requisitos removida anteriormente não foi restaurada; histórico anterior preservado. Sem fetch, edição em dev/main ou mudança de referências remotas.
+
+Criados protocolo em server/whatsapp/conversation.js, handler em server/whatsapp/webhook.js, exemplo vazio de configuração de servidor, demonstrador scripts/whatsapp-demo.mjs e testes/whatsapp.test.js. Reutilizadas validações/perguntas da T29. Prévia versionada, correção, descarte, confirmação exata e pedido de publicação separado do resultado; incerteza exige reconciliação antes de corrigir/cancelar/publicar. Handler confere challenge, assinatura nos bytes originais, receptor e lote, esperando aceite assíncrono antes de 200. Sem persistência/fila/worker/envio padrão, Edge Function ou migration.
+
+Especificação t30-whatsapp.md define a próxima fatia de vínculo verificado, banco/outbox, gateway e ativação. Atualizados READMEs, tasks, spec, contracts, flows, data-model, D016 e validation.md. T30 continua em avaliação, canal inativo, M5/T28 e T29 visual preservadas. Novo comando demo:whatsapp mostra o fluxo exclusivamente em memória; não envia mensagens, lê .env ou grava no site. Sem dependência nova, contato real ou alteração de interface.
+
+### Validação das respostas
+
+Lint, 55 testes (42 anteriores e 13 novos) e build aprovados. Build 633,88 kB/gzip 180,66 kB mantém aviso herdado de chunk acima de 500 kB. Testes cobrem confirmação explícita/atual, payload do formulário, revalidação/correções, incerteza/falha/sucesso, preservação da chave, assinatura/bytes/receptor/limites e lote assíncrono. Demonstrador passou com uma oferta fictícia após correção, confirmação antiga rejeitada e repetições sequenciais sem duplicação. Nenhum teste de banco/remoto, RLS novo, reinício, concorrência persistente ou envio/recebimento Meta foi executado.
+
+Primeira tentativa do teste novo falhou por sintaxe de asserção; corrigida e suíte executada. Revisão posterior identificou que resultado perdido não pode liberar edição como recusa definitiva: implementado estado reconciling, teste adicional e repetidos lint/suíte completa. Documentação detalhada Meta retornou 429/login; referência histórica oficial de challenge/assinatura consultada com ressalva de SDK arquivado, sem instalá-lo. Sem revisão visual nesta entrega, pois interface não mudou. Diff e estado preparados para conferência e Conventional Commit local; publicação depende de autorização após apresentação.
+
+### Análise crítica
+
+Separar protocolo/recebimento do banco e do provedor torna o fluxo verificável sem credenciais e preserva validações de ofertas. Isso permite detectar confirmação obsoleta e risco de duplicação após resultado incerto antes de ativar o canal. Contudo, módulo puro não resolve autorização, persistência ou idempotência distribuída; o demonstrador sequencial em memória não substitui inbox/outbox e transação no Supabase. O aceite HTTP não comprova publicação nem entrega ao telefone. A próxima fatia exige vínculo verificado e gateway restrito antes de contato real, com autorização específica de ativação. Nenhum teste ou aceite foi atribuído ao usuário.
+
+## Interação 038 — Publicação da preparação T30 na dev — 10/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para executar a instrução de desenvolvimento Git e registrar sua autorização; PowerShell/Git para conferir estado, fetch, commit documental na feature, publicação e integração na dev. Sem alteração de código ou operação no Supabase/Meta.
+
+### Interações realizadas
+
+Prompt integral de execução: “pode publicar  e integrar com a dev”. Autoriza publicar e integrar a preparação T30 apresentada, commit `b9d895e`, da `feature/t30-preparacao`. Resposta representativa: “Vou publicar a feature e integrá-la na dev, registrando sua autorização no IA.md e preservando o histórico.” Não inclui perguntas/consultas de orientação nem autoriza promoção para main, custos, deploy do webhook ou mensagens reais.
+
+### Aplicação no projeto
+
+Checkout inicial limpo na feature; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `af7174f`, com feature um commit à frente e sem divergência. Registro preparado na própria feature antes da publicação, sem edição direta em dev/main. Fluxo autorizado feature → dev, sem force push. A integração externa permanece inativa; escopo e pendências de t30-whatsapp.md preservados.
+
+### Validação das respostas
+
+Mantidos lint, 55 testes, build e demonstrador aprovados na interação 037; mudança desta rodada somente documental, sem repetir testes. Fetch executado com acesso correspondente. Consulta adicional ls-remote no sandbox não conectou; referências obtidas pelo fetch continuam disponíveis para conferência. Diff/estado verificados antes do commit; a publicação/integração será conferida por novo fetch e referências remotas antes da resposta final.
+
+### Análise crítica
+
+A autorização permite publicar a preparação apresentada, sem demonstrar persistência WhatsApp no Supabase, identidade por telefone, concorrência ou tráfego Meta. Não encerra T30/M6 nem pendências M5/T28/T29 visual. Nenhum teste ou aceite adicional foi atribuído ao usuário. Promoção para main e ativação externa continuam fora desta autorização.
+
+Resultado desta rodada: commit de autorização `ea3ba0e` criado na feature. A revisão automática rejeitou o push por exigir confirmação explícita do destino GitHub e do conteúdo a publicar. Conferidos novamente origin/push URL, os 19 arquivos alterados, exemplo de servidor com valores vazios e ausência de `.env` rastreado; busca por padrões de tokens no diff de código/documentação (exceto histórico IA.md) retornou zero, sem equivaler a auditoria de segredos. Registros anteriores de autorização para o mesmo origin foram apresentados como evidência numa segunda tentativa direta. A revisão rejeitou novamente: considerou insuficiente a autorização atual sem nomear destino/payload e não aceitou os registros como substituto de confirmação. Nenhum push executado, sem alternativa de envio ou contorno. Publicação de `feature/t30-preparacao` e `dev` em `https://github.com/Conexa-GS/Conexa-Site.git` permanece bloqueada até confirmação explícita desse destino e do conteúdo (código, testes, especificação/documentação, registro de IA e exemplo vazio de configuração).
+
+Trabalho autorizado não afetado: preparar este complemento na feature e integrá-la localmente à dev com merge que preserva histórico, sem conflitos esperados. A conferência final usará referências locais e as remotas obtidas no fetch; origin/dev permanece em `af7174f` enquanto o push estiver bloqueado. Main e sistemas Meta/Supabase não serão alterados. Nenhum teste de aplicação repetido nesta correção documental.
+
+Confirmação posterior do usuário: “mande para o github”, em resposta à pergunta que identificou explicitamente `https://github.com/Conexa-GS/Conexa-Site`, branches `feature/t30-preparacao` e `dev`, e conteúdo (código, testes, documentação T30, IA.md e configuração de exemplo vazia). Autoriza retomar a publicação nesse destino após o bloqueio automático. Integração local já concluída sem conflitos em `c0d70d0`; fetch confirmou origin/dev sem avanço e dev quatro commits à frente. Confirmação registrada na feature antes de incorporá-la à dev e enviar ambas as branches, sem force push. Main permanece em `169b1b4`. Esta atualização documental não repete testes nem amplia a autorização para Meta/Supabase/deploy; envio será conferido nas referências remotas antes da resposta final.
+
+## Interação 043 — Planejamento de Conversas no site — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para revisão das especificações e atualização do planejamento de implementação; PowerShell/Git para leitura, branch e verificações locais; apply_patch para documentação. Skill OpenAI Docs e consulta somente à documentação oficial Realtime/WebRTC. Sem subagentes, chamadas à API paga, sessão de voz, envio de mensagens ou alterações no Supabase.
+
+### Interações realizadas
+
+Prompt de programação/planejamento integral do usuário:
+
+> apos testes com apis de integração no whatsapp, deveriamos voltar atras e implementar o sistema de atualização de ofertas por convensa através do proprio site, simulando uma conversa no whatsapp.
+> A ideia é abrir uma nova aba dentro das respectivas contas (produtor, comprador), onde vai ter um layout parecido com o WhatsApp, onde você podera conversar com o Bot principal que vai atualizar as ofertas automaticamente conforme vocÊ fala com ele, e poderia conversar com outros produtores e vendedores, combinando acordos e parcerias.
+>
+> Atualize as tasks para a implementação dessa feature, pensei que poderia usar a api de gpt live apenas para simular o funcionamento real, deixa que eu faço os testes de voz para que não gaste os tokens, afinal é uma api paga
+
+Resposta representativa: “Vou revisar as especificações e o planejamento atual para atualizar as tarefas dessa experiência de conversa dentro do site. Vou incluir a opção de voz e deixar os testes pagos para você, sem chamar a API nesta etapa.” Não registrar consultas/esclarecimentos como novas interações de programação.
+
+### Aplicação no projeto
+
+Criada feature/planejamento-conversas-site a partir da dev 3197eaf, com checkout inicialmente limpo. Primeira troca de branch bloqueada por permissão de escrita no índice; repetida com a permissão correspondente e concluída. Preservada feature/t30-twilio-supabase com seus commits e experimentos, sem integrá-la implicitamente. IDs D017 e interações 039–042 existem nessa feature separada; este registro usa 043 para evitar colisão futura.
+
+Atualizados tasks.md com T34–T43 pendentes, spec.md/RF11–12, RN45, AC24–32, plan.md, README do pacote, status histórico T30 e D018. Novo conversas-site.md descreve aba produtor/comprador, bot para criar/editar/arquivar ofertas próprias, mensagens individuais, persistência/RLS, confirmação versionada, execução idempotente, interpretação simulada padrão e OpenAI/voz opcional. Nenhum componente, serviço, migration ou integração implementado nesta solicitação. M5/T28 e aceite M6 continuam pendentes.
+
+### Validação das respostas
+
+Leitura do código existente confirmou domínio T29, serviços compartilhados de ofertas e rotas por perfil como bases do plano. Documentação oficial consultada para Realtime, WebRTC e credenciais efêmeras; não houve chamada de modelo ou medição de consumo. Verificações locais e revisão do diff serão registradas abaixo após execução. Nenhuma revisão visual de interface é atribuída a esta mudança documental, nem teste de voz/aceite humano. Não houve push, merge, deploy, desativação do endpoint Twilio ou alteração remota.
+
+### Análise crítica
+
+Separar texto simulado de integração opcional permite implementar e testar sem gastar tokens. Persistência das conversas e alterações deve ser real no Supabase demo quando conectada, mesmo com interpretação simulada; testes locais não provam isso. Prévia e confirmação preservam RN45 e evitam que linguagem ambígua altere estoque ou acordos existentes. Mensagens entre pessoas não autorizam bot ou mutações de operações. Voz exige teste manual real do usuário; mocks não comprovam áudio, cobrança, limites efetivos ou experiência final. A pausa de T30 preserva evidências e não desativa o endpoint já implantado.
+
+Resultado das verificações desta atualização documental: npm.cmd run lint aprovado; npm.cmd test aprovado com 55 testes, zero falhas; npm.cmd run build aprovado, com aviso de chunk principal acima de 500 kB já presente na base. git diff --check aprovado. Nenhuma alteração de UI: revisão em 360 px/desktop não executada nesta rodada e permanece tarefa da implementação. Sem chamadas pagas ou testes remotos. Estes testes verificam a base da dev, não implementam nem validam AC24–AC32. Revisão de links, escopo e estado Git feita antes da entrega; commit local documental preparado sem autorização presumida de publicação.
+
+Complemento de autorização da interação 043 — 11/11/2026: usuário respondeu “pode integrar” à apresentação do commit 559a64a e à pergunta explícita sobre publicar/integrar o planejamento na dev. Autoriza publicar a feature e integrar/publicar dev no origin https://github.com/Conexa-GS/Conexa-Site.git; main preservada. Fetch confirmou dev/origin/dev em 3197eaf e checkout limpo. Conteúdo restrito aos dez arquivos documentais apresentados. Mantidos lint, 55 testes e build já aprovados; sem alteração de runtime ou nova execução de testes nesta autorização. Integração/publicação serão conferidas pelas referências Git antes da resposta final, sem presumir conclusão da funcionalidade ou dos marcos.
+
+## Interação 044 — Primeira implementação de Conversas no site — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, implementação React/SQL, testes e documentação; PowerShell/Git para branch/verificações; apply_patch para alterações; React/Vite/jsdom e PGlite para testes locais; skill computer-use e navegador in-app para bancada visual/teclado. Sem subagentes, IA externa no produto, chamadas pagas, voz/microfone, WhatsApp ou escrita remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas
+
+Resposta representativa real: “A prioridade atual é Conversas no site; o WhatsApp está pausado. Vou começar pela aba para produtor/comprador e pela persistência de mensagens com RLS. O Bot Conexa ficará identificado, com acesso ao cadastro guiado já existente; edição por texto e voz entram nas próximas etapas. A nova migration será testada localmente, sem aplicação no demo ou chamadas pagas.” Consultas/esclarecimentos não registrados como prompts de programação; nenhum aceite humano inventado.
+
+### Aplicação no projeto
+
+Branch `feature/conversas-base` criada da dev limpa `c72392e`; primeira tentativa sem permissão de índice falhou e criação repetida com permissão antes de editar. T34 local: rotas/navegação, lista, bot fixo identificado, balões/horários, campo, paginação, feedback e layout responsivo. Bot remete à T29/consulta; texto livre e alterações por bot ainda não existem. Base parcial T35/T38: migration de conversas/membros/mensagens/leitura, RPC `site_chat`, serviço e hook, pares únicos, RLS, identidade por sessão, reenvio por chave vinculada ao conteúdo e cursores anterior/posterior. Adaptador Realtime com reconciliação/cleanup preparado, ainda sem websocket real. Rascunhos humanos ficam em memória por conta/conversa; comandos e rascunhos duráveis do bot ficam para T36/T37. Sem alteração nos serviços de ofertas/estoque. Testes e bancada novos; helper SSR passou a usar cache temporário isolado. Documentação/tasks atualizadas com contratos, evidências e limites; T35/T38/T41 continuam parciais, M6/M5 não encerradas.
+
+### Validação das respostas
+
+Codex executou `npm.cmd run lint` (sem avisos final), `npm.cmd test` (61 testes, seis novos de componente), `npm.cmd run test:db` (sete scripts PGlite) e `npm.cmd run build` (aprovado, 654,62 kB principal; aviso herdado >500 kB). Script de Conversas repetido após evolução dos cursores e aprovado. Diff/estado conferidos antes do commit local. Nenhum teste remoto, concorrência real ou aprovação humana atribuído ao grupo.
+
+Componente: bloqueio de envio duplo, HTML literal, falha preservando chave/texto entre conversas, timeout após persistência simulada, paginação e reconexão com 91 mensagens novas, descarte/cleanup na troca de conta e ausência de histórico fabricado. PGlite: RLS/leitura privada, permissões diretas bloqueadas, identidade derivada, bot/par únicos, chave com conteúdo imutável, validação do texto, cursores e leitura monotônica. Bancada visual no navegador em 1366×900 e 360×800 sem overflow horizontal dirigido; Enter/Tab, foco do título e alerta, envio/falha e bot revistos. Capturas locais ignoradas pelo Git. Primeira renderização ficou vazia por disputa de cache Vite entre testes/dev; isolado cache dos testes, reiniciado dev e revisado com sucesso. Primeiros avisos de lint em refs corrigidos. Medições e limites detalhados em `validation.md`; não equivalem a F5 no Supabase, websocket ou auditoria completa de acessibilidade.
+
+### Análise crítica
+
+Separar entrega visual/mensagens do intérprete e da aplicação de ofertas torna a primeira fatia avaliável sem custo de IA e preserva RN45. RLS/idempotência no banco evitam confiar no remetente ou reenvio fornecidos pelo cliente; PGlite não prova concorrência com sessões remotas nem autorização de eventos Realtime. Rascunho humano volátil não substitui persistência de comandos, e bot não deve anunciar recursos futuros como ativos. Nova migration precisa autorização e testes demo; publicação/integração depende da avaliação posterior exigida pelo workflow. Sem push, merge, deploy, alteração remota, uso de microfone ou aceite de M6/M5 nesta rodada. T30/experimentos preservados, sem desativar endpoint.
+
+Complemento de autorização — 11/11/2026: usuário respondeu “pode integrar com a dev” à entrega do commit `3b9fbf2`. Autoriza publicação da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e fetch executado antes da integração. Registro preparado na feature, preservando as verificações da implementação (lint, 61 testes, sete scripts locais de banco e build); nenhuma alteração de runtime nesta rodada ou novo teste atribuído ao usuário. Migration/testes no Supabase não incluídos nesta autorização específica; main, aceite M6/M5 e voz permanecem independentes. Referências serão conferidas após publicação, sem force push.
+
+## Interação 045 — Bot por texto e comandos de ofertas — 11/11/2026
+
+Autorização posterior de integração — 11/11/2026: após apresentação do commit `e58d861` e pergunta sobre publicar/integrar a feature na dev, usuário respondeu “mande para dev”. Autoriza publicação da feature e integração/publicação da dev no origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo; fetch confirmou dev/origin/dev em `b1867a5`. Preservadas as verificações da entrega (lint, 68 testes, oito scripts PGlite e build); sem mudança de runtime ou novos testes nesta autorização. Não inclui main, migrations/testes no Supabase, voz ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura, implementação React/SQL, testes e documentação; PowerShell/Git e apply_patch para branch/alterações/verificações; React/Vite/jsdom e PGlite para testes locais. Skill computer-use e navegador in-app para bancada desktop/360 px/teclado. Sem subagentes, IA externa no produto, OpenAI paga, microfone, WhatsApp ou operação remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário nesta solicitação:
+
+> comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas
+
+Resposta representativa real: “A próxima etapa é o bot por texto (T36) e a aplicação confirmada das alterações (T37), completando os rascunhos e comandos da T35. Vou implementar essa fatia localmente, com prévia obrigatória, proteção de estoque e confirmação por revisão. A validação no Supabase demo e a voz ficam pendentes de suas etapas específicas.” Consultas e esclarecimentos não registrados como prompts de programação; não há nova autorização humana de integração ou uso remoto nesta interação.
+
+### Aplicação no projeto
+
+Criada `feature/conversas-bot-ofertas` da dev limpa `b1867a5`. Implementados intérprete determinístico delimitado reutilizando T29, perguntas/correções/cancelamento, consulta do comprador, criação/edição/arquivamento de ofertas próprias, escolha de alvo, total versus saldo e datas explícitas. Componente `BotThread` mostra histórico, perguntas, prévia antes/depois e confirmação da revisão por botão; mensagens de pessoas permanecem separadas do bot. Sem compreensão geral de linguagem por modelo; voz continua indisponível.
+
+Migration `202611110002_site_offer_bot.sql` cria rascunhos e pedidos privados com RLS, revisão esperada, snapshot/versão/saldo, resultado atômico e replay pela mesma chave/conteúdo. Gateway `save_offer`/função privada de escrita compartilhados pelo formulário e bot, preservando triggers de estoque/vínculos e snapshots. Serviço do formulário mantém CRUD antigo somente quando a função não existe; bot não tem fallback sem auditoria. Falhas conservam rascunho; conflito exige nova prévia; resposta incerta conserva pedido e bloqueia correção até verificar. Atualização de listas só após oferta confirmada; mensagens do bot reconciliam por cursor. Nova bancada/fixtures/testes; tasks, contratos, decisão D020, README e validação atualizados. T36/T37 locais; T35/T38/T41/M6 continuam com pendências remotas/aceite.
+
+### Validação das respostas
+
+Codex executou lint (rodada final sem avisos), 68 testes Node/jsdom (sete novos), oito scripts de banco PGlite e build aprovado (669,77 kB principal; aviso herdado >500 kB). `git diff --check` aprovado durante a revisão; estado/diff conferidos antes da preparação do commit local. Testes novos cobrem ambiguidades, catálogo/datas/mínimos/precisão, prévia/descarte sem escrita, confirmação única, resultado perdido com replay, correção/versão obsoleta, conflitos de saldo/versão, preservação de snapshots, permissões e RLS local. Compromisso usa fixture administrativa local para exercitar proteção; pagamento real do fluxo fica na suíte M5. Componente recupera 90 mensagens após atualização simulada sem lacunas. Não equivale a concorrência, Auth, websocket ou F5 remotos.
+
+Revisão dirigida real da bancada em 1366×900 e 360×800, sem overflow horizontal medido; bot, prévia/confirmar, envio por Tab/Enter, foco de erro/resultado, falha controlada/verificação, cancelamento e perguntas de criação. Capturas locais ignoradas pelo Git, somente conteúdo fictício, viewport restaurado. Limites e medidas em validation.md. Ajustados perguntas visíveis e resumo parcial de criação, evento de recarga da janela, cleanup/respostas obsoletas e cursor progressivo. Lint intermediário apontou efeito/ref, corrigidos sem supressão; fixture adicional de compromisso inicialmente usou coluna incorreta, corrigida e suíte repetida. Nenhum teste ou aprovação atribuído ao usuário. Sem nova dependência, teste pago ou escrita no demo.
+
+### Análise crítica
+
+Intenções delimitadas permitem avaliar a experiência sem tokens, mas exigem frases documentadas e esclarecimento de saldo/datas; não oferecem entendimento arbitrário. Gateway comum reduz divergência entre formulário e bot; resultado e comando na mesma transação protegem replay. Compatibilidade temporária preserva o demo sem migration, mas precisa validação remota e retirada futura quando o schema estiver uniforme. Locks e RLS testados em PGlite não comprovam corridas/eventos remotos; mocks de perda de resposta não comprovam falha de rede real. Próximos passos são aplicação/testes autorizados no demo e avaliação; OpenAI/voz permanecem etapas separadas do usuário. Sem push, merge, deploy, alteração da main, autorização presumida ou encerramento de M6/M5/T30.
+
+## Interação 046 — IA/voz opcional nas Conversas — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura, implementação React/Node e documentação; PowerShell/Git e apply_patch para branch/alterações/verificações; Node 24/SQLite, React/Vite/jsdom e PGlite para testes locais; skill OpenAI Docs e documentação oficial para contrato Realtime; skill Computer Use e navegador in-app para bancada visual/teclado. Sem subagentes, chamadas de modelo no produto, sessão paga, microfone ou escrita remota no Supabase.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> comece as novas implementações atualizadas na tasks.md. siga as regras do projeto e pergunte caso tenha duvidas
+
+Resposta representativa real: “A base de Conversas e o bot por texto já estão na dev. Vou avançar com o adaptador opcional de IA e a voz (T39/T40), mantendo o texto simulado como padrão e testando o provedor apenas com mocks, sem chamadas pagas.” Consultas/esclarecimentos não são novos prompts de programação; nenhuma avaliação humana ou autorização de integração/migration inventada.
+
+### Aplicação no projeto
+
+Criada `feature/conversas-voz-opcional` da dev limpa `aaa0adb`. Preparados broker local Node 24 autenticado por Supabase Auth/participante/bot, cotas duráveis SQLite, origem exata, duração/respostas, hangup/recuperação e adaptador WebRTC/sideband; D021 substitui a proposta de credencial efêmera pelo SDP intermediado no servidor. Única ferramenta propõe comando corrigível em texto, sem autoridade de escrita. Painel de IA/voz opcional desabilitado por padrão, modo de IA por texto sem microfone, transcrição/sugestão corrigíveis, transferência manual ao bot sem envio, cleanup ao sair/ocultar/trocar conversa/conta ou falhar. Intérprete/prévia/confirmação T36/T37 preservados. Respostas do provedor em texto nesta fatia.
+
+Novos exemplos de ambiente público/servidor separados, dependência explícita ws 8.22.2 já instalada via jsdom, testes/fixture/bancada e roteiro voz-manual.md. Atualizados tasks, contratos, decisão D021, README/planejamento, critérios e validação; T39/T40 marcadas como implementação local, não voz real validada. Sem nova migration; T35/T38/T41 remotos, T42/T43 e aceites M6/M5 continuam pendentes. Não houve ativação de endpoint remoto ou integração com WhatsApp.
+
+### Validação das respostas
+
+Codex executou lint sem avisos, 83 testes (15 novos), oito scripts PGlite e build aprovado (679,01 kB principal; aviso herdado >500 kB). SQLite real local usado somente para cotas de sessões fictícias; autenticação/provedor/WebRTC/mídia simulados. Testes verificam limites, isolamento, concorrência de início, cotas após reabrir banco, resultado incerto/tardio, hangup com falha, recusa de ferramenta indevida, liberação de mídia, troca de conversa/conta, pagehide e cadeia sugestão → envio → prévia → confirmação. Adaptador HTTP exercitado com fetch injetado; nenhum socket externo foi aberto. Broker iniciado desabilitado sem `.env.voice` e encerrado após conferir a mensagem de ausência de API.
+
+Bancada real em 1366×900 e 360×800, sem overflow horizontal observado; transcrição/sugestão corrigidas, transferência para campo com foco, Tab/Enter até prévia e encerramento mock. Capturas fora do repositório; viewport restaurado. Não equivale a voz real, persistência remota, teste de leitor de tela ou aceite humano. Teste inicial encontrou aviso de encerramento roubando foco do campo; corrigido. Lint confundiu helper useText com hook e acusou timer sem import; corrigidos sem supressão. Após alterações de código, sessão antiga mock preservada por HMR foi descartada por recarga da bancada. Tentativas de instalação ws falharam por cache/rede; lock/dependência existente reconciliados offline sem baixar pacote. Diff/estado conferidos para preparar commit local; sem push, merge ou deploy.
+
+### Análise crítica
+
+Manter texto simulado e exigir início manual evita custo ao abrir a aba e permite avaliar o fluxo sem áudio. Controle de chamada no servidor e cotas persistentes evitam confiar só no cronômetro ou na validade de token efêmero, mas são limites operacionais, não garantia de custo em reais. Resposta incerta não pode disparar repetição paga; foi adotado bloqueio conservador com conciliação. Queda do broker exige recuperação/supervisão, e este servidor local de instância única não é implantação pública pronta. Saída do modelo continua não confiável; sugestão só entra no fluxo de oferta após revisão/envio explícitos, e confirmação/estoque continuam no banco. Mocks não comprovam precisão da transcrição, negociação WebRTC, Auth/sideband/hangup reais ou consumo. Esses testes e T42 ficam com o usuário; M6/M5/T30 e publicação dependem de seus próprios critérios/autorizações.
+
+Complemento de autorização da interação 046 — 11/11/2026: após apresentação do commit f36db6d e pergunta explícita sobre publicar/integrar a feature, usuário respondeu “pode integrar na dev”. Autoriza publicação da feature e integração/publicação da dev no origin conferido https://github.com/Conexa-GS/Conexa-Site.git. Checkout limpo na feature antes da operação; fetch repetido com permissão de escrita Git após bloqueio inicial do FETCH_HEAD. Preservadas as verificações da entrega (lint, 83 testes, oito scripts PGlite, build e bancada desktop/360 px); sem alteração de runtime ou novos testes nesta autorização. Não inclui main, migrations remotas, ativação de voz, chamada paga ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
+
+## Interação 047 — Preparação da verificação demo de Conversas — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, implementação do roteiro técnico e documentação; PowerShell/Git e apply_patch para branch/alterações; Node, Supabase JS instalado e PGlite para configuração offline e validação local dos contratos SQL. Sem subagentes, navegador, ferramentas administrativas remotas, API paga, microfone ou mensagens remotas.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> continue a implementação das tasks do projeto, pergunte o que não estiver claro
+
+Resposta representativa real: “As etapas locais de Conversas, bot e voz opcional já estão na `dev`. Vou avançar na T41: preparar a validação de persistência, permissões, concorrência e mensagens entre sessões no Supabase demo.” Consultas e esclarecimentos não registrados como prompts de programação; nenhuma aprovação humana, migration ou integração presumida.
+
+### Aplicação no projeto
+
+Criada `feature/conversas-validacao-demo` da dev limpa `96e5f33`. Roteiro `tests/remote-conversations.mjs` com flag manual, configuração offline, destino restrito ao demo, chave pública, sessões Auth independentes, RPCs com parâmetros nomeados, observação Realtime de membro/terceiro e relatório por rodada. Cenário compartilhado de bot/mensagens com adaptador PostgreSQL local; teste PGlite acrescentado à suíte de banco, dois testes de configuração e lint dos novos módulos. Sem alteração de interface, serviços do produto, schema ou dependências.
+
+Prévia/confirmar/replay, revisão obsoleta, escrita pelo gateway do formulário, isolamento e recuperação paginada preparados para execução autorizada no demo. Limpeza arquiva somente a oferta própria, consultando auditoria se perder a resposta da criação, sem repetir mutação durante limpeza. Histórico fictício permanece; rascunhos ativos e mensagens anteriores não lidas impedem prosseguimento em vez de serem descartados. Roteiro `Conexa-specs/conversas-validacao-demo.md`, README, tasks e validation atualizados. T35/T38/T41 e aceites M6/M5 permanecem pendentes.
+
+### Validação das respostas
+
+Codex executou lint aprovado, 85 testes Node/jsdom sem falhas (83 anteriores e dois novos), nove scripts PGlite aprovados e build aprovado, principal 679,01 kB/gzip 194,04 kB com aviso herdado de chunk grande. `npm run test:conversations:check` conferiu configuração local offline, sem autenticar/abrir websocket/enviar RPC ou escrever remotamente. Novo cenário PGlite passou em sete grupos; repetido após exigir código de regra/permissão esperado nas rejeições, evitando considerar falha de rede/schema como acesso bloqueado. Fila local preserva identidade+consulta na conexão única; não é prova de concorrência real. Nenhum teste visual atribuído ao usuário; não houve alteração de interface ou novo percurso no navegador.
+
+Revisão final acrescentou ao script PGlite uma segunda execução com resposta de criação perdida após commit local: teste aprovado, consulta auditável recupera o ID, somente essa nova oferta é arquivada e não há confirmação extra na limpeza. Uma aplicação de patch documental falhou por título de validation.md diferente do esperado; nenhuma alteração parcial foi aplicada, título conferido e patch reaplicado. Conferência final de lint/diff/estado após documentação registrada na entrega. Sem execução do runner remoto, migrations, push, merge ou aceite humano.
+
+### Análise crítica
+
+Compartilhar o cenário entre PostgreSQL local e runner remoto reduz erro de contrato no roteiro, mas não verifica HTTP/Auth/websocket nem corridas entre conexões sem a execução remota. Guardas de destino e chave pública evitam apontar a rotina para outro projeto ou usar autoridade administrativa. O teste deixa 82 mensagens fictícias e auditoria no histórico; isso exige avaliação/autorização e contas ociosas. Observação de três segundos sem evento ao terceiro é evidência limitada, complementada por SELECT/RLS, não garantia irrestrita. A limpeza não promete rollback de histórico nem recuperação após interrupção do processo/rede. F5, contextos de navegador independentes, falha real e reservas/compromissos remotos continuam pendentes; voz paga permanece exclusiva do usuário em T42. A preparação não encerra T41 ou qualquer marco.
+
+Complemento autorizado da interação 047 — 11/11/2026: após apresentação de `76e306c` e pergunta separando migrations/testes demo de publicação/integração, usuário respondeu “autorizo os dois”. Autoriza concluir ambas as ações no demo `conexa` (`ppbneiusqlitvewwoact`) e origin `https://github.com/Conexa-GS/Conexa-Site.git`; não promove main, publica deploy, ativa voz ou encerra marcos. Checkout limpo e dev/origin/dev em `96e5f33` após fetch. Skill Supabase lida, changelog e documentação oficial de Realtime consultados; conector confirmou projeto saudável e ausência de tabelas/RPCs. Aplicados os dois arquivos SQL integrais por apply_migration, sem reaplicar migrations anteriores: `site_conversations` = `20261111223622`, `site_offer_bot` = `20261111223632`. Conferidos RLS/grants nas cinco tabelas, publicação de mensagens, search_path e EXECUTE dos gateways; função privada de escrita sem acesso dos clientes.
+
+Teste `npm.cmd run test:conversations:demo` passou na primeira execução com rede autorizada, nove grupos, processo finalizado com código 0; relatório ignorado pelo Git `artifacts/conversations-36611d27-d93f-4940-97ab-54c4f067a6e9.local.json`. Auth real de quatro perfis mais segunda sessão de Ana; confirmação/replay concorrentes, revisão antiga/corrigida, conflito com gateway do formulário, permissões/SELECT RLS, par direto/remetente, não lidas/leitura, nova autenticação, três páginas com 81 mensagens recuperadas e arquivamento confirmados. Comprador recebeu INSERT por websocket; João não recebeu mensagens da conversa na janela observada, com canais saudáveis. Uma oferta própria criada/arquivada; 82 mensagens humanas fictícias e auditoria preservadas. Nenhum dado anterior excluído, conta criada, segredo registrado, mensagem externa, microfone ou API paga.
+
+Advisors de segurança consultados: INFO em cinco tabelas privadas preexistentes do WhatsApp sem policies, WARN nos gateways SECURITY DEFINER autenticados e proteção de senha vazada desabilitada. Grants/identidade/regras conferidos sem retirar autoridade necessária dos gateways nem mudar Auth/WhatsApp fora do escopo. Evidências e links de remediação em validation.md. Nenhuma mudança de runtime/SQL/teste local exigida pela rodada; preservadas as verificações da entrega (lint, 85 testes, nove scripts PGlite e build). Documentação atualizada na feature; F5/percurso conectado/rede física, reservas/compromissos remotos do bot, voz real/T42 e aceites M6/M5 continuam pendentes. Publicação/integração Git segue a autorização; resultado de refs conferido na entrega, sem force push e sem promover main.
+
+## Interação 048 — Opções guiadas para descobrir e usar o bot — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para implementação React/CSS/testes e documentação; PowerShell/Git/apply_patch para branch e alterações; Node/React/Vite/jsdom para verificações locais; skill Computer Use e navegador in-app para bancada desktop/celular/teclado. Sem subagentes, ferramenta administrativa Supabase, escrita remota, microfone ou API paga.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> para falar com o bot precisa de palavras chaves por enquanto, porque já não colocar as opções ao invés de escrever, por exemplo, eu não sabia o que eu poderia mandar até dar erro e eu procurar o que estava acontecendo
+
+Resposta representativa real: “Vou tornar as ações do bot visíveis ao abrir a conversa, com opções para consultar, criar, editar e arquivar ofertas. Também vou conferir as orientações durante o fluxo para que a pessoa saiba como continuar antes de receber um erro.” Consultas/esclarecimentos não são novos prompts de programação. A autorização anterior cobria a feature de validação já integrada; não foi usada para presumir publicação desta nova melhoria.
+
+### Aplicação no projeto
+
+Criada `feature/bot-opcoes-guiadas` da dev limpa `727930c`. `BotThread.jsx` recebe menu inicial por perfil, escolha de alvo antes dos campos/prévia, correções selecionáveis, campo para valores/data, opções de alimento/coleta e vencimento desconhecido. Campo em correção oculta confirmar até usar o valor ou voltar. Cancelar fica visível durante preparo; pedidos incertos bloqueiam as opções até reconciliar. `answerOfferChat` e mesmos turn/confirm preservam validações, revisão, prévia e autoridade de escrita existentes. Texto com exemplos fica em seção opcional; sugestão de voz abre a seção antes de focar o campo. `conversations.css` mantém identidade e largura móvel. Três testes de componente acrescentados; spec, contrato, tasks, decisão D022 e validation atualizados. Sem mudança de schema, serviço ou regra de negócio.
+
+### Validação das respostas
+
+Codex executou lint sem avisos, 88 testes aprovados (85 anteriores e três novos) e build aprovado, principal 684,60 kB/gzip 195,55 kB, mantendo o aviso herdado de chunk grande. Testes exercitam criação completa por opções/valores sem comandos, prévia sem escrita e confirmação separada; alvo/campo, erro/cancelar, resultado incerto/replay e papel comprador. Primeiro teste novo falhou por revisão fixa incorreta; corrigido para usar a revisão disponível. Navegador detectou campos/prévia aparecendo antes da seleção da oferta; corrigido, acrescentadas asserções e repetidos lint/test/build com sucesso.
+
+Bancada real via Computer Use em 1366×900 e 360×800: opções iniciais, editar/escolher alvo/quantidade, foco e Tab/Enter para usar valor, prévia e cancelar; criação móvel até pergunta de preço. Desktop scrollWidth 1351 no viewport 1366; celular 345 no viewport 360, menu/campo 279. Sem overflow horizontal observado; capturas locais fora do repositório, viewport restaurado. Bancada explicitamente em memória; não equivale a nova persistência/F5 remotos nem aceite humano. Suíte SQL/runner remoto não repetidos, pois SQL/regras/serviços não mudaram. Diff/estado conferidos antes do commit local; sem push/merge/deploy.
+
+### Análise crítica
+
+Opções antecipam as ações suportadas e dispensam memorizar comandos; números/datas continuam informados pela pessoa, evitando inventar valores. A seção opcional preserva o caminho de texto e a transferência de sugestões de voz. O menu prepara pedidos auditáveis, sem contornar confirmação ou permissões. Bloquear confirmação enquanto um valor está em edição reduz confusão entre o texto digitado e a prévia persistida. Testes de componente e bancada cobrem o fluxo local; integração remota desta interface e avaliação humana permanecem pendentes, assim como os limites anteriores de M6/M5/T42. A mudança não torna o intérprete uma IA de linguagem geral nem valida voz real.
+
+## Interação 049 — Atalho direto ao bot na aba Conversas — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para ajuste React/roteamento e documentação; PowerShell/Git/apply_patch, Node/Vite/jsdom para implementação/verificações; skill Computer Use e navegador in-app para revisão dirigida do atalho no site conectado. Sem subagentes, ferramentas administrativas remotas, migration, microfone ou API paga.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> cadastrar pro conversa ja deveria mandar o usuario para o bot, sem abrir uma janela diferente
+
+Resposta representativa real: “Vou fazer o botão ‘Cadastrar por conversa’ levar diretamente ao Bot Conexa na aba Conversas e retirar a abertura da janela separada.” Pedido tratado como complemento da feature de opções guiadas, mantendo `64c3227` e sem presumir integração da melhoria anterior ou deste complemento.
+
+### Aplicação no projeto
+
+`OffersPage` usa link interno na mesma aba para `/produtor/conversas?conversa=bot`, removendo estado/import/renderização do modal OfferChat nessa página. App transmite preferência inicial; ConversationsPage seleciona o bot quando a caixa carrega, informa abertura e mantém Voltar/lista normal. Não inicia cadastro ou descarta rascunho existente. Componente/modal antigo permanece somente nas bancadas/testes históricos. Teste integrado do App revelou colisão de chave React entre notificações e conteúdo; prefixo das notificações corrigido em AppLayout. Contrato/spec/tasks, D023 e validation atualizados.
+
+### Validação das respostas
+
+Lint, 89 testes e build aprovados na rodada final; principal 679,13 kB/gzip 194,11 kB, aviso herdado de chunk grande. Novo teste usa App/roteador/ofertas reais com sessão local e serviços de Conversas/bot em memória: clique abre URL interna/bot selecionado sem modal/pedido; Voltar/atualizar mantêm lista. Primeira rodada exibiu aviso de chave duplicada, corrigido e suíte repetida sem aviso. SQL/serviços não mudaram; sem repetir suíte de banco/runner remoto.
+
+Revisão Computer Use no site conectado ao demo, em 1366×900 e 360×800, entrada como produtor fictício e acionamento do atalho por clique/Enter, com Bot Conexa aberto automaticamente e zero diálogos. ScrollWidth 1351/345, sem overflow observado. Capturas locais fora do repositório; viewport restaurado. Nenhuma ação de criação/envio/confirmação pelo agente, apenas login/navegação/consulta de histórico existente. Após HMR da chave React, nova carga/login conferiu uma única área de notificações; isso não comprova F5 persistente da sessão. Diff/estado conferidos para commit local; sem push/merge/deploy ou novo aceite.
+
+### Análise crítica
+
+Reunir o cadastro em um único bot evita manter duas experiências distintas e torna as opções guiadas acessíveis pelo atalho já conhecido. Seleção inicial aguarda dados sem disparar comandos e Voltar permanece sob controle da pessoa. Sem configuração do Supabase, Conversas informa indisponibilidade; o atalho não usa o cadastro em memória como se fosse persistência remota. Teste integrado protege navegação/ausência de modal, enquanto revisão conectada é limitada ao acesso, sem novo CRUD ou auditoria completa. Pendências de M6/M5 e integração/publicação desta feature permanecem independentes.
+
+Complemento de autorização das interações 048/049 — 11/11/2026: após apresentação de `64c3227` (opções guiadas) e `d4f17bc` (atalho direto), usuário respondeu “sim” à solicitação de publicar/integrar ambos na dev. Autoriza publicação da `feature/bot-opcoes-guiadas` e integração/publicação na dev no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Sem promoção para main, deploy, migration, voz paga ou aceite de marco. Checkout limpo antes do registro; preservadas as verificações finais: lint, 89 testes, build e revisão do atalho conectado em desktop/360 px. Sem alteração funcional nesta autorização; resultado das referências conferido na entrega, sem force push.
+
+## Interação 050 — Continuação T41: retomada da sessão demo — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para leitura das especificações, implementação JavaScript/React, testes e documentação; PowerShell/Git/apply_patch e Node/Vite/jsdom para verificações locais; skill Computer Use/navegador in-app para recargas e revisão conectada desktop/360 px. Documentação oficial Supabase consultada na web e SDK instalado inspecionado para contrato Auth/BroadcastChannel. Sem subagentes, migrations, ferramentas administrativas, microfone ou API paga.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> continue a implementação das tasks do projeto, pergunte o que não estiver claro
+
+Resposta representativa real: “A `dev` já reúne o bot guiado e o atalho para Conversas. A próxima etapa é a T41, que ainda tem pendências de recarga e recuperação após falhas. Encontrei um ponto a corrigir: a interface perde o participante selecionado ao recarregar, embora o Supabase mantenha a autenticação. Vou tratar essa retomada e verificar o histórico persistido.” A observação inicial sobre Auth foi corrigida após leitura da configuração: `persistSession` também estava desativado. Não houve esclarecimento de produto necessário, autorização de publicação ou aprovação humana presumida.
+
+### Aplicação no projeto
+
+Criada `feature/t41-retomada-sessao` da dev limpa `785442d`; primeira tentativa de criar branch bloqueada pelo sandbox, repetida com escalonamento aprovado. `demo-auth.js` centraliza Auth, validação do participante por servidor/RLS, contas/papéis permitidos e saída local; `tab-session-storage.js` usa storage por aba e mapeia chave exclusiva de documento para nome estável de projeto. Isso permite retomar e impede BroadcastChannel do SDK de sincronizar identidades entre abas. Modo local continua em memória. `useDemoSession` passa a retomar, observar saída, ignorar respostas obsoletas e tratar falhas; App mostra carregamento/erro e só navega após saída bem sucedida. Login explícito encerra sessão anterior antes de trocar. Demo informa a retomada e saída.
+
+Revisão por teclado detectou foco perdido ao voltar à lista no celular; `ConversationsPage` foca o título após a lista ficar visível. Acrescentados testes Auth/storage/hook e asserção de foco em teste existente. Spec, decisão D024, roteiro, README, tasks e validation atualizados, incluindo correção de instruções antigas sobre modal/migrations no README. Nenhuma alteração em SQL, permissões, estoque, dinheiro ou interpretação de ofertas.
+
+### Validação das respostas
+
+Codex executou lint aprovado, **102 testes aprovados**, zero falhas, e build aprovado; principal 682,59 kB/gzip 195,17 kB, aviso herdado de chunk grande. Treze testes novos cobrem identidade validada, perfil inválido/forjado, rede, saída/troca/erros, isolamento e storage bloqueado, chaves de broadcast, concorrência de retomada/seleção e eventos SIGNED_OUT. Suite SQL e runner remoto não repetidos porque schema/regras não mudaram. Diff/estado conferidos para entrega; sem push/merge/deploy.
+
+Computer Use conectado ao demo: Ana desktop 1366×900, bot aberto pelo atalho, 40 mensagens existentes iguais após recarga real; comprador em segunda aba nova, recargas mantendo sua identidade, inclusive em 360×800. Saída do comprador persistiu após recarga e acesso à rota protegida; Ana continuou autenticada. ScrollWidth 1351/345, painel móvel 279, sem overflow observado; Enter em abrir/Voltar/saída e foco final no título da lista. Não houve envio/turn/confirmar/CRUD pelo agente. Viewport inicialmente afetou somente aba mais recente; innerWidth revelou a diferença e apenas comprador a 360 foi contado como mobile. Primeira comparação de histórico foi feita durante carregamento e repetida após carregar, com igualdade confirmada. Capturas/limites em validation.md, viewport restaurado. Último ajuste de saída antes do login e evento durante troca validado automaticamente após essa revisão visual, sem alegar nova execução no navegador.
+
+### Análise crítica
+
+Retomar uma sessão exige tanto token quanto participante atual validado, e storage personalizado sozinho não isola o broadcast interno do Auth. Chave exclusiva por documento resolve eventos cruzados sem trocar a fonte de dados do domínio. sessionStorage tem limites de disponibilidade/cópia/restauração do navegador; não é autenticação de produção e requer saída explícita. Testes simulam Auth/rede e não comprovam todos os fluxos remotos. Revisão conectada comprova retomada/consulta do histórico existente e perfis separados; não é novo CRUD/DM ou falha física de rede. T35/T38/T41 continuam parciais, T42/voz paga é do usuário, M6/T43 e M5/T28 dependem de suas verificações/aceites. Integração/publicação desta feature exige avaliação e autorização conforme workflow.
+
+Complemento de autorização da interação 050 — 11/11/2026: após apresentação do commit `4e02c7d`, verificações e limites, usuário respondeu “sim autorizo” à publicação da feature e integração na dev. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo antes do registro; fetch executado antes de integrar. Autorização restrita a feature/dev, sem promover main, deploy, migrations, voz paga ou aceite de marcos. Verificações funcionais da entrega preservadas; este complemento é documental. Publicação sem force push e referências conferidas ao concluir.
+
+## Interação 051 — T41: bot/DM após F5, recuperação e estoque — 11/11/2026
+
+### Ferramentas utilizadas
+
+OpenAI Codex para revisão de React/serviços/SQL, correções, testes e documentação; PowerShell/Git/apply_patch, Node/Vite/jsdom e PGlite nas verificações locais. Skill Computer Use/navegador in-app para site e bancada conectados em 360 px/desktop; cliente Supabase com chave pública/Auth/RLS para roteiro remoto; conector Supabase somente para inspeções SQL de leitura. Sem subagentes, migrations, escrita administrativa, microfone, API paga ou mensagem externa.
+
+### Interações realizadas
+
+Prompt integral de programação do usuário:
+
+> Verifique criação/edição pelo bot após recarga, mensagens entre sessões, recuperação de falhas e proteção de reservas, compromissos e histórico. Corrigir problemas encontrados.
+> e aplique as tarefas feitas conforme o tasks.md
+
+Resposta representativa real: “Vou ler as regras do projeto e o `tasks.md`, verificar os fluxos do bot e a persistência entre sessões, e corrigir os problemas encontrados. Depois executo as verificações e atualizo as tarefas conforme os resultados.” Sem aprovação humana/publicação presumida.
+
+### Aplicação no projeto
+
+Criada `feature/t41-bot-persistencia` da dev limpa `b4f203e`; sandbox inicialmente impediu branch, criada com escalonamento aprovado antes de editar. `conversation-outbox.js` registra envios incertos por participante/aba antes da chamada, exige chave durável e só limpa a chave correspondente; outro perfil não recebe o journal e não há reenvio automático no F5. `ConversationsPage` integra DM/bot e aviso de pendência. `BotThread` reconsulta estado após rejeição definitiva, ocultando prévia obsoleta se a rede falhar; resposta tardia não apaga pedido novo. Acrescentados seis testes de regressão, bancada `conversations-connected.*` e runner `remote-bot-stock.mjs`. Atualizados tasks/spec/contrato, README, decisão D025, roteiro e validation; nenhuma regra de negócio/SQL alterada.
+
+### Validação das respostas
+
+Codex executou lint sem avisos, **108 testes aprovados**, nove scripts PGlite aprovados e build aprovado (principal 684,46 kB/gzip 195,79 kB, aviso herdado de chunk grande). Lint inicial da bancada detectou componente sem export para Fast Refresh; corrigido. Testes cobrem recarga/replay, isolamento/storage bloqueado, resposta tardia e revisão concorrente com revalidação indisponível. Revisão final após navegador reforçou comparação da chave contra storage persistido entre instâncias de página: teste desmonta/remonta a página e protege envio novo contra resposta antiga; lint/108 testes/build repetidos, sem nova revisão visual desse ajuste sem mudança de interface. Runner offline aprovado; primeira tentativa remota falhou no fetch do sandbox sem criar fixtures; repetição com rede autorizada passou em quatro grupos usando sessões Auth/RLS reais.
+
+No navegador, criou oferta pelo bot, recarregou prévia e resultado, editou e retomou prévia após F5; comprador independente consultou os mesmos 22 kg/R$5,07 após recarga. Ana/comprador e Ana/João trocaram mensagens fictícias, com leitura/não lidas e histórico. Bancada conectada usa serviços reais: falha antes da chamada, descarte da resposta persistida e confirmação do bot com resposta perdida, F5 e verificação explícita pela mesma chave, sem duplicação. Rodada final repetida após recarga para descartar closures/avisos de HMR. Campo de data da automação precisou ArrowUp/ArrowDown para gerar evento após fill; payload/data remotos conferidos. Revisão dirigida em 360×800/1366×900, scrollWidth 345/1351, Enter/foco de erro e resultado; viewport restaurado. Capturas e limites em validation.md; não é auditoria completa de acessibilidade.
+
+Roteiro remoto criou reserva real e pagamento exclusivamente simulado para compromisso, bloqueou reduções, preservou snapshots/carga/aceites/pagamento ao editar e conservou histórico ao arquivar. Carga própria cancelada, estorno simulado único e compromisso liberado; oferta/demanda próprias arquivadas. Conferência final de leitura confirmou duas ofertas próprias arquivadas, um comando em cada versão 1–4 da oferta do navegador e sete mensagens humanas únicas. Históricos anteriores preservados. Sem repetir os nove grupos remotos antigos porque SQL não mudou. T35/T38 marcadas tecnicamente concluídas; subtarefas executadas de T41 marcadas, mantendo interrupção física de rede pendente. T42/T43/M6 e M5/T28 preservadas. Sem push/merge/deploy ou avaliação humana atribuída ao grupo.
+
+### Análise crítica
+
+Idempotência no banco só protege reenvio quando o cliente conserva a mesma chave: o journal fecha a lacuna de F5 e a verificação explícita evita nova escrita automática. Conferir chave antes de limpar também protege contra respostas de componentes desmontados. Storage é recuperabilidade local, não autorização; histórico/estoque continuam sob RPC/RLS. Testes controlados exercitam as duas posições da falha com persistência real, mas não equivalem a desligar fisicamente a rede ou validar websocket sob uma queda real. Voz segue simulada e depende de T42; avaliação humana/publicação desta feature continuam separadas conforme workflow.
+
+Complemento de autorização da interação 051 — 11/11/2026: após apresentação do commit `18c7c72`, verificações e limites, usuário solicitou explicitamente “suba para a dev e de merge com a main”. Autoriza publicar a feature, integrá-la/publicá-la na dev e promover a dev para main no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e referências locais/remotas sincronizadas antes do registro, após fetch. A promoção inclui o conteúdo já acumulado na dev desde a última integração na main, preservando o histórico das duas branches. Não autoriza deploy, migrations adicionais, uso pago ou encerramento das pendências T41/T42/T43/M6/M5 por pressuposição. Resultados funcionais da entrega preservados: lint, 108 testes, nove scripts PGlite, build e quatro grupos remotos aprovados; sem repetir escritas fictícias no demo nesta autorização. Integrações sem force push e referências remotas conferidas ao concluir.

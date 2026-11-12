@@ -3,7 +3,7 @@ import { useRouter, navigate } from './hooks/useRouter'
 import { useDemoSession } from './hooks/useDemoSession'
 import AppLayout from './components/AppLayout'
 import { homeFor } from './domain/profiles'
-import { ActionLink, EmptyState, Logo } from './components/ui'
+import { ActionLink, EmptyState, ErrorNotice, Logo } from './components/ui'
 import Demo from './pages/Demo'
 import OffersPage from './features/offers/OffersPage'
 import { OperationPage, PaymentPage } from './pages/Previews'
@@ -11,9 +11,11 @@ import TransportPage from './features/transport/TransportPage'
 import DemandsPage from './features/demands/DemandsPage'
 import CompositionPage from './features/demands/CompositionPage'
 import ProducerProposals from './features/demands/ProducerProposals'
+import ConversationsPage from './features/conversations/ConversationsPage'
 import './App.css'
 const Landing = lazy(() => import('./components/Landing'))
 const routes = {
+  '/produtor/conversas': ['producer', 'Conversas'], '/comprador/conversas': ['buyer', 'Conversas'],
   '/produtor/ofertas': ['producer', 'Minhas ofertas'], '/produtor/propostas': ['producer', 'Propostas recebidas'],
   '/comprador/ofertas': ['buyer', 'Explorar alimentos'], '/comprador/demandas': ['buyer', 'Minhas demandas'],
   '/comprador/demandas/exemplo/composicao': ['buyer', 'Composição de exemplo'],
@@ -29,10 +31,13 @@ export default function App() {
   if (path === '/') return <Suspense fallback={<div className="initial-loading" role="status">Preparando o caminho…</div>}><Landing /></Suspense>
   if (path === '/demo') return <Demo auth={auth} />
   if (!route) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Esse caminho ainda não existe." action={<ActionLink href="/">Voltar ao início</ActionLink>}>Confira o endereço ou retorne à página inicial.</EmptyState></div>
+  if (auth.restoring) return <div className="initial-loading" role="status">Retomando sua sessão de demonstração…</div>
+  if (!auth.session && auth.error) return <div className="app-shell"><header className="app-header"><Logo /></header><ErrorNotice title="Não foi possível retomar a sessão">{auth.error}</ErrorNotice><ActionLink href="/demo">Escolher participante e tentar novamente</ActionLink></div>
   if (!auth.session) return <div className="app-shell"><header className="app-header"><Logo /></header><EmptyState title="Vamos escolher seu perfil?" action={<ActionLink href="/demo">Entrar na demonstração</ActionLink>}>Abra uma sessão fictícia para explorar este espaço.</EmptyState></div>
   const role = auth.session.role
   let page
   if (route[0] && route[0] !== role) page = <EmptyState title="Cada perfil tem seu caminho." action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
+  else if (path.endsWith('/conversas')) page = <ConversationsPage key={auth.session.id} session={auth.session} initialBot={new URLSearchParams(window.location.search).get('conversa') === 'bot'} />
   else if (path.endsWith('/ofertas')) page = <OffersPage key={auth.session.id} session={auth.session} />
   else if (path === '/produtor/propostas') page = <ProducerProposals key={auth.session.id} session={auth.session} />
   else if (path === '/comprador/demandas') page = <DemandsPage key={auth.session.id} session={auth.session} />
@@ -42,5 +47,5 @@ export default function App() {
   else if (path === '/transportador/veiculos') page = <TransportPage key={`${auth.session.id}-vehicles`} session={auth.session} vehiclesOnly />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
   else page = <OperationPage role={role} />
-  return <AppLayout session={auth.session} path={path} leave={async () => { await auth.leave(); navigate('/demo') }}>{page}</AppLayout>
+  return <AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate('/demo') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout>
 }

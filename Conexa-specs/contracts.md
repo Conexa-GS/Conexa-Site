@@ -1,6 +1,10 @@
 # Contratos de serviços propostos
 
+Contrato local T39/T40 (11/11/2026, D021): [conversas-site.md](conversas-site.md#contrato-local-t39t40--d021) descreve `POST /api/voice/sessions` (`conversation_id`, SDP) e `GET`/`DELETE /api/voice/sessions/:id`. Auth/participante/bot verificados no servidor, origem exata e limites locais persistentes; devolve SDP/ID local/prazo, sem chave OpenAI. Ferramenta apenas propõe texto corrigível, sem RPC de confirmação ou escrita; envio/prévia/confirmar continuam em `site_bot`. Flags desligadas por padrão. Interface unificada substitui a emissão efêmera originalmente proposta. Testes somente locais/simulados; configuração e limites de implantação em [voz-manual.md](voz-manual.md).
+
 Interfaces abaixo são contratos lógicos, não endpoints de backend já implementados. CRUD simples usa cliente Supabase com RLS. Operações compostas usam funções transacionais; rotas externas usam servidor.
+
+T30/WhatsApp: contrato separado em [t30-whatsapp.md](t30-whatsapp.md), com protocolo de texto e handler local sem adaptador persistente. `acceptBatch` deve garantir recebimento durável do lote antes de responder 200; `publish_offer` é pedido, não confirmação de gravação. Banco, identidade e envio externo ainda não implementados.
 
 ## Implementação M2 — 07/11/2026
 
@@ -27,6 +31,14 @@ Os nomes abaixo seguem como contratos lógicos. A implementação M2 usa esse ú
 - Cliente nunca escolhe total final confiável, estoque disponível ou destinatário de pagamento arbitrário.
 
 ## Cadastros — M1/M2
+
+### Adaptador de conversa M6 — implementação local em avaliação — 10/11/2026
+
+`answerOfferChat(draft,name,answer,catalog)` valida uma resposta explícita e retorna `{draft,error}`, preservando o rascunho anterior quando inválida. `validateChatDraft` reutiliza `validateOffer`, acrescenta datas de calendário e opções do catálogo/coleta do perfil. Quantidade aceita até três casas, reais até duas e conversão para centavos é a mesma do formulário. Datas DD/MM/AAAA são normalizadas para ISO; vencimento desconhecido vira `null`. Nenhuma escrita ocorre nesses adaptadores.
+
+Somente a confirmação separada da prévia chama `useOffers.save(data,null)` → `saveOffer(session,data,null)`. Payload real: `{product_id,quantity_total,unit_price_cents,minimum_net_unit_cents,available_from,available_until,expires_on,pickup_location_id,status:'published'}`. Dono continua derivado da sessão/banco; texto da conversa não é persistido nem enviado a IA externa. Não há endpoint, tabela ou migration M6 nova. RLS/validações do Supabase existentes continuam como autoridade; sem ambiente remoto mantém a demonstração em memória identificada. Bloqueio em memória evita confirmações simultâneas no mesmo diálogo, sem prometer idempotência em queda de resposta ou entre abas. Em 10/11/2026, AC22 foi exercitado por eventos do componente em jsdom e pelo serviço real com Auth/RLS demo; revisão de navegador, teclado/360 px e F5 continuam pendentes.
+
+### Serviços de cadastro
 
 - `offers.listPublished(filters)` → ofertas publicadas com produtor, produto, saldo, preço e disponibilidade.
 - `offers.listMine()` → ofertas do produtor autenticado na demo.

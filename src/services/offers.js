@@ -1,6 +1,7 @@
 import { futureDate, today } from '../domain/offers'
 import { isRemote, supabase } from './supabase'
 import { m2 } from './m2'
+import { createDemoAuth } from './demo-auth'
 
 export const accounts = [
   { id: 'ana', name: 'Ana Oliveira', role: 'producer', label: 'Sítio Boa Semente', email: import.meta.env.VITE_DEMO_ANA_EMAIL || 'ana@conexa.invalid', art: 'produtora' },
@@ -16,16 +17,14 @@ let localOffers = [
 ].map(offer => ({ ...offer, available_from: today(), available_until: futureDate(14), status: 'published', version: 1 }))
 const hydrate = offer => ({ ...offer, products: products.find(p => p.id === offer.product_id), participants: { display_name: accounts.find(a => a.id === offer.producer_id)?.name }, locations: locations.find(l => l.id === offer.pickup_location_id) })
 const check = result => { if (result.error) throw new Error('Não foi possível acessar os dados. Verifique a conexão e a configuração do Supabase.'); return result.data }
-export async function signInDemo(account) {
-  if (!isRemote) return { ...account, display_name: account.name }
-  const { error } = await supabase.auth.signInWithPassword({ email: account.email, password: import.meta.env.VITE_DEMO_PASSWORD || '' })
-  if (error) throw new Error('Não foi possível abrir a sessão de demonstração. Confira os usuários fictícios e a configuração do ambiente.')
-  const { data: { user } } = await supabase.auth.getUser()
-  const participant = check(await supabase.from('participants').select('*').eq('id', user.id).single())
-  if (!participant.is_demo || participant.role !== account.role) { await supabase.auth.signOut(); throw new Error('Esse participante não corresponde ao perfil de demonstração selecionado.') }
-  return { ...account, ...participant }
+export const demoSessionService = isRemote ? createDemoAuth(supabase, accounts, import.meta.env.VITE_DEMO_PASSWORD || '') : {
+  restore: async () => null,
+  enter: async account => ({ ...account, display_name: account.name }),
+  leave: async () => {},
+  subscribe: () => () => {},
 }
-export const signOutDemo = async () => { if (isRemote) await supabase.auth.signOut() }
+export const signInDemo = account => demoSessionService.enter(account)
+export const signOutDemo = () => demoSessionService.leave()
 export async function listCatalog(session) {
   if (!isRemote) return { products, locations: locations.filter(l => l.owner_id === session.id) }
   const [productResult, locationResult] = await Promise.all([supabase.from('products').select('*').order('name'), supabase.from('locations').select('*').eq('owner_id', session.id)])
@@ -47,18 +46,25 @@ export async function saveOffer(session, input, previous) {
     localOffers = previous ? localOffers.map(o => o.id === previous.id ? offer : o) : [offer, ...localOffers]
     return
   }
-  const write = data => previous
-    ? supabase.from('offers').update(data).eq('id', previous.id).eq('version', previous.version).select('id').single()
-    : supabase.from('offers').insert(data).select('id').single()
-  let result = await write(input)
-  if (result.error?.code === 'PGRST204' && result.error.message.includes('expires_on')) {
-    if (input.expires_on) throw new Error('O cadastro de vencimento aguarda atualização do Supabase demo. Seus dados foram preservados.')
-    // Keep the existing CRUD usable until the optional expiry column is installed.
-    const legacy = { ...input }; delete legacy.expires_on
-    result = await write(legacy)
+  const result = await supabase.rpc('save_offer', { p_data: input, p_id: previous?.id || null, p_version: previous?.version || null })
+  if (['PGRST202', '42883'].includes(result.error?.code)) {
+    // Compatibilidade temporária com o demo antes da nova migration autorizada.
+    // As escritas antigas continuam sob os mesmos triggers e RLS de ofertas.
+    const write = data => previous
+      ? supabase.from('offers').update(data).eq('id', previous.id).eq('version', previous.version).select('id').single()
+      : supabase.from('offers').insert(data).select('id').single()
+    let legacy = await write(input)
+    if (legacy.error?.code === 'PGRST204' && legacy.error.message.includes('expires_on')) {
+      if (input.expires_on) throw new Error('O cadastro de vencimento aguarda atualização do Supabase demo. Seus dados foram preservados.')
+      const compatible = { ...input }; delete compatible.expires_on
+      legacy = await write(compatible)
+    }
+    if (legacy.error?.code === 'PGRST116') throw new Error('Esta oferta mudou em outra sessão. Atualize a lista antes de editar novamente.')
+    check(legacy)
+    return
   }
-  if (result.error?.code === 'PGRST116') throw new Error('Esta oferta mudou em outra sessão. Atualize a lista antes de editar novamente.')
-  check(result)
+  if (result.error) throw new Error(result.error.message)
+  return result.data
 }
 export async function deleteOffer(session, offer) {
   if (!isRemote) {
@@ -77,5 +83,8 @@ export async function archiveOffer(session, offer) {
     localOffers = localOffers.map(o => o.id === offer.id ? { ...o, status: 'archived' } : o)
     return
   }
-  check(await supabase.from('offers').update({ status: 'archived' }).eq('id', offer.id).eq('version', offer.version).select('id').single())
+  const result = await supabase.rpc('save_offer', { p_data: {}, p_id: offer.id, p_version: offer.version, p_archive: true })
+  if (['PGRST202', '42883'].includes(result.error?.code)) return check(await supabase.from('offers').update({ status: 'archived' }).eq('id', offer.id).eq('version', offer.version).select('id').single())
+  if (result.error) throw new Error(result.error.message)
+  return result.data
 }
