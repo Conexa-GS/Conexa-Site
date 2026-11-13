@@ -111,7 +111,8 @@ export function mountMotion() {
     indicator.classList.remove('is-visible')
     if (metrics) measure()
   }
-  toggle.addEventListener('click', () => { setMotionReduced(!reduced); applyMotion() }, { signal: lifetime.signal })
+  toggle.addEventListener('click', () => setMotionReduced(!reduced), { signal: lifetime.signal })
+  document.addEventListener('conexa-motion-preference', applyMotion, { signal: lifetime.signal })
   preference.addEventListener('change', applyMotion, { signal: lifetime.signal })
   addEventListener('scroll', () => { updateTarget(); start() }, { passive: true, signal: lifetime.signal })
   addEventListener('resize', () => { if (!resizeFrame) resizeFrame = requestAnimationFrame(measure) }, { passive: true, signal: lifetime.signal })

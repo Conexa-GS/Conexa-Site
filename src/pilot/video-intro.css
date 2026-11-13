@@ -1,0 +1,124 @@
+.video-intro {
+  position: relative;
+  background: var(--cream);
+}
+
+.video-intro-stage {
+  position: relative;
+  height: 100svh;
+  min-height: 540px;
+  isolation: isolate;
+}
+
+.video-intro-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--green);
+  transform-origin: center;
+}
+
+.video-intro-media,
+.video-intro-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-intro-media {
+  object-fit: cover;
+  transform: scale(1.02);
+}
+
+.video-intro-shade {
+  background: linear-gradient(90deg, #123b2cc9, #123b2c52 65%, #123b2c26);
+}
+
+.video-intro-copy {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px max(55px, calc((100% - 1270px) / 2));
+  color: var(--cream);
+}
+
+.video-intro-copy h1,
+.video-intro-copy h1 > span { color: var(--cream); }
+.video-intro-copy h1 > span { color: var(--lime); }
+.video-intro-copy p { max-width: 370px; margin-top: 28px; font-size: 16px; }
+
+.video-intro-toggle {
+  position: absolute;
+  top: 24px;
+  right: max(24px, calc((100% - 1270px) / 2));
+  padding: 11px 17px;
+  border: 1px solid #fff9ec70;
+  border-radius: 30px;
+  background: #174d38e6;
+  color: var(--cream);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.video-intro-toggle:hover { background: var(--green); }
+.video-intro-toggle:focus-visible { outline-color: var(--cream); }
+.video-intro-toggle:disabled { cursor: default; opacity: 1; }
+
+/* Native scroll timelines leave normal wheel, touch and keyboard scrolling intact.
+   Unsupported browsers keep the same video as a regular, unpinned opening. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html:not([data-motion="reduced"]) .video-intro {
+      min-height: 235svh;
+      view-timeline: --video-intro block;
+    }
+
+    html:not([data-motion="reduced"]) .video-intro-stage { position: sticky; top: 0; }
+
+    html:not([data-motion="reduced"]) .video-intro-media {
+      animation: video-enter-exit linear both;
+      animation-timeline: --video-intro;
+      animation-range: contain 0% contain 100%;
+    }
+
+    html:not([data-motion="reduced"]) .video-intro-frame {
+      animation: video-pull-back linear both;
+      animation-timeline: --video-intro;
+      animation-range: contain 0% contain 100%;
+    }
+
+    html:not([data-motion="reduced"]) .video-intro-copy {
+      animation: video-copy-away linear both;
+      animation-timeline: --video-intro;
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+
+@keyframes video-enter-exit {
+  0% { transform: scale(1.02); }
+  45%, 55% { transform: scale(1.5); }
+  100% { transform: scale(1.02); }
+}
+
+@keyframes video-pull-back {
+  0%, 60% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(.9); opacity: .4; }
+}
+
+@keyframes video-copy-away {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  32%, 100% { transform: translateY(-30px) scale(1.06); opacity: 0; }
+}
+
+@media (max-width: 760px) {
+  .video-intro-stage { min-height: 480px; }
+  .video-intro-copy { padding: 84px 24px; }
+  .video-intro-copy h1 { font-size: clamp(48px, 11vw, 76px); }
+  .video-intro-copy p { max-width: 265px; font-size: 14px; }
+  .video-intro-toggle { top: 18px; right: 18px; font-size: 10px; }
+  .video-intro-shade { background: linear-gradient(90deg, #123b2cc9, #123b2c66); }
+}

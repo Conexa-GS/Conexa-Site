@@ -1395,3 +1395,26 @@ Lint, 130 testes existentes, build e diff-check passaram. Revisão visual deskto
 ### 5. Análise crítica
 
 A camada verde aproxima os cartões da identidade do login e mantém as fotografias visíveis. O texto creme oferece contraste sobre a área escurecida, substituindo o texto verde que dependia do fundo claro. Fotografias continuam com recorte responsivo e esta revisão dirigida não certifica todos os dispositivos ou acessibilidade assistiva.
+
+## Interação 073 — Vídeo na abertura e zoom por rolagem — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para implementar a abertura e documentar o comportamento, com orientação da skill design-taste-frontend sobre movimento e responsividade. Terminal/Git para preparar feature da dev, copiar/conferir mídia e executar lint/testes/build. Navegador integrado via Computer Use para verificar desktop/360 px, capturar um quadro como poster, emular movimento reduzido e salvar capturas. Sem subagentes, IA de imagem, provedor de vídeo ou alteração de banco.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “deixe esse video de fundo no começo da pagina principal do site (sem som).
+coloque um efeito de scroll na tela, onde o usuario vai rolar um pouco a tela e parecer que está entrando no video, depois de rolar mais um pouco vai aparecer um efeito de saindo do video (os efeitos vão aproximar e afastar)”. Arquivo indicado: F:/video conexa.mp4. Resposta aplicada: abertura com reprodução sem som, aproximação e afastamento por rolagem, seguida das ilustrações; controle compartilhado de movimento.
+
+### 3. Aplicação no código
+
+home.html acrescenta vídeo, poster, camada de contraste, título e botão; título ilustrado passa a h2 com texto próprio. Landing.jsx monta video-intro.js/css e seu cleanup. CSS usa scroll timeline nativa e sticky com transform/opacity, sem biblioteca adicional ou novo listener de scroll. JavaScript cuida de muted, visibilidade, preferência compartilhada e pausa/retomada; motion.js escuta o mesmo evento para sincronizar os controles. Mídia local em public/assets/video. D040/spec/README/estado-atual/validation registram o escopo.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes existentes e build com sucesso; aviso preexistente de chunk acima de 500 kB. Navegador integrado conferiu vídeo 1280×720/10,03 s, muted e reprodução, escala máxima 1,5, afastamento, pausa fora da abertura, sequência ilustrada, controle compartilhado e ausência de overflow horizontal em desktop/360 px. Preferência do sistema emulada pausou vídeo e removeu zoom/fixação. Capturas locais e medidas em validation.md. Após HMR do HTML bruto remover as ilustrações injetadas durante a bancada, recarga completa confirmou sua montagem normal. Python do alias WindowsApps não pôde executar; poster foi extraído pelo canvas do navegador local. Não foram presumidos aparelho físico, leitor de tela, autoplay bloqueado ou teste humano. Sem publicação/integração desta alteração.
+
+### 5. Análise crítica
+
+CSS nativo liga o efeito à posição de rolagem sem renderizações React por quadro, mantendo o gesto normal do navegador. Poster e texto conservam uma abertura legível quando a mídia não reproduz. Movimento reduzido e pausa compartilhada oferecem alternativa ao zoom e ao vídeo automático. O arquivo de cerca de 5,9 MB adiciona transferência e decodificação; pausa fora da seção reduz trabalho, mas não elimina o download. Cover privilegia preencher a tela e recorta laterais em 360 px. Compatibilidade sem scroll timeline tem fallback estático, sem verificação em múltiplos navegadores. Avaliação humana e autorização para subir/integrar na dev pendentes.
