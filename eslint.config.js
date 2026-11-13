@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'artifacts/entrega/**']),
   {
     files: ['server/**/*.mjs', 'tests/remote-conversations.mjs', 'tests/remote-t31.mjs', 'tests/conversations-acceptance-database.mjs', 'tests/helpers/conversations-{acceptance,demo-config}.mjs'],
     extends: [js.configs.recommended],
