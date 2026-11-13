@@ -1242,3 +1242,25 @@ Codex executou npm run lint, npm test (120 aprovados, zero falhas), npm run buil
 ### 5. Análise crítica
 
 As imagens fornecidas aproximam cada perfil de sua atividade e permanecem locais. O recorte responsivo prioriza o preenchimento do painel, com partes das fotos fora da área visível; a camada verde mantém a identidade e ajuda a leitura. Os três arquivos originais somam aproximadamente 9,7 MB, carregados conforme a seleção; não houve otimização ou alteração dos originais. A revisão foi dirigida ao login e não certifica todos os fluxos de autenticação ou acessibilidade. Avaliação humana e autorização de publicação/integração na dev pendentes.
+
+## Interação 066 — Google Maps com percurso fictício — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para analisar o fluxo M4, implementar mapa opcional React/CSS e configuração, testes e documentação. Terminal para verificações locais; documentação oficial Google consultada via busca/web; navegador integrado para revisão dirigida de desktop/360 px e teclado. Sem subagentes, IA externa ou chamada ao Google Maps.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: integrar a API Google Maps para simular a visualização do caminho da transportadora, sem fazendas/comércios reais, dentro do mapa de uma cidade do interior de São Paulo. Resposta aplicada: Maps Embed API com coordenadas e nomes fictícios, circuito completo/trechos, fallback manual e configuração opcional. Botucatu confirmada como cenário; configuração deixada sem chave conforme preferência do usuário. Perguntas de esclarecimento não são transcritas como prompts de programação.
+
+### 3. Aplicação no código
+
+src/domain/demo-map.js define pontos e URL Embed somente com coordenadas locais inventadas. DemoRouteMap.jsx e demo-route-map.css apresentam paradas, percurso completo/trechos, carregamento explícito, recarregar/fechar e avisos de simulação. Integrado à operação de exemplo em Previews.jsx e RouteAnalysis.jsx; consulta autenticada continua no gateway existente, sem geocodificação dos endereços retornados. Contagem de coletas (até seis) e retorno orientam a representação fictícia. .env.example e .env local com VITE_GOOGLE_MAPS_EMBED_KEY vazia; .gitignore exclui as capturas locais. README/specs registram D033, configuração de chave pública restrita, limites do iframe e pendências reais. Nenhuma alteração em schema, serviços remotos, valores ou status da operação.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou npm run lint, npm test (123 aprovados, zero falhas), npm run build e git diff --check com sucesso; aviso preexistente de bundle acima de 500 kB. Três testes novos cobrem URL/sequência/retorno e ausência de credencial/circuito suportado; componente cobre abertura explícita, trechos, retry/fechar e reinício ao mudar circuito. Ajustadas asserção jsdom de referrerpolicy e dependência inadequada do evento error de iframe; fallback permanente e load sem alegação de sucesso do provedor. Suíte direcionada e depois completa passaram. Navegador integrado na bancada M4 em 1366×900 e 360×800, sem overflow horizontal (1351/1366 e 345/360), estado sem chave e seleção de trecho; Tab entre controles conferido. Capturas locais ignoradas. Sem consulta Google, validação remota, relato de teste/aceite humano, commit, push, merge ou deploy.
+
+### 5. Análise crítica
+
+O iframe permite visualizar o percurso nas ruas sem nova dependência ou infraestrutura, mantendo atribuições do provedor. Pontos inventados evitam associar pessoas aos estabelecimentos do mapa base; nomes/POIs do Google continuam reais e não são participantes. Chave pública de exibição precisa de restrições por API/site e não equivale a credencial de servidor Routes. Sem chave só o roteiro textual foi revisado; cobertura e traçado efetivos dependem de validação posterior. A origem externa impede detectar todos os erros dentro do iframe: lista, instrução e recarregar/fechar são preservados. Distâncias/tempos não certificam caminhões nem alteram cotação ou estados. A revisão foi dirigida e mantém pendências de avaliação/integração e dos marcos anteriores.

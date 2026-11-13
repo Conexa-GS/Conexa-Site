@@ -1,5 +1,7 @@
 # Especificação funcional
 
+Extensão solicitada em **13/11/2026 (D033)**: RF07 inclui visualização opcional de um percurso fictício no Google Maps Embed, ambientado em Botucatu (SP), com saída, coletas, entrega e retorno quando acordado. Percurso completo e trechos, sem rastreamento ao vivo. Propriedades/comércio não representam negócios reais; coordenadas inventadas independem dos cadastros. Configuração preparada sem chave; mapa externo real permanece sem validação. Roteiro e cotação manuais continuam disponíveis. Não inclui Routes API, frete automático ou comparação de totais entre composições.
+
 Escopo vigente em **13/11/2026 (D032)**: voz/GPT-Live está no planejamento futuro, adiada sem prazo e fora da entrega ativa. RF11/M6 mantém bot guiado por texto, prévia e confirmação; RF12 mantém mensagens. T42 adiada não bloqueia T43/aceite M6 de texto/DM. Referências anteriores a voz opcional planejada ficam como histórico; código e evidências preservados, sem ativação.
 
 Estado de execução consolidado em [estado-atual.md](estado-atual.md), 12/11/2026. Requisitos não são evidência de teste ou aceite; procedimentos e limites em validation.md.

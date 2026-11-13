@@ -283,3 +283,19 @@ A resposta digitada aparece como mensagem do usuário e a próxima pergunta é m
 ### Autorização de publicação e promoção de Conversas — 13/11/2026
 
 Usuário autorizou explicitamente: “pode mandar para dev e depois para main”. Autoriza publicar a feature/conversas-mensageiro, integrar na dev e promover sequencialmente para main. Não equivale a novos testes humanos, deploy comprovado ou aceite integral de M6. Verificações locais e limites registrados acima permanecem válidos. Autorização registrada fora de IA.md, pois não constitui prompt de programação.
+
+## D033 — Percurso fictício no Google Maps em Botucatu — 13/11/2026
+
+Origem: pedido explícito para integrar Google Maps e simular o caminho da transportadora, com propriedades e comércios fictícios em uma cidade do interior paulista. Botucatu (SP) confirmada pelo usuário; configuração deve ficar preparada sem chave. Implementação em feature/google-maps-simulacao, criada da dev 549241d, sem alterar main.
+
+Escolhida Maps Embed API, modo directions, para visualizar mapa/ruas, saída, coletas, entrega e eventual retorno. Controles mostram percurso completo ou trecho até cada parada. Coordenadas inventadas e nomes fictícios locais; não geocodificar endereços dos participantes. Na análise de cotação, usar somente quantidade de coletas e presença de retorno do roteiro M4 autenticado. Suporte explícito de até seis coletas; acima disso preservar lista manual completa e informar limite do mapa. Não há GPS, acompanhamento ao vivo ou escrita no Supabase.
+
+A chave Embed é pública no navegador por desenho da API e deve ser exclusiva, restrita a Maps Embed API e HTTP referrers. Esta decisão autoriza a chave pública de exibição como exceção à proposta histórica de credenciais de rotas exclusivamente no servidor; eventual cálculo Routes mantém credencial no servidor. VITE_GOOGLE_MAPS_EMBED_KEY preparada vazia em .env.example e no .env local existente, preservando demais valores. Não criar chave, conta, faturamento, contratar serviço ou habilitar API pelo usuário nesta entrega. Uso gratuito informado pela documentação oficial consultada em 13/11/2026; configuração Google requer projeto com faturamento habilitado.
+
+Carregar iframe somente após clique explícito; sem chave não há requisição ao Google Maps. Referrer envia apenas origem. Dados/atribuição do Google permanecem no iframe, sem cache no banco ou sobreposição. Nomes de estabelecimentos do mapa base não representam participantes Conexa. Não extrair distância/tempo do iframe, não preencher custos/rota manual nem prometer adequação para caminhões. Estimativas para automóveis não incluem tempo de coleta e não confirmam pedágios. Aplicação não inspeciona erros internos de iframe cross-origin; preserva lista, instrução e ações de recarregar/fechar. Load não comprova sucesso.
+
+Verificação local: lint, 123 testes e build passaram; três testes novos sem requisições ao Google, revisão dirigida de bancada desktop/360 px e teclado. Chave real, cobertura/ruas, traçado/estimativas, restrições e retorno efetivo do provedor permanecem sem teste, conforme opção de configuração vazia. Sem alteração dos aceites M4/M5/M6, migrations, publicação/integração ou deploy; requer avaliação e autorização antes de subir/integrar na dev.
+
+### Autorização de integração de Google Maps — 13/11/2026
+
+Após apresentação da feature/google-maps-simulacao e orientação sobre criação da chave, o usuário autorizou explicitamente: “pode enviar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não inclui promoção para main, deploy, comprovação de configuração da chave ou teste real do Google Maps. Verificações locais e limites de D033 preservados; a autorização não equivale a teste humano do mapa.

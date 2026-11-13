@@ -1,5 +1,7 @@
 # Limitações e pendências da entrega
 
+Complemento D033, **13/11/2026**: visualização Google Maps Embed preparada com cenário fictício em Botucatu; chave vazia por escolha do usuário. Lista/controles/fallback revisados localmente, sem consulta real ao provedor. A linha histórica M4 abaixo descreve o pacote anterior: o novo código inclui mapa opcional, mas ativação, cobertura dos pontos e validação externa permanecem pendentes. Sem Routes API, rastreamento, roteamento para caminhões, frete automático ou ampliação dos aceites. O ZIP anterior não foi regenerado nesta extensão.
+
 Atualização de escopo em **13/11/2026 (D032)**: voz/GPT-Live guardada no planejamento futuro, sem prazo e fora da entrega ativa. T42, AC32 e a parte de integração paga de AC31 estão adiadas; limites de voz abaixo são históricos, sem teste real concluído e sem bloquear T43/M6 de texto/DM. A alternativa por texto sem API paga continua requisito ativo.
 
 Consolidação documental em **12/11/2026**. As verificações anteriores são evidências datadas; não certificam disponibilidade atual de serviços externos. Nenhum aceite novo é presumido nesta entrega.

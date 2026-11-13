@@ -3,6 +3,7 @@ import { ErrorNotice } from '../../components/ui'
 import { currency } from '../../domain/offers'
 import { comparableQuotes } from '../../domain/route-analysis'
 import { m4 } from '../../services/m4'
+import DemoRouteMap from './DemoRouteMap'
 
 const stopLabel = { departure: 'Saída', pickup: 'Coleta', destination: 'Destino', return: 'Retorno acordado' }
 
@@ -24,7 +25,8 @@ export default function RouteAnalysis({ load, quote, request = m4 }) {
   return <div className="m4-route"><button className="text-link" disabled={state.loading} onClick={inspect}>{state.loading ? 'Consultando roteiro…' : 'Conferir roteiro e dados de rota (M4)'}</button>
     {state.loading && <p role="status">Consultando a cotação no servidor…</p>}
     {state.error && <ErrorNotice retry={inspect}>{state.error}</ErrorNotice>}
-    {state.route && <section aria-label="Roteiro manual da cotação"><p role="status"><strong>Roteiro manual · API de rotas não habilitada.</strong></p><ol className="m3-route">{state.route.stops.map((stop, index) => <li key={index}>{stopLabel[stop.kind]}: {stop.address}{stop.producerName && ` · ${stop.producerName}`}</li>)}</ol>
+    {state.route && <section aria-label="Roteiro manual da cotação"><p role="status"><strong>Roteiro manual da cotação.</strong></p><ol className="m3-route">{state.route.stops.map((stop, index) => <li key={index}>{stopLabel[stop.kind]}: {stop.address}{stop.producerName && ` · ${stop.producerName}`}</li>)}</ol>
+      <DemoRouteMap pickupCount={state.route.stops.filter(stop => stop.kind === 'pickup').length} withReturn={state.route.stops.some(stop => stop.kind === 'return')} />
       <dl className="money-list"><div><dt>Distância</dt><dd>Indisponível</dd></div><div><dt>Tempo de direção</dt><dd>Indisponível</dd></div><div><dt>Tempo de paradas</dt><dd>A confirmar</dd></div><div><dt>Pedágio individual</dt><dd>A confirmar</dd></div><div><dt>Frete completo da cotação</dt><dd>{currency(state.route.freightCents)}</dd></div></dl>
       <p className="inline-caption">Dados da cotação fictícia consultada. Combustível, pedágios, coletas, descarga e retorno acordado já estão cobertos pelo frete fechado. Nenhum custo é somado novamente. Distância e tempo não são deduzidos dos horários; a cotação manual continua disponível sem cálculo externo.</p>
     </section>}

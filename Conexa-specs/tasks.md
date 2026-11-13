@@ -1,5 +1,12 @@
 # Tarefas e marcos
 
+## Extensão Google Maps — 13/11/2026 (D033)
+
+- [x] Implementar visualização Google Maps Embed opcional, pontos fictícios de Botucatu, percurso completo/trechos e retorno quando acordado; roteiro manual preservado e sem mudança de dados financeiros ou da operação.
+- [x] Preparar configuração com chave vazia a pedido do usuário, documentação e teste local sem chamar Google Maps; revisão dirigida desktop/360 px.
+- [ ] Após configuração pelo usuário, validar chave/restrições, ruas/cobertura dos pontos, percurso completo/trechos/retorno e comportamento com Google indisponível. Integração preparada não comprova API externa executada.
+- [ ] Avaliação e autorização para publicar/integrar a feature na dev. Demais aceites e pendências M4/M5/M6 preservados.
+
 ## Atualização de escopo — 13/11/2026 (D032)
 
 Voz/GPT-Live guardada no planejamento futuro, sem prazo e fora do escopo ativo. T39/T40 conservam somente a implementação local já registrada; T42 adiada, não concluída. Avaliação T43/M6 considera texto/DM e não depende da voz arquivada. Referências históricas abaixo a T42 aberta não são instruções para integrar ou testar voz agora.
