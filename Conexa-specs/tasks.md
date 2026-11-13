@@ -1,5 +1,13 @@
 # Tarefas e marcos
 
+## Extensão de frete e entrega — 13/11/2026 (D034)
+
+- [x] Preparar broker Google Routes com chave privada, Auth/papel carrier, origem/quota/timeout e fallback manual.
+- [x] Calcular base + km + adicionais, mínimo opcional, direção até entrega, paradas explícitas e retorno separado; aplicação revisada na nova cotação e exemplo Botucatu independente.
+- [x] Verificar domínio, HTTP/Google com mocks e componentes; revisão dirigida desktop/360 px. Evidências em validation.md.
+- [ ] Configurar chave Routes/API/faturamento/cotas e verificar Google real, cobertura e Auth/broker/Google ponta a ponta; implantação exige serviço/proxy e termos/privacidade.
+- [ ] Avaliação humana e autorização para publicar/integrar na dev; sem mudança nos aceites anteriores.
+
 ## Extensão Google Maps — 13/11/2026 (D033)
 
 - [x] Implementar visualização Google Maps Embed opcional, pontos fictícios de Botucatu, percurso completo/trechos e retorno quando acordado; roteiro manual preservado e sem mudança de dados financeiros ou da operação.

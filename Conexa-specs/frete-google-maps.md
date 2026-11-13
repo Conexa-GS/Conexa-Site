@@ -1,0 +1,23 @@
+# Frete e previsão por distância — D034 — 13/11/2026
+
+Pedido explícito: calcular frete automático e previsão de entrega com a API Google Maps. Fórmula escolhida pelo usuário: **base + valor por km + adicionais**. A tarifa é informada pela transportadora; nenhum preço comercial é presumido. O mínimo opcional exige 0 explícito para não aplicar piso.
+
+## Comportamento preparado
+
+- Nova cotação: saída → cada coleta na ordem dos itens apresentada pela carga → destino → retorno, somente se acordado. Nenhuma coleta é deduplicada, omitida ou reordenada silenciosamente.
+- **Calcular com Google Maps** faz uma consulta autenticada a Compute Routes. Não consulta ao abrir a tela, editar tarifas ou automaticamente após falha. Os locais exibidos são enviados apenas nessa ação; não substitui nomes fictícios por fazendas reais nem por pontos do mapa ilustrativo.
+- Frete em centavos = `max(mínimo, base + arredondar(metros × tarifa_centavos_por_km / 1000)) + adicionais`. Arredonda uma vez a parcela de distância, metade para cima. Tarifas até R$ 1.000.000, preço/km positivo, total positivo até R$ 1.000.000. Zero nos demais custos deve ser explícito.
+- Entrega = saída no horário do dispositivo + direção até o destino + minutos totais de paradas anteriores à entrega (0–1440, incluindo carga/descarga conforme informado). Mostra São Paulo. Retorno entra na distância/frete e na direção total, mas fica fora do horário de entrega. Não infere tempo de parada nem usa o intervalo de horários cotados como direção.
+- Ajustar tarifas/paradas recalcula localmente. **Usar estimativa na cotação** preenche somente frete e entrega, desmarca a confirmação das condições e exige revisão. Alterar roteiro, versão ou saída oculta resultado antigo; se já aplicado, avisa que os campos pertencem ao cálculo anterior. Mudanças nos campos desmarcam a confirmação. Reaplicar após ajustar tarifas; nenhuma gravação ocorre por calcular/aplicar.
+- Datas, capacidade, serviços, mínimos e aceites seguem as validações M3 no formulário e RPC. Cotação confirmada/revisão/negociação conservam o frete aprovado, sem recalcular ou alterar automaticamente valores de contratos anteriores.
+- Falha, sessão inválida, chave ausente, excesso de paradas, resposta incompleta e quota têm mensagens; preservam cotação manual. Pedágio individual permanece desconhecido. A transportadora consolida todos os custos no frete final e confirma cobertura, sem duplicar custos já incluídos.
+
+## Google, servidor e demo
+
+`server/routes.mjs` expõe `/api/routes/estimate`, apenas POST/OPTIONS e origem configurada. Valida o token com Supabase Auth e papel `carrier` na tabela `participants`, com chave publicável e RLS; não usa service_role. Uma consulta por vez/participante; 20 consultas por participante/hora e 100 totais/hora, em janela de processo. Tentativas enviadas ao fornecedor consomem quota inclusive se falharem; não há retry automático. Limites não são teto financeiro, são voláteis e reiniciam ao reiniciar o processo. Implantação distribuída exige quota compartilhada; limitar consumo também no Google Cloud.
+
+Chave privada exclusiva Routes em `.env.routes`; broker separado em 127.0.0.1:8788; proxy Vite. `TRAFFIC_UNAWARE`, modo DRIVE, sem trânsito ou restrições comerciais/caminhão, sem pedágios e sem otimização. Field mask solicita somente distância/duração/pernas. Até 25 paradas intermediárias (27 pontos); acima de 10 pode mudar categoria de cobrança. Há timeout, resposta sem segredos/corpos de erro Google e `Cache-Control: no-store`. Sem logs de endereços/respostas ou persistência do conteúdo Google. Resultado vive na tela; somente valores/horários revisados seguem a confirmação existente da cotação demo.
+
+O exemplo de `/operacoes/exemplo`, para transportadora, usa coordenadas inventadas do mesmo cenário Botucatu do mapa, com duas coletas e sem retorno. Não grava, não atualiza o resumo financeiro ilustrativo, não confirma operação. Exige transportadora autenticada para chamar o broker. O cenário não prova que os pontos são acessíveis por caminhão. Cadastros demo existentes podem conter somente nomes fictícios, insuficientes para geocodificação; não prometer sucesso nesses locais. A bancada `/tests/ui/freight.html` usa respostas locais de teste, sem Google ou Supabase.
+
+Configuração, fontes oficiais e pré-requisitos de ativação no README. Credencial, faturamento/API/cotas, termos/privacidade públicos, cobertura real e implantação não foram configurados/verificados nesta fatia. Fonte textual Google Maps junto aos resultados; conteúdo do fornecedor não é desenhado sobre mapas de outros provedores. A revisão de políticas de uso para implantação permanece necessária. Nenhum aceite, gasto real, integração Git ou deploy é presumido.

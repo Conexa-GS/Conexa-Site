@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:routes": "node --env-file-if-exists=.env --env-file-if-exists=.env.routes server/routes.mjs",
     "dev:voice": "node --env-file-if-exists=.env.voice server/voice.mjs",
     "build": "vite build",
     "lint": "eslint .",
