@@ -7,9 +7,9 @@ import { homeFor } from '../domain/profiles'
 import './login.css'
 
 const profiles = [
-  { role: 'producer', label: 'Produtor', icon: Plant, line: 'Sua colheita tem\nnovos caminhos.' },
-  { role: 'buyer', label: 'Comprador', icon: Basket, line: 'Mais perto de\nquem produz.' },
-  { role: 'carrier', label: 'Transportador', icon: Truck, line: 'Cada caminho,\numa conexão.' },
+  { role: 'producer', label: 'Produtor', icon: Plant, line: 'Sua colheita tem\nnovos caminhos.', image: 'plantacao.jpg', imageAlt: 'Plantação verde no campo' },
+  { role: 'buyer', label: 'Comprador', icon: Basket, line: 'Mais perto de\nquem produz.', image: 'comerciante.jpg', imageAlt: 'Loja de frutas e verduras' },
+  { role: 'carrier', label: 'Transportador', icon: Truck, line: 'Cada caminho,\numa conexão.', image: 'transportadora.jpg', imageAlt: 'Caminhões no pátio de uma transportadora' },
 ]
 export default function Login({ auth, reset = false, service = accountAuth }) {
   const preferred = new URLSearchParams(window.location.search).get('perfil')
@@ -50,6 +50,7 @@ export default function Login({ auth, reset = false, service = accountAuth }) {
     <header className="login-header"><Link href="/" className="brand-link" aria-label="Conexa, início"><img src="/assets/marca/conexa-logo-claro.svg" width="168" height="39" alt="Conexa" /></Link><Link href="/" className="login-back"><ArrowLeft size={17} />Voltar ao início</Link></header>
     <main className="login-main" id="conteudo" tabIndex={-1}>
       <aside className="login-story" aria-label="Sua conexão com o campo">
+        <img className="login-story-photo" src={`/assets/login/${profile.image}`} alt={profile.imageAlt} width="2752" height="1536" />
         <h2>{profile.line.split('\n').map((line, i) => <span key={line}>{line}{i === 0 && <br />}</span>)}</h2>
       </aside>
       <section className="login-entry" aria-labelledby="login-title">
