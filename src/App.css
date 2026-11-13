@@ -128,7 +128,7 @@
 
 /* Keep keyboard targets visible and controls readable within the pilot palette. */
 .app-shell :focus-visible { outline: 3px solid #b24124; outline-offset: 3px; }
-.app-shell .app-content:focus { outline: none; }
+.app-shell .app-content:focus { outline: 3px solid #b24124; outline-offset: 4px; }
 .app-dialog fieldset.form-grid { margin: 0; min-inline-size: 0; }
 .app-shell .icon-button, .app-dialog .dialog-close { min-width: 44px; min-height: 44px; }
 .app-shell .form-actions { flex-wrap: wrap; }

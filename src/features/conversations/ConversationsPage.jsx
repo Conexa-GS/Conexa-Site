@@ -149,8 +149,8 @@ export default function ConversationsPage({ session, service = conversationServi
   }
   function back() { returnToList.current = true; setSelected(null) }
   return <>
-    <PageHeading eyebrow="ENCONTROS DENTRO DA CONEXA" title="Boas conversas," accent="novas conexões.">Converse com participantes fictícios e encontre o Bot Conexa.</PageHeading>
-    <p className="preview-notice">M6 · Prévia em avaliação. Mensagens e bot por texto dependem das migrations no Supabase demo. Interpretação simulada sem custo; voz em preparação.</p>
+    <PageHeading title="Conversas">Escolha uma pessoa para conversar ou peça ajuda ao Bot Conexa.</PageHeading>
+    <p className="preview-notice">Prévia em avaliação · ajuda por texto sem custo. Confira e confirme os dados antes de salvar. Voz opcional em preparação.</p>
     {inbox.error && <ErrorNotice retry={inbox.reload}>{inbox.error}</ErrorNotice>}
     {actionError && <ErrorNotice autoFocus>{actionError}</ErrorNotice>}
     {outbox.warning() && <p role="status">{outbox.warning()} Confira o histórico antes de iniciar outro envio.</p>}

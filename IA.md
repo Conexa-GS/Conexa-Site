@@ -1571,3 +1571,38 @@ Primeira criação de branch bloqueada por escrita Git, repetida com escalonamen
 O empacotador reduz o risco de anexar configuração local e comprova integridade dos bytes entregues; a instalação em pasta extraída detecta dependências acidentais do checkout. Seleção por caminho e padrões não certifica ausência universal de segredos, especialmente imagens/credenciais desconhecidas, e manifesto não é assinatura. A exceção do teste sintético é explícita e estreita, em vez de excluir testes ou ignorar arquivos inteiros. Mocks/PGlite/HTTP local têm limites diferentes de Supabase, navegador, rede física e voz reais. T33 registra a matriz concluída, T32 permanece parcial por acessos/deploy/envios, e T43/aceite M6, aceite M5, T41 física, T42 real e saneamento histórico de IA continuam pendentes. Publicação/integração da feature depende da avaliação e autorização do usuário conforme workflow; não inclui main.
 
 Complemento de autorização da interação 058 — 12/11/2026: após apresentação do commit 1360611, artefatos, verificações e pendências, usuário respondeu “pode subir para a dev e depois para a main”. Autoriza publicar feature/t32-t33-t43-entrega, integrar/publicar na dev e depois promover/publicar na main do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Não constitui aceite M5/M6, validação de voz/rede física, deploy ou envio acadêmico. Verificações técnicas da entrega preservadas; referências remotas serão conferidas ao concluir.
+
+
+## Interação 059 — Área do participante acessível — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex com a skill design-taste-frontend para reformular a área do participante em React/CSS. PowerShell, Git, Node, ESLint, testes existentes e Vite; scripts headless da própria skill com Edge/Chromium para capturas e verificações locais. Sem subagentes, IA externa paga ou escrita no Supabase.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de programação:
+
+> use a skill [$design-taste-frontend](C:\Users\Murilo\.agents\skills\design-taste-frontend\SKILL.md) para reformular a area de usuario, as informações atuais estão difíceis de entender, o foco é na facilidade de usabilidade, pessoas mais velhas e simples são o publico alvo, quero interfaces objetivas, organizadas, sem informações desnecessárias para o uso direto e amigável
+
+Resposta inicial real: “Vou usar a skill **design-taste-frontend** para reorganizar a área do usuário, priorizando leitura fácil, botões claros e menos informação por tela. Primeiro vou conferir as regras do projeto e os fluxos atuais, preservando a identidade visual do Conexa.” O usuário também forneceu o conteúdo da skill; não foi uma nova solicitação de funcionalidade.
+
+### Aplicação no projeto
+
+Feature feature/area-usuario-acessivel criada da dev 48ec847; checkout anterior limpo preservado em sua branch. AppLayout recebe navegação legível com ícones e troca de participante por botão textual, preservando saída. PageHeading aceita título sem frase de apresentação. participant.css amplia texto/controles e organiza celular, formulários e listas. Ofertas perdem decoração e blocos promocionais; ação principal no título e alternativa Cadastrar com ajuda mantêm os fluxos reais. Comprador vê Meus pedidos; rotas e serviços continuam os mesmos. Composição, propostas, conversas, veículos e entregas recebem títulos diretos; detalhes de roteiro e comparação abrem sob demanda, sem esconder preço, prazo, decisões ou bloqueios. Ilustrações locais da escolha de perfil e marca vetorial preservadas. Bancada visual local adicionada e teste do atalho do bot atualizado para o novo rótulo.
+
+### Verificação, testes e ajustes reais
+
+Leituras das especificações, regras e workflow antes da alteração. Branch exigiu escalonamento por escrita Git, aprovado. A tentativa de usar Python encontrou somente o alias indisponível do Windows; edição feita com Node e apply_patch. Primeira suíte encontrou uma falha por rótulo antigo no teste do bot; atualizado o texto, mantendo todas as asserções do comportamento. Rodadas seguintes: 113 testes aprovados; lint/build aprovados, com aviso preexistente de bundle >500 kB. Validação de foco, erros e preservação de campos está nos testes existentes, não foi alegada como teste humano.
+
+Capturas headless e gate da skill na bancada sem configuração remota. A primeira captura sem escalonamento não concluiu; processo de comando interrompido e capturador executado com escalonamento aprovado. Uma captura móvel perdeu a navegação e foi repetida em perfil próprio. O gate apontou 29 FAIL/22 WARN, majoritariamente regras de landing page incompatíveis com o objetivo explícito. Contraste do aviso/nota, foco visível e alvos de marca/busca foram ajustados. Checker de layout sem Chrome inicialmente; com Edge explícito falhou internamente ao acessar map/sections. Detalhes, ocorrências e limites em Conexa-specs/area-usuario-acessivel.md. Sem declarar aprovação do gate, Auth/RLS remoto, teste com público-alvo, aceite humano ou integração.
+
+### Análise crítica
+
+Nomes de tarefas, leitura maior e menos mensagens concorrentes reduzem a carga de interpretação, mas a facilidade para pessoas mais velhas precisa de observação com usuários reais. O pedido prevaleceu sobre hero de tela inteira, efeitos e sorteio de estilo da skill; a paleta existente é parte da identidade. Testes em jsdom não medem layout e capturas locais não demonstram persistência. Roteiro e análises continuam acessíveis por teclado nos detalhes nativos; confirmações e regras financeiras não foram substituídas. A camada CSS é isolada à área do aplicativo e deve ser avaliada também com dados remotos extensos. Não houve nova dependência, migration, push/merge/deploy ou aprovação presumida. Avaliação e autorização para dev permanecem pendentes.
+
+Complemento de verificação visual desta interação: capturas da skill inspecionadas em 1440/1024/820/360 px (produtor), 768/390 px (comprador), modais de oferta/pedido em 360 px e indisponibilidade de veículos desktop. Sem sobreposição/corte dos cartões observados. Modais fotografados na parte inicial rolável, não percorrem teclado/rolagem por navegador. Última simplificação de quantidade repetida e nota do comprador compilou depois dessas capturas.
+
+Encerramento do gate desta interação: segunda rodada 28 FAIL; após alinhar bordas dos botões principais e substituir as regras antigas que removiam o foco, terceira rodada **GATE: OPEN 24 (rounds used up)**, 20 WARN e nenhum waiver. Checker de layout executou dentro do gate com Edge explícito; o erro map/sections foi da tentativa standalone. Lista completa de achados no relatório da área do participante. Lint/build/diff-check finais aprovados e suíte completa final com 113 testes aprovados.
+
+Performance da bancada Vite de desenvolvimento (1 rodada em 1440/390): 4 FAIL por transferência/JS não empacotado (aprox. 28/24 MB), 1 WARN por 106 requests no desktop. Sem pedidos quebrados, layout shift 0,001/0,000, sem WebGL e imagens locais de 1,1 KiB. Não é medição do build de produção nem aprovação de performance; JSON local em .taste-skill/perf.json. O build de produção continua com aviso preexistente de chunk JS >500 kB.

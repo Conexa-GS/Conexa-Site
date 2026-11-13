@@ -32,3 +32,5 @@ artifacts/a11y-review/*.local.jpg
 .voice-data/
 !.env.voice.example
 artifacts/entrega/
+.taste-skill/
+artifacts/participant*.local.png

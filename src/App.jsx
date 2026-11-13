@@ -13,6 +13,7 @@ import CompositionPage from './features/demands/CompositionPage'
 import ProducerProposals from './features/demands/ProducerProposals'
 import ConversationsPage from './features/conversations/ConversationsPage'
 import './App.css'
+import './participant.css'
 const Landing = lazy(() => import('./components/Landing'))
 function AccessPage({ children }) {
   return <div className="app-shell"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /></header><main id="conteudo" className="app-content" tabIndex={-1}>{children}</main></div>

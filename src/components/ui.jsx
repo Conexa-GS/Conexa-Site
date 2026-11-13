@@ -7,7 +7,7 @@ export function Link({ href, children, ...props }) {
 }
 export function Logo() { return <Link href="/" className="brand-link" aria-label="Conexa, início"><img src="/assets/marca/conexa-logo.svg" width="168" height="39" alt="Conexa" /></Link> }
 export function ActionLink({ href, children, secondary = false }) { return <Link href={href} className={`button ${secondary ? 'button-outline' : ''}`}>{children}<ArrowUpRight size={19} aria-hidden="true" /></Link> }
-export function PageHeading({ eyebrow, title, accent, children }) { return <div className="page-heading relative"><p className="eyebrow"><span className="seed" />{eyebrow}</p><h1>{title}<br /><span>{accent}</span></h1>{children && <p className="page-intro">{children}</p>}</div> }
+export function PageHeading({ eyebrow, title, accent, children }) { return <div className="page-heading relative">{eyebrow && <p className="eyebrow"><span className="seed" />{eyebrow}</p>}<h1>{title}{accent && <><br /><span>{accent}</span></>}</h1>{children && <p className="page-intro">{children}</p>}</div> }
 export function StatusBadge({ children, tone = '' }) { return <span className={`status-badge ${tone}`}><i aria-hidden="true" />{children}</span> }
 export function EmptyState({ title, children, action }) { return <div className="empty-state"><Leaf size={38} weight="duotone" aria-hidden="true" /><h2>{title}</h2><p>{children}</p>{action}</div> }
 export function ErrorNotice({ children, retry, autoFocus = false, title = 'Confira o que precisa de atenção' }) {
