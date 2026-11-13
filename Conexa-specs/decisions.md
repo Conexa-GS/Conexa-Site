@@ -351,3 +351,17 @@ Pedido posterior: “não gostei tanto do bluch branco, deixe parecido com a ses
 ### Autorização de publicação D038/D039 — 13/11/2026
 
 Após apresentação dos perfis fixos e camada verde, usuário autorizou: “pode subir para dev”. Autoriza commit e integração/publicação desta revisão na dev do origin configurado, Conexa-GS/Conexa-Site. Não amplia esta autorização para main nem comprova deploy ou testes humanos específicos. Verificações locais das revisões preservadas.
+
+## D040 — Vídeo de abertura com aproximação e afastamento — 13/11/2026
+
+Autorização posterior do usuário: “pode mandar para dev”. Autoriza commit, publicação da feature e integração/publicação na dev do origin Conexa-GS/Conexa-Site. Não inclui main ou comprovação de deploy; verificações e limites abaixo preservados.
+
+Pedido explícito do usuário: usar `F:/video conexa.mp4` como fundo no começo da página, sem som, e aproximar/afastar conforme a rolagem para parecer entrar e sair do vídeo. Implementação na `feature/video-abertura-scroll`, criada da dev local `a141553`.
+
+Arquivo copiado sem transcodificação para public/assets/video/conexa-abertura.mp4 (5.875.392 bytes, hashes SHA-256 iguais na origem/destino); poster JPEG extraído de um quadro do vídeo no navegador local. Abertura em largura total recebe o título principal anterior, camada verde e texto creme/verde claro. A seção ilustrada seguinte conserva cenário, personagens e trajeto, com título secundário “Uma rede que move a colheita.”, evitando dois h1.
+
+CSS scroll timeline nativa mantém rolagem normal: seção de 235svh, palco sticky de 100svh, vídeo de escala 1,02 até 1,5 e retorno a 1,02; moldura recua para 0,9 e perde opacidade na saída. Texto desaparece na entrada. Sem nova dependência ou listener de scroll para o efeito. Sem suporte, a abertura fica em fluxo normal, com vídeo em ciclo. Recorte cover varia conforme a largura.
+
+Controle “Pausar vídeo e efeitos” compartilha a preferência já usada pelas ilustrações/perfis. Preferência reduzida elimina zoom/trecho fixo e pausa reprodução; preferência do sistema desabilita a reativação. Vídeo pausa fora da seção ou com documento oculto; cleanup remove observer/listeners e encerra reprodução. Mantidos autoplay/muted/playsinline e propriedade muted. Falha ou bloqueio de reprodução conserva poster/fundo e textos.
+
+Lint, 130 testes e build aprovados; revisão no navegador integrado em 1366×900 e 360×800, incluindo zoom nos dois sentidos de escala, continuidade ilustrada, pausa/retomada e movimento reduzido do sistema emulado. Evidências e limites em validation.md. Avaliação humana e autorização de publicação/integração pendentes; sem novo aceite de marco ou operação remota.
