@@ -1,5 +1,11 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Voz para uma etapa futura — D032 — 13/11/2026
+
+Responsável: Codex. Branch `feature/voz-bau-ideias`, criada da `dev` limpa `f68da9d`. Pedido do usuário: guardar a parte de voz para uma etapa futura. Alteração exclusivamente documental: decisão D032, escopo/continuidade/tarefas/aceites e referências da entrega alinhados. T42 adiada, não concluída; voz/GPT-Live fora do escopo ativo e sem bloquear avaliação T43/M6 de texto/DM. Código opcional e evidências anteriores preservados; sem alteração de aplicação, schema ou configuração.
+
+Verificações locais executadas no checkout, Windows/PowerShell: `npm run lint` aprovado, `npm test` aprovado (**120 testes**, zero falhas), `npm run build` aprovado com aviso de chunk principal acima de 500 kB; `git diff --check` sem erros. Testes de voz existentes usam mocks, sem microfone ou API paga. Sem alteração de interface, não houve nova revisão visual em 360 px/desktop. Não foram feitos testes remotos, ativação de voz, regeneração do ZIP, push, merge ou deploy nesta revisão. A decisão de adiar é explícita; aceite M5/M6 e autorização de publicação/integração desta feature não são presumidos. IA.md não alterado: decisão de escopo, sem prompt de programação.
+
 ## Tipografia e limpeza visual — 13/11/2026
 
 Responsável: Codex. Branch `feature/tipografia-interface-limpa`, criada da `dev` limpa `db3290d2fc8e4a1184430a7a2636e2f1893054e0`. Pedido do usuário: trocar a fonte principal usando o import do Google Fonts fornecido e retirar subtextos, contornos laranja e numerações desnecessários. Poppins adotada como principal dentre as três famílias do link, com fallback Arial/sans-serif. Marca vetorial, ilustrações locais e paleta preservadas; nenhuma animação nova.
@@ -883,3 +889,13 @@ Codex ajustou BotThread.jsx e conversations.css para remover FieldAnswer, usar o
 Verificação: npm run lint, npm test (120 aprovados, zero falhas), npm run build e git diff --check passaram. Build mantém aviso preexistente de JS acima de 500 kB. Testes de componente atualizados para preencher o compositor, verificando criação completa, preço inválido preservado, preço válido como mensagem comum, retenção da pergunta anterior, datas, correções, cancelamento e confirmação separada. Não foram acrescentados testes de banco para mudança sem alteração de serviços/schema.
 
 Bancada isolada em memória no navegador integrado: escolhido Criar oferta → Alface; enviados 20 e 5,00 pelo compositor com Enter, avançando para preço e mínimo. Conferência visual em 360×800 e 1280×900, sem input dentro do histórico; campo normal visível (borda inferior em aproximadamente 745/800 px e 795/900 px), conteúdo sem overflow horizontal (345/360 e 1265/1280 px). Capturas artifacts/conversas-resposta-chat-mobile.local.jpg e artifacts/conversas-resposta-chat-desktop.local.jpg. Sem API paga, microfone, escrita remota ou teste físico de teclado virtual/leitor de tela. Feature permanece para avaliação e autorização de publicação/integração.
+
+## Fotografias por perfil no login — 13/11/2026
+
+Implementação por Codex em feature/imagens-login, criada da dev: fotografias fornecidas pelo usuário copiadas para public/assets/login e associadas a Produtor (plantação), Comprador (loja) e Transportador (caminhões) em Login.jsx. login.css mantém a divisão integral e usa fotografia com camada verde e enquadramento responsivo no painel de apresentação. Sem novas animações ou alteração de Auth/serviços/banco.
+
+Verificação: npm run lint, npm test (120 aprovados, zero falhas), npm run build e git diff --check passaram. Build conserva aviso de chunk JS acima de 500 kB. Navegador integrado no /login local existente na porta 5173: troca entre os três perfis e revisão visual em 1280×900 e 360×800. Medições dirigidas sem overflow horizontal: largura 1265/1280 e 345/360; carregamento da foto selecionada confirmado. Capturas locais ignoradas em artifacts/login-{produtor,comprador,transportador}-{desktop,mobile}.local.png. Viewport temporário restaurado.
+
+Limites: fotografias originais sem otimização, aproximadamente 9,7 MB no total e carregamento conforme seleção; recorte com object-fit:cover varia com o viewport. Sem teste de rede lenta, novo teste remoto, fluxo completo de autenticação ou auditoria integral de acessibilidade. Avaliação humana, autorização de push/integração e deploy pendentes.
+
+Autorização posterior: usuário solicitou “mande para dev depois para main”, autorizando publicação e integração desta alteração nas duas branches. A autorização Git não implica deploy ou teste adicional de produto.

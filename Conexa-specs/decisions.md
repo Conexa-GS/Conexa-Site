@@ -1,5 +1,13 @@
 # Registro de decisões
 
+## D032 — Voz e GPT-Live para uma etapa futura — 13/11/2026
+
+Voz e integração GPT-Live ficam adiadas sem prazo, fora do escopo ativo.
+
+Preservar o código opcional T39/T40, configuração desabilitada por padrão, roteiro e evidências simuladas. T42 fica adiada, não concluída; não iniciar integração, configuração ou testes pagos até novo pedido. Texto/DM e bot guiado continuam no escopo atual; avaliação T43/aceite M6 não depende da voz arquivada. Rede física/T41 e demais pendências permanecem nos limites registrados; nenhum aceite de marco é inferido.
+
+Esta direção substitui D018/D021 e referências posteriores somente quanto à voz como etapa ativa. Registros anteriores permanecem históricos. Alteração exclusivamente documental em `feature/voz-bau-ideias`, criada da dev `f68da9d`; nenhuma mudança na aplicação, ambiente ou Supabase, teste de áudio ou chamada paga. Decisão de escopo não entra em IA.md como prompt de programação. Publicação/integração depende de autorização própria após apresentação.
+
 Leitura vigente em 12/11/2026: [estado-atual.md](estado-atual.md) consolida execução e autorizações posteriores. As decisões datadas preservam o contexto original: D009/T20/M3 receberam aceite explícito; D022–D025 foram integradas conforme IA.md e Git. D021 substitui o token efêmero proposto; D023 substitui a entrada pelo modal; D025 substitui pedidos incertos apenas em memória. Publicação Git não encerra M5/M6. Esta revisão organiza evidências, sem criar decisão de produto ou novo aceite.
 
 ## D001 — Direção do produto — consolidada em 06/11/2026

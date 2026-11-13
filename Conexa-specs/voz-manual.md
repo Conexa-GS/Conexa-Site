@@ -1,5 +1,7 @@
 # IA/voz opcional — configuração e roteiro T42
 
+**Arquivado para uma etapa futura em 13/11/2026 (D032).** Voz/GPT-Live e T42 foram adiadas, sem prazo, por pedido do usuário. Este roteiro e a base de código são preservados para possível retomada, fora do escopo ativo; os passos abaixo não são instruções atuais para configurar chave, ativar voz ou executar testes pagos. Ver planejamento futuro. Não houve teste real ou conclusão de T42 nesta decisão.
+
 Atualização documental em 12/11/2026: migrations de texto/DM já aplicadas com autorização em 11/11 e percurso conectado verificado em D025. Isso não valida Auth/provedor/áudio do broker. T42/voz real e aceite M6 continuam pendentes; não houve novo teste nesta revisão. [Estado e evidências](estado-atual.md).
 
 11/11/2026. Implementação local para avaliação; **nenhuma sessão paga, microfone ou voz real testada pelo agente**. T42 e aceite M6 permanecem abertos. O bot continua usando texto simulado por padrão. A bancada `/tests/ui/conversations.html` simula IA/voz em memória, inclusive os indicadores; não chama OpenAI nem pede microfone.

@@ -1,5 +1,7 @@
 # Conversas no site — escopo, contratos e histórico M6
 
+Decisão vigente em **13/11/2026 (D032)**: voz/GPT-Live guardada no planejamento futuro, sem prazo e fora do escopo ativo. Texto/DM e bot guiado continuam; avaliação T43/M6 não depende de voz/T42. A base opcional permanece preservada e desabilitada por padrão. Contratos e planos de voz abaixo são referência para possível retomada mediante novo pedido, não instruções de ativação/testes pagos.
+
 Revisão local em 13/11/2026 (D031): interface de mensageiro com compositor sempre aberto, sugestões junto ao campo e perguntas/cartões/seleção/prévia dentro do último balão do bot. Consulta do produtor permite escolher a oferta/colheita a editar. Substitui a disposição visual de D022, preservando seus gateways, permissões e confirmação explícita. Propostas/demandas mantêm seus fluxos existentes. Verificações locais e limites em validation.md; avaliação e autorização de integração pendentes.
 
 Complemento D031, 13/11/2026: bot pergunta os valores/datas no balão e a pessoa responde pelo compositor normal, tanto na criação quanto na correção. Removido o formulário duplicado do balão; opções de alimento/coleta e Não sei informar permanecem. Valores simples usam o campo atual e as validações existentes; comandos de cancelar/consultar continuam disponíveis. Perguntas já exibidas nesta visita permanecem legíveis ao avançar; essa apresentação fica em memória, não altera mensagens do servidor nem promete preservar os mesmos balões após F5.

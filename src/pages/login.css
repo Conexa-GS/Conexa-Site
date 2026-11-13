@@ -11,6 +11,9 @@
 .login-main{position:relative;width:100%;margin:0;min-height:100dvh;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .login-story{background:#174d38;color:#fff9ec;border-radius:0;padding:150px clamp(32px,5vw,80px) 110px;justify-content:center}
 .login-story h2{font-size:clamp(40px,4.3vw,68px);margin:32px 0 24px;line-height:1.08;letter-spacing:-.045em}
+.login-story-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.login-story::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#174d3873,#174d3899 45%,#174d38d9);pointer-events:none}
+.login-story h2{position:relative;z-index:1}
 .login-story-copy{color:#d4dfcd;max-width:360px;font-size:16px}
 .login-story .login-kicker{color:#d4dfcd}
 .login-story-bottom{margin-top:70px;border-color:#fff9ec30;padding-top:24px}
