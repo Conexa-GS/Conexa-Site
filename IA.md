@@ -1507,3 +1507,35 @@ Lint, 113 testes Node e build aprovados; aviso de bundle >500 kB preexistente. Q
 A inspeção no navegador revelou defeitos que o DOM simulado não detecta: transbordamento do botão e tentativa de foco em campo ainda desabilitado. Testes de componentes complementam essa evidência ao controlar a latência e a falha sem alterar operações compartilhadas no demo. Reutilizar a validação de domínio na composição evita introduzir uma regra de saldo diferente. A revisão mantém a identidade visual e melhora recuperação sem alegar auditoria integral WCAG: leitor de tela, contraste completo, todos os estados remotos/CRUD/RLS, voz e rede física não foram novamente verificados. Bancadas e leitura do demo têm limites distintos; avaliação humana e autorização para publicar/integrar continuam pendentes.
 
 Complemento de autorização da interação 056 — 12/11/2026: após apresentação do commit 160d235, correções, verificações e limites, usuário respondeu “pode integrar” à pergunta explícita sobre subir a feature e integrar na dev. Autoriza publicação de feature/revisao-fluxos-acessibilidade e integração/publicação na dev do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Sem autorização de main/deploy ou ampliação de aceite de marco. Testes anteriores preservados; integração documental/Git não exige repetir operações no demo. Referências remotas serão conferidas ao concluir.
+
+## Interação 057 — T31: auditoria e roteiro de CRUD remoto — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para inspecionar código/histórico, programar o roteiro manual de integração `tests/remote-t31.mjs` e registrar resultados/limites. Skill Supabase consultada; PowerShell, Git, Node/npm, Vite SSR, helper jsdom existente, ESLint e cliente Supabase com chave pública/contas fictícias reais. Ferramentas de execução não foram apresentadas como outras IAs. Sem subagentes, dependências novas, schema/migration, API paga, microfone ou envio de mensagens.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido que originou a programação/verificação do roteiro:
+
+> Execute a T31: confira componentes, hooks, useState/useEffect, CRUD remoto, commits significativos e registros de IA. Apresente os requisitos atendidos e as pendências com evidências.
+
+Resposta representativa real: “Lint, build e os 113 testes passaram. O histórico tem mais de 15 commits de implementação, sem precisar contar merges. Encontrei duas ressalvas documentais: há consultas antigas em `IA.md`, e parte das evidências de ofertas demonstra arquivamento, mas não exclusão física. Vou verificar o CRUD completo no demo com uma oferta própria de teste.” Este registro cobre o uso de IA na criação/verificação do código de teste e sua aplicação; não acrescenta consultas/esclarecimentos ou aprovação humana.
+
+### Aplicação no projeto
+
+Feature `feature/t31-auditoria-academica`, criada da dev limpa `5ac6fce`. Roteiro manual fora de `npm test`, com modos offline `--check` e remoto `--run-demo`; restringe hostname/chave pública via helper existente e usa `saveOffer`, `listOffers`, `deleteOffer` e autenticação reais da aplicação por Vite SSR. Cria somente oferta própria sem vínculos, confere edição/rejeição de versão antiga, leitura compartilhada após nova autenticação e negativas de alteração/exclusão para outros perfis. Registra IDs/resultados sem credenciais e exclui sua fixture com confirmação de ausência, inclusive limpeza em finally. Inclusão do roteiro na configuração Node do ESLint. Relatório em `Conexa-specs/t31-auditoria.md` e referências em tasks/validation/estado-atual/README das specs. Nenhuma mudança na interface, domínio, serviços da aplicação ou SQL.
+
+### Verificação, testes e ajustes reais
+
+Inspecionados dez componentes com consumidores de produção e seis hooks em uso; uso efetivo de useState/useEffect e limites da separação domínio/serviços/apresentação. Base dev anterior: 70 commits sem merge (69 títulos convencionais; exceção inicial `first commit`), 31 alterando src/server/supabase/tests, incluindo o inicial. Quinze mudanças concretas examinadas sem contar merges/autorização documental. AI.md aponta para IA.md; os 52 registros anteriores têm cinco seções. Identificadas consulta da interação 003 e esclarecimento em 001 fora do recorte atual, preservando o histórico e registrando saneamento pendente.
+
+`node tests/remote-t31.mjs --check` aprovado offline. Três rodadas completas no Supabase demo passaram sete grupos: CRUD real com exclusão física, controle de versão sequencial, reautenticação e negativas Auth/RLS via REST/RPC para comprador/João/anônimo. As três ofertas próprias foram excluídas com ausência conferida. Rodada final `e9d6512a-7da6-44cd-a5d2-bb92f64b46a0`, oferta `281df3e2-c804-4001-ad0f-0983f9286e55`; relatório `artifacts/t31-remote.local.json` ignorado pelo Git, resultados essenciais versionados em validation.md. Não é navegador/F5, concorrência simultânea ou prova integral de todos os critérios M1.
+
+Primeira execução passou e limpou a fixture, mas não encerrou naturalmente e mostrou avisos de storageKey compartilhada entre clientes. Processo encerrado por Ctrl+C após salvar o resultado. Conferido `auth.dispose()` no SDK instalado e acrescentados descarte dos clientes e storageKey únicos. Segunda rodada: PASS e saída natural, código 0, sem aqueles avisos. ESLint encontrou `no-unsafe-finally` no novo roteiro; corrigida a sinalização de limpeza sem mascarar exceção original nem emitir PASS em falha. Lint/configuração offline/diff aprovados e terceira rodada remota completa da versão final passou com saída 0. Criação da branch e acesso à rede exigiram escalonamento do sandbox, aprovado. Não se alteraram políticas do sistema.
+
+Lint, 113 testes Node e build aprovados; aviso preexistente de chunk >500 kB preservado. A aplicação não mudou, então não houve nova inspeção visual em 360 px/desktop ou repetição das suítes PGlite. Sem migrations, contas novas, DMs, pagamentos/transporte reais, deploy, push/merge ou aceite humano. T31 concluída como conferência com ressalva; saneamento de IA.md, T32/T33 e demais pendências de produto preservados.
+
+### Análise crítica
+
+A conferência distingue um requisito quantitativo de uma evidência funcional: hooks precisam de consumidores reais, commits de mudanças coerentes e Delete de exclusão observada. Reautenticação e consultas pelos serviços da aplicação comprovam persistência remota nesta rodada, mas não substituem F5/revisão visual ou auditoria de segurança completa. A execução inicial também revelou recursos Auth abertos na infraestrutura de teste; encerrá-los permite repetir o roteiro sem processo retido. As cinco seções formais de IA.md não garantem que o conteúdo respeite somente programação: consultas antigas foram apontadas, sem inventar histórico nem atribuir aprovação ao grupo. A completude de todos os usos de IA ainda depende de conferência dos integrantes. Publicação/integração depende da avaliação e autorização do usuário conforme workflow.
