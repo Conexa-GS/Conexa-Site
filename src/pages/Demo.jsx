@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import { ArrowUpRight, Plant, Basket, Truck } from '@phosphor-icons/react'
+import { ArrowUpRight } from '@phosphor-icons/react'
 import { accounts } from '../services/offers'
 import { Logo, PageHeading, ErrorNotice, BackLink } from '../components/ui'
 import { navigate } from '../hooks/useRouter'
 import { homeFor } from '../domain/profiles'
 import { isRemote } from '../services/supabase'
-import MotionArtwork from '../components/MotionArtwork'
+import '../components/profile-photos.css'
+import './demo.css'
 const profiles = [
-  { role: 'producer', title: 'Eu produzo.', copy: 'Cadastre alimentos para vender e responda às propostas de compra.', art: 'farmer', icon: Plant },
-  { role: 'buyer', title: 'Eu compro.', copy: 'Busque alimentos, faça pedidos e acompanhe suas compras.', art: 'buyer', icon: Basket },
-  { role: 'carrier', title: 'Eu transporto.', copy: 'Cadastre seu veículo, informe o frete e acompanhe as entregas simuladas.', art: 'carrier', icon: Truck },
+  { role: 'producer', title: 'Eu produzo', profile: 'produtor' },
+  { role: 'buyer', title: 'Eu compro', profile: 'comprador' },
+  { role: 'carrier', title: 'Eu transporto', profile: 'transportador' },
 ]
 export default function Demo({ auth }) {
   const [producer, setProducer] = useState('ana')
@@ -19,12 +20,14 @@ export default function Demo({ auth }) {
     const participant = await auth.enter(account)
     if (participant) navigate(homeFor(participant.role))
   }
-  return <div className="app-shell demo-page"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /><BackLink href="/">Voltar ao início</BackLink></header><main id="conteudo" className="app-content" tabIndex={-1}>
-    <BackLink href="/login">Voltar para o login</BackLink>
-    <PageHeading eyebrow="ACESSO DE DESENVOLVEDOR" title="Escolha um perfil de teste." />
-    <div className="demo-explanation"><span className="seed" />{isRemote ? 'Ambiente acadêmico conectado · contas fictícias compartilhadas.' : 'Prévia local para explorar. Os dados de exemplo e suas alterações são reiniciados ao recarregar.'}</div>
+  return <div className="app-shell demo-page"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /><BackLink href="/login">Voltar para o login</BackLink></header><main id="conteudo" className="app-content" tabIndex={-1}>
+    <PageHeading title="Acesso de desenvolvedor" />
     {auth.error && <ErrorNotice autoFocus title="Não foi possível entrar na demonstração">{auth.error}</ErrorNotice>}
-    <div className="profile-grid">{profiles.map(({ role, title, copy, art, icon: Icon }) => <section className={`profile-card ${preferred === ({ producer: 'produtor', buyer: 'comprador', carrier: 'transportador' })[role] ? 'preferred' : ''}`} key={role}><div className={`profile-art gif-profile gif-profile-${art}`}><MotionArtwork asset={`${art}-full`} /><Icon size={24} className="profile-symbol" /></div><h2>{title}</h2><p>{copy}</p>{role === 'producer' ? <label className="field compact"><span>Participante fictício</span><select value={producer} onChange={e => setProducer(e.target.value)}><option value="ana">Ana · Sítio Boa Semente</option><option value="joao">João · Horta do João</option></select></label> : <div className="participant-label">{accounts.find(a => a.role === role).name}<small>Participante fictício</small></div>}<button className="button" disabled={auth.pending} onClick={() => enter(role)}>{auth.pending ? 'Abrindo demonstração…' : 'Entrar como ' + ({ producer: 'produtor', buyer: 'comprador', carrier: 'transportador' })[role]}<ArrowUpRight size={19} /></button></section>)}</div>
-    <p className="demo-footnote">Pagamentos e entregas simulados.</p>
-  </main><footer className="app-footer"><span>Pequenas ofertas. Novas conexões.</span><span>Protótipo acadêmico · FIAP</span></footer></div>
+    <div className="demo-profiles" aria-busy={auth.pending}>{profiles.map(({ role, title, profile }) => <section className={`demo-profile profile-photo home-profile-${profile}${preferred === profile ? ' preferred' : ''}`} key={role} aria-labelledby={`demo-${role}`}>
+      <h2 id={`demo-${role}`}>{title}</h2>
+      {role === 'producer' ? <fieldset className="demo-account demo-producer-options" aria-label="Produtor fictício" disabled={auth.pending}>{accounts.filter(a => a.role === 'producer').map(account => <label key={account.id}><input type="radio" name="demo-producer" value={account.id} checked={producer === account.id} onChange={() => setProducer(account.id)} aria-label={`${account.name} · ${account.label}`} /><span>{account.id === 'ana' ? 'Ana' : 'João'}</span></label>)}</fieldset> : <p className="demo-account">{accounts.find(a => a.role === role).name}</p>}
+      <button className="demo-enter" disabled={auth.pending} onClick={() => enter(role)} aria-label={`Entrar como ${profile}`}>{auth.pending ? 'Abrindo…' : 'Entrar'}<ArrowUpRight size={21} aria-hidden="true" /></button>
+    </section>)}</div>
+    <p className="demo-context">{isRemote ? 'Contas fictícias compartilhadas' : 'Prévia local · alterações reiniciadas ao recarregar'} · Pagamentos e entregas simulados</p>
+  </main></div>
 }

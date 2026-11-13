@@ -1,0 +1,10 @@
+.profile-photo {
+  background-color: var(--green);
+  background-image: linear-gradient(180deg, #174d3873, #174d3899 45%, #174d38d9), var(--profile-photo);
+  background-size: cover;
+  background-position: center;
+  color: var(--cream);
+}
+.home-profile-produtor { --profile-photo: url('/assets/login/plantacao.jpg'); }
+.home-profile-comprador { --profile-photo: url('/assets/login/comerciante.jpg'); }
+.home-profile-transportador { --profile-photo: url('/assets/login/transportadora.jpg'); }

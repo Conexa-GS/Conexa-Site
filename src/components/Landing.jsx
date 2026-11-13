@@ -5,6 +5,7 @@ import { mountMotion } from '../pilot/motion'
 import { mountProfileCarousel } from '../pilot/profile-carousel'
 import { mountVideoIntro } from '../pilot/video-intro'
 import '../pilot/profile-carousel.css'
+import './profile-photos.css'
 import '../pilot/video-intro.css'
 import { navigate } from '../hooks/useRouter'
 
