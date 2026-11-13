@@ -1351,3 +1351,47 @@ Codex executou lint, 130 testes existentes, build e diff-check com sucesso; avis
 ### 5. Análise crítica
 
 O verde unifica a leitura e as ações, preservando contraste com o creme e mantendo os arquivos visuais originais. A revisão de cores não altera validações, autenticação ou banco. A publicação da última versão da dev também leva as atualizações de Google Maps/frete já existentes nessa branch, sem comprovar configuração de chaves, testes reais Google, deploy ou aceite de marcos. Os registros anteriores de avaliação/autorização pendentes são históricos quanto à publicação desta atualização, sem ampliação das evidências técnicas.
+
+## Interação 071 — Perfis fixos no computador com fotos do login — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar CSS/JavaScript e documentação. Terminal para lint/testes/build; navegador integrado via Computer Use para revisão desktop/360 px e captura. Sem subagentes, IA externa ou edição/geração de fotografias.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “na versão de computador, tire a rolagem infinita dos perfis. se possivel, coloque as imagens da sessão login no fundo dos perfis”. Aplicado: três cartões fixos acima de 760 px e fotografias locais do login como fundo por função; carrossel móvel preservado.
+
+### 3. Aplicação no código
+
+profile-carousel.js condiciona avanço e posição inicial ao breakpoint móvel, observa sua mudança e atualiza a descrição acessível. profile-carousel.css oculta cópias no desktop e aplica fotos com degradê creme, mantendo textos verdes e links. Retratos dos cartões ocultos, arquivos visuais originais preservados. Feature criada da dev local; D038/spec/validation registram comportamento e limites.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes, build e diff-check passaram. Desktop 1366×900 e celular 360×800 conferidos no navegador integrado; posição fixa, cópias ocultas no desktop, avanço móvel e retorno ao desktop verificados. Clique no comprador preservou seleção no login. Sem autenticação ou operação remota; avaliação humana não presumida. Publicação anterior segue pendente após rejeição automática do push; esta revisão não realizou nova tentativa de envio.
+
+### 5. Análise crítica
+
+As fotos já disponíveis diferenciam as atividades e evitam novos arquivos. O degradê permite manter texto verde legível sobre fundos variados; cover recorta as imagens conforme a largura. Layout fixo no desktop permite ver os três caminhos simultaneamente, enquanto a faixa móvel conserva cartões legíveis. Revisão local não comprova aparelho físico, leitor de tela ou envio ao GitHub.
+
+## Interação 072 — Camada verde nos perfis como no login — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar CSS e documentação; terminal para lint/testes/build; navegador integrado via Computer Use para revisão desktop/360 px e captura local. Sem geração ou edição das fotografias.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “não gostei tanto do bluch branco, deixe parecido com a sessão login”. Aplicado: retirar o degradê branco/creme dos cartões e usar a camada verde e texto creme da apresentação do login.
+
+### 3. Aplicação no código
+
+profile-carousel.css reutiliza as mesmas cores/opacidades do gradiente de login.css sobre as três fotos locais. Texto e contorno de foco em creme; fotos, links, layout fixo desktop e carrossel móvel preservados. D039 atualiza a decisão visual anterior.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes existentes, build e diff-check passaram. Revisão visual desktop/360 px no navegador integrado; texto computado creme e página sem overflow nas medidas conferidas. Captura desktop local perfis-verde-login.png. Sem autenticação, operação remota ou aprovação humana presumida; envio GitHub anterior permanece pendente sem nova tentativa.
+
+### 5. Análise crítica
+
+A camada verde aproxima os cartões da identidade do login e mantém as fotografias visíveis. O texto creme oferece contraste sobre a área escurecida, substituindo o texto verde que dependia do fundo claro. Fotografias continuam com recorte responsivo e esta revisão dirigida não certifica todos os dispositivos ou acessibilidade assistiva.

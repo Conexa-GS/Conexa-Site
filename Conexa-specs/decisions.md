@@ -337,3 +337,17 @@ Pedido explícito do usuário: “tire as letras laranjas e botões laranjas, de
 Esta manifestação autoriza commit/publicação da atualização acumulada de D035–D037 na feature/home-acesso-entrar, integração/publicação na dev e promoção/publicação da versão mais recente na main. Fluxo feature → dev → main preservado, sem edição ou commit de desenvolvimento diretamente na main. A dev de origem é bee2696, e a main remota antes da promoção é 416d014; a promoção também inclui Google Maps/frete já integrados na dev (D033/D034). Commits e resultado da publicação são verificáveis no histórico Git e no relato final. A autorização não equivale a testes individuais relatados pelo usuário, deploy comprovado, configuração Google ou novo aceite de marcos.
 
 Lint, 130 testes e build aprovados; revisão visual da página principal e login em 1366×900 e 360×800, com evidências em validation.md. Limites das funcionalidades anteriores permanecem vigentes.
+
+## D038 — Perfis fixos no desktop e fotografias do login — 13/11/2026
+
+Pedido do usuário: retirar a rolagem infinita dos perfis na versão de computador e, se possível, usar as imagens do login como fundo. Acima de 760 px, três cartões fixos lado a lado, sem cópias visíveis nem avanço automático. Até 760 px, preservada a faixa horizontal contínua de D036. Troca de breakpoint reposiciona a faixa e atualiza a descrição acessível.
+
+As fotos locais plantacao.jpg, comerciante.jpg e transportadora.jpg do login são reutilizadas como fundo dos respectivos cartões em ambas as larguras, com degradê creme e texto verde. Retratos ilustrados dos cartões ficam ocultos; demais ilustrações e marca mantidas. Links de login por função preservados. Implementação na feature/perfis-fixos-fotografias, criada da dev local 3c7e559. Verificações em validation.md; sem nova publicação ou integração desta revisão. O push anterior de D037 foi rejeitado pela revisão automática por exigir confirmação explícita do destino remoto e das branches; main local 11423a9 e dev local 3c7e559 não foram enviadas.
+
+## D039 — Camada verde nos perfis como no login — 13/11/2026
+
+Pedido posterior: “não gostei tanto do bluch branco, deixe parecido com a sessão login”. Substitui o degradê creme de D038 pela mesma camada verde do login (#174d3873, #174d3899 a 45%, #174d38d9), mantendo as fotos e usando texto creme. Contorno de foco também creme para leitura sobre fundo escuro. Perfis continuam fixos no desktop e com carrossel móvel. Revisão local na mesma feature/perfis-fixos-fotografias; envio remoto anterior permanece pendente, sem nova tentativa nesta alteração.
+
+### Autorização de publicação D038/D039 — 13/11/2026
+
+Após apresentação dos perfis fixos e camada verde, usuário autorizou: “pode subir para dev”. Autoriza commit e integração/publicação desta revisão na dev do origin configurado, Conexa-GS/Conexa-Site. Não amplia esta autorização para main nem comprova deploy ou testes humanos específicos. Verificações locais das revisões preservadas.
