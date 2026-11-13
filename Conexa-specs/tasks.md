@@ -2,7 +2,7 @@
 
 ## Estado vigente — 12/11/2026
 
-[estado-atual.md](estado-atual.md) separa implementação, verificação e aceite. M1–M4 aceitos no escopo registrado; T35/T38 e T28 encerradas tecnicamente. T41 parcial (rede física), T42, T43/aceite M6, aceite M5 e T04/T31–T33 continuam abertos. D022–D025 já integradas; autorizações posteriores em IA.md e commits Git substituem as indicações históricas de publicação pendente. Esta consolidação não encerra T43.
+[estado-atual.md](estado-atual.md) separa implementação, verificação e aceite. M1–M4 aceitos no escopo registrado; T35/T38 e T28 encerradas tecnicamente. T31 conferida com ressalva no conteúdo histórico de IA.md; T41 parcial (rede física), T42, T43/aceite M6, aceite M5 e T04/T32–T33 continuam abertos. D022–D025 já integradas; autorizações posteriores em IA.md e commits Git substituem as indicações históricas de publicação pendente. Esta consolidação não encerra T43.
 
 Complemento T41/D026 — 12/11/2026, em `feature/t41-rede-recuperacao`, da dev `5634533`: corrigido alerta de consulta do bot que permanecia após recuperação, preservando aviso/chave de pedidos incertos. Lint, **109 testes** e build aprovados; bancada local de erro/recuperação revista em 360 px/desktop. No navegador integrado com Auth/Supabase reais: falhas controladas antes/depois da persistência, F5/reenvio de DM e pedido do bot, offline da aba com fetch `ERR_INTERNET_DISCONNECTED`, duas sessões e reconciliação automática sem F5. Banco confirmou cinco DMs únicas e um pedido auditável único do bot. Não foi observado fechamento do WebSocket na emulação. Usuário preferiu manter a prova física pendente; **T41 não encerrada**. Sem nova migration/voz paga/integração ou aceite M6. [Evidências e chaves](validation.md#t41d026--recuperação-controlada-e-modo-offline-do-navegador--12112026).
 
@@ -142,7 +142,7 @@ Arquivos da primeira fatia: `src/domain/offer-chat.js`, `src/features/offers/Off
 
 ## Fechamento acadêmico
 
-- [ ] T31 Conferir componentes/hooks, histórico e registros de IA.
+- [x] T31 Conferir componentes/hooks, histórico e registros de IA — conferência executada pelo Codex em 12/11/2026, com dez componentes úteis, seis hooks em uso, useState/useEffect, sete grupos CRUD/Auth/RLS no demo e quinze commits significativos documentados. Registros têm cinco seções, mas consultas/esclarecimentos históricos em IA.md exigem saneamento; conferência concluída com ressalva, sem atestar conformidade integral ou aceite humano. [Relatório e pendências](t31-auditoria.md); [procedimentos executados](validation.md#t31--conferência-acadêmica--12112026). Publicação/integração da feature dependem de autorização após avaliação.
 - [ ] T32 README reproduzível, ZIP, acesso ao repo e deploy; autorização necessária para ações externas conforme contexto.
 - [ ] T33 Registrar matriz de aceites efetivamente executados e limitações pendentes.
 

@@ -7,7 +7,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['server/**/*.mjs', 'tests/remote-conversations.mjs', 'tests/conversations-acceptance-database.mjs', 'tests/helpers/conversations-{acceptance,demo-config}.mjs'],
+    files: ['server/**/*.mjs', 'tests/remote-conversations.mjs', 'tests/remote-t31.mjs', 'tests/conversations-acceptance-database.mjs', 'tests/helpers/conversations-{acceptance,demo-config}.mjs'],
     extends: [js.configs.recommended],
     languageOptions: { globals: globals.node },
   },

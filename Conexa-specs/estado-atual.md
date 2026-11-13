@@ -1,5 +1,7 @@
 # Estado atual e evidências
 
+Complemento T31, 12/11/2026: conferência acadêmica executada na `feature/t31-auditoria-academica`, da dev `5ac6fce`. Dez componentes úteis e seis hooks em uso, useState/useEffect, CRUD remoto completo com Auth/RLS e exclusão da própria fixture, e quinze commits significativos conferidos. IA.md tem as cinco seções, mas consulta/esclarecimento antigos exigem saneamento; T31 concluída como conferência com ressalva. T04/T32–T33, aceites e demais limites de produto preservados. [Relatório](t31-auditoria.md) e [execuções](validation.md#t31--conferência-acadêmica--12112026). Avaliação e publicação/integração desta feature pendentes.
+
 Complemento de interface, 12/11/2026: revisão dirigida em 360×800/1366×900 na `feature/revisao-fluxos-acessibilidade`, da dev `dd9311f`. Corrigidos navegação cortada, botão causando overflow, ações de diálogo, destinos/retorno de foco, bloqueio de formulários durante envio, orientação da composição, busca vazia e foco após DM. Site conectado dos três perfis consultado; falhas/sucessos de escrita em bancadas isoladas. Lint, 113 testes e build aprovados. [Evidências e limites](validation.md#revisão-de-fluxos-responsividade-e-teclado--12112026); decisão D028. Sem novas operações de negócio no demo, mudança de schema ou ampliação de aceite de marco; avaliação humana e autorização de publicação/integração pendentes.
 
 Consolidação em **12/11/2026**, a partir dos registros até 11/11/2026 e do checkout inspecionado. Este documento orienta a continuidade; os relatos datados em [validation.md](validation.md), [decisions.md](decisions.md) e [IA.md](../IA.md) preservam o que se sabia em cada entrega. Não houve nova execução remota nesta consolidação.
@@ -34,7 +36,8 @@ Em divergências de status, usar esta síntese e a evidência posterior identifi
 | M6 texto / T29, T34–T38 | Bot guiado, gateway compartilhado, DM, histórico, não lidas e recuperação D024/D025 | T35/T38 encerradas tecnicamente em 11/11: Auth/RLS/concorrência/Realtime, navegador conectado/F5, bot criar/editar, comprador, DM e proteção de estoque/histórico. Interface revista de forma dirigida em 360 px/desktop/teclado | T41 parcial pela interrupção física de rede não exercitada; T43/aceite M6 pendentes. T29/modal antigo permanece em bancadas, sem entrada no fluxo principal |
 | M6 IA/voz / T39–T42 | Broker Node 24, WebRTC/sideband, cotas e painel opcionais, desligados por padrão | Somente mocks, testes locais e bancada sem microfone/API paga. Sem implantação ou Auth/provedor/áudio reais verificados | T42 é teste pago exclusivo do usuário; voz real e aceite M6 pendentes |
 | T30 / WhatsApp | Preparação local e experimentos preservados, inclusive em feature separada | Evidências históricas próprias; não comprovam canal oficial ativo no fluxo do site | Pausada por D018; não retomar por instrução antiga nem inferir desativação de endpoint demo existente |
-| T04, T31–T33 / entrega acadêmica | Arquivos e histórico existem | Não há conferência final completa registrada | Permanecem abertos; não declarar ZIP, permissões, deploy ou envio acadêmico concluídos |
+| T31 / conferência acadêmica | Componentes/hooks, CRUD remoto, histórico e IA inspecionados | Relatório T31 e sete grupos remotos; registros antigos de IA com ressalva | Conferência concluída; saneamento de IA.md e avaliação da feature pendentes |
+| T04, T32–T33 / entrega acadêmica | Arquivos e histórico existem | Não há conferência final completa dessas entregas registrada | Permanecem abertos; não declarar ZIP, permissões, deploy ou envio acadêmico concluídos |
 
 Fontes de cada linha: seções datadas de [validation.md](validation.md#atualização-de-aceite-m1--07112026), [tarefas](tasks.md) e decisões D009–D025. Evidências de Conversas: [demo autorizado](validation.md#conversas--migrations-e-teste-demo-autorizados--11112026) e [T41/D025](validation.md#t41d025--bot-e-mensagens-após-recarga-recuperação-e-estoque--11112026). A revisão dirigida de Conversas não encerra AC23 para todos os fluxos nem substitui as pendências específicas de M5/cotações.
 
@@ -78,6 +81,6 @@ M1 foi aplicado manualmente e não tem entrada no histórico remoto; M2/M3 já e
 2. Manter T42 separada: usuário configura e testa voz real conforme [voz-manual.md](voz-manual.md), se desejar ativá-la. Texto/DM pode ser avaliado com voz ainda pendente.
 3. Apresentar texto/DM e limites para T43/aceite humano M6; esta consolidação prepara a documentação, sem marcar a tarefa inteira como concluída.
 4. Avaliar a entrega T28 tecnicamente verificada e decidir aceite humano M5; integração T28 já autorizada conforme registro acima. Cotações tiveram percurso conectado/recarga verificados em 12/11; avaliação humana e encaminhamento a segunda transportadora compatível continuam pendentes, pois só existe uma conta demo transportadora.
-5. Conferir T04/T31–T33 e entrega acadêmica com evidências reais.
+5. Sanear as ressalvas de IA.md identificadas na T31 e conferir T04/T32–T33 e entrega acadêmica com evidências reais.
 
 Transporte físico e dinheiro real continuam fora do escopo. M5/M6 e páginas de exemplo devem permanecer identificadas como demonstração/prévia em avaliação.

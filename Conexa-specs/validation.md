@@ -1,5 +1,28 @@
 # Verificação da primeira versão — 07/11/2026
 
+## T31 — Conferência acadêmica — 12/11/2026
+
+Responsável: Codex. Branch `feature/t31-auditoria-academica`, criada da dev limpa `5ac6fce`; primeira tentativa de criar a branch bloqueada por escrita nos metadados Git, repetida com escalonamento aprovado antes das edições. [Relatório completo](t31-auditoria.md): critérios, dez componentes com consumidores reais, seis hooks em uso, useState/useEffect, serviços/domínio separados, quinze commits significativos e ressalvas dos registros de IA. Sem fetch; histórico local não certifica o estado atual do GitHub.
+
+| Procedimento | Resultado e ambiente |
+| --- | --- |
+| `npm.cmd run lint` | Aprovado; ESLint, incluindo o novo roteiro remoto no ambiente Node |
+| `npm.cmd test` | 113 testes aprovados; Node/jsdom/domínio/mocks, sem executar o roteiro remoto automaticamente |
+| `npm.cmd run build` | Aprovado; aviso preexistente de chunk principal acima de 500 kB, sem erro |
+| `node tests/remote-t31.mjs --check` | Configuração offline aprovada; nenhum acesso/escrita remota |
+| `node tests/remote-t31.mjs --run-demo` | Sete grupos aprovados no Supabase demo real, Auth/REST/RPC com chave pública e contas fictícias existentes; três rodadas completas, última versão com saída 0 |
+| Inspeção de código/Git/IA | Definições/imports/renderização, seis consumidores de hooks, 70 commits sem merge na base (69 títulos convencionais), amostra de quinze mudanças reais, AI.md e 52 registros anteriores de IA.md com cinco seções |
+
+Roteiro manual novo em `tests/remote-t31.mjs`, usando os serviços reais de ofertas via Vite SSR/helper jsdom existente; nenhum componente foi renderizado como prova visual. Criação/leitura pelo produtor, atualização de 531 para 532 centavos, incremento de versão e recusa de versão antiga, nova autenticação do comprador lendo o mesmo ID/valores, negativas REST de UPDATE/DELETE e RPC de edição para comprador/João/anônimo, retorno ao dono e exclusão física da oferta sem vínculos. Ausência confirmada por SELECT direto e listas do produtor/comprador após nova autenticação. Estado da oferta conferido após cada negativa; não se usou consulta administrativa para provar RLS. Validação de versão foi sequencial, sem alegar concorrência simultânea.
+
+Rodada final: `e9d6512a-7da6-44cd-a5d2-bb92f64b46a0`, iniciada em `2026-11-13T01:44:20.952Z` (**12/11/2026, 22h44 em São Paulo**), status `passed`. Oferta própria `281df3e2-c804-4001-ad0f-0983f9286e55`: `deleted_and_absence_verified`. Primeira rodada `9dbc14d4-bdf7-4b42-8fc3-e26f3c46cae8`, oferta `01c5b812-2838-4d5a-a388-9744564a3c5b`; segunda `d08a76e4-24e1-40ef-92d2-5882c8f3cf49`, oferta `571a4616-8bf0-44da-bf51-67e6287a3214`: ambas também excluídas e ausência verificada. Relatório bruto final em `artifacts/t31-remote.local.json`, ignorado pelo Git e sem credenciais; os resultados/IDs essenciais estão preservados neste registro versionado.
+
+A primeira execução passou todos os grupos e a limpeza, mas manteve o processo vivo pelo cliente Auth do ambiente SSR e emitiu avisos de instâncias com a mesma storageKey. Após o PASS/relatório salvo, processo encerrado por Ctrl+C. Acrescentados storageKey exclusivos e `auth.dispose()` (método confirmado no SDK instalado) para liberar canais/timers; segunda rodada passou com saída natural, código 0, sem esses avisos. ESLint então apontou `throw` dentro de finally (`no-unsafe-finally`): corrigida a sinalização de falha de limpeza sem mascarar a exceção original, e impedido PASS em caso de limpeza malsucedida. Lint/configuração offline/diff conferidos e terceira execução remota completa passou, com saída 0. Nenhuma correção na aplicação ou no schema foi necessária.
+
+IA: todos os 52 registros anteriores têm cinco subseções, com nomes equivalentes. Ressalvas concretas: interação 003 registra consulta sem alteração de funcionalidade/configuração; interação 001 inclui esclarecimento sobre onde executar comandos. Não satisfazem o recorte vigente de somente programação. Histórico preservado, saneamento documentado como pendência; interação 057 registra a criação/verificação do roteiro desta entrega. Não se certificou completude de interações de todos os integrantes ou aprovação humana.
+
+Limites: sem nova UI e, portanto, sem nova verificação visual em 360 px/desktop; sem F5/navegador nesta rodada, auditoria integral de acessibilidade/segurança, suite PGlite repetida, corrida simultânea, rede física, voz/API paga, migrations, contas novas ou operações reais. Não foram reexercitados arquivamento de oferta vinculada ou estoque; respectivas evidências anteriores preservadas. T31 encerra a conferência com ressalva; não encerra T32/T33, saneamento de IA.md, aceite M5/M6 ou T41/T42/T43. Sem push, merge, deploy ou nova autorização presumida.
+
 ## Revisão de fluxos, responsividade e teclado — 12/11/2026
 
 Responsável: Codex. Branch `feature/revisao-fluxos-acessibilidade`, criada da dev limpa `dd9311f`. Pedido: “Revise os fluxos principais em 360 px e desktop, incluindo navegação por teclado, foco, formulários, erros e estados vazios. Corrija os problemas observados preservando a identidade visual.” Implementação local para avaliação; sem push, merge, deploy ou novo aceite de marco.
