@@ -1220,3 +1220,25 @@ Codex executou lint, 120 testes, build e diff-check com sucesso. Verificados pre
 ### 5. Análise crítica
 
 Responder no mesmo campo aproxima a criação de uma conversa e elimina repetição da pergunta/rótulo. O bot continua delimitado: aceita valores e datas explícitos, mantém validações e requer revisão/confirmar para publicar. Opções de catálogo evitam nomes ambíguos. A preservação visual das perguntas nesta visita não cria snapshots persistidos; F5 continua dependente dos textos remotos existentes. A bancada não substitui teste com teclado virtual físico, leitor de tela ou aceitação do fluxo por usuários reais. Publicação/integração seguem pendentes conforme workflow.
+
+## Interação 065 — Fotografias por perfil no login — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar React/CSS e copiar os arquivos fornecidos; terminal para lint, testes e build; navegador integrado via Computer Use para revisão visual e capturas. Sem geração ou edição das fotografias por IA.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “quero que coloque essas imagens na hora de entrar na conta, coloque o fazendeiro com a plantação, comprador com a loja e transportadora com os caminhões”. Aplicação: foto de plantação para Produtor, loja para Comprador e caminhões para Transportador, acompanhando o perfil selecionado em /login. Arquivos fornecidos pelo usuário: plantacao.jpg, comerciante.jpg e trasportadora.jpg.
+
+### 3. Aplicação no código
+
+Login.jsx associa imagem e texto alternativo aos três perfis e renderiza a fotografia no painel de apresentação. login.css aplica enquadramento com object-fit:cover e camada verde para leitura do título. Mantidos layout dividido, marca vetorial, paleta e ausência de animações. Fotografias originais copiadas para public/assets/login, com o nome de destino transportadora.jpg corrigido. Feature feature/imagens-login criada da dev; serviços de autenticação e banco preservados.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou npm run lint, npm test (120 aprovados, zero falhas), npm run build e git diff --check com sucesso. Build mantém aviso preexistente de chunk JS acima de 500 kB. Navegador integrado em /login: os três perfis conferidos em 1280×900 e 360×800, com troca da imagem e texto alternativo; ausência de overflow horizontal nos estados medidos (1265/1280 e 345/360). Capturas locais ignoradas em artifacts/login-{produtor,comprador,transportador}-{desktop,mobile}.local.png. O servidor existente na porta 5173 foi reutilizado após a tentativa de iniciar outro informar porta ocupada. Sem novo teste remoto, aceite humano, push, merge ou deploy.
+
+### 5. Análise crítica
+
+As imagens fornecidas aproximam cada perfil de sua atividade e permanecem locais. O recorte responsivo prioriza o preenchimento do painel, com partes das fotos fora da área visível; a camada verde mantém a identidade e ajuda a leitura. Os três arquivos originais somam aproximadamente 9,7 MB, carregados conforme a seleção; não houve otimização ou alteração dos originais. A revisão foi dirigida ao login e não certifica todos os fluxos de autenticação ou acessibilidade. Avaliação humana e autorização de publicação/integração na dev pendentes.
