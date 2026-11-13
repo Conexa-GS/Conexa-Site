@@ -2,6 +2,8 @@ import { useLayoutEffect } from 'react'
 import markup from '../pilot/home.html?raw'
 import { mountArtwork } from '../pilot/artwork'
 import { mountMotion } from '../pilot/motion'
+import { mountProfileCarousel } from '../pilot/profile-carousel'
+import '../pilot/profile-carousel.css'
 import { navigate } from '../hooks/useRouter'
 
 export default function Landing() {
@@ -9,7 +11,14 @@ export default function Landing() {
     document.getElementById('conteudo')?.focus({ preventScroll: true })
     const removeArtwork = mountArtwork()
     const dispose = mountMotion()
-    return () => { dispose(); removeArtwork() }
+    const removeCarousel = mountProfileCarousel()
+    return () => { removeCarousel(); dispose(); removeArtwork() }
   }, [])
-  return <div onClick={event => { const button = event.target.closest('[data-connect]'); if (button) navigate(`/login${button.dataset.profile ? `?perfil=${button.dataset.profile}` : ''}`) }} dangerouslySetInnerHTML={{ __html: markup }} />
+  return <div onClick={event => {
+    const link = event.target.closest('[data-login]')
+    if (link && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey && event.button === 0) {
+      event.preventDefault()
+      navigate(link.getAttribute('href'))
+    }
+  }} dangerouslySetInnerHTML={{ __html: markup }} />
 }

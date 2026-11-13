@@ -313,3 +313,27 @@ D034 amplia o escopo que D033 excluía (Routes/frete), a pedido do usuário, e p
 ### Autorização de publicação de D034 — 13/11/2026
 
 Após apresentação da implementação, verificações e limites, usuário autorizou: “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção à main, deploy ou gasto/configuração Google; consulta real e demais limites técnicos permanecem pendentes. Esta manifestação é autorização Git, sem presumir testes humanos individuais.
+
+## D035 — Login somente pelo botão Entrar na página principal — 13/11/2026
+
+Revisada pelo pedido posterior D036 abaixo: os perfis voltam a abrir o login por função em um carrossel horizontal, e as chamadas internas são retiradas. O registro abaixo preserva o contexto da primeira versão, sem aceite/publicação presumidos.
+
+Por pedido explícito do usuário, somente “Entrar”, no cabeçalho da página principal, abre `/login`. As demais chamadas passam a navegar pelo conteúdo da página com rótulos correspondentes. Produtor, comprador e transportador são apresentados como linhas informativas com descrições, sem botões, setas de acesso ou efeito de hover de botão. Mantidos marca, cores e ilustrações locais; autenticação e permissões existentes preservadas.
+
+Implementação em `feature/home-acesso-entrar`, criada da dev. Lint, 130 testes e build aprovados; navegação e layout conferidos no navegador integrado em desktop/360 px, conforme validation.md. Avaliação humana e autorização para publicar/integrar na dev pendentes.
+
+## D036 — Perfis em carrossel e retirada das chamadas de rolagem — 13/11/2026
+
+Pedido posterior do usuário revisa D035: retirar setas dos botões, botões de descer a página e botão final; colocar os três perfis lado a lado, em toda a largura, com rolagem infinita e clique para o login da função. Implementado como carrossel horizontal contínuo com cartões clicáveis e URLs `/login?perfil=produtor`, `comprador` e `transportador`. Seleção orienta a tela, sem conceder permissões no servidor.
+
+Desktop mostra três cartões por largura; celular mantém a faixa horizontal com cartão de 84% da largura, preservando leitura e deslize. Grupos repetidos fecham o ciclo; cópias são retiradas da navegação por Tab e leitura assistiva. Movimento pausa durante foco/interação e fora da área visível; o controle de reduzir movimento foi movido do rodapé para o cabeçalho dos perfis, respeitando também o sistema. Marca, paleta e ilustrações locais preservadas.
+
+Continuidade na mesma feature criada da dev, sem commit/publicação/integração. Evidências em validation.md; avaliação humana e autorização Git ainda pendentes.
+
+## D037 — Textos e botões verdes e publicação autorizada na main — 13/11/2026
+
+Pedido explícito do usuário: “tire as letras laranjas e botões laranjas, deixe todas verdes e pode subir a ultima atualização para a main”. A revisão troca destaques de títulos da página principal e PageHeading por verde #174d38, além do botão de envio e indicação da aba ativa no login. O cartão clicável do comprador passa de pêssego para verde claro. Marca vetorial, fotografias e ilustrações locais conservam seus arquivos originais.
+
+Esta manifestação autoriza commit/publicação da atualização acumulada de D035–D037 na feature/home-acesso-entrar, integração/publicação na dev e promoção/publicação da versão mais recente na main. Fluxo feature → dev → main preservado, sem edição ou commit de desenvolvimento diretamente na main. A dev de origem é bee2696, e a main remota antes da promoção é 416d014; a promoção também inclui Google Maps/frete já integrados na dev (D033/D034). Commits e resultado da publicação são verificáveis no histórico Git e no relato final. A autorização não equivale a testes individuais relatados pelo usuário, deploy comprovado, configuração Google ou novo aceite de marcos.
+
+Lint, 130 testes e build aprovados; revisão visual da página principal e login em 1366×900 e 360×800, com evidências em validation.md. Limites das funcionalidades anteriores permanecem vigentes.

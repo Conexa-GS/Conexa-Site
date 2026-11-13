@@ -1286,3 +1286,68 @@ Codex executou lint, 130 testes, build e diff-check com sucesso; aviso preexiste
 ### 5. Análise crítica
 
 A distância permite explicitar a formação do preço e distinguir direção de espera/coleta; o retorno não atrasa uma entrega já ocorrida. Tarifas/adicionais precisam ser informados e revisados: o Google não define preço comercial nem confirma pedágio/caminhão. A consulta exige clique para controlar consumo; mudar tarifas não gera nova chamada. Quotas do broker são voláteis e não representam limite de gasto ou solução distribuída. Cadastros demo com nomes fictícios podem não ser roteáveis; exemplo independente usa coordenadas inventadas sem atribuir negócios reais aos participantes. Chave/Google e fluxo remoto completo permanecem pendentes, assim como termos/privacidade e infraestrutura antes de ativação. Testes simulados e revisão de bancada não comprovam cobertura real, persistência desta fatia ou aprovação humana. Autorização para publicar/integrar na dev será solicitada após apresentação, conforme workflow.
+## Interação 068 — Login somente no botão Entrar da página principal — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para revisar e alterar a navegação da página principal e registrar a mudança. Terminal para lint/testes/build e navegador integrado via Computer Use para conferir navegação e layout desktop/360 px. Sem IA externa, geração de imagens ou subagentes.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “sobre a pagina principal do site, tem varios botões que te levam até o login, esta horrível isso. limite a area de login apenas para o botão \"Entrar\"”. Resposta aplicada: conservar somente “Entrar” como acesso ao login, trocar demais chamadas por navegação interna e apresentar os perfis com descrições informativas.
+
+### 3. Aplicação no código
+
+`Landing.jsx` passa a reconhecer somente `[data-login]`, sem encaminhamento por perfil. `home.html` usa âncoras para conhecer a rede e os participantes; perfis deixam de ser botões. `polish.css` remove movimento de hover das linhas e estiliza suas descrições. Mantidas marca, paleta e ilustrações locais. Spec/decisão D035 e validation.md documentam comportamento e evidências.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes existentes, build e diff-check com sucesso; aviso preexistente de bundle acima de 500 kB. Navegador integrado percorreu as três chamadas alteradas e o botão “Entrar”, conferiu um único acionador de login e nenhum botão nos perfis. Revisão visual em 1366×900 e 360×800, sem overflow horizontal nos estados medidos. Sem autenticação, alteração remota ou teste humano presumido. A branch exigiu execução com permissão ampliada para escrita no índice Git; criada da dev antes das edições.
+
+### 5. Análise crítica
+
+O acesso único reduz encaminhamentos repetidos e permite conhecer o site antes de entrar. Rótulos descrevem os destinos internos; perfis informativos evitam sugerir uma ação inexistente. A verificação cobre a apresentação e navegação locais, sem ampliar evidências sobre autenticação ou outros marcos. Avaliação humana e autorização para publicar/integrar na dev pendentes conforme workflow.
+
+## Interação 069 — Perfis em carrossel e retirada de botões da página principal — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para revisar a mudança anterior e implementar navegação, marcação, CSS e comportamento do carrossel. Terminal para lint/testes/build; navegador integrado via Computer Use para conferir desktop/360 px, destinos dos perfis, movimento e teclado. Sem subagentes, IA externa ou geração de imagens.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “tire as setas dos botões. tire os botões para descer mais a pagina. deixe os 3 perfis um do lado do outro, ocupando toda a tela e com scrollagem infinita. (ao clicar direciona ao login com determinada função) tire o botão do final do site”. Resposta aplicada: faixa horizontal contínua com cartões clicáveis por função, remoção das chamadas de rolagem e do botão final, sem setas. Este pedido revisa a restrição anterior de login somente pelo botão Entrar.
+
+### 3. Aplicação no código
+
+Landing.jsx mantém os links nativos para login, interceptando somente clique comum para navegação interna; URLs por perfil usam o contrato já existente de Login.jsx. home.html remove chamadas e seta decorativa, apresenta grupos repetidos de cartões e move o controle de movimento para o cabeçalho dos perfis. profile-carousel.css e profile-carousel.js cuidam de largura total, três cartões desktop, faixa horizontal móvel, ciclo, pausa por interação/foco e preferência de movimento. Cópias ficam fora do Tab/leitura assistiva. Cleanup remove listeners/observers e cancela animação. D036/spec/validation.md registram a revisão. Mantidas marca, paleta e ilustrações locais.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes existentes, build e diff-check aprovados; aviso preexistente de bundle acima de 500 kB. Navegador integrado conferiu os três perfis e seleção correta no login, cartão repetido clicável, progresso/ciclo automático, controle de redução e Tab no primeiro original, desktop/360 px sem overflow da página. Captura local em visualizations, com movimento pausado. Limites em validation.md: sem aparelho físico, leitor de tela, emulação da preferência do sistema ou novo teste remoto. A tentativa de ler performance.now na avaliação restrita do navegador falhou; medição temporal foi feita no ambiente da ferramenta, sem alterar a página. Sem aprovação humana ou autorização Git presumidas.
+
+### 5. Análise crítica
+
+O carrossel concentra a escolha do perfil e dá continuidade horizontal sem novos botões de navegação. No celular, a largura de 84% mantém texto legível e mostra a existência do próximo cartão. Movimento pode dificultar leitura e clique; pausa por interação/foco, redução explícita e preferência do sistema mitigam esse efeito. Cópias preservam continuidade visual sem duplicar a ordem de teclado. Escolher função preenche a apresentação do login e não concede acesso a dados. A revisão cobre o comportamento local observado e mantém avaliação/publicação pendentes.
+
+## Interação 070 — Textos e botões verdes e publicação na main — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar CSS, consolidar documentação e executar a publicação autorizada. Terminal/Git para lint, testes, build e fluxo feature → dev → main; navegador integrado via Computer Use para revisão desktop/360 px e capturas locais. Sem subagentes, IA externa ou alteração de arquivos de imagem.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “tire as letras laranjas e botões laranjas, deixe todas verdes e pode subir a ultima atualização para a main”. Resposta aplicada: destaques de títulos, botão do login e aba ativa em verde; cartão clicável do comprador em verde claro; publicação da atualização acumulada da página principal autorizada até main. Não se presume execução de testes humanos a partir da autorização.
+
+### 3. Aplicação no código
+
+site.css troca os destaques h1>span/.orange por var(--green). App.css alinha PageHeading à mesma cor. login.css usa verde no botão principal, hover e indicação de aba ativa. profile-carousel.css troca o fundo pêssego do comprador por verde claro. Marca, fotografias e ilustrações locais preservadas. D037/README/estado-atual/spec/validation.md registram a revisão e a autorização. A feature/home-acesso-entrar conserva carrossel, URLs por perfil e remoções de chamadas das interações anteriores.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes existentes, build e diff-check com sucesso; aviso preexistente de bundle acima de 500 kB. Página principal e login conferidos em 1366×900 e 360×800, sem overflow horizontal nas medidas coletadas, com cores computadas verdes e capturas locais. Sem formulário enviado, operação remota, nova prova de autenticação ou teste completo dos portais. Git fetch confirmou bases locais/remotas sincronizadas antes da integração: dev bee2696 e main 416d014. Publicação autorizada na feature, dev e main, a ser conferida no histórico e relato final; sem force-push ou edição de desenvolvimento na main.
+
+### 5. Análise crítica
+
+O verde unifica a leitura e as ações, preservando contraste com o creme e mantendo os arquivos visuais originais. A revisão de cores não altera validações, autenticação ou banco. A publicação da última versão da dev também leva as atualizações de Google Maps/frete já existentes nessa branch, sem comprovar configuração de chaves, testes reais Google, deploy ou aceite de marcos. Os registros anteriores de avaliação/autorização pendentes são históricos quanto à publicação desta atualização, sem ampliação das evidências técnicas.
