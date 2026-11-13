@@ -1,5 +1,7 @@
 # Regras de negócio
 
+Complemento D033, **13/11/2026**: a visualização Google Maps usa somente coordenadas fictícias de Botucatu, sem geocodificar endereços dos participantes. Lista reproduz quantidade de coletas do roteiro consultado (até seis) e retorno somente se acordado; pontos/nomes são um cenário independente da proposta. Distância/duração exibidas pelo Google são estimativas para automóveis, sem validade confirmada para caminhões ou tempo de paradas; não alteram cotação, frete, pedágio, aceites, estoque, totais ou status. Sem chave/Google indisponível, conservar o roteiro manual e explicitar a indisponibilidade. Conteúdo Google não é persistido no banco.
+
 Decisão de escopo em **13/11/2026 (D032)**: voz/GPT-Live foi guardada no planejamento futuro, sem prazo e fora do escopo ativo. As proteções de RN45 continuam aplicáveis ao bot por texto; trechos sobre áudio/OpenAI são referência para eventual retomada, sem ativação ou testes pagos previstos agora.
 
 Atualização de acesso em 13/11/2026 (D030): cada conta individual tem um dos três papéis, persistido no servidor após validação no cadastro. Selecionar outro perfil na tela ou alterar metadados Auth não concede esse papel. O acesso de desenvolvedor seleciona somente as contas fictícias previamente permitidas e fica desligado por padrão no build. A autenticação individual mantém o domínio acadêmico de dados/locais/pagamentos/transportes simulados; não autoriza operação comercial.

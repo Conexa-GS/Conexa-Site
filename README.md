@@ -27,6 +27,23 @@ Abra o endereço informado pelo Vite, normalmente `http://127.0.0.1:5173`. Se a 
 
 Sem URL **e** chave Supabase configuradas, ofertas usam memória, compartilhada entre perfis na mesma página, e reiniciam ao recarregar. Não há persistência local de ofertas. M2–M5 e Conversas informam a necessidade do banco; não anunciam gravação persistida nesse modo. Não confundir as bancadas de teste com dados remotos.
 
+## Mapa simulado de Botucatu — Google Maps
+
+O roteiro de exemplo (`/operacoes/exemplo`) e a análise de roteiro em **Entregas e valores** incluem um cenário geográfico de Botucatu (SP), com base, propriedades e restaurante fictícios. Na análise de uma cotação, o cenário reproduz a quantidade de coletas (até seis) e inclui retorno somente quando acordado. Os pontos são inventados, independentes dos endereços cadastrados; não há busca de estabelecimentos reais nem geocodificação dos participantes.
+
+Para habilitar a visualização:
+
+1. No seu projeto Google Cloud, habilite **Maps Embed API**. O Google exige projeto com faturamento habilitado; a documentação consultada em 13/11/2026 informa que o uso desta API é gratuito. Não é necessário habilitar Routes, Places ou Maps JavaScript.
+2. Crie uma chave exclusiva da **Maps Embed API**, com restrição de API para esse serviço e restrição de sites (HTTP referrers) para as origens usadas, por exemplo `http://127.0.0.1:5173/*`, `http://localhost:5173/*` e o domínio exato do deploy.
+3. Preencha `VITE_GOOGLE_MAPS_EMBED_KEY=` no `.env` local (ou `.env.local`); reinicie o Vite. No deploy, configure a variável antes de gerar um novo build. Nunca versione a chave preenchida.
+4. Abra o roteiro e escolha **Abrir mapa simulado**. **Percurso completo** mostra todas as paradas; os outros botões mostram o trecho até cada coleta, entrega ou retorno. Fechar o mapa remove o iframe.
+
+A chave Embed é pública no navegador por definição; use uma chave restrita exclusiva, nunca credencial de servidor. A autorização histórica para manter credenciais de cálculo de rotas no servidor continua aplicável a eventual Routes API; esta integração é somente um iframe Embed. Sem chave, nenhuma requisição ao Maps é iniciada e a lista das paradas permanece disponível. O carregamento acontece somente após o clique; Google recebe as coordenadas fictícias, a chave pública, a origem do site e os dados usuais da conexão. O referrer envia apenas a origem, sem caminho da página. Mapas podem mostrar nomes/POIs reais da base cartográfica, que não representam participantes Conexa.
+
+Não há rastreamento/GPS, alteração do status da operação ou cálculo de frete. Distância e tempo no Google são estimativas para automóveis, não roteamento certificado para caminhões; não incluem coleta/descarga nem confirmam pedágios. O mapa não preenche os campos financeiros ou de distância do roteiro manual. Falha do provedor mantém o roteiro e os controles de recarregar/fechar; por ser um iframe de outra origem, a aplicação não consegue detectar todos os erros de chave exibidos dentro do Google. O evento `load` não é tratado como comprovação de rota válida.
+
+Referências: [integração e parâmetros](https://developers.google.com/maps/documentation/embed/embedding-map), [chave e configuração](https://developers.google.com/maps/documentation/embed/get-api-key), [uso e faturamento](https://developers.google.com/maps/documentation/embed/usage-and-billing).
+
 ## Verificações reproduzíveis
 
 Em outro terminal, na mesma pasta:
