@@ -1,5 +1,11 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Voz para uma etapa futura — D032 — 13/11/2026
+
+Responsável: Codex. Branch `feature/voz-bau-ideias`, criada da `dev` limpa `f68da9d`. Pedido do usuário: guardar a parte de voz para uma etapa futura. Alteração exclusivamente documental: decisão D032, escopo/continuidade/tarefas/aceites e referências da entrega alinhados. T42 adiada, não concluída; voz/GPT-Live fora do escopo ativo e sem bloquear avaliação T43/M6 de texto/DM. Código opcional e evidências anteriores preservados; sem alteração de aplicação, schema ou configuração.
+
+Verificações locais executadas no checkout, Windows/PowerShell: `npm run lint` aprovado, `npm test` aprovado (**120 testes**, zero falhas), `npm run build` aprovado com aviso de chunk principal acima de 500 kB; `git diff --check` sem erros. Testes de voz existentes usam mocks, sem microfone ou API paga. Sem alteração de interface, não houve nova revisão visual em 360 px/desktop. Não foram feitos testes remotos, ativação de voz, regeneração do ZIP, push, merge ou deploy nesta revisão. A decisão de adiar é explícita; aceite M5/M6 e autorização de publicação/integração desta feature não são presumidos. IA.md não alterado: decisão de escopo, sem prompt de programação.
+
 ## Tipografia e limpeza visual — 13/11/2026
 
 Responsável: Codex. Branch `feature/tipografia-interface-limpa`, criada da `dev` limpa `db3290d2fc8e4a1184430a7a2636e2f1893054e0`. Pedido do usuário: trocar a fonte principal usando o import do Google Fonts fornecido e retirar subtextos, contornos laranja e numerações desnecessários. Poppins adotada como principal dentre as três famílias do link, com fallback Arial/sans-serif. Marca vetorial, ilustrações locais e paleta preservadas; nenhuma animação nova.

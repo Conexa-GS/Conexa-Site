@@ -36,7 +36,7 @@ Usar o demo já configurado, sem reaplicar migrations/seed ou alterar cadastros 
 | 6. M5 em avaliação | Só em carga própria autorizada: pagamento simulado aprovado, agendamento, início/entrega fictícios, divergência e resolução pelo comprador, recebimento separado | Pendente/recusado não agenda; divergência bloqueia repasses; resolução não confirma recebimento automaticamente; parcelas e dinheiro continuam simulados |
 | 7. Encerramento | Conferir fixtures/IDs e limpar apenas cadastros próprios sem vínculos; cancelar/arquivar os vinculados conforme estado | Não apagar histórico entregue nem registros alheios. Cargas concluídas, mensagens/comandos e repasses fictícios ficam auditáveis |
 
-Para falha antes/depois do envio e reconciliação pela mesma chave, seguir [conversas-validacao-demo.md](../conversas-validacao-demo.md). Não interromper fisicamente a rede como parte implícita deste roteiro: T41 foi adiada pelo usuário e continua pendente. T42 é um teste pago separado, somente pelo usuário, segundo [voz-manual.md](../voz-manual.md); mocks não validam microfone, custo ou encerramento no provedor.
+Para falha antes/depois do envio e reconciliação pela mesma chave, seguir [conversas-validacao-demo.md](../conversas-validacao-demo.md). Não interromper fisicamente a rede como parte implícita deste roteiro: T41 foi adiada pelo usuário e continua pendente. Voz/GPT-Live e T42 estão no planejamento futuro desde 13/11/2026 (D032), fora deste roteiro e do aceite atual de texto/DM. O roteiro de voz e os mocks são históricos; não validam microfone, custo ou encerramento no provedor.
 
 ## Encerrar a avaliação — 2 minutos
 

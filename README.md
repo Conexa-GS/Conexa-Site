@@ -4,7 +4,7 @@ Do campo pra cidade. Mais juntos.
 
 Aplicação acadêmica React/Vite/Tailwind para reunir ofertas de pequenos produtores, demandas de compradores e transporte local. Cenários, participantes, pagamentos, estornos, viagens e repasses são **fictícios ou simulados**. A identidade do piloto usa creme, verde, laranja, marca vetorial e ilustrações locais.
 
-Estado em **12/11/2026**: M1–M4 têm aceite humano no escopo registrado. T28/M5 e texto/DM foram tecnicamente verificados no Supabase demo; aceite M5 e T43/aceite M6 continuam pendentes. T41 mantém rede física pendente; T42 mantém voz real pendente. [Estado completo](Conexa-specs/estado-atual.md), [matriz de verificações](Conexa-specs/entrega/matriz-verificacoes.md) e [limitações](Conexa-specs/entrega/limitacoes.md).
+Estado atualizado em **13/11/2026**: M1–M4 têm aceite humano no escopo registrado. T28/M5 e texto/DM foram tecnicamente verificados no Supabase demo; aceite M5 e T43/aceite M6 continuam pendentes. T41 mantém rede física pendente. Voz/GPT-Live foi guardada no planejamento futuro (D032), sem prazo; T42 adiada, fora do escopo ativo e sem bloquear a avaliação de texto/DM. Base opcional preservada e desabilitada por padrão; roteiros de voz são referência histórica, sem ativação nesta decisão. [Estado completo](Conexa-specs/estado-atual.md), [matriz de verificações](Conexa-specs/entrega/matriz-verificacoes.md) e [limitações](Conexa-specs/entrega/limitacoes.md).
 
 ## Executar a partir do ZIP ou checkout limpo
 
@@ -107,7 +107,7 @@ Com `npm run dev`, abrir `/tests/ui/conversations.html`, `/tests/ui/accessibilit
 
 ## Voz opcional e WhatsApp
 
-T39/T40 têm broker local Node 24 de instância única, WebRTC/sideband, SQLite e cotas; ambos os switches ficam desligados. Chave permanente só no servidor, nunca `VITE_`. Respostas da IA são texto; sugestão/transcrição corrigida precisa passar pelo bot, prévia e confirmação. Sem implantação, Auth/provedor/microfone reais verificados. **T42 é teste pago somente do usuário**, pelo [roteiro de voz](Conexa-specs/voz-manual.md); custo real e encerramento no provedor não são comprovados por mocks. Texto simulado independe de voz.
+Voz/GPT-Live está no planejamento futuro desde 13/11/2026 (D032), fora do escopo ativo. T39/T40 preservam broker local Node 24 de instância única, WebRTC/sideband, SQLite e cotas; ambos os switches ficam desligados. Respostas da base existente são texto; não há implantação, Auth/provedor/microfone reais verificados. T42 foi adiada, sem conclusão ou teste pago; [roteiro de voz arquivado](Conexa-specs/voz-manual.md) serve apenas para possível retomada. Texto simulado independe de voz.
 
 `npm run demo:whatsapp` é um demonstrador histórico de terminal em memória, sem envio externo ou gravação no site. T30/WhatsApp foi descontinuada por pedido do usuário (D029) e retirada das tarefas; experimentos preservados são históricos. [Escopo](Conexa-specs/t30-whatsapp.md).
 
