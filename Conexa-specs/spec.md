@@ -1,5 +1,9 @@
 # Especificação funcional
 
+Extensão vigente em avaliação, **13/11/2026 (D034)**: RF06/RF07 incluem [cálculo opcional de frete e entrega por Google Maps Routes](frete-google-maps.md), solicitado pelo usuário. Distância/tempo vêm do servidor; tarifas base + km + adicionais da transportadora. Retorno cobrado fica fora da previsão de entrega; paradas informadas separadamente. Resultado é estimado, aplica somente na nova cotação após ação explícita, mantendo confirmação, validações e negociação existentes. Exemplo Botucatu é independente de contratos. D033 permanece para visualização Embed, mas sua exclusão de Routes/frete não rege esta extensão. Ativação/validação Google real, avaliação humana e publicação pendentes.
+
+Extensão solicitada em **13/11/2026 (D033)**: RF07 inclui visualização opcional de um percurso fictício no Google Maps Embed, ambientado em Botucatu (SP), com saída, coletas, entrega e retorno quando acordado. Percurso completo e trechos, sem rastreamento ao vivo. Propriedades/comércio não representam negócios reais; coordenadas inventadas independem dos cadastros. Configuração preparada sem chave; mapa externo real permanece sem validação. Roteiro e cotação manuais continuam disponíveis. Não inclui Routes API, frete automático ou comparação de totais entre composições.
+
 Escopo vigente em **13/11/2026 (D032)**: voz/GPT-Live está no planejamento futuro, adiada sem prazo e fora da entrega ativa. RF11/M6 mantém bot guiado por texto, prévia e confirmação; RF12 mantém mensagens. T42 adiada não bloqueia T43/aceite M6 de texto/DM. Referências anteriores a voz opcional planejada ficam como histórico; código e evidências preservados, sem ativação.
 
 Estado de execução consolidado em [estado-atual.md](estado-atual.md), 12/11/2026. Requisitos não são evidência de teste ou aceite; procedimentos e limites em validation.md.
@@ -45,6 +49,8 @@ Recuperação D026: consultar estado/histórico com sucesso limpa o erro da cons
 | US12 Produtor e comprador conversam na plataforma | RF12 Mensagens entre participantes | Aba Conversas nos dois perfis, histórico persistido, mensagens individuais e não lidas; acordos por texto não executam operações. Implementado e tecnicamente verificado em T35/T38 e D025; aceite M6 pendente |
 
 ## Requisitos de qualidade
+
+Página principal (D036, 13/11/2026, revisão de D035): cabeçalho mantém “Entrar”, sem seta; removidas chamadas intermediárias de rolagem e botão final. Os três perfis ocupam uma faixa horizontal de largura total, com rolagem contínua em ciclo. Cada perfil abre o login com a função correspondente selecionada. No celular, os cartões permanecem lado a lado com rolagem horizontal interna. Movimento pode ser reduzido pelo controle próximo aos perfis ou pela preferência do sistema. D037 usa verde nos destaques de títulos e botões antes laranjas, incluindo o login; imagens e marca originais preservadas.
 
 Revisão de 13/11/2026 (D031): Conversas apresenta sugestões próximas ao compositor sempre aberto. Bot responde com perguntas, cartões selecionáveis de ofertas/colheitas, correção e prévia dentro do histórico, com rolagem independente e confirmação explícita. A consulta do produtor permite escolher a oferta para editar. Propostas/demandas continuam nos fluxos próprios e comprador permanece somente consulta no bot. Esta disposição substitui o menu acima do histórico e a digitação recolhida de D022.
 

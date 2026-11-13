@@ -283,3 +283,57 @@ A resposta digitada aparece como mensagem do usuário e a próxima pergunta é m
 ### Autorização de publicação e promoção de Conversas — 13/11/2026
 
 Usuário autorizou explicitamente: “pode mandar para dev e depois para main”. Autoriza publicar a feature/conversas-mensageiro, integrar na dev e promover sequencialmente para main. Não equivale a novos testes humanos, deploy comprovado ou aceite integral de M6. Verificações locais e limites registrados acima permanecem válidos. Autorização registrada fora de IA.md, pois não constitui prompt de programação.
+
+## D033 — Percurso fictício no Google Maps em Botucatu — 13/11/2026
+
+Origem: pedido explícito para integrar Google Maps e simular o caminho da transportadora, com propriedades e comércios fictícios em uma cidade do interior paulista. Botucatu (SP) confirmada pelo usuário; configuração deve ficar preparada sem chave. Implementação em feature/google-maps-simulacao, criada da dev 549241d, sem alterar main.
+
+Escolhida Maps Embed API, modo directions, para visualizar mapa/ruas, saída, coletas, entrega e eventual retorno. Controles mostram percurso completo ou trecho até cada parada. Coordenadas inventadas e nomes fictícios locais; não geocodificar endereços dos participantes. Na análise de cotação, usar somente quantidade de coletas e presença de retorno do roteiro M4 autenticado. Suporte explícito de até seis coletas; acima disso preservar lista manual completa e informar limite do mapa. Não há GPS, acompanhamento ao vivo ou escrita no Supabase.
+
+A chave Embed é pública no navegador por desenho da API e deve ser exclusiva, restrita a Maps Embed API e HTTP referrers. Esta decisão autoriza a chave pública de exibição como exceção à proposta histórica de credenciais de rotas exclusivamente no servidor; eventual cálculo Routes mantém credencial no servidor. VITE_GOOGLE_MAPS_EMBED_KEY preparada vazia em .env.example e no .env local existente, preservando demais valores. Não criar chave, conta, faturamento, contratar serviço ou habilitar API pelo usuário nesta entrega. Uso gratuito informado pela documentação oficial consultada em 13/11/2026; configuração Google requer projeto com faturamento habilitado.
+
+Carregar iframe somente após clique explícito; sem chave não há requisição ao Google Maps. Referrer envia apenas origem. Dados/atribuição do Google permanecem no iframe, sem cache no banco ou sobreposição. Nomes de estabelecimentos do mapa base não representam participantes Conexa. Não extrair distância/tempo do iframe, não preencher custos/rota manual nem prometer adequação para caminhões. Estimativas para automóveis não incluem tempo de coleta e não confirmam pedágios. Aplicação não inspeciona erros internos de iframe cross-origin; preserva lista, instrução e ações de recarregar/fechar. Load não comprova sucesso.
+
+Verificação local: lint, 123 testes e build passaram; três testes novos sem requisições ao Google, revisão dirigida de bancada desktop/360 px e teclado. Chave real, cobertura/ruas, traçado/estimativas, restrições e retorno efetivo do provedor permanecem sem teste, conforme opção de configuração vazia. Sem alteração dos aceites M4/M5/M6, migrations, publicação/integração ou deploy; requer avaliação e autorização antes de subir/integrar na dev.
+
+### Autorização de integração de Google Maps — 13/11/2026
+
+Após apresentação da feature/google-maps-simulacao e orientação sobre criação da chave, o usuário autorizou explicitamente: “pode enviar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não inclui promoção para main, deploy, comprovação de configuração da chave ou teste real do Google Maps. Verificações locais e limites de D033 preservados; a autorização não equivale a teste humano do mapa.
+
+## D034 — Frete automático e previsão por distância — 13/11/2026
+
+Pedido de programação do usuário: calcular frete e previsão de entrega com Google Maps. Fórmula escolhida explicitamente: base + valor por km + adicionais. A transportadora informa tarifas; mínimo opcional fica explícito, com 0 para não aplicar piso. Não adotar tarifa comercial inventada.
+
+Escolhida Routes API Compute Routes no servidor, com chave privada separada de Embed, Auth/papel carrier, origem exata, quotas demo e timeout sem retry. Percurso conserva saída, todas as coletas, destino e eventual retorno. Distância total calcula frete; direção até destino e paradas informadas calculam entrega. Retorno não é somado ao prazo de entrega. Sem trânsito em tempo real, pedágio ou restrição de caminhão. Fonte/limites visíveis; fallback manual preservado.
+
+Na nova cotação, aplicar estimativa preenche frete/entrega e desmarca a confirmação. Roteiro/saída alterados invalidam o resultado para aplicação e avisam se campos já foram preenchidos. Confirmação/RPC M3 e negociação de frete confirmado são preservadas; cálculo não grava nem altera aceites/estoque/status. Exemplo Botucatu usa pontos fictícios do mapa, sem mudar resumo financeiro ilustrativo. Uma cotação consulta seus próprios locais somente por clique, sem atribuir geografia real a nomes fictícios. Contrato completo em frete-google-maps.md e configuração no README.
+
+D034 amplia o escopo que D033 excluía (Routes/frete), a pedido do usuário, e preserva a visualização Embed independente. Implementação local em feature/frete-google-maps criada da dev; lint, 130 testes e build aprovados, revisão de bancada desktop/360 px. Sem chave configurada, Google real, teste Auth/broker/Google ponta a ponta, migration remota, aceite humano, push/merge/deploy ou autorização de promoção à main. Quotas em memória não são teto financeiro e reiniciam com o processo; ativação exige cotas Google/configuração e pré-requisitos de implantação. Detalhes em validation.md.
+
+### Autorização de publicação de D034 — 13/11/2026
+
+Após apresentação da implementação, verificações e limites, usuário autorizou: “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção à main, deploy ou gasto/configuração Google; consulta real e demais limites técnicos permanecem pendentes. Esta manifestação é autorização Git, sem presumir testes humanos individuais.
+
+## D035 — Login somente pelo botão Entrar na página principal — 13/11/2026
+
+Revisada pelo pedido posterior D036 abaixo: os perfis voltam a abrir o login por função em um carrossel horizontal, e as chamadas internas são retiradas. O registro abaixo preserva o contexto da primeira versão, sem aceite/publicação presumidos.
+
+Por pedido explícito do usuário, somente “Entrar”, no cabeçalho da página principal, abre `/login`. As demais chamadas passam a navegar pelo conteúdo da página com rótulos correspondentes. Produtor, comprador e transportador são apresentados como linhas informativas com descrições, sem botões, setas de acesso ou efeito de hover de botão. Mantidos marca, cores e ilustrações locais; autenticação e permissões existentes preservadas.
+
+Implementação em `feature/home-acesso-entrar`, criada da dev. Lint, 130 testes e build aprovados; navegação e layout conferidos no navegador integrado em desktop/360 px, conforme validation.md. Avaliação humana e autorização para publicar/integrar na dev pendentes.
+
+## D036 — Perfis em carrossel e retirada das chamadas de rolagem — 13/11/2026
+
+Pedido posterior do usuário revisa D035: retirar setas dos botões, botões de descer a página e botão final; colocar os três perfis lado a lado, em toda a largura, com rolagem infinita e clique para o login da função. Implementado como carrossel horizontal contínuo com cartões clicáveis e URLs `/login?perfil=produtor`, `comprador` e `transportador`. Seleção orienta a tela, sem conceder permissões no servidor.
+
+Desktop mostra três cartões por largura; celular mantém a faixa horizontal com cartão de 84% da largura, preservando leitura e deslize. Grupos repetidos fecham o ciclo; cópias são retiradas da navegação por Tab e leitura assistiva. Movimento pausa durante foco/interação e fora da área visível; o controle de reduzir movimento foi movido do rodapé para o cabeçalho dos perfis, respeitando também o sistema. Marca, paleta e ilustrações locais preservadas.
+
+Continuidade na mesma feature criada da dev, sem commit/publicação/integração. Evidências em validation.md; avaliação humana e autorização Git ainda pendentes.
+
+## D037 — Textos e botões verdes e publicação autorizada na main — 13/11/2026
+
+Pedido explícito do usuário: “tire as letras laranjas e botões laranjas, deixe todas verdes e pode subir a ultima atualização para a main”. A revisão troca destaques de títulos da página principal e PageHeading por verde #174d38, além do botão de envio e indicação da aba ativa no login. O cartão clicável do comprador passa de pêssego para verde claro. Marca vetorial, fotografias e ilustrações locais conservam seus arquivos originais.
+
+Esta manifestação autoriza commit/publicação da atualização acumulada de D035–D037 na feature/home-acesso-entrar, integração/publicação na dev e promoção/publicação da versão mais recente na main. Fluxo feature → dev → main preservado, sem edição ou commit de desenvolvimento diretamente na main. A dev de origem é bee2696, e a main remota antes da promoção é 416d014; a promoção também inclui Google Maps/frete já integrados na dev (D033/D034). Commits e resultado da publicação são verificáveis no histórico Git e no relato final. A autorização não equivale a testes individuais relatados pelo usuário, deploy comprovado, configuração Google ou novo aceite de marcos.
+
+Lint, 130 testes e build aprovados; revisão visual da página principal e login em 1366×900 e 360×800, com evidências em validation.md. Limites das funcionalidades anteriores permanecem vigentes.

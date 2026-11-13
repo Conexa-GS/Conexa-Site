@@ -1,0 +1,17 @@
+.profile-carousel{padding:80px 0 0;background:var(--cream);overflow:hidden}
+.profile-carousel-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;max-width:1380px;margin:auto;padding:0 55px 44px}
+.profile-carousel-heading h2{font-size:clamp(40px,4.6vw,60px)}
+.profile-carousel-heading button{flex-shrink:0;background:transparent;border-bottom:1px solid var(--line);padding:8px 0;font-size:12px}
+.profile-carousel-window{display:flex;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;scroll-behavior:auto}
+.profile-carousel-window::-webkit-scrollbar{display:none}
+.profile-carousel-group{display:flex;flex:0 0 100%;min-width:0}
+.home-profile{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center;flex:0 0 33.333333%;min-width:0;min-height:430px;padding:40px 36px;color:var(--green);border-right:1px solid var(--line)}
+.home-profile-produtor{background:#e7edcd}.home-profile-comprador{background:#edf2df}.home-profile-transportador{background:#d8e9e3}
+.home-profile .portrait{width:160px;height:160px;background:transparent;margin-bottom:28px;transition:transform .2s}
+.home-profile strong{font-size:clamp(25px,2.8vw,38px);line-height:1.15;letter-spacing:-1px}
+.home-profile p{max-width:290px;font-size:14px;line-height:1.7;margin-top:14px}
+.home-profile:hover .portrait{transform:translateY(-5px)}
+.home-profile:focus-visible{outline:3px solid var(--green);outline-offset:-8px}
+html[data-motion=reduced] .profile-carousel-group[data-profile-copy]{display:none}
+@media(prefers-reduced-motion:reduce){.profile-carousel-group[data-profile-copy]{display:none}.home-profile .portrait{transition:none}.home-profile:hover .portrait{transform:none}}
+@media(max-width:760px){.profile-carousel{padding-top:48px}.profile-carousel-heading{align-items:start;padding:0 24px 28px;gap:16px}.profile-carousel-heading h2{font-size:38px}.profile-carousel-heading button{font-size:10px;margin-top:6px;max-width:88px;white-space:normal}.profile-carousel-group{flex-basis:252%}.home-profile{min-height:390px;padding:32px 24px}.home-profile .portrait{width:144px;height:144px}.home-profile strong{font-size:30px}.home-profile p{font-size:13px}}
