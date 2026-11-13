@@ -6,6 +6,7 @@ import { navigate } from '../hooks/useRouter'
 
 export default function Landing() {
   useLayoutEffect(() => {
+    document.getElementById('conteudo')?.focus({ preventScroll: true })
     const removeArtwork = mountArtwork()
     const dispose = mountMotion()
     return () => { dispose(); removeArtwork() }

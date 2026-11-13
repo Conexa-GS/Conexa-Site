@@ -1,5 +1,35 @@
 # Conexa — Pacote de especificações
 
+Complemento T32/T33/T43, 12/11/2026: [entrega para avaliação](entrega/README.md) reúne README reproduzível, matriz com evidências/aceites separados, limitações, roteiro e empacotador/ZIP local verificado. T33 concluída como registro documental; T32 parcial por repo/permissões/deploy/envios, T43/aceite M6 e aceite M5 pendentes. Voz real/T42 e rede física/T41 continuam abertas. Nenhuma publicação/integração, implantação ou aprovação humana presumida. Este complemento atualiza as indicações anteriores de ausência de artefatos T32/T33; [verificações desta entrega](validation.md#t32t33t43--artefatos-para-avaliação--12112026).
+
+Complemento T31, 12/11/2026: conferência acadêmica executada com componentes/hooks, useState/useEffect, CRUD/Auth/RLS reais e histórico significativo comprovados. Conteúdo histórico de IA.md tem consulta/esclarecimento fora da regra vigente; T31 concluída como conferência com ressalva, sem encerrar saneamento de IA, T04/T32–T33 ou aceites de produto. [Relatório e evidências](t31-auditoria.md). Feature em avaliação, sem publicação/integração presumida.
+
+Estado consolidado em **12/11/2026**: o site está implementado; M1–M4 têm aceite humano no escopo registrado. Texto/DM está tecnicamente verificado no demo, inclusive F5; T35/T38 encerradas tecnicamente. T28/M5 também encerrada tecnicamente no demo; aceite M5 pendente. T41 mantém rede física pendente; voz/T42 e avaliação T43/M6 continuam abertas.
+
+Complemento T28/D027, 12/11: AC18–21 verificados com Auth/RLS e concorrência reais; pagamento até entrega/divergência/resolução/repasses percorridos no navegador conectado dos três perfis, com F5 e revisão em 360 px/desktop. Corrigido bloqueio de recebimento quando o alimento arredonda a zero centavos; migration corretiva aplicada ao demo. [Evidências](validation.md#t28m5--fechamento-completo-no-demo--12112026). Feature `feature/t28-m5-verificacao` ainda em avaliação, sem autorização presumida de publicação/integração.
+
+Complemento local D026, 12/11: recuperação de consulta do bot corrigida; offline da aba, reconciliação automática, F5 e reenvio único de DM/pedido do bot verificados no navegador integrado/demo. Lint, 109 testes/build aprovados; cinco DMs e um pedido auditável únicos. Usuário optou por adiar a prova física; a emulação não comprovou queda do WebSocket. Feature ainda em avaliação, sem publicação/integração presumida. [Evidências](validation.md#t41d026--recuperação-controlada-e-modo-offline-do-navegador--12112026).
+
+Complemento cotações, 12/11: revisão, negociação, desistência/taxa e avisos percorridos no site conectado com quatro sessões/recarga; comprador em 360 px/desktop. Segunda transportadora indisponível (uma conta demo), sem conta nova. Avaliação humana e publicação/integração deste registro pendentes. [Evidências](validation.md#cotações--percurso-conectado-recarga-e-desistência--12112026).
+
+## Leitura para continuar o projeto
+
+Complemento M4, 12/11: histórico, justificativas, candidatas inclusivas, roteiro manual e valores desconhecidos verificados no demo com Auth/RLS reais e site/F5; comprador em 360 px/desktop. Fixtures próprias encerradas/arquivadas, sem API externa ou alteração da aplicação/schema. [Evidências e limites](validation.md#m4--rotas-manuais-e-sugestões-inclusivas-no-demo--12112026). Feature para avaliação, sem publicação/integração presumida; aceite anterior M4 preservado.
+
+1. [Estado atual e evidências](estado-atual.md): implementação, verificação, aceite, integrações e próximos passos.
+2. [spec.md](spec.md) e [business-rules.md](business-rules.md): requisitos e regras de produto.
+3. [workflow.md](workflow.md): branches, avaliação, autorização e registro de IA.
+4. [tasks.md](tasks.md) e [validation.md](validation.md): tarefas e resultados reais.
+5. [handoff.md](handoff.md) e [plan.md](plan.md): continuidade e arquitetura.
+6. [conversas-site.md](conversas-site.md), [conversas-validacao-demo.md](conversas-validacao-demo.md) e [voz-manual.md](voz-manual.md): contratos e roteiros de texto/DM e voz.
+7. [constitution.md](constitution.md), [data-model.md](data-model.md), [flows.md](flows.md), [contracts.md](contracts.md), [acceptance.md](acceptance.md) e [decisions.md](decisions.md): princípios, modelo, fluxos, critérios e decisões.
+
+Para executar, consulte o [README do projeto](../README.md). Migrations M4/M5/revisões e Conversas já aplicadas ao demo autorizado; confira versões e definições antes de alterar um ambiente existente. Integração Git não comprova deploy nem aceite de marco. Não reiniciar M0/M1 ou reaplicar migrations por instruções antigas.
+
+## Histórico do pacote e origem
+
+Os registros abaixo são preservados como relatos das respectivas etapas. Expressões como “pendente”, “próximo marco” e “sem integração” valem para a data/entrega indicada; o estado vigente está na síntese acima. A versão 1.0 de 06/11 é a origem do pacote, não o estágio atual de implementação.
+
 11/11/2026 — complemento T41/D025 em `feature/t41-bot-persistencia`: criação/edição pelo bot e DM entre sessões verificados após F5 no site conectado; recuperação controlada antes/depois da persistência e quatro grupos de estoque/histórico aprovados no demo. Corrigidos perda de chave na recarga, resposta tardia e prévia obsoleta após rejeição. T35/T38 encerradas tecnicamente; T41 conserva pendência de rede física, e voz/T42/avaliação T43/M6/M5 permanecem abertas. [Evidências](validation.md). Sem nova migration, publicação ou integração presumida.
 
 11/11/2026 — complemento local T41/D024 na `feature/t41-retomada-sessao`: retomada de sessão por aba e revalidação remota, isolamento de Auth e foco de Voltar corrigidos. Recarga real do bot/histórico de Ana e do perfil comprador em abas distintas verificada no site conectado, desktop/360 px; saída do comprador preservou Ana. Sem novo CRUD/envio ou teste pago. [Evidências e limites](validation.md). T41, avaliação M6 e M5/T28 continuam pendentes; integração/publicação desta feature dependem de autorização.

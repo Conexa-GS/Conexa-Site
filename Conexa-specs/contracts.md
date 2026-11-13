@@ -1,10 +1,12 @@
-# Contratos de serviços propostos
+# Contratos de serviços — implementação e propostas
+
+Estado vigente em [estado-atual.md](estado-atual.md). Migrations M4/M5/revisões e Conversas aplicadas ao demo; verificações e limites em validation.md. Contrato atual do bot/DM: conversas-site.md, D020–D025. Voz/provedor real sem teste. Seções datadas da implementação inicial preservam o histórico; não orientam reaplicar SQL ou reabrir o modal antigo.
 
 Contrato local T39/T40 (11/11/2026, D021): [conversas-site.md](conversas-site.md#contrato-local-t39t40--d021) descreve `POST /api/voice/sessions` (`conversation_id`, SDP) e `GET`/`DELETE /api/voice/sessions/:id`. Auth/participante/bot verificados no servidor, origem exata e limites locais persistentes; devolve SDP/ID local/prazo, sem chave OpenAI. Ferramenta apenas propõe texto corrigível, sem RPC de confirmação ou escrita; envio/prévia/confirmar continuam em `site_bot`. Flags desligadas por padrão. Interface unificada substitui a emissão efêmera originalmente proposta. Testes somente locais/simulados; configuração e limites de implantação em [voz-manual.md](voz-manual.md).
 
-Interfaces abaixo são contratos lógicos, não endpoints de backend já implementados. CRUD simples usa cliente Supabase com RLS. Operações compostas usam funções transacionais; rotas externas usam servidor.
+Interfaces genéricas abaixo são contratos lógicos; seções de implementação identificam gateways/RPCs existentes. Não tratar nomes lógicos como endpoints adicionais implementados. CRUD simples usa cliente Supabase com RLS. Operações compostas usam funções transacionais; rotas externas usam servidor.
 
-T30/WhatsApp: contrato separado em [t30-whatsapp.md](t30-whatsapp.md), com protocolo de texto e handler local sem adaptador persistente. `acceptBatch` deve garantir recebimento durável do lote antes de responder 200; `publish_offer` é pedido, não confirmação de gravação. Banco, identidade e envio externo ainda não implementados.
+Histórico da preparação inicial T30/WhatsApp (pausada por D018; experimentos posteriores preservados em feature separada): contrato separado em [t30-whatsapp.md](t30-whatsapp.md), com protocolo de texto e handler local sem adaptador persistente. `acceptBatch` deve garantir recebimento durável do lote antes de responder 200; `publish_offer` é pedido, não confirmação de gravação. Banco, identidade e envio externo ainda não implementados.
 
 ## Implementação M2 — 07/11/2026
 
@@ -32,7 +34,9 @@ Os nomes abaixo seguem como contratos lógicos. A implementação M2 usa esse ú
 
 ## Cadastros — M1/M2
 
-### Adaptador de conversa M6 — implementação local em avaliação — 10/11/2026
+### Histórico do adaptador T29 — 10/11/2026
+
+D023 removeu a entrada deste modal em ofertas; componente preservado nas bancadas/testes. O fluxo principal usa Bot Conexa, rascunhos/pedidos remotos e journal D025, conforme conversas-site.md. Os limites abaixo são os do componente T29 histórico.
 
 `answerOfferChat(draft,name,answer,catalog)` valida uma resposta explícita e retorna `{draft,error}`, preservando o rascunho anterior quando inválida. `validateChatDraft` reutiliza `validateOffer`, acrescenta datas de calendário e opções do catálogo/coleta do perfil. Quantidade aceita até três casas, reais até duas e conversão para centavos é a mesma do formulário. Datas DD/MM/AAAA são normalizadas para ISO; vencimento desconhecido vira `null`. Nenhuma escrita ocorre nesses adaptadores.
 
@@ -82,7 +86,7 @@ Validar que início/fim fazem sentido para a data corrente; dados seed precisam 
 
 `src/services/m4.js` chama gateway `public.m4(action,payload)` invoker e função privada com identidade demo validada. `candidates` recebe `{id:demandId}`, reutiliza M2 e acrescenta `completed_sales` (cargas distintas entregues do produtor) e `waiting_days` (idade da oferta). Herda a manutenção de expiração M2. `route` recebe `{id:loadId,version,quote_id}` e exige comprador proprietário ou transportador dono da cotação confirmada da versão atual. Não recebe paradas/preços arbitrários do navegador.
 
-`route` retorna `{loadId,version,quoteId,stops,status:'manual',provider:null,isSimulated:false,distanceMeters:null,drivingSeconds:null,stopSeconds:null,tollAmountCents:null,currency:'BRL',freightCents,servicesIncluded,warnings}`. Cada parada contém `kind,address,stopSeconds:null`; coleta inclui `itemId,producerName`. Nenhuma estimativa externa, gravação de rota ou novo aceite é criado. `isSimulated:false` significa ausência de estimativa sintética; os dados da demo continuam fictícios. Migration preparada localmente; ativação remota e API externa pendentes. Detalhes em `m4-routes.md`.
+`route` retorna `{loadId,version,quoteId,stops,status:'manual',provider:null,isSimulated:false,distanceMeters:null,drivingSeconds:null,stopSeconds:null,tollAmountCents:null,currency:'BRL',freightCents,servicesIncluded,warnings}`. Cada parada contém `kind,address,stopSeconds:null`; coleta inclui `itemId,producerName`. Nenhuma estimativa externa, gravação de rota ou novo aceite é criado. `isSimulated:false` significa ausência de estimativa sintética; os dados da demo continuam fictícios. Migration aplicada ao demo em 10/11; API externa continua inativa. Percurso conectado completo M4 não comprovado pela aplicação da migration. Detalhes em `m4-routes.md`.
 
 ### Contrato planejado de estimativa externa
 
@@ -103,7 +107,7 @@ Controles de resultado de pagamento ficam no modo demo; não são desenho de pag
 
 ### Implementação local — 09/11/2026
 
-`services/m5.js` chama `public.m5(action,payload)` invoker e função privada com identidade demo, propriedade, papel, versão e estado validados. Ações: `list`, `pay`, `cancel`, `start`, `report`, `discrepancy`, `resolve`, `receive`. Mutação recebe `{id:loadId,version}`. Sem escrita REST direta nas tabelas M5. A migration ainda não foi aplicada ao demo.
+`services/m5.js` chama `public.m5(action,payload)` invoker e função privada com identidade demo, propriedade, papel, versão e estado validados. Ações: `list`, `pay`, `cancel`, `start`, `report`, `discrepancy`, `resolve`, `receive`. Mutação recebe `{id:loadId,version}`. Sem escrita REST direta nas tabelas M5. A migration foi aplicada ao demo em 10/11; T28 foi tecnicamente verificada em 12/11 com ciclo completo por API/Auth/RLS/concorrência e navegador dos três perfis/F5. Aceite M5 pendente. D027 permite parcela simulada zero quando o alimento arredonda a zero centavos, mantendo uma parcela por beneficiário e bloqueando negativos; migration corretiva aplicada como `20261112205536`.
 
 `pay` acrescenta `{outcome:'pending'|'approved'|'declined',idempotency_key:uuid}`. Mesma chave/carga/versão/resultado devolve a tentativa original (com status atual, inclusive estorno); reutilização incompatível é rejeitada. Total, destinatários e estoque nunca vêm do cliente. Revalida cotação, partida futura, reserva válida/quantidade, aceites, peso/conservação e mínimos. Aprovação converte a própria reserva em compromisso e agenda atomicamente; resultado pendente/recusado não agenda. Outra chave pode iniciar nova tentativa antes da aprovação; não atualiza tentativa pendente nem presume callback. Uma aprovação por carga, inclusive após estorno.
 
@@ -116,7 +120,7 @@ Controles de resultado de pagamento ficam no modo demo; não são desenho de pag
 Transportador que cotou e não foi escolhido conserva a consulta de sua cotação, mas o histórico de eventos fica vazio após a seleção de outro transportador, inclusive no gateway M3: descrições/resoluções de ocorrência não podem vazar por eventos textuais.
 
 
-## Revisão de cotações, negociação e avisos — implementação local
+## Revisão de cotações, negociação e avisos — migration aplicada e API demo parcial
 
 Migration 202611090002_quote_revisions.sql acrescenta quoteRevisionAvailable:true à lista M3/M5. Sem a migration, a apresentação confirmada funciona e o botão de edição fica desabilitado com aviso. A consulta de avisos retorna indisponibilidade explícita quando a RPC não existe, preservando o fluxo anterior.
 

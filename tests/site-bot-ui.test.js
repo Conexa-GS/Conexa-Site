@@ -231,3 +231,29 @@ test('Bot UI: rejeição de revisão por outra sessão recarrega a prévia; falh
     assert.match(ui.document.querySelector('[role=alert]').textContent, /Revalidação indisponível/)
   } finally { await ui.dispose() }
 })
+
+test('Bot UI: reconexão limpa erro de consulta sem ocultar pedido de envio ainda incerto', async () => {
+  const { ui, bot } = await setup()
+  const state = bot.service.state
+  try {
+    bot.service.state = async () => { throw new Error('Consulta sem rede') }
+    await ui.click('Atualizar')
+    assert.match(ui.document.querySelector('[role=alert]').textContent, /Consulta sem rede/)
+    bot.service.state = state
+    await ui.click('Atualizar')
+    assert.ok(!ui.document.querySelector('[role=alert]'), 'consulta recuperada remove o erro antigo')
+
+    const turn = bot.service.turn
+    bot.service.turn = async () => { throw new Error('Envio sem resposta') }
+    await ui.click('Consultar ofertas')
+    const stored = ui.document.defaultView.sessionStorage.getItem('conexa-outbox-v1:ana')
+    await ui.click('Atualizar')
+    assert.match(ui.document.querySelector('[role=alert]').textContent, /Envio sem resposta/)
+    assert.equal(ui.document.defaultView.sessionStorage.getItem('conexa-outbox-v1:ana'), stored)
+    assert.equal(ui.findButton('Consultar ofertas').disabled, true)
+    bot.service.turn = turn
+    await ui.click('Verificar pedido pendente')
+    assert.equal(ui.document.querySelector('[role=alert]'), null)
+    assert.equal(ui.document.defaultView.sessionStorage.length, 0)
+  } finally { await ui.dispose() }
+})

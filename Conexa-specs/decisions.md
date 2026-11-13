@@ -1,5 +1,7 @@
 # Registro de decisões
 
+Leitura vigente em 12/11/2026: [estado-atual.md](estado-atual.md) consolida execução e autorizações posteriores. As decisões datadas preservam o contexto original: D009/T20/M3 receberam aceite explícito; D022–D025 foram integradas conforme IA.md e Git. D021 substitui o token efêmero proposto; D023 substitui a entrada pelo modal; D025 substitui pedidos incertos apenas em memória. Publicação Git não encerra M5/M6. Esta revisão organiza evidências, sem criar decisão de produto ou novo aceite.
+
 ## D001 — Direção do produto — consolidada em 06/11/2026
 
 Site como produto central, React/Vite/Tailwind, Supabase, três perfis, WhatsApp posterior. Origem: decisões da conversa; Vite escolhido no planejamento técnico.
@@ -195,6 +197,30 @@ Status: implementada/verificada para avaliação em `feature/t41-bot-persistenci
 Antes da chamada de envio/turno/confirmação, guardar texto/payload e chave em sessionStorage por aba/participante. Somente pedidos iniciados são retidos; texto ainda não enviado continua volátil e o histórico fica no Supabase. Ao recarregar, mostrar aviso para abrir a conversa e verificar explicitamente com a mesma chave; nunca reenviar sozinho. Remover somente o pedido cuja chave recebeu o resultado; respostas tardias não podem apagar pedidos novos. Storage bloqueado impede novo envio sem chave durável. Trocar participante oculta o journal anterior, mas o dono pode retomá-lo na mesma aba até conciliar; não apagar uma chave incerta ao sair. RLS/identidade/revisão permanecem no servidor.
 
 Rejeição definitiva por revisão concorrente remove a prévia antiga e exige estado atual, inclusive quando a reconsulta falha. Falhas controladas no limite do serviço com banco real/F5 demonstraram recuperação sem duplicação, e Auth/RLS real verificou reservas/compromissos/snapshots sem alterar regras de negócio. T35/T38 recebem conclusão técnica; T41 mantém interrupção física de rede pendente; T42, avaliação T43/M6 e M5/T28 preservadas. Evidências em validation.md. Sem API paga, nova migration ou autorização presumida de push/integração.
+
+## D026 — Recuperação da consulta não confirma envio incerto — 12/11/2026
+
+Status: implementada/verificada para avaliação na `feature/t41-rede-recuperacao`, da dev `5634533`; sem autorização de publicação/integração. Origem: pedido explícito de continuar T41 e corrigir falhas de recuperação, mantendo os tipos de interrupção distintos.
+
+Na continuação de T41, separar o erro da consulta do bot do erro de uma ação. Carregar estado/histórico com sucesso remove o alerta da consulta anterior, mas não elimina o alerta de um pedido incerto, não desbloqueia seu compositor e não limpa sua chave durável. Somente o resultado do reenvio explícito correspondente pode reconciliar o pedido (D025). Teste de regressão e bancada em memória verificam essa distinção; evidências remotas e limites de rede são registrados separadamente em validation.md.
+
+## D027 — Repasse simulado de zero centavos preserva o recebimento — 12/11/2026
+
+Status: implementada e verificada localmente e no demo em `feature/t28-m5-verificacao`, criada da dev `3bdeee6`; avaliação humana/publicação/integração pendentes. Origem: pedido explícito de executar T28/M5 e corrigir falhas no demo.
+
+Quantidade válida de 0,001 kg a 1 centavo/kg, com mínimo zero, produz bruto e mínimo de zero centavos pela RN34. A operação era cotada/paga normalmente (frete R$80), mas `receive` falhava na restrição `amount_cents > 0`, deixando-a em trânsito. Manter uma parcela por beneficiário e permitir `amount_cents >= 0` em `simulated_payouts` reconcilia a restrição com o arredondamento já existente. Não elevar preço, alterar mínimo ou omitir beneficiário. Negativos, exclusividade de simulação, unicidade, RPC e RLS permanecem protegidos.
+
+Migration local `20261112205456_m5_zero_cent_payouts.sql`, criada pela CLI oficial, aplicada ao demo autorizado como versão `20261112205536`. Regressão PGlite reproduziu o erro antes da correção; recebimento/replay após correção geram parcelas 0/8000, com rejeição de valor negativo. A própria carga que revelou a falha foi concluída via Auth/RLS após corrigir o schema. Suíte remota completa e navegador também verificados; evidências/limites em validation.md. T28 encerrada tecnicamente, sem presumir aceite M5.
+
+## D028 — Navegação e recuperação de foco nos fluxos principais — 12/11/2026
+
+Origem: pedido explícito de revisão em 360 px/desktop, teclado, formulários, erros e vazios. Implementada localmente na `feature/revisao-fluxos-acessibilidade`, criada da dev `dd9311f`; avaliação e integração pendentes.
+
+Navegação do participante usa duas colunas no celular para expor todos os destinos. Botões limitam a largura ao contêiner, com quebra entre palavras; ações de diálogos ocupam linhas inteiras até 400 px. Preservados creme, verde, laranja escuro, marca vetorial e ilustrações locais.
+
+Região principal recebe foco após navegação/carregamento/retomada; diálogo devolve ao acionador ou conteúdo se ele desapareceu; ocultar/reexibir devolve ao filtro atual. Oferta/demanda bloqueiam campos e fechamento durante envio, preservando dados e focando erro em falha. Composição associa mensagens a quantidades/prazo inválidos, sem alterar validações de domínio ou regras de reserva. Limpar filtros restaura pesquisa e foco. DM só devolve foco ao compositor depois de liberá-lo no render de sucesso. Sem alteração de Auth, SQL, RLS ou serviços de negócio; request opcional de DemandForm serve à bancada/testes e preserva m2 como padrão.
+
+Verificações reais e limites em validation.md: site conectado consultado, falhas/sucesso de escrita em serviços em memória, teclado nativo e medidas nas duas larguras, 113 testes/lint/build aprovados. Não representa aceite M5/M6 nem nova validação remota integral.
 
 ## Modelo de novo registro
 

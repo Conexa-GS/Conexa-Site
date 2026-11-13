@@ -1,5 +1,9 @@
 # Especificação funcional
 
+Estado de execução consolidado em [estado-atual.md](estado-atual.md), 12/11/2026. Requisitos não são evidência de teste ou aceite; procedimentos e limites em validation.md.
+
+T28/M5 tecnicamente verificada no Supabase demo em 12/11, inclusive ciclo de entrega/divergência/resolução/repasses e percurso dos três perfis com F5; aceite humano M5 pendente. D027 preserva uma parcela simulada por beneficiário mesmo quando o valor do alimento arredonda a zero centavos, sem permitir negativos.
+
 ## Problema e proposta
 
 Pequenos produtores têm ofertas fragmentadas, dificuldade de acesso a compradores e custos de distribuição. A Conexa reúne ofertas para atender demandas de restaurantes e mercados, conecta transporte local e compara viabilidade e inclusão.
@@ -19,6 +23,8 @@ Retomada demo D024: com Supabase, recarregar a mesma aba revalida Auth/participa
 
 Recuperação D025: antes de enviar DM/turno/confirmação do bot, guardar o pedido incerto e sua chave em sessionStorage por participante/aba. Após recarga, a pessoa abre a conversa e verifica explicitamente pela mesma chave; não reenviar automaticamente. Só limpar o journal ao confirmar o resultado correspondente, sem deixar resposta tardia apagar pedido novo. Texto ainda não enviado continua volátil; storage indisponível impede iniciar envio sem chave durável. Rascunho estruturado, oferta e histórico permanecem no Supabase. Rejeição definitiva de revisão exige consultar estado atual antes de oferecer nova confirmação.
 
+Recuperação D026: consultar estado/histórico com sucesso limpa o erro da consulta anterior do bot, preservando erro, bloqueio e chave de um envio ainda incerto. Recuperar a consulta não confirma o pedido. Falha controlada, offline emulado da aba e interrupção física são evidências distintas; a última permanece pendente nesta rodada.
+
 ## Histórias e requisitos
 
 | História | Requisito | Resultado observável |
@@ -33,8 +39,8 @@ Recuperação D025: antes de enviar DM/turno/confirmação do bot, guardar o ped
 | US08 Participantes aprovam operação | RF08 Confirmações e histórico | Apenas transições permitidas; mudanças relevantes invalidam aceites; notificações persistidas e negociação com manutenção do valor original ou desistência/taxa simulada e reencaminhamento |
 | US09 Comprador demonstra pagamento | RF09 Pagamento simulado | Aprovado, pendente ou recusado; sem cobrança real |
 | US10 Participantes acompanham entrega | RF10 Entrega e repasses | Mesma operação nos três perfis e repasses simulados após recebimento |
-| US11 Produtor gerencia ofertas por conversa | RF11 Bot Conexa no site | Criar/atualizar/arquivar ofertas próprias por texto, com prévia e confirmação; voz opcional em demonstração e mesmas regras do formulário. Evolução planejada em T34–T43; T29 é a base implementada |
-| US12 Produtor e comprador conversam na plataforma | RF12 Mensagens entre participantes | Aba Conversas nos dois perfis, histórico persistido, mensagens individuais e não lidas; acordos por texto não executam operações. Planejado em T34–T43 |
+| US11 Produtor gerencia ofertas por conversa | RF11 Bot Conexa no site | Criar/atualizar/arquivar ofertas próprias por texto, com prévia e confirmação; voz opcional em demonstração e mesmas regras do formulário. Implementado em T29/T34–T37, verificado no demo para texto com D025; voz real e aceite M6 pendentes |
+| US12 Produtor e comprador conversam na plataforma | RF12 Mensagens entre participantes | Aba Conversas nos dois perfis, histórico persistido, mensagens individuais e não lidas; acordos por texto não executam operações. Implementado e tecnicamente verificado em T35/T38 e D025; aceite M6 pendente |
 
 ## Requisitos de qualidade
 
@@ -57,7 +63,7 @@ Bot Conexa oferece ações visíveis desde a abertura: consultar, criar, editar 
 - M3: transporte, cotações, valores individuais e confirmações finais.
 - M4: rotas, comparação de alternativas e critérios de inclusão.
 - M5: pagamento, acompanhamento, recebimento, cancelamento e repasses simulados.
-- M6: chat acessível; T29 é a base guiada existente. Nova prioridade: aba Conversas no site para produtor/comprador, bot para gerenciar ofertas e mensagens individuais. Texto simulado sem custo como padrão; OpenAI Realtime/voz opcional para testes manuais do usuário. T34–T43 planejadas, aceite do marco pendente.
+- M6: chat acessível; T29 é a base guiada existente. Nova prioridade: aba Conversas no site para produtor/comprador, bot para gerenciar ofertas e mensagens individuais. Texto simulado sem custo como padrão; OpenAI Realtime/voz opcional para testes manuais do usuário. T34–T40 implementadas nos escopos registrados, T35/T38 verificadas tecnicamente; T41 parcial, T42 e T43/aceite do marco pendentes.
 
 T30 solicitada em 10/11/2026: evolução separada de WhatsApp por texto em preparação local, especificada em `t30-whatsapp.md`. Não ativa o canal nem amplia o fluxo principal para contatos/transportes/pagamentos reais.
 
@@ -67,4 +73,4 @@ Direção vigente de 11/11/2026 (D018): T30 fica pausada após os experimentos d
 
 Atualização local T39/T40 em 11/11/2026: adaptador Realtime opcional e entrada de voz/transcrição preparados, desabilitados por padrão, com respostas em texto; D021 substitui emissão efêmera pelo SDP intermediado no servidor. Continua sem voz/provedor reais verificados. Testes pagos T42 exclusivos do usuário e requisitos de configuração/implantação em [voz-manual.md](voz-manual.md); não encerra M6.
 
-Dinheiro real, transporte físico, autenticação de produção, WhatsApp oficial como dependência da nova entrega (T30 pausada), otimização global de frota, múltiplos compradores por carga, certificação de segurança alimentar e integração obrigatória com os trabalhos das outras matérias. Transcrição/voz via OpenAI é exceção demo opcional planejada para teste manual pago pelo usuário; não é funcionalidade implementada. Grupos, anexos, chamadas entre participantes e escrita de demandas/transporte/pagamentos/aceites pelo bot ficam fora desta fatia.
+Dinheiro real, transporte físico, autenticação de produção, WhatsApp oficial como dependência da nova entrega (T30 pausada), otimização global de frota, múltiplos compradores por carga, certificação de segurança alimentar e integração obrigatória com os trabalhos das outras matérias. Transcrição/voz via OpenAI é exceção demo opcional planejada para teste manual pago pelo usuário; tem implementação local opcional desabilitada, ainda sem validação real ou implantação. Grupos, anexos, chamadas entre participantes e escrita de demandas/transporte/pagamentos/aceites pelo bot ficam fora desta fatia.

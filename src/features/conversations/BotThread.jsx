@@ -43,6 +43,7 @@ export default function BotThread({ conversation, session, service = siteBotServ
   const [history, setHistory] = useState({ messages: [], has_more: false })
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [loadError, setLoadError] = useState('')
   const [notice, setNotice] = useState('')
   const [editField, setEditField] = useState(null)
   const live = useRef(false), lock = useRef(false), heading = useRef(null), input = useRef(null), feedback = useRef(null)
@@ -67,6 +68,7 @@ export default function BotThread({ conversation, session, service = siteBotServ
       if (live.current && request === generation.current.value) {
         if (arrived.length) newestSeq.current = arrived.at(-1).seq
         setContext(next)
+        setLoadError('')
         setHistory(previous => {
           const messages = [...new Map([...previous.messages, ...arrived].map(message => [message.id, message])).values()].sort((a, b) => BigInt(a.seq) < BigInt(b.seq) ? -1 : BigInt(a.seq) > BigInt(b.seq) ? 1 : 0)
           return { messages, has_more: after ? previous.has_more : firstPage.has_more }
@@ -79,7 +81,7 @@ export default function BotThread({ conversation, session, service = siteBotServ
     const lifecycle = generation.current
     return () => { live.current = false; lifecycle.value++ }
   }, [])
-  useEffect(() => { void Promise.resolve().then(load).catch(error => { if (live.current) setError(error.message) }) }, [load, revision])
+  useEffect(() => { void Promise.resolve().then(load).catch(error => { if (live.current) setLoadError(error.message) }) }, [load, revision])
   useEffect(() => { if (notice) feedback.current?.focus() }, [notice])
   useEffect(() => { if (historyElement.current) historyElement.current.scrollTop = historyElement.current.scrollHeight }, [latestMessageId])
 
@@ -148,9 +150,9 @@ export default function BotThread({ conversation, session, service = siteBotServ
   return <section className="conversation-thread" aria-labelledby="bot-title" aria-busy={busy}>
     <header className="conversation-thread-heading"><span className="conversation-avatar bot"><Robot size={25} aria-hidden="true" /></span><div><h2 id="bot-title" ref={heading} tabIndex={-1}>Bot Conexa</h2><p>Interpretação simulada por texto · sem API paga</p></div></header>
     <p className="conversation-agreement">Use dados fictícios. Escolha uma opção para começar. Só altero ofertas depois que você revisar e confirmar a prévia.</p>
-    {error && <ErrorNotice autoFocus title="Não foi possível continuar" retry={composer.pending ? undefined : () => { void load().catch(error => setError(error.message)) }}>{error} Seu rascunho foi preservado.</ErrorNotice>}
-    {!context && !error && <p role="status">Carregando bot e ofertas…</p>}
-    {!context && error && <button className="text-link" disabled={busy} onClick={() => { setError(''); void load().catch(error => setError(error.message)) }}>Recarregar bot</button>}
+    {(error || loadError) && <ErrorNotice autoFocus title="Não foi possível continuar" retry={composer.pending ? undefined : () => { void load().catch(error => setLoadError(error.message)) }}>{error || loadError} Seu rascunho foi preservado.</ErrorNotice>}
+    {!context && !error && !loadError && <p role="status">Carregando bot e ofertas…</p>}
+    {!context && (error || loadError) && <button className="text-link" disabled={busy} onClick={() => { setLoadError(''); void load().catch(error => setLoadError(error.message)) }}>Recarregar bot</button>}
     {context && <>
       <section className="bot-action-menu" aria-labelledby="bot-actions-title">
         <h3 id="bot-actions-title">{active ? 'Vamos preparar sua oferta' : 'O que você quer fazer?'}</h3>

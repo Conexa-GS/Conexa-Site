@@ -1,0 +1,26 @@
+# Limitações e pendências da entrega
+
+Consolidação documental em **12/11/2026**. As verificações anteriores são evidências datadas; não certificam disponibilidade atual de serviços externos. Nenhum aceite novo é presumido nesta entrega.
+
+| Pendência / limite | Evidência disponível | Como encerrar ou avaliar |
+| --- | --- | --- |
+| T32: repositório privado e acesso de escrita dos professores | Histórico Git local; URL de origin não comprova permissões no GitHub | Grupo confere visibilidade, professores e acesso efetivo; registrar resultado sem tokens. Nenhuma permissão foi alterada nesta entrega |
+| T32: deploy e links finais | Build local; sem URL de deploy comprovada | Hospedar somente com autorização; configurar ambiente e fallback SPA, testar links diretos/recarga nos perfis. Broker de voz não é parte do build estático |
+| Envio acadêmico nas duas disciplinas | Briefing resumido nas specs | Grupo confere instruções/prazo da tarefa oficial e faz os dois envios. Não realizado pelo agente |
+| T43: avaliação/aceite M6 | Texto/DM tecnicamente verificados; pacote apresentado para avaliação | Manifestação humana explícita com escopo e ressalvas. Integração Git não substitui aceite |
+| Aceite M5 | T28 técnica encerrada no demo em 12/11 | Avaliação humana própria; pagamento, viagem, estorno e repasse continuam simulados |
+| T41: interrupção física de rede | Falhas controladas e offline da aba, F5, mesma chave e recuperação automática verificados em D025/D026 | Usuário adiou prova física. Realizar quando solicitado e registrar queda/reabertura efetivamente observada do WebSocket; emulação não demonstrou isso |
+| T42/AC32: voz e provedor reais | Mocks, painel local, broker/cotas em bancada; desligados por padrão | Teste pago exclusivo do usuário pelo [roteiro de voz](../voz-manual.md), com microfone, transcrição, correção, interrupção, encerramento no provedor e consumo. Sem resultado real relatado nesta entrega |
+| AC31: Auth/WebRTC/sideband/hangup reais do broker | Simulação de Auth/provedor/transporte; sem chave permanente no fluxo projetado do navegador | Verificar em configuração real pelo usuário. Tetos de duração/respostas não garantem custo financeiro; broker local de instância única requer supervisão e não está pronto para publicação pública/serverless |
+| AC23: acessibilidade integral | Revisões dirigidas em 360×800 e 1366×900, teclado/foco/erros; testes jsdom complementares | Sem auditoria completa de leitor de tela/contraste/WCAG ou todas as combinações de estado. Não houve alteração de UI ou nova revisão visual nesta entrega documental |
+| M1: alcance da evidência histórica | Aceite explícito do usuário em 07/11, sem logs individuais AC01–04; T31 provou CRUD completo/Auth/RLS por API em 12/11 | Não converter o relato em testes individuais do agente. T31 não reexecutou todo M1/navegador/F5; ver matriz |
+| M4: rotas e inclusão | Roteiro manual, histórico e candidatas verificados; custo de alimentos separado de frete pendente | Sem mapas/API externa ativa, ótimo global ou comparação de total entre composições com fretes próprios. Campos desconhecidos ficam nulos, nunca zero implícito |
+| Cotações: segunda transportadora | Revisões/negociação/taxa e falta de substituta verificados; só uma conta transportadora no demo | Encaminhamento real a uma segunda transportadora permanece sem prova; avaliação humana da extensão pendente. Não criar conta por pressuposição |
+| T04/T31: saneamento de IA.md | Cinco seções e uso real de IA auditados; interações históricas 001/003 incluem esclarecimento/consulta | Preservar histórico; grupo decide saneamento com rastreabilidade e confere completude dos integrantes. A nova entrada registra somente programação do empacotador e uso correspondente |
+| T30/WhatsApp | Protótipos/experimentos históricos; demonstrador local em memória | Pausado por D018. Não apresentar canal oficial ativo nem retomar integração por instrução antiga |
+| Segurança e privacidade de produção | Auth/RLS no demo e testes dirigidos | Contas fictícias compartilhadas, senha demo visível no frontend, sem dados pessoais reais. Não é autenticação de produção ou auditoria integral; avisos históricos de advisors não foram reconsultados |
+| ZIP e segredos | Lista de caminhos/extensões, exemplos vazios, padrões e comparação de credenciais locais; releitura/hash | Não inclui histórico Git, dependências, `.env`, build ou relatórios brutos. Detector tem limites, especialmente binários/credenciais desconhecidas. Manifesto não equivale a assinatura digital |
+| Bundle | Build tem aviso preexistente de chunk principal >500 kB | Não impede build; otimização de carregamento pode ser avaliada separadamente |
+| Território/escuta/impacto | Cenários e participantes fictícios | Grupo ainda deve preencher território e evidência de escuta. Não há entrevistas, economia ou impacto social comprovados |
+
+Supabase remoto, rede física, microfone, API paga, contas, mensagens, transportes e pagamentos reais não foram operados nesta preparação. O ZIP é fonte instalável com `npm ci`, não inclui uma cópia de dados/Auth do demo. Sem conexão, o CRUD local de ofertas funciona em memória; M2–M5 e Conversas precisam do demo configurado e não inventam persistência.

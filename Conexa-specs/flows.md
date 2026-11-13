@@ -1,8 +1,10 @@
 # Telas, fluxos e estados
 
+Estado vigente em [estado-atual.md](estado-atual.md). Conversas usa o bot D022–D025; M4/M5/revisões e texto/DM têm migrations aplicadas ao demo. T30 pausada; o protocolo local abaixo é histórico, sem presumir desativação de experimentos demo existentes.
+
 Evolução T30 por texto: OFERTA → perguntas → prévia versionada → corrigir/cancelar/confirmar → aguardar resultado. Resposta perdida mantém reconciliação bloqueante; não anuncia sucesso nem permite outra publicação até conferir o resultado. Estados completos em [t30-whatsapp.md](t30-whatsapp.md). Somente protocolo/demonstrador locais nesta fase; sem nova tela ou canal externo ativo.
 
-## Rotas de interface sugeridas
+## Rotas de interface implementadas
 
 | Caminho | Conteúdo |
 | --- | --- |
@@ -15,14 +17,16 @@ Evolução T30 por texto: OFERTA → perguntas → prévia versionada → corrig
 | /comprador/demandas/:id/composicao | Candidatas, quantidades, insuficiência e alternativa inclusiva |
 | /transportador/solicitacoes | Cargas para cotar |
 | /transportador/veiculos | Veículos e condições |
-| /operacoes/:id | Roteiro, cotações, valores, confirmações e histórico conforme perfil |
-| /operacoes/:id/pagamento | Resumo e controles de simulação para comprador |
+| /produtor/conversas, /comprador/conversas | Bot Conexa e mensagens individuais |
+| /operacoes | Lista de transporte, cotações, valores, aceites e controles M5 por carga/perfil |
+| /operacoes/exemplo | Roteiro e resumo fictícios independentes |
+| /operacoes/exemplo/pagamento | Prévia de mensagens, sem cobrar/agendar |
 
 Não criar páginas vazias para representar funcionalidade concluída. M2 implementa demandas, composição e propostas. M3 usa `/operacoes` como lista de transporte/valores/aceites conforme perfil; solicitações e veículos são persistidos. `/operacoes/exemplo` e pagamento de exemplo continuam prévias independentes de M4/M5.
 
 Fluxo M3: fornecimentos aceitos → produtor pode indicar transportador e preço → transportador cadastra veículo e confirma cotação completa própria ou vinculada à indicação → comprador seleciona cotação → banco cria snapshot de cotação e nova versão da proposta → cada produtor, comprador e transportador selecionado confirma novamente → `awaiting_payment`. Nada é pago/agendado no M3. Capacidade, peso, conservação e validade são verificados no banco. Mudanças relevantes exigem cancelamento/remontagem, preservando histórico e liberando reservas. O roteiro manual deriva da saída informada, itens em ordem de UUID, destino e retorno opcional; não há rota externa nem distância/tempo inventados.
 
-Prévia M4 local de 08/11/2026: na composição, **Comparar composições** consulta saldo/histórico e apresenta duas candidatas, com diferença apenas dos alimentos; **Usar esta candidata** preenche a seleção, sem enviar/reservar. Em transporte, comprador vê grupos de cotações equivalentes; comprador/transportador podem consultar roteiro manual por cotação/versão. Falha de análise mantém composição/cotação M2/M3 disponíveis. Requer migration M4 ainda não aplicada no demo; detalhes e pendências em `m4-routes.md`.
+Fluxo manual M4 (implementação inicial em 08/11, aceite em 09/11): na composição, **Comparar composições** consulta saldo/histórico e apresenta duas candidatas, com diferença apenas dos alimentos; **Usar esta candidata** preenche a seleção, sem enviar/reservar. Em transporte, comprador vê grupos de cotações equivalentes; comprador/transportador podem consultar roteiro manual por cotação/versão. Falha de análise mantém composição/cotação M2/M3 disponíveis. Migration M4 aplicada ao demo em 10/11; percurso conectado completo não comprovado por isso; detalhes e pendências em `m4-routes.md`.
 
 Fluxo M2 atualizado após avaliação: comprador cadastra demanda → abre automaticamente a escolha dos produtores → seleciona quantidades exatas e prazo → clica **Enviar proposta aos produtores** na própria composição → serviço salva candidata e envia pela RPC existente → banco reserva atomicamente no envio → cada produtor responde no próprio perfil. A lista de propostas serve para acompanhar respostas, sem aprovação intermediária do comprador. Ambos aceitam: aguarda cotação no M3; recusa: cancela toda a proposta e libera reservas. Comprador pode cancelar com motivo e remontar. Demanda só permite uma proposta ativa. Listas atualizam a cada 30 segundos, ao recuperar foco ou pelo botão Atualizar; toda ação revalida no servidor.
 
@@ -64,7 +68,13 @@ Pagamento: pendente, aprovado, recusado ou estornado. Pagamento recusado permite
 
 ## Experiência comum
 
-### Cadastro por conversa — M6, prévia em avaliação — 10/11/2026
+### Cadastro por conversa vigente — M6 em avaliação
+
+Em Minhas ofertas, **Cadastrar por conversa** abre `/produtor/conversas?conversa=bot` na mesma aba, selecionando o Bot Conexa sem iniciar rascunho. Opções de consultar/criar/editar/arquivar orientam o produtor; comprador consulta. Prévia versionada e confirmação separada usam o gateway compartilhado; F5 retoma sessão, histórico e rascunho estruturado remotos. Pedido já iniciado mantém texto/payload e chave por participante/aba; após recarga, a pessoa abre a conversa e verifica explicitamente a mesma chave. Não reenviar automaticamente. Texto ainda não enviado é volátil. Storage indisponível impede novo envio sem chave durável. Contrato D020–D025 e evidências em conversas-site.md/validation.md.
+
+### Histórico do modal T29 — 10/11/2026
+
+O relato abaixo descreve o componente antigo, preservado nas bancadas/testes; D023 removeu sua entrada de Minhas ofertas. Não aplicar suas instruções de fechamento/reenvio ao bot vigente.
 
 Em `/produtor/ofertas`, **Cadastrar por conversa** abre diálogo opcional; **Nova oferta** mantém o formulário. Oito perguntas explícitas: alimento em kg do catálogo, quantidade, preço, mínimo, início/fim da disponibilidade, vencimento opcional e coleta do perfil. Datas digitadas em DD/MM/AAAA ou ISO; nenhuma data, alimento, endereço ou vencimento é inferido. Não há áudio nem interpretação livre por IA.
 
@@ -74,7 +84,7 @@ Catálogo sem alimento em kg/coleta informa impedimento, recebe foco e orienta a
 
 ### Fechamento da operação e padrões comuns
 
-M5 preparada localmente em 09/11/2026: controles reais de demonstração ficam em `/operacoes`, junto ao resumo e histórico da carga persistida; não foi criada página dinâmica de pagamento separada. Comprador escolhe resultado explícito (pendente/recusado/aprovado); aprovação agenda em simulação. Transportador selecionado inicia viagem fictícia. Comprador registra divergência ou confirma recebimento. Na divergência, cada ocorrência precisa de resolução escrita pelo comprador, seguida de confirmação de recebimento separada; só então os repasses são registrados. Produtor/transportador veem acompanhamento, ocorrências e seu próprio repasse. Pedido de cancelamento após saída vira ocorrência com aviso explícito de estoque preservado e ausência de estorno automático. Cancelamento/entrega ficam no Histórico das listas. As páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` continuam prévias independentes. Sem a migration M5, M3 continua disponível e a interface informa M5 em preparação, sem liberar pagamento. A feature aguarda avaliação e validação conectada no demo.
+M5 preparada localmente em 09/11/2026: controles reais de demonstração ficam em `/operacoes`, junto ao resumo e histórico da carga persistida; não foi criada página dinâmica de pagamento separada. Comprador escolhe resultado explícito (pendente/recusado/aprovado); aprovação agenda em simulação. Transportador selecionado inicia viagem fictícia. Comprador registra divergência ou confirma recebimento. Na divergência, cada ocorrência precisa de resolução escrita pelo comprador, seguida de confirmação de recebimento separada; só então os repasses são registrados. Produtor/transportador veem acompanhamento, ocorrências e seu próprio repasse. Pedido de cancelamento após saída vira ocorrência com aviso explícito de estoque preservado e ausência de estorno automático. Cancelamento/entrega ficam no Histórico das listas. As páginas `/operacoes/exemplo` e `/operacoes/exemplo/pagamento` continuam prévias independentes. Sem a migration M5, M3 continua disponível e a interface informa M5 em preparação, sem liberar pagamento. Migration aplicada ao demo em 10/11 e API parcial verificada; percurso conectado completo e aceite M5/T28 permanecem pendentes.
 
 - Campos com labels e explicação da unidade; datas e dinheiro em padrão brasileiro.
 - Botões de salvar não permitem duplicar envio enquanto pendente.

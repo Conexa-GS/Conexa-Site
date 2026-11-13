@@ -125,3 +125,21 @@
 .offer-chat-answers .text-link { padding-block: .5rem; }
 .freight-negotiation, .freight-negotiation > *, .freight-negotiation form, .quote-edit-form, .quote-edit-form > * { min-width: 0; max-width: 100%; }
 .freight-negotiation .button, .quote-edit-form .button, .notification-list .button { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
+
+/* Keep keyboard targets visible and controls readable within the pilot palette. */
+.app-shell :focus-visible { outline: 3px solid #b24124; outline-offset: 3px; }
+.app-shell .app-content:focus { outline: none; }
+.app-dialog fieldset.form-grid { margin: 0; min-inline-size: 0; }
+.app-shell .icon-button, .app-dialog .dialog-close { min-width: 44px; min-height: 44px; }
+.app-shell .form-actions { flex-wrap: wrap; }
+.app-shell .form-actions .button { overflow-wrap: normal; }
+.app-shell .button { max-width: 100%; min-width: 0; white-space: normal; overflow-wrap: normal; }
+.app-shell .button > svg { flex-shrink: 0; }
+@media (max-width: 760px) {
+  .app-nav { overflow: visible; padding-block: 8px; }
+  .app-nav-links { flex: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; }
+  .app-nav-links > a { min-height: 44px; white-space: normal; padding: 8px 4px; }
+}
+@media (max-width: 400px) {
+  .app-shell .form-actions .button { width: 100%; justify-content: center; }
+}

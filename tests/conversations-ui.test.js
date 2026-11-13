@@ -37,6 +37,7 @@ test('Conversas: bot indisponível sem configuração; contatos abrem mensagem; 
     assert.equal(ui.document.querySelector('.conversation-history script'), null)
     assert.match(ui.document.querySelector('.conversation-history').textContent, /<script>agora tenho 20 kg<\/script>/)
     assert.equal(ui.document.getElementById('conversation-message').value, '')
+    assert.equal(ui.document.activeElement.id, 'conversation-message')
     await ui.act(async () => { fixture.emit(); fixture.emit() })
     assert.equal(ui.document.querySelectorAll('.conversation-history li').length, 3)
     await ui.click('João · Horta da FamíliaProdutor fictício')

@@ -1,4 +1,16 @@
-# Plano de implementação
+# Plano de continuidade
+
+Estado e próximos passos em [estado-atual.md](estado-atual.md). M1–M4 têm aceite no escopo registrado; T35/T38 e T28 estão tecnicamente verificadas. T28 inclui Auth/RLS/concorrência e ciclo completo no demo, navegador dos três perfis/F5 e D027; aceite M5 e publicação/integração da feature pendentes. Priorizar a pendência física de rede de T41 e a avaliação T43 de texto/DM; T42/voz real é do usuário. A extensão de cotações mantém pendências próprias. Não reabrir marcos aceitos como implementação inicial.
+
+## Arquitetura existente
+
+React/Vite/Tailwind em JavaScript (D006), serviços Supabase Auth/PostgreSQL/RLS e gateways transacionais. Pastas reais: src/components, src/features, src/domain, src/hooks, src/pages, src/pilot, src/services, supabase/migrations e Conexa-specs; entrada/roteamento em src/App.jsx. Auth demo por aba e journal de pedidos incertos seguem D024/D025. IA/voz usa broker opcional em server, desligado por padrão, sem implantação ou provedor real verificados. Rotas externas não estão ativas; M4 usa roteiro manual. Não migrar para TypeScript ou reorganizar diretórios com base no desenho inicial abaixo.
+
+Migrations M4/M5/revisões e Conversas já aplicadas ao demo; conferir versões e definições antes de qualquer mudança remota. Para executar/verificar o checkout, seguir README.md e workflow.md. Metas de prazo abaixo são planejamento histórico, não evidência de entrega.
+
+## Plano original e atualizações históricas
+
+Preservados a seguir. Propostas de estrutura, sessão, linguagem e sequência já resolvidas não são pendências atuais. D018 substitui a orientação inicial de cortar o chat. O estado de aplicação/validação remota foi atualizado em 10–11/11, conforme validation.md.
 
 Terceira fatia de Conversas — 11/11/2026: T39/T40 preparadas localmente na `feature/conversas-voz-opcional` da dev `aaa0adb`; complementa o histórico abaixo. Broker Node 24 opcional, WebRTC unificado/sideband, cotas SQLite duráveis e painel de transcrição/sugestão corrigível. D021 substitui a proposta de token efêmero. Sem ativação/implantação ou teste pago; [voz-manual.md](voz-manual.md) prepara T42. Continuam prioritárias as validações autorizadas no demo de T35/T38/T41 e o aceite de texto/DM/M6; nenhuma conclusão de M5/T28/T30 é inferida. Broker local de uma instância não é infraestrutura pública pronta.
 

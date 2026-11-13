@@ -1,5 +1,9 @@
 # M4 — Preparação de rotas e inclusão — 08/11/2026
 
+Estado atualizado em 12/11/2026: M4 aceito em 09/11 no escopo manual; migration aplicada ao demo em 10/11. Histórico, justificativas, candidatas, roteiro e nulos verificados em 12/11 com Auth/RLS reais, site/F5 de comprador/transportador e comprador em 360 px/desktop. API externa e comparação total entre composições cotadas continuam fora do escopo executado; duas cotações remotas equivalentes não foram exercitadas nesta rodada. Os relatos de preparação abaixo preservam seus limites originais. [Evidências](validation.md#m4--rotas-manuais-e-sugestões-inclusivas-no-demo--12112026).
+
+Roteiro manual de repetição, **somente no demo autorizado**: `node tests/remote-m4.mjs --check` não faz rede/escrita; `--prepare-ui` cria duas ofertas/demandas próprias e verifica candidatas. No site, consultar ambas as demandas e enviar a inclusiva de 50 kg; então `--prepare-route artifacts/m4-<run_id>.local.json` confirma fornecimentos/cotação fictícios e verifica roteiro. Após revisão no navegador, `--finish` com o mesmo relatório cancela/arquiva somente as fixtures. Cada etapa autentica novamente; nenhuma credencial entra no relatório. Erro intermediário preserva os IDs para diagnóstico/encerramento. O roteiro tem pré-condições explícitas de saldo e histórico; não fabrica dados para satisfazê-las. Histórico de teste fica preservado no demo.
+
 ## Estado desta entrega
 
 Primeira fatia implementada em `feature/m4-rotas-inclusao`, criada da dev e publicada na dev em `5598cc7`. Em 09/11/2026, o usuário confirmou explicitamente o M4 e autorizou marcar T21–T24 como concluídos no escopo demonstrado. M5/M6 permanecem prévias. Migration M4 foi preparada e verificada em PostgreSQL local, sem aplicação remota. Não houve ativação de fornecedor, credencial criada, cobrança ou deploy; esses limites não são convertidos em evidência técnica pelo aceite humano.

@@ -18,6 +18,7 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
   const alive = useRef(true)
   const request = useRef({ value: 0 })
   const sendingRef = useRef(false)
+  const returnToComposer = useRef(false)
   const heading = useRef(null)
   const input = useRef(null)
   const end = useRef(null)
@@ -25,6 +26,13 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
   const newestSeq = useRef(null)
   const scrollState = useRef({ height: 0, lastId: null })
   const id = conversation.id
+
+  useEffect(() => {
+    if (!sending && returnToComposer.current) {
+      returnToComposer.current = false
+      input.current?.focus()
+    }
+  }, [sending, history.messages])
 
   useEffect(() => {
     const scroller = historyRef.current
@@ -84,7 +92,8 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
       if (!setComposer({ body: '', key: null, locked: false }, attempt.key)) return
       if (alive.current) {
         setHistory(previous => ({ ...previous, messages: merge(previous.messages, [message]) }))
-        setNotice('Mensagem enviada.'); input.current?.focus(); end.current?.scrollIntoView({ block: 'nearest' })
+        returnToComposer.current = true
+        setNotice('Mensagem enviada.'); end.current?.scrollIntoView({ block: 'nearest' })
         refresh()
       }
     } catch (error) { if (alive.current) setSendError(error.message) }

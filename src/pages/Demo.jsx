@@ -19,7 +19,7 @@ export default function Demo({ auth }) {
     const participant = await auth.enter(account)
     if (participant) navigate(homeFor(participant.role))
   }
-  return <div className="app-shell demo-page"><header className="app-header"><Logo /><BackLink href="/">Voltar ao início</BackLink></header><main id="conteudo" className="app-content">
+  return <div className="app-shell demo-page"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /><BackLink href="/">Voltar ao início</BackLink></header><main id="conteudo" className="app-content" tabIndex={-1}>
     <PageHeading eyebrow="UM CAMINHO PARA CADA PESSOA" title="Como você quer" accent="se conectar?">Escolha um participante fictício e conheça a Conexa por dentro.</PageHeading>
     <div className="demo-explanation"><span className="seed" />{isRemote ? 'Ambiente acadêmico conectado. A sessão é retomada ao recarregar esta aba. O botão Trocar participante encerra a sessão atual.' : 'Prévia local para explorar. Os dados de exemplo e suas alterações são reiniciados ao recarregar.'}</div>
     {auth.error && <ErrorNotice autoFocus title="Não foi possível entrar na demonstração">{auth.error}</ErrorNotice>}

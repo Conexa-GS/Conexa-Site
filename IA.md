@@ -1341,3 +1341,233 @@ Roteiro remoto criou reserva real e pagamento exclusivamente simulado para compr
 Idempotência no banco só protege reenvio quando o cliente conserva a mesma chave: o journal fecha a lacuna de F5 e a verificação explícita evita nova escrita automática. Conferir chave antes de limpar também protege contra respostas de componentes desmontados. Storage é recuperabilidade local, não autorização; histórico/estoque continuam sob RPC/RLS. Testes controlados exercitam as duas posições da falha com persistência real, mas não equivalem a desligar fisicamente a rede ou validar websocket sob uma queda real. Voz segue simulada e depende de T42; avaliação humana/publicação desta feature continuam separadas conforme workflow.
 
 Complemento de autorização da interação 051 — 11/11/2026: após apresentação do commit `18c7c72`, verificações e limites, usuário solicitou explicitamente “suba para a dev e de merge com a main”. Autoriza publicar a feature, integrá-la/publicá-la na dev e promover a dev para main no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e referências locais/remotas sincronizadas antes do registro, após fetch. A promoção inclui o conteúdo já acumulado na dev desde a última integração na main, preservando o histórico das duas branches. Não autoriza deploy, migrations adicionais, uso pago ou encerramento das pendências T41/T42/T43/M6/M5 por pressuposição. Resultados funcionais da entrega preservados: lint, 108 testes, nove scripts PGlite, build e quatro grupos remotos aprovados; sem repetir escritas fictícias no demo nesta autorização. Integrações sem force push e referências remotas conferidas ao concluir.
+
+## Interação 052 — T41: rede emulada, reenvio e erro de consulta — 12/11/2026
+
+### Ferramentas de IA utilizadas
+
+Codex para revisar código/especificações, corrigir o componente React e criar regressão/bancada; terminal para Git e verificações locais. Skills Supabase e Computer Use, documentação oficial de Realtime, navegador integrado com CDP para offline/observação de rede/viewport, conector Supabase para consultas de leitura. Sem subagentes, Firefox automatizado nesta continuação, microfone, OpenAI paga, migration ou transporte/pagamento.
+
+### Prompts e respostas representativos
+
+Transcrição dos pedidos de programação, sem incluir perguntas/esclarecimentos de configuração:
+
+> Continue a T41: teste desconexão e reconexão de Conversas, recuperação após recarga e reenvio pela mesma chave. Verifique ausência de duplicação e corrija os problemas encontrados. Diferencie falha controlada de interrupção real de rede.
+
+> Continue a T41 usando @Browser, sem automatizar o Firefox. Inicie ou confira o servidor local. Teste desconexão/reconexão, recarga e reenvio pela mesma chave; confira duplicação no Supabase demo e corrija os problemas. Diferencie falha controlada, modo offline do navegador e interrupção física de rede.
+
+Resposta representativa real: “Vou retomar a T41 na branch existente usando o navegador integrado. Vou conferir o servidor, testar a recuperação e o reenvio pela mesma chave, e comparar o resultado com o Supabase demo. Registrarei separadamente falha controlada, modo offline do navegador e interrupção física de rede.”
+
+### Aplicação no projeto
+
+`feature/t41-rede-recuperacao` criada da dev `5634533`, antes de editar; primeira criação no sandbox foi impedida e repetida com escalonamento aprovado. `BotThread.jsx` separa erro de carregamento de erro de ação: consulta bem-sucedida limpa erro obsoleto, mas não apaga pedido incerto/chave ou seu alerta. Teste em `site-bot-ui.test.js` e falha de consulta controlável na bancada em memória `tests/ui/conversations.jsx`. Decisão D026 e documentação de estado, tarefas e roteiro atualizadas, mantendo relatos anteriores e T41 parcial. Nenhuma mudança de SQL/RLS/regras de negócio.
+
+### Validação das respostas
+
+Suíte de 108 testes passou antes da alteração. Novo teste falhou na ausência de limpeza do erro, depois passou com a correção; suíte completa: **109 aprovados**, lint e build aprovados, com aviso de chunk principal >500 kB. Tentativas iniciais da regressão foram interrompidas enquanto a asserção tentava formatar um elemento DOM inteiro; trocada por asserção booleana com mensagem, que expôs a falha de forma direta. Bancada local revista em 360×800/1366×900. Configuração demo inicialmente sem senha local; após o usuário preencher o arquivo correto, checagem offline e login reais funcionaram. Sem registrar valores de credenciais.
+
+Navegador integrado/demo: falha controlada antes de chamar o serviço, descarte após persistência de DM e pedido do bot, F5 e replay explícito. Offline CDP produziu fetch `ERR_INTERNET_DISCONNECTED`, preservou chave/texto e SQL confirmou ausência da DM antes do replay. Outra sessão enviou enquanto a primeira estava offline; retorno/F5 recuperaram histórico e mesma chave. No site normal, retirada do offline reconciliou inbox/estado do bot automaticamente, limpou erro de consulta e recuperou mensagem nova sem F5. Conferência SQL final: cada uma das cinco DMs `T41-20261112-` existe uma vez; pedido do bot `e98229de-05fe-4c88-8096-3471fa810280` tem uma linha auditável, revisão 40 e consulta sem alteração de oferta. Journal final vazio após recarga. Histórico fictício preservado, sem exclusões ou novas ofertas/operações. Resultados, IDs, limites e capturas em validation.md.
+
+Prova física foi preparada, mas usuário escolheu deixá-la pendente; mensagem preparada não foi enviada e seu texto foi retirado. Nenhuma queda/reabertura de WebSocket foi observada na janela do modo offline; não declarar isso como rede física testada. Primeira sondagem offline com recarga atingiu a página de erro interna bloqueada pela ferramenta; continuou em outra aba integrada, sem contornar a política. Verificações efetivas retiraram a emulação antes de F5. Viewport global inicialmente atingiu outra aba; tamanho real conferido e 360 px aplicado diretamente à aba via CDP, com remoção posterior dos overrides. Não é auditoria completa de acessibilidade ou aceite humano. Sem publicação/integração, voz real ou encerramento de T41/T42/T43/M6/T28/M5.
+
+### Análise crítica
+
+Banco idempotente exige chave durável e replay correspondente; F5 e contagem remota confirmam mais do que um clique isolado. Recuperar uma consulta não pode ser anunciado como confirmação de uma escrita incerta. A regressão protege essa diferença e evita alerta obsoleto que fazia a recuperação parecer malsucedida. Falha no serviço, emulação offline e interrupção física têm alcances diferentes; a última foi adiada explicitamente, e o WebSocket existente não foi comprovadamente interrompido pela emulação. Testes locais e navegador real são complementares, com evidências separadas de aceite/publicação.
+
+Complemento de autorização da interação 052 — 12/11/2026: após apresentação do commit `0c6e564`, verificações, evidências e pendência física, usuário respondeu “autorizo” à publicação da `feature/t41-rede-recuperacao` e integração na `dev`. Origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, checkout limpo e fetch concluído antes de registrar. Autoriza push da feature e integração/publicação na dev, sem force push; não inclui promoção para main, deploy, nova migration, teste pago ou encerramento de T41/M6. Verificações anteriores preservadas, sem repetir escritas no demo para uma integração sem mudança funcional adicional. Referências remotas devem ser conferidas após publicação.
+
+## Interação 053 — T28/M5: ciclo completo, permissões e repasses no demo — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para ler especificações/código, preparar roteiro e regressão, corrigir SQL e documentar evidências. PowerShell/Git/apply_patch, Node/npm/PGlite/Vite; skill Supabase, referência de segurança/RLS Postgres e documentação oficial/changelog. Conector Supabase para projetos/migrations/logs/advisors, consultas de leitura e aplicação da migration corretiva; cliente com chave pública/Auth/RLS para todas as escritas de negócio. Navegador integrado para interface real, F5 e viewports; CDP somente para dimensões/capturas, sem mutações de negócio. Sem subagentes, nova conta demo, API paga, mensagem externa, transporte físico ou dinheiro real.
+
+### Prompts e respostas representativos
+
+Transcrição integral do prompt de programação:
+
+> Execute a verificação técnica pendente da T28/M5 no Supabase demo. Percorra pagamento simulado, agendamento, viagem fictícia, divergência, resolução, recebimento e repasses. Confira permissões, persistência e idempotência, corrigindo as falhas encontradas.
+
+Resposta inicial real: “Vou ler as especificações e o estado da T28/M5, verificar o fluxo no Supabase demo e corrigir as falhas encontradas. Vou usar a skill do Supabase para orientar a verificação.” Sem registrar consultas/esclarecimentos ou inventar aprovação humana.
+
+### Aplicação no projeto
+
+`feature/t28-m5-verificacao` criada da dev limpa `3bdeee6`; sandbox impediu gravação da branch, repetida com escalonamento aprovado antes de editar. `tests/remote-m5.mjs` cria fixtures próprias, confere ambiente/identidade, executa AC18–21 em sessões reais e chamadas concorrentes, conserva relatórios locais e arquiva seus cadastros sem apagar histórico. Opções de preparação/conferência de UI e recuperação da carga que falhou; scripts npm para checagem offline e execução autorizada. Escritas diretas exigem erro 42501, evitando falso positivo por outra restrição.
+
+Falha real: alimento de 0,001 kg a 1 centavo/kg com mínimo zero arredonda a zero; pagamento/frete/viagem funcionavam, mas recebimento falhava em `simulated_payouts.amount_cents > 0`. Regressão em `tests/m5-database.mjs` reproduziu antes de corrigir. Migration `20261112205456_m5_zero_cent_payouts.sql`, criada pela CLI oficial 3.1.0, permite zero e proíbe negativos, mantendo uma parcela por beneficiário, valores/simulação/unicidade/RLS. Aplicada ao demo autorizado como `20261112205536`. D027 registra a compatibilização com RN34/RN44. README, estado, tasks, handoff, plano, spec, regras, modelo/contrato e validation atualizados, sem apagar relatos históricos.
+
+### Verificação, testes e ajustes reais
+
+Lint aprovado; **109 testes Node**, **nove scripts PGlite**, build aprovado (principal 684,56 kB/gzip 195,77 kB, aviso herdado >500 kB); checagem offline/diff aprovados. PGlite reproduziu 23514 antes de corrigir; depois recebimento/replay criam parcelas [0,8000], e negativo é rejeitado. Primeiro comando remoto falhou no fetch do sandbox, zero login/fixtures; execução com rede autorizada confirmou seis grupos antes de encontrar o caso limite. Carga original recuperada após corrigir, sem duplicação. Duas suítes completas posteriores passaram em sete grupos; última exige 42501 em INSERT/UPDATE/DELETE para quatro perfis. Testes verificam total do servidor, chave/conteúdo, versões, bloqueios, compromisso sem dupla baixa, estorno único, resolução separada, recebimento concorrente, parcelas e reautenticação. Terceiro usa produtor alheio à carga, sem segunda transportadora nova.
+
+Navegador normal conectado em três abas/perfis: comprador registrou pendente/recusado/aprovado; transportador iniciou viagem fictícia; comprador registrou divergência, observou bloqueio, recarregou, registrou resolução, recarregou ainda sem repasses e confirmou recebimento. Histórico após novo F5 mantém R$150/R$100/R$80; Ana/transportador após F5 veem só R$150/R$80. Comprador revisto em 360×800/1366×900, demais perfis em 360 e consultados em desktop; sem overflow observado, sem alteração de UI. Captura desktop inicial recortada foi substituída pela captura CDP correta; viewports restritos a abas temporárias. Sem auditoria completa de teclado/acessibilidade. Relatórios/capturas locais e UUIDs em validation.md; consulta final conferiu dez cargas próprias (sete entregues/três canceladas), zero ocorrências abertas, ofertas/demandas próprias arquivadas. Histórico fictício e compromissos entregues preservados; não se alteraram operações anteriores.
+
+Advisors de segurança antes/depois sem novos achados: avisos prévios de funções públicas, tabelas WhatsApp privadas sem policy e senha vazada desabilitada registrados com links. Saúde sem achados; performance inicial registrada. Não representam certificação geral de segurança. Migrations antigas não reaplicadas; sem reset/repair/db push. T28 encerrada tecnicamente; aceite humano M5 e autorização para publicar/integrar esta feature continuam pendentes. T41/T42/T43/M6 e encaminhamento RN49 mantêm pendências próprias.
+
+### Análise crítica
+
+O percurso nominal passava, mas um valor válido nas fronteiras de arredondamento deixava a entrega paga sem conclusão. Preservar zero no registro evita criar preço mínimo artificial ou omitir beneficiário. Concorrência real, reautenticação, leitura final e navegador complementam PGlite: repetição sequencial isolada não comprova corrida, e clicar não comprova persistência. Fixtures próprias mantêm rastreabilidade, com custo de histórico fictício permanente no demo; arquivamento não libera compromissos de cargas entregues. Isolamento de outra transportadora, auditoria integral de acessibilidade, aceite humano e publicação não foram inferidos dos testes executados.
+
+Complemento de autorização da interação 053 — 12/11/2026: após apresentação do commit `ba8f30b`, verificações e evidências, usuário respondeu “pode integrar” à pergunta explícita sobre publicar a feature e integrá-la na dev. Autoriza push de `feature/t28-m5-verificacao` e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Não inclui main, deploy ou aceite humano M5 por pressuposição. Verificações funcionais da entrega preservadas; não repetir escritas no demo para integração sem mudança funcional. Referências remotas conferidas ao concluir.
+
+## Interação 054 — verificação conectada de cotações — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para validação técnica do software e documentação das evidências, sem alteração do código da aplicação. PowerShell/Git/Node/npm, roteiro remoto existente, habilidades de navegador e Supabase. Navegador integrado para ações normais, quatro sessões e recarga; CDP somente para tamanho/capturas. Conector Supabase para leitura/auditoria; chave pública/Auth real para preparação e arquivamento de fixtures próprias. Sem subagentes, nova conta, migration, API paga ou mensagem externa.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de verificação técnica:
+
+> Verifique no site conectado a revisão de cotações, negociação de frete, desistência e avisos entre participantes, incluindo recarga. Teste encaminhamento para outra transportadora se já houver uma conta demo compatível; caso contrário, registre essa limitação.
+
+Resposta inicial real: “Vou conferir as regras do projeto e o site conectado, depois testar esses fluxos com as contas demo disponíveis e verificar se os dados permanecem após recarregar.” Nenhuma pergunta/consulta de configuração adicionada; não se presume aprovação humana.
+
+### Aplicação no projeto
+
+Branch `feature/cotacoes-validacao-conectada` criada da dev limpa `828c002`, com escalonamento aprovado após bloqueio de escrita Git. Reutilizado `tests/remote-m5.mjs --prepare-ui` para uma carga própria, sem modificar o roteiro nem alegar nova execução completa de T28. Revisão e decisões posteriores pela interface normal. Somente documentação versionada: validation, estado, tarefas e READMEs; este registro descreve o uso de IA na verificação do software. Sem mudança funcional, de schema ou de regras.
+
+### Verificação, testes e ajustes reais
+
+Carga `2591b394-e8a6-44a0-a24a-d54332ec44a6`: revisão de veículo/saída com R$80 preservado e aceites invalidados; aviso com antes/depois e leitura própria; recusa de R$90/manutenção original sem taxa; aprovação de R$100,07, total R$350,07 e quatro novos aceites; negociação R$110 pausando pagamento, recusa e desistência confirmada com prévia de 15% = R$15,01. Recargas conservaram estados/sessões; parcelas R$7,51/R$4,50/R$3,00, produtores só veem a própria. Avisos de revisão/aprovação/recusa/desistência abertos nos perfis correspondentes. SQL conferiu duas reservas preservadas antes da limpeza, uma taxa/três parcelas, zero pagamentos e 16 avisos. Banco/seletor confirmaram uma única transportadora; não foi testada substituta ou criada conta.
+
+Primeiro fetch remoto no sandbox falhou sem login/escrita; preparação com rede autorizada passou. Consulta inicial usou nome de tabela inexistente e foi corrigida após conferir a migration local. Dois locators não encontraram controles; snapshots atuais identificaram combobox e botão de Histórico, e a continuação verificou os resultados. Captura padrão reduzida foi substituída por CDP do viewport real. Comprador revisto em 360×800/1366×900, conteúdo 345/1351 sem overflow observado; demais perfis desktop. Override removido, abas fechadas. Nenhum defeito funcional encontrado no percurso. Lint e build aprovados, 109 testes Node aprovados; aviso herdado de chunk >500 kB. PGlite/concorrência/RLS negativos não repetidos, sem mudança de aplicação/SQL.
+
+Comprador cancelou somente a carga própria pelo site; nova Auth arquivou duas ofertas/demanda da rodada. SQL final confirmou cancelamento, reservas liberadas, cadastros arquivados, taxa/histórico preservados e zero pagamentos. IDs, relatório e capturas em validation.md. Sem push/merge/deploy, aceite humano ou encerramento de marco presumidos.
+
+### Análise crítica
+
+A recarga real e as sessões independentes complementam as provas anteriores por API: confirmam o estado que cada perfil efetivamente recebe. Conferência SQL distingue sucesso visual de persistência e comprova a soma das parcelas, sem transformar leitura administrativa em prova nova de RLS. A falta de segunda conta impede validar encaminhamento completo; registrar a ausência é mais fiel que fabricar uma substituta. As fixtures deixam histórico fictício permanente, embora estoque e cadastros próprios tenham sido liberados/arquivados. Revisão dirigida não substitui auditoria completa de acessibilidade, concorrência ou avaliação humana.
+
+Complemento de autorização da interação 054 — 12/11/2026: após apresentação do commit `82932d6`, evidências e limitação de segunda transportadora, usuário respondeu “autorizo” à pergunta explícita sobre publicar a feature e integrar na dev. Autoriza push de `feature/cotacoes-validacao-conectada` e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Não inclui main, deploy, nova conta/migration, aceite humano da extensão ou encerramento de marco. Verificações anteriores preservadas, sem repetir testes funcionais/escritas remotas para esta integração exclusivamente documental. Resultado Git conferido nas referências remotas ao concluir.
+
+## Interação 055 — verificação de rotas manuais e inclusão no demo — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para preparar roteiro de validação do software, executar consultas/testes e registrar evidências. PowerShell/Git/Node/npm, skill Supabase e navegador integrado; conector Supabase somente para leitura/auditoria. Chave pública/Auth real dos quatro participantes existentes para fixtures/RPCs; browser com ações normais do site, capability viewport para revisão responsiva e CDP para observar rede. Sem subagentes, API externa de mapas, conta nova, migration, alteração da aplicação/interface ou pagamento.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de programação/verificação técnica:
+
+> Verifique rotas manuais e sugestões inclusivas no Supabase demo. Confira histórico, justificativas, candidatas, roteiro e valores desconhecidos, sem ativar API externa de mapas.
+
+Resposta inicial real: “Vou conferir as regras do projeto e os dados do Supabase demo, verificando rotas manuais, sugestões inclusivas e os campos sem informação. Manterei a API externa de mapas desativada.” Não foram registradas perguntas/consultas nem inventados aceite ou testes humanos.
+
+### Aplicação no projeto
+
+Branch `feature/m4-verificacao-demo`, criada da dev limpa `8f72440` com escalonamento aprovado após bloqueio de escrita Git. Novo `tests/remote-m4.mjs`, manual e fora de npm test, usa guardas de projeto/chave pública, fetch restrito ao demo, relatórios sem credenciais e Auth renovada a cada etapa. Modos de configuração offline, preparação de candidatas, preparação/verificação do roteiro e encerramento das fixtures. Cria duas ofertas/demandas próprias; envio da inclusiva pelo site; fornecimentos/cotação/seleção/um aceite pelas RPCs normais. Não altera histórico de vendas/datas para favorecer a sugestão. Documentação de validação, estado, tarefas e M4/READMEs atualizada, preservando relatos históricos e limites do aceite anterior.
+
+### Verificação, testes e ajustes reais
+
+Histórico Ana 7/João 4 confere com cargas entregues das sessões reais e auditoria SQL. Espera das ofertas novas 0 dias; resposta M4 acrescenta só contagem/espera à candidata M2. Preço Ana30/João20 = R$290; inclusiva João30/Ana20 = R$310, diferença R$20 somente alimentos, mínimos preservados e frete/total pendentes. Site não altera seleção na consulta: Usar esta candidata preenche 20/30 e envio separado persiste. Demanda80 com saldo60 fica intacta, faltam20 e botões desabilitados. Histórico desconhecido exercitado somente no domínio local, sem fabricar zero no banco. Produtores/anônimo rejeitados nas consultas indevidas.
+
+Carga `8f2d3257-c485-42c7-a4bd-170aa478a9af`, rodada `8dd966d1-3230-4086-8594-cb873e903a4a`: roteiro comprador/transportador idêntico com saída, coletas por UUID, destino e retorno. Operação antiga sem retorno apenas consultada. Distância/direção/paradas/pedágio/provider nulos, frete R$80 sem dupla soma, total R$390. Consulta preserva carga/cotações/aceites/eventos/reservas. Cotação inexistente/versão antiga rejeitadas. Nova Auth e F5 no site de comprador/transportador preservam roteiro e histórico; sete eventos e um aceite na v2 antes do encerramento. Comprador revisto em 1366×900/360×800, sem overflow observado; console consultado sem erros/avisos. Amostra ampla de rede truncada descartada como prova completa; reconsulta delimitada teve buffer íntegro e somente RPC m4 ao Supabase. Override restaurado, abas fechadas.
+
+Primeiro fetch remoto no sandbox falhou antes de login/escrita. Execução com rede autorizada passou. Primeiro prepare-route encontrou erro do teste (reservations.load_id inexistente); corrigido para load_item_id, retomado na mesma fixture/cotação sem duplicação, erro conservado no relatório. Tentativa de foco em heading não funcionou; controles normais permitiram continuar. Captura CDP incorreta substituída por screenshots com a capability de viewport. Lint, 109 testes Node, build e script M4/PGlite aprovados; aviso herdado de chunk >500 kB. Demais suítes de banco/concorrência não repetidas sem mudança funcional/schema. Seis grupos remotos aprovados; finish cancelou a carga, liberou 20/30kg, arquivou duas ofertas/demandas, zero pagamentos. SQL final confirmou histórico 7/4, vencimentos nulos e quantidades50/80 preservados. Caminhos/IDs/evidências em validation.md; relatórios locais ignorados pelo Git.
+
+### Análise crítica
+
+Dados reais do demo distinguem a candidata de alimentos mais baratos da prioridade a quem tem menos entregas, sem fabricar vendas ou economia logística. A prova por API verifica limites e preservação de estado; o site mostra as razões e exige seleção/envio explícitos, e F5 comprova reconsulta após retomada. Comparação de dois donos do mesmo perfil e desempate por idade com identidades controladas continuam como evidência PGlite, pois não se criaram contas/datas artificiais no demo. Uma transportadora não permite demonstrar duas cotações remotas equivalentes. Não foram ativados mapas nem testada falha de fornecedor; total entre composições com fretes próprios segue fora do escopo. Revisão dirigida não equivale a auditoria integral de acessibilidade ou novo aceite M4. Histórico das fixtures fica no demo mesmo após arquivamento. Publicação/integração da feature ainda dependem de autorização após avaliação.
+
+Complemento de autorização da interação 055 — 12/11/2026: após apresentação de `4ace62c`, evidências e limites, usuário respondeu “autorizo” à pergunta explícita sobre publicar `feature/m4-verificacao-demo` e integrar na `dev`. Autoriza push da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Sem autorização de main/deploy, API externa ou ampliação do aceite M4. Verificações técnicas anteriores preservadas; sem novas escritas no demo para esta integração documental. Referências remotas conferidas ao concluir.
+
+## Interação 056 — revisão de fluxos, responsividade e teclado — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para inspecionar o código, operar a revisão dirigida no navegador, corrigir defeitos de interface e registrar evidências. PowerShell/Git/Node/npm, ESLint, testes Node/jsdom e navegador integrado; instruções de Sites para prévia local e documentação das ferramentas de navegador. CDP para viewport, métricas e capturas. Sem subagentes, dependências novas, migrations, API paga, microfone ou mensagens externas.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de programação:
+
+> Revise os fluxos principais em 360 px e desktop, incluindo navegação por teclado, foco, formulários, erros e estados vazios. Corrija os problemas observados preservando a identidade visual.
+
+Resposta inicial real: “Vou ler as regras do projeto, revisar os fluxos em 360 px e desktop e corrigir os problemas encontrados. Também vou conferir teclado, foco, formulários, erros e estados vazios, preservando a identidade visual.” Não foram incluídas perguntas/consultas de configuração nem inventados testes ou aprovação humana.
+
+### Aplicação no projeto
+
+Branch feature/revisao-fluxos-acessibilidade criada da dev limpa dd9311f. Escrita da referência Git inicialmente bloqueada pelo sandbox; criação com escalonamento aprovada. Corrigidos navegação móvel cortada, botão longo transbordando a lista, ações estreitas de diálogo, foco da escolha de perfil/landing/retomada/telas de acesso, retorno de foco ao ocultar/reexibir e quando o acionador de um modal desaparece. Oferta/demanda bloqueiam edição e saída durante envio; mensagens da composição associadas a saldo/prazo, labels de ofertas repetidas diferenciados, busca vazia com Limpar filtros/status. Conversas aguarda liberar o textarea antes de devolver foco após sucesso. Preservadas cores, marca e ilustrações locais. Bancada accessibility.html/JSX usa componentes reais com respostas em memória; request injetável de DemandForm mantém m2 como padrão. Quatro testes de regressão e asserção de foco no teste de Conversas; documentação de validação, estado e D028. Sem mudança de regras de negócio, schema ou permissões.
+
+### Verificação, testes e ajustes reais
+
+Navegador em 360×800 e 1366×900: início/perfis, ofertas, propostas, demandas/composição, transporte/valores/veículos, bot/lista de conversas, página inexistente, Enter, Tab, Escape e atalho de conteúdo. Sessões de Ana, Restaurante Raiz e Transporte Caminho consultadas pela interface; recarga real retomou Ana e foco principal. Não foram criados/excluídos cadastros nem enviadas propostas, cotações, DMs ou transições de pagamento/viagem ao demo. Uma proposta ocultada no navegador foi reexibida.
+
+No comprador, botão longo produzia scrollWidth 391 para clientWidth 345; após ajuste, medições 345/345 e 1351/1351. Composição rejeitou quantidade 999 com saldo 30 e prazo 0, mostrou mensagens associadas e removeu erros ao preencher 30+20 para demanda50/prazo24; envio habilitado, sem confirmar. Limpar filtros recuperou seis ofertas e focou pesquisa. Bancadas locais verificaram formulários pendentes/falhas, valores preservados, sucesso de demanda, vazio/erro/recuperação de DM, segundo envio e foco no compositor. Cotação na bancada rejeitou datas passadas e trouxe falha controlada para junto da confirmação. jsdom não foi apresentado como teste visual/nativo.
+
+Tentativa de Python pelo alias do Windows falhou sem editar arquivos; substituída por Node. Lint encontrou ausência de export na nova bancada; corrigida. Alguns locators exatos não corresponderam a summary, label implícito ou nome incluindo mensagem de erro; árvore atual/seletores conhecidos permitiram retomar. Capturas padrão apresentaram escala/recortes incorretos; capturas representativas com clip explícito substituíram a evidência visual incompleta. Console mostrou um aviso durante HMR pela alteração do tamanho das dependências de useEffect; a bancada também emitiu aviso de createRoot durante troca de exports por HMR. As páginas foram recarregadas para verificar a versão final. Correção de foco de DM foi confirmada no navegador após o teste. Overrides restaurados e abas próprias fechadas.
+
+Lint, 113 testes Node e build aprovados; aviso de bundle >500 kB preexistente. Quatro testes novos e teste existente de Conversas cobrem regressões reais; testes de banco/RLS/concorrência não repetidos nesta mudança de interface. Evidências e limites em Conexa-specs/validation.md; capturas locais ignoradas pelo Git em artifacts/a11y-review. Sem aceite humano, push/merge/deploy ou encerramento de marco presumidos.
+
+### Análise crítica
+
+A inspeção no navegador revelou defeitos que o DOM simulado não detecta: transbordamento do botão e tentativa de foco em campo ainda desabilitado. Testes de componentes complementam essa evidência ao controlar a latência e a falha sem alterar operações compartilhadas no demo. Reutilizar a validação de domínio na composição evita introduzir uma regra de saldo diferente. A revisão mantém a identidade visual e melhora recuperação sem alegar auditoria integral WCAG: leitor de tela, contraste completo, todos os estados remotos/CRUD/RLS, voz e rede física não foram novamente verificados. Bancadas e leitura do demo têm limites distintos; avaliação humana e autorização para publicar/integrar continuam pendentes.
+
+Complemento de autorização da interação 056 — 12/11/2026: após apresentação do commit 160d235, correções, verificações e limites, usuário respondeu “pode integrar” à pergunta explícita sobre subir a feature e integrar na dev. Autoriza publicação de feature/revisao-fluxos-acessibilidade e integração/publicação na dev do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Sem autorização de main/deploy ou ampliação de aceite de marco. Testes anteriores preservados; integração documental/Git não exige repetir operações no demo. Referências remotas serão conferidas ao concluir.
+
+## Interação 057 — T31: auditoria e roteiro de CRUD remoto — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para inspecionar código/histórico, programar o roteiro manual de integração `tests/remote-t31.mjs` e registrar resultados/limites. Skill Supabase consultada; PowerShell, Git, Node/npm, Vite SSR, helper jsdom existente, ESLint e cliente Supabase com chave pública/contas fictícias reais. Ferramentas de execução não foram apresentadas como outras IAs. Sem subagentes, dependências novas, schema/migration, API paga, microfone ou envio de mensagens.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido que originou a programação/verificação do roteiro:
+
+> Execute a T31: confira componentes, hooks, useState/useEffect, CRUD remoto, commits significativos e registros de IA. Apresente os requisitos atendidos e as pendências com evidências.
+
+Resposta representativa real: “Lint, build e os 113 testes passaram. O histórico tem mais de 15 commits de implementação, sem precisar contar merges. Encontrei duas ressalvas documentais: há consultas antigas em `IA.md`, e parte das evidências de ofertas demonstra arquivamento, mas não exclusão física. Vou verificar o CRUD completo no demo com uma oferta própria de teste.” Este registro cobre o uso de IA na criação/verificação do código de teste e sua aplicação; não acrescenta consultas/esclarecimentos ou aprovação humana.
+
+### Aplicação no projeto
+
+Feature `feature/t31-auditoria-academica`, criada da dev limpa `5ac6fce`. Roteiro manual fora de `npm test`, com modos offline `--check` e remoto `--run-demo`; restringe hostname/chave pública via helper existente e usa `saveOffer`, `listOffers`, `deleteOffer` e autenticação reais da aplicação por Vite SSR. Cria somente oferta própria sem vínculos, confere edição/rejeição de versão antiga, leitura compartilhada após nova autenticação e negativas de alteração/exclusão para outros perfis. Registra IDs/resultados sem credenciais e exclui sua fixture com confirmação de ausência, inclusive limpeza em finally. Inclusão do roteiro na configuração Node do ESLint. Relatório em `Conexa-specs/t31-auditoria.md` e referências em tasks/validation/estado-atual/README das specs. Nenhuma mudança na interface, domínio, serviços da aplicação ou SQL.
+
+### Verificação, testes e ajustes reais
+
+Inspecionados dez componentes com consumidores de produção e seis hooks em uso; uso efetivo de useState/useEffect e limites da separação domínio/serviços/apresentação. Base dev anterior: 70 commits sem merge (69 títulos convencionais; exceção inicial `first commit`), 31 alterando src/server/supabase/tests, incluindo o inicial. Quinze mudanças concretas examinadas sem contar merges/autorização documental. AI.md aponta para IA.md; os 52 registros anteriores têm cinco seções. Identificadas consulta da interação 003 e esclarecimento em 001 fora do recorte atual, preservando o histórico e registrando saneamento pendente.
+
+`node tests/remote-t31.mjs --check` aprovado offline. Três rodadas completas no Supabase demo passaram sete grupos: CRUD real com exclusão física, controle de versão sequencial, reautenticação e negativas Auth/RLS via REST/RPC para comprador/João/anônimo. As três ofertas próprias foram excluídas com ausência conferida. Rodada final `e9d6512a-7da6-44cd-a5d2-bb92f64b46a0`, oferta `281df3e2-c804-4001-ad0f-0983f9286e55`; relatório `artifacts/t31-remote.local.json` ignorado pelo Git, resultados essenciais versionados em validation.md. Não é navegador/F5, concorrência simultânea ou prova integral de todos os critérios M1.
+
+Primeira execução passou e limpou a fixture, mas não encerrou naturalmente e mostrou avisos de storageKey compartilhada entre clientes. Processo encerrado por Ctrl+C após salvar o resultado. Conferido `auth.dispose()` no SDK instalado e acrescentados descarte dos clientes e storageKey únicos. Segunda rodada: PASS e saída natural, código 0, sem aqueles avisos. ESLint encontrou `no-unsafe-finally` no novo roteiro; corrigida a sinalização de limpeza sem mascarar exceção original nem emitir PASS em falha. Lint/configuração offline/diff aprovados e terceira rodada remota completa da versão final passou com saída 0. Criação da branch e acesso à rede exigiram escalonamento do sandbox, aprovado. Não se alteraram políticas do sistema.
+
+Lint, 113 testes Node e build aprovados; aviso preexistente de chunk >500 kB preservado. A aplicação não mudou, então não houve nova inspeção visual em 360 px/desktop ou repetição das suítes PGlite. Sem migrations, contas novas, DMs, pagamentos/transporte reais, deploy, push/merge ou aceite humano. T31 concluída como conferência com ressalva; saneamento de IA.md, T32/T33 e demais pendências de produto preservados.
+
+### Análise crítica
+
+A conferência distingue um requisito quantitativo de uma evidência funcional: hooks precisam de consumidores reais, commits de mudanças coerentes e Delete de exclusão observada. Reautenticação e consultas pelos serviços da aplicação comprovam persistência remota nesta rodada, mas não substituem F5/revisão visual ou auditoria de segurança completa. A execução inicial também revelou recursos Auth abertos na infraestrutura de teste; encerrá-los permite repetir o roteiro sem processo retido. As cinco seções formais de IA.md não garantem que o conteúdo respeite somente programação: consultas antigas foram apontadas, sem inventar histórico nem atribuir aprovação ao grupo. A completude de todos os usos de IA ainda depende de conferência dos integrantes. Publicação/integração depende da avaliação e autorização do usuário conforme workflow.
+
+## Interação 058 — T32/T33/T43: artefatos e empacotador — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para programar e verificar o empacotador de fontes, consolidar README/matriz/limitações/roteiro e registrar resultados reais. PowerShell/Git/Node/npm, ESLint, testes Node/jsdom/PGlite, ZipArchive/SHA-256 e fetch HTTP local. Skill Supabase consultada para orientações de configuração, sem implementar integração ou alterar banco. Sem subagentes, dependências novas, API paga, microfone ou mensagens externas.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido que originou a programação do empacotador e a preparação dos artefatos:
+
+> Prepare os artefatos de T32/T33/T43: README reproduzível, matriz de verificações, limitações, roteiro de demonstração e ZIP sem segredos. Apresente a entrega para avaliação, mantendo aceite humano e voz real como pendências quando aplicável.
+
+Resposta inicial real: “Vou ler as especificações e conferir o estado atual do projeto para preparar os artefatos de T32/T33/T43 com evidências verificáveis, registrando as pendências de aceite humano e voz real.” Registro do uso de IA correspondente à programação/verificação do empacotador; não inclui consultas/esclarecimentos ou aprovações inventadas.
+
+### Aplicação no projeto
+
+Feature feature/t32-t33-t43-entrega criada da dev limpa 17d2684. scripts/package-delivery.ps1 seleciona arquivos Git rastreados/novos não ignorados por caminhos/extensões permitidos, rejeita links e configuração preenchida, procura padrões de credenciais e valores locais sem imprimi-los e valida três exemplos de ambiente. Gera ZIP com fontes/assets/lockfile/testes/migrations/docs, manifesto SHA-256 e metadados; relê todas as entradas/hash/contagem antes de substituir a saída. Credenciais conhecidas ficam fora do pacote. Artefatos locais ignorados em artifacts/entrega; ESLint ignora somente essa pasta gerada para não analisar suas extrações. README reorganizado e Conexa-specs/entrega reúne matriz AC01–32, requisitos acadêmicos, limitações e roteiro. Tasks/estado/índice/validation atualizados, sem mudança da aplicação ou do banco.
+
+### Verificação, testes e ajustes reais
+
+Checkout: lint, 113 testes e build aprovados; aviso preexistente de chunk >500 kB. Empacotador executado com PowerShell 7.6.9; mínimo declarado 7.2 por APIs .NET usadas. ZIP com 274 entradas relidas/hash comparado, inventário independente sem Git, .env preenchido, dependências, build, relatórios ou cotas. Marcador sintético de chave em fonte permitida e senha sintética em .env.example foram bloqueados e preservaram o ZIP anterior; bytes do exemplo restaurados. Credencial local sintética em .env.package-probe também bloqueou cópia correspondente em Markdown; fixtures temporárias removidas sem imprimir valores.
+
+Extração nova sem credenciais: npm ci --offline --no-audit --no-fund instalou 218 pacotes do cache pelo lockfile; lint, 113 testes, nove scripts PGlite e build passaram. Preview local e HTTP conferiram home, quatro caminhos diretos com fallback SPA e assets (200); processo encerrado. Não foi inspeção visual ou download de dependências pela rede. Instalação/suítes ocorreram na extração preliminar com aplicação/lockfile iguais aos finais; documentação, mínimo PowerShell e exclusão das cópias geradas no ESLint foram consolidados depois. Conferidos 45 links/âncoras e igualdade byte a byte de 232 fontes/assets/testes mais package/lockfile/Vite/HTML com a extração testada. Duas gerações consecutivas produziram SHA-256 idêntico. Pacote final regenerado com releitura/hash após documentação/commit. Resultados e limites em validation.md, seção T32/T33/T43.
+
+Primeira criação de branch bloqueada por escrita Git, repetida com escalonamento aprovado antes de editar. Primeiro script falhou por terminador de comentário; corrigido. Varredura bloqueou URL sintética user:pass de um teste negativo existente: adicionada exceção literal restrita àquele caminho/padrão, conservando o teste e demais bloqueios. Uma tentativa de patch documental referiu contexto inexistente de IA.md; foi recusada sem aplicar o conjunto e reaplicada com contexto correto. Sem nova UI, não houve nova revisão de 360 px/desktop; as evidências anteriores foram apenas consolidadas. Sem testes remotos, Auth/provedor/voz reais, migrations, push/merge/deploy ou aceite humano nesta preparação.
+
+### Análise crítica
+
+O empacotador reduz o risco de anexar configuração local e comprova integridade dos bytes entregues; a instalação em pasta extraída detecta dependências acidentais do checkout. Seleção por caminho e padrões não certifica ausência universal de segredos, especialmente imagens/credenciais desconhecidas, e manifesto não é assinatura. A exceção do teste sintético é explícita e estreita, em vez de excluir testes ou ignorar arquivos inteiros. Mocks/PGlite/HTTP local têm limites diferentes de Supabase, navegador, rede física e voz reais. T33 registra a matriz concluída, T32 permanece parcial por acessos/deploy/envios, e T43/aceite M6, aceite M5, T41 física, T42 real e saneamento histórico de IA continuam pendentes. Publicação/integração da feature depende da avaliação e autorização do usuário conforme workflow; não inclui main.
+
+Complemento de autorização da interação 058 — 12/11/2026: após apresentação do commit 1360611, artefatos, verificações e pendências, usuário respondeu “pode subir para a dev e depois para a main”. Autoriza publicar feature/t32-t33-t43-entrega, integrar/publicar na dev e depois promover/publicar na main do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Não constitui aceite M5/M6, validação de voz/rede física, deploy ou envio acadêmico. Verificações técnicas da entrega preservadas; referências remotas serão conferidas ao concluir.
