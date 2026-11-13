@@ -1,5 +1,5 @@
 import { ArrowUpRight, ArrowLeft, Leaf, X, WarningCircle } from '@phosphor-icons/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import { navigate } from '../hooks/useRouter'
 
 export function Link({ href, children, ...props }) {
@@ -26,12 +26,13 @@ export function ErrorNotice({ children, retry, autoFocus = false, title = 'Confi
 }
 export function Modal({ title, children, onClose, closeDisabled = false }) {
   const ref = useRef(null)
+  const titleId = useId()
   useEffect(() => {
     const dialog = ref.current
     const opener = document.activeElement
     dialog.showModal()
-    return () => { dialog.close(); opener?.focus() }
+    return () => { dialog.close(); (opener?.isConnected ? opener : document.getElementById('conteudo'))?.focus({ preventScroll: true }) }
   }, [])
-  return <dialog ref={ref} className="app-dialog" aria-labelledby="modal-title" onCancel={event => { event.preventDefault(); if (!closeDisabled) onClose() }}><button type="button" className="dialog-close" disabled={closeDisabled} onClick={onClose} aria-label="Fechar"><X size={22} /></button><h2 id="modal-title">{title}</h2>{children}</dialog>
+  return <dialog ref={ref} className="app-dialog" aria-labelledby={titleId} onCancel={event => { event.preventDefault(); if (!closeDisabled) onClose() }}><button type="button" className="dialog-close" disabled={closeDisabled} onClick={onClose} aria-label="Fechar"><X size={22} /></button><h2 id={titleId}>{title}</h2>{children}</dialog>
 }
 export function BackLink({ href, children = 'Voltar' }) { return <Link href={href} className="back-link"><ArrowLeft size={17} aria-hidden="true" />{children}</Link> }

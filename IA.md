@@ -1473,3 +1473,35 @@ Primeiro fetch remoto no sandbox falhou antes de login/escrita. Execução com r
 Dados reais do demo distinguem a candidata de alimentos mais baratos da prioridade a quem tem menos entregas, sem fabricar vendas ou economia logística. A prova por API verifica limites e preservação de estado; o site mostra as razões e exige seleção/envio explícitos, e F5 comprova reconsulta após retomada. Comparação de dois donos do mesmo perfil e desempate por idade com identidades controladas continuam como evidência PGlite, pois não se criaram contas/datas artificiais no demo. Uma transportadora não permite demonstrar duas cotações remotas equivalentes. Não foram ativados mapas nem testada falha de fornecedor; total entre composições com fretes próprios segue fora do escopo. Revisão dirigida não equivale a auditoria integral de acessibilidade ou novo aceite M4. Histórico das fixtures fica no demo mesmo após arquivamento. Publicação/integração da feature ainda dependem de autorização após avaliação.
 
 Complemento de autorização da interação 055 — 12/11/2026: após apresentação de `4ace62c`, evidências e limites, usuário respondeu “autorizo” à pergunta explícita sobre publicar `feature/m4-verificacao-demo` e integrar na `dev`. Autoriza push da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Sem autorização de main/deploy, API externa ou ampliação do aceite M4. Verificações técnicas anteriores preservadas; sem novas escritas no demo para esta integração documental. Referências remotas conferidas ao concluir.
+
+## Interação 056 — revisão de fluxos, responsividade e teclado — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para inspecionar o código, operar a revisão dirigida no navegador, corrigir defeitos de interface e registrar evidências. PowerShell/Git/Node/npm, ESLint, testes Node/jsdom e navegador integrado; instruções de Sites para prévia local e documentação das ferramentas de navegador. CDP para viewport, métricas e capturas. Sem subagentes, dependências novas, migrations, API paga, microfone ou mensagens externas.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de programação:
+
+> Revise os fluxos principais em 360 px e desktop, incluindo navegação por teclado, foco, formulários, erros e estados vazios. Corrija os problemas observados preservando a identidade visual.
+
+Resposta inicial real: “Vou ler as regras do projeto, revisar os fluxos em 360 px e desktop e corrigir os problemas encontrados. Também vou conferir teclado, foco, formulários, erros e estados vazios, preservando a identidade visual.” Não foram incluídas perguntas/consultas de configuração nem inventados testes ou aprovação humana.
+
+### Aplicação no projeto
+
+Branch feature/revisao-fluxos-acessibilidade criada da dev limpa dd9311f. Escrita da referência Git inicialmente bloqueada pelo sandbox; criação com escalonamento aprovada. Corrigidos navegação móvel cortada, botão longo transbordando a lista, ações estreitas de diálogo, foco da escolha de perfil/landing/retomada/telas de acesso, retorno de foco ao ocultar/reexibir e quando o acionador de um modal desaparece. Oferta/demanda bloqueiam edição e saída durante envio; mensagens da composição associadas a saldo/prazo, labels de ofertas repetidas diferenciados, busca vazia com Limpar filtros/status. Conversas aguarda liberar o textarea antes de devolver foco após sucesso. Preservadas cores, marca e ilustrações locais. Bancada accessibility.html/JSX usa componentes reais com respostas em memória; request injetável de DemandForm mantém m2 como padrão. Quatro testes de regressão e asserção de foco no teste de Conversas; documentação de validação, estado e D028. Sem mudança de regras de negócio, schema ou permissões.
+
+### Verificação, testes e ajustes reais
+
+Navegador em 360×800 e 1366×900: início/perfis, ofertas, propostas, demandas/composição, transporte/valores/veículos, bot/lista de conversas, página inexistente, Enter, Tab, Escape e atalho de conteúdo. Sessões de Ana, Restaurante Raiz e Transporte Caminho consultadas pela interface; recarga real retomou Ana e foco principal. Não foram criados/excluídos cadastros nem enviadas propostas, cotações, DMs ou transições de pagamento/viagem ao demo. Uma proposta ocultada no navegador foi reexibida.
+
+No comprador, botão longo produzia scrollWidth 391 para clientWidth 345; após ajuste, medições 345/345 e 1351/1351. Composição rejeitou quantidade 999 com saldo 30 e prazo 0, mostrou mensagens associadas e removeu erros ao preencher 30+20 para demanda50/prazo24; envio habilitado, sem confirmar. Limpar filtros recuperou seis ofertas e focou pesquisa. Bancadas locais verificaram formulários pendentes/falhas, valores preservados, sucesso de demanda, vazio/erro/recuperação de DM, segundo envio e foco no compositor. Cotação na bancada rejeitou datas passadas e trouxe falha controlada para junto da confirmação. jsdom não foi apresentado como teste visual/nativo.
+
+Tentativa de Python pelo alias do Windows falhou sem editar arquivos; substituída por Node. Lint encontrou ausência de export na nova bancada; corrigida. Alguns locators exatos não corresponderam a summary, label implícito ou nome incluindo mensagem de erro; árvore atual/seletores conhecidos permitiram retomar. Capturas padrão apresentaram escala/recortes incorretos; capturas representativas com clip explícito substituíram a evidência visual incompleta. Console mostrou um aviso durante HMR pela alteração do tamanho das dependências de useEffect; a bancada também emitiu aviso de createRoot durante troca de exports por HMR. As páginas foram recarregadas para verificar a versão final. Correção de foco de DM foi confirmada no navegador após o teste. Overrides restaurados e abas próprias fechadas.
+
+Lint, 113 testes Node e build aprovados; aviso de bundle >500 kB preexistente. Quatro testes novos e teste existente de Conversas cobrem regressões reais; testes de banco/RLS/concorrência não repetidos nesta mudança de interface. Evidências e limites em Conexa-specs/validation.md; capturas locais ignoradas pelo Git em artifacts/a11y-review. Sem aceite humano, push/merge/deploy ou encerramento de marco presumidos.
+
+### Análise crítica
+
+A inspeção no navegador revelou defeitos que o DOM simulado não detecta: transbordamento do botão e tentativa de foco em campo ainda desabilitado. Testes de componentes complementam essa evidência ao controlar a latência e a falha sem alterar operações compartilhadas no demo. Reutilizar a validação de domínio na composição evita introduzir uma regra de saldo diferente. A revisão mantém a identidade visual e melhora recuperação sem alegar auditoria integral WCAG: leitor de tela, contraste completo, todos os estados remotos/CRUD/RLS, voz e rede física não foram novamente verificados. Bancadas e leitura do demo têm limites distintos; avaliação humana e autorização para publicar/integrar continuam pendentes.

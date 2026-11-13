@@ -1,5 +1,42 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Revisão de fluxos, responsividade e teclado — 12/11/2026
+
+Responsável: Codex. Branch `feature/revisao-fluxos-acessibilidade`, criada da dev limpa `dd9311f`. Pedido: “Revise os fluxos principais em 360 px e desktop, incluindo navegação por teclado, foco, formulários, erros e estados vazios. Corrija os problemas observados preservando a identidade visual.” Implementação local para avaliação; sem push, merge, deploy ou novo aceite de marco.
+
+Ambiente: Vite em `http://127.0.0.1:5173`, navegador integrado, viewports CSS **360×800** e **1366×900**. Consultadas as sessões demo existentes de Ana, Restaurante Raiz e Transporte Caminho pela interface normal. Não foram criadas/excluídas ofertas, demandas, veículos ou reservas, nem enviadas DMs ao demo ou executadas transições de pagamento/viagem. Ocultação local de uma proposta existente foi revertida. Falhas de gravação/envio e sucesso de recuperação foram exercitados em bancadas com serviços em memória, separadamente do site conectado.
+
+### Problemas reproduzidos e correções
+
+- Navegação móvel cortava o último link e podia recortar seu indicador de foco. Links passam a ocupar duas colunas, com todos os destinos visíveis e altura mínima de 44 px. Foco de controles usa laranja escuro da identidade existente.
+- O link “Ver transporte, pagamento e acompanhamento” ultrapassava a lista de propostas: documento com **391 px** para **345 px** de conteúdo disponível. Botões agora respeitam a largura do contêiner e quebram entre palavras; após ajuste, scrollWidth/clientWidth **345/345** em 360 px e **1351/1351** no desktop nos percursos medidos.
+- “Arquivar” quebrava no meio da palavra no diálogo de exclusão. Ações passam a ocupar linhas inteiras até 400 px; fechamento possui alvo mínimo de 44 px e fica desabilitado durante ações pendentes.
+- `/demo` não recebia foco após navegar; telas de acesso/página inexistente não tinham região principal focável. Acrescentados atalho de conteúdo e destino de foco; foco também é aplicado depois da retomada assíncrona da sessão e do carregamento da landing. Diálogo usa título único e recorre ao conteúdo se o acionador for removido.
+- Ocultar/reexibir removia o botão focado e deixava o foco no body. Agora o filtro atual recebe foco, inclusive quando sua lista fica vazia.
+- Oferta e demanda mantinham campos editáveis durante gravação. Fieldset desabilitado e aria-busy refletem o envio, com fechamento/Cancelamento bloqueados; falha libera controles, preserva dados e recebe foco. `DemandForm` aceita request injetável para verificação isolada, mantendo `m2` como padrão.
+- Composição mostrava somente mensagem geral ao exceder saldo e não indicava o erro do prazo. Campos agora associam orientações com aria-invalid/aria-describedby, reutilizando selectionSummary. Ofertas do mesmo produtor têm labels distintos por posição. Quantidade 999 para saldo 30 e prazo 0 mostraram os erros locais; 30+20 para demanda 50/prazo 24 removeu erros e habilitou envio, sem enviá-lo.
+- Busca sem resultados ganhou “Limpar filtros”, que restaura a lista e o foco da pesquisa; contagem é anunciada como status. No comprador, seis ofertas voltaram após limpar.
+- Na bancada de DM, após sucesso, o foco era solicitado enquanto o textarea ainda estava disabled, ficando no body. Retorno ao compositor agora aguarda o render que libera o campo. Reenvio após falha e segundo envio local confirmaram foco em `conversation-message`, texto limpo, campo habilitado e mensagens únicas.
+
+### Percurso efetivamente conferido
+
+| Área | Verificação no navegador |
+| --- | --- |
+| Início, perfis e acesso | 360 px/desktop; entrada por Enter, atalho de conteúdo, troca de participante, retorno da página inexistente, foco após carregar a landing. |
+| Produtor/ofertas | 360 px/desktop; busca/vazio, validação de nova oferta, primeiro campo inválido, erros associados, Tab, Escape e retorno ao acionador; diálogo de exclusão aberto e fechado sem excluir. Recarga autenticada retomou Ana e focou o conteúdo. |
+| Propostas/listas | Ocultar/reexibir, Histórico/Ocultas e vazio; correção de foco verificada em bancada, sem perder registro. Lista conectada expunha botão longo que foi corrigido. |
+| Comprador/demandas/composição | Formulário vazio em duas larguras, foco/erros; candidatas reais consultadas, inputs inválidos/corrigidos e reserva não enviada. Desktop e 360 px sem overflow nas medições posteriores. |
+| Transporte/veículos | Solicitações/valores/histórico existentes consultados; desktop e 360 px. Cadastro vazio focou Descrição com mensagem nativa, sem salvar veículo. Pagamento/viagem existentes apenas lidos. |
+| Cotação | Bancada `feedback.html` em duas larguras: horários passados rejeitados junto dos campos; horários corrigidos chegaram à falha controlada, que recebeu foco perto da confirmação e preservou frete 80. Nenhuma cotação enviada ao demo. |
+| Oferta/demanda em envio | Nova bancada `accessibility.html`: bloqueio durante resposta atrasada, falha com foco e dados preservados; sucesso local de demanda e retorno ao acionador. |
+| Conversas/bot | Lista/bot conectado do produtor e Voltar em 360 px, sem turno/confirmar. Bancada `conversations.html`: vazio de DM, erro, texto bloqueado preservado, verificar envio, sucesso, foco no compositor e Voltar à lista em 360 px; desktop também percorrido. |
+
+Verificações automatizadas: **lint aprovado, 113 testes Node aprovados, build aprovado**. Quatro novos testes de componentes em `tests/accessibility-ui.test.js` cobrem foco ao ocultar/reexibir, oferta/demanda pendentes/falhas e fechamento com acionador removido; teste existente de Conversas passou a exigir foco após envio. jsdom não comprova layout ou teclado nativo. Aviso de chunk >500 kB é preexistente; nenhuma dependência adicionada. `git diff --check` aprovado.
+
+Evidências locais ignoradas pelo Git em `artifacts/a11y-review/`: `produtor-360.local.jpg`, `produtor-desktop.local.jpg`, `dialogo-acoes-360.local.jpg`, `oferta-validacao-desktop.local.jpg` e `inicio-desktop.local.jpg` são capturas representativas com clip explícito, revisadas visualmente. Capturas iniciais padrão/sem clip apresentaram escala/recortes incorretos e não são usadas como prova completa. CDP foi usado para viewport, métricas e capturas; overrides restaurados e abas próprias fechadas ao final. Console consultado registrou um aviso de React durante HMR pela alteração do tamanho das dependências de useEffect; a bancada também emitiu aviso de createRoot durante troca de exports por HMR. As páginas foram recarregadas para verificar a versão final.
+
+Limites: revisão dirigida, sem leitor de tela ou auditoria integral WCAG. Sem nova prova de CRUD/RLS, concorrência, ciclo operacional remoto, voz/microfone/API paga, interrupção física de rede ou aceite humano. As bancadas não substituem persistência no demo. Aceites e pendências M4/M5/M6/T41/T42 anteriores permanecem no escopo documentado.
+
 ## M4 — rotas manuais e sugestões inclusivas no demo — 12/11/2026
 
 Autorização posterior na mesma data: usuário respondeu “autorizo” após apresentação de `4ace62c`, autorizando publicação de `feature/m4-verificacao-demo` e integração/publicação na dev. Substitui as indicações de publicação/integração pendentes deste registro; não inclui main/deploy, API externa ou novo aceite de marco. Checkout limpo/origin conferidos e fetch concluído; testes anteriores preservados sem repetir escritas no demo. Registro em IA.md, interação 055; referências remotas conferidas ao concluir.

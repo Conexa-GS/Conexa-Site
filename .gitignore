@@ -27,6 +27,7 @@ dist-ssr
 supabase/.temp/
 artifacts/*.local.json
 artifacts/*.local.jpg
+artifacts/a11y-review/*.local.jpg
 .cache/
 .voice-data/
 !.env.voice.example
