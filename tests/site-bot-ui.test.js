@@ -14,7 +14,6 @@ async function setup(role = 'producer') {
   await choose('Bot Conexa')
   async function write(text) {
     await ui.act(async () => {
-      ui.document.querySelector('.bot-free-text').open = true
       const input = ui.document.getElementById('bot-message')
       Object.getOwnPropertyDescriptor(ui.document.defaultView.HTMLTextAreaElement.prototype, 'value').set.call(input, text)
       input.dispatchEvent(new ui.document.defaultView.Event('input', { bubbles: true }))
@@ -31,23 +30,34 @@ async function setup(role = 'producer') {
 
 async function answerValue(ui, value) {
   await ui.act(async () => {
-    const input = ui.document.getElementById('bot-field-answer')
-    Object.getOwnPropertyDescriptor(ui.document.defaultView.HTMLInputElement.prototype, 'value').set.call(input, value)
+    const input = ui.document.getElementById('bot-message')
+    Object.getOwnPropertyDescriptor(ui.document.defaultView.HTMLTextAreaElement.prototype, 'value').set.call(input, value)
     input.dispatchEvent(new ui.document.defaultView.Event('input', { bubbles: true }))
   })
-  await ui.click('Usar este valor')
+  await ui.click('Enviar ao bot')
 }
 
-test('Bot UI: ações visíveis e criação guiada sem digitar comandos, com confirmação separada', async () => {
+test('Bot UI: criação responde valores e datas pelo chat normal, com catálogo e confirmação separados', async () => {
   const { ui, bot, confirm } = await setup()
   try {
     for (const action of ['Consultar ofertas', 'Criar oferta', 'Editar oferta', 'Arquivar oferta']) assert.ok(ui.findButton(action))
-    assert.equal(ui.document.querySelector('.bot-free-text').open, false)
+    assert.equal(ui.document.querySelector('.bot-free-text').tagName, 'FORM')
+    assert.equal(ui.document.getElementById('bot-message').disabled, false)
+    assert.equal(ui.document.querySelector('.bot-free-text details'), null)
     assert.equal(bot.requests.length, 0, 'Abrir o bot não inicia pedido')
     await ui.click('Criar oferta')
     await ui.click('Alface')
+    assert.equal(ui.document.querySelector('.conversation-history input'), null, 'sem campo de resposta duplicado no balão')
+    assert.equal(ui.document.activeElement.id, 'bot-message')
     await answerValue(ui, '20,125')
+    assert.match(ui.document.querySelector('.bot-feedback').textContent, /preço de venda/)
+    await answerValue(ui, '0')
+    assert.ok(ui.document.querySelector('[role=alert]'), 'valor inválido recebe orientação')
+    assert.equal(ui.document.getElementById('bot-message').value, '0', 'resposta inválida preservada para corrigir')
+    assert.equal(bot.requests.at(-1).fields.price, undefined)
     await answerValue(ui, '5,07')
+    assert.equal(bot.requests.at(-1).body, '5,07', 'resposta do usuário aparece como mensagem normal')
+    assert.match(ui.document.querySelector('.conversation-history').textContent, /Qual é o preço de venda por kg/, 'pergunta anterior permanece legível após responder')
     await answerValue(ui, '4,00')
     await answerValue(ui, today())
     await answerValue(ui, futureDate(7))
@@ -72,7 +82,7 @@ test('Bot UI: escolher oferta/campo, validação, cancelar e pedido incerto pres
     assert.equal(ui.document.querySelector('.bot-preview'), null)
     await ui.click('Escolher esta oferta')
     await ui.click('Alterar quantidade (kg)')
-    assert.equal(ui.document.activeElement.id, 'bot-field-answer')
+    assert.equal(ui.document.activeElement.id, 'bot-message')
     assert.equal(ui.document.querySelector('.bot-confirm'), null, 'Valor em edição não pode ser confirmado antes de usar')
     await answerValue(ui, '0')
     assert.ok(ui.document.querySelector('[role=alert]'))
@@ -85,7 +95,7 @@ test('Bot UI: escolher oferta/campo, validação, cancelar e pedido incerto pres
     bot.loseResponse()
     await confirm()
     assert.equal(bot.writes.length, 1)
-    assert.equal(ui.document.querySelector('.bot-action-menu button').disabled, true)
+    assert.equal(ui.document.getElementById('bot-message').disabled, true)
     await choose('Restaurante'); await choose('Bot Conexa')
     assert.equal(ui.findButton('Criar oferta').disabled, true)
     await ui.click('Verificar pedido pendente')
@@ -123,8 +133,8 @@ test('Bot UI: prévia antes/depois, correção, cancelamento e confirmação ún
     await confirm(); assert.equal(bot.writes.length, 1); assert.equal(bot.writes[0].quantity_total, 21)
     assert.equal(notifications, 1)
     assert.equal(bot.requests.filter(r => r.action === 'confirm').length, 1)
-    assert.match(ui.document.querySelector('[role=status]').textContent, /Oferta persistida/)
-    assert.match(ui.document.querySelector('.conversation-history').textContent, /Oferta persistida/)
+    assert.match(ui.document.querySelector('.bot-status').textContent, /Oferta persistida/)
+    assert.match(ui.document.querySelector('.conversation-history').textContent, /Sua alteração foi salva/)
     assert.equal(ui.document.querySelector('[role=alert]'), null)
     assert.equal(ui.document.activeElement.className, 'bot-feedback')
     await write('arquivar alface'); await write('cancelar')
@@ -148,7 +158,7 @@ test('Bot UI: resposta perdida conserva pedido entre conversas e reconcilia sem 
     const confirmations = bot.requests.filter(r => r.action === 'confirm')
     assert.equal(confirmations.length, 2); assert.equal(confirmations[0].request_id, confirmations[1].request_id)
     assert.equal(ui.document.getElementById('bot-message').disabled, false)
-    assert.match(ui.document.querySelector('.bot-feedback').textContent, /Oferta persistida/)
+    assert.match(ui.document.querySelector('.bot-feedback').textContent, /Sua alteração foi salva/)
   } finally { await ui.dispose() }
 })
 
@@ -225,8 +235,9 @@ test('Bot UI: rejeição de revisão por outra sessão recarrega a prévia; falh
     await write('editar alface total 20 kg')
     const second = await bot.service.state()
     await bot.service.turn({ conversation_id: 'bot-ana', request_id: 'other-again', revision: second.draft.revision, body: 'Cancelar em outra sessão', intent: 'cancel', fields: {} })
+    await ui.click('Alterar quantidade (kg)')
     bot.service.state = async () => { throw new Error('Revalidação indisponível') }
-    await confirm()
+    await answerValue(ui, '23')
     assert.equal(ui.document.querySelector('.bot-confirm'), null)
     assert.match(ui.document.querySelector('[role=alert]').textContent, /Revalidação indisponível/)
   } finally { await ui.dispose() }
@@ -255,5 +266,29 @@ test('Bot UI: reconexão limpa erro de consulta sem ocultar pedido de envio aind
     await ui.click('Verificar pedido pendente')
     assert.equal(ui.document.querySelector('[role=alert]'), null)
     assert.equal(ui.document.defaultView.sessionStorage.length, 0)
+  } finally { await ui.dispose() }
+})
+
+test('Bot UI: consulta no chat distingue colheitas do mesmo alimento e edita somente a selecionada', async () => {
+  const { ui, bot, confirm } = await setup()
+  try {
+    bot.offers.push({ ...bot.offers[0], id: 'outra-colheita', quantity_total: 50, quantity_free: 50, unit_price_cents: 600 })
+    await ui.click('Atualizar')
+    await ui.click('Consultar ofertas')
+    const cards = [...ui.document.querySelectorAll('.conversation-history .bot-offer-options > li')]
+    assert.equal(cards.length, 2)
+    assert.match(cards[0].textContent, /25 kg livres/)
+    assert.match(cards[1].textContent, /50 kg livres/)
+    await ui.act(async () => { cards[1].querySelector('button').click() })
+    assert.match(ui.document.querySelector('.conversation-history .bot-preview').textContent, /outra-colheita/)
+    assert.equal(ui.document.getElementById('bot-message').disabled, false)
+    assert.equal(bot.writes.length, 0)
+    await ui.click('Alterar quantidade (kg)')
+    await answerValue(ui, '48')
+    await confirm()
+    assert.equal(bot.writes[0].id, 'outra-colheita')
+    assert.equal(bot.offers[0].quantity_total, 30)
+    assert.equal(ui.document.querySelector('.bot-preview'), null, 'sucesso não mantém prévia de edição ativa')
+    assert.equal(ui.document.querySelector('.bot-confirm'), null)
   } finally { await ui.dispose() }
 })

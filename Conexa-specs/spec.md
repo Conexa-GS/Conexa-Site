@@ -44,7 +44,9 @@ Recuperação D026: consultar estado/histórico com sucesso limpa o erro da cons
 
 ## Requisitos de qualidade
 
-Bot Conexa oferece ações visíveis desde a abertura: consultar, criar, editar e arquivar ofertas para o produtor; consulta para o comprador. Seleção da oferta e do campo a corrigir usa botões; números/datas são informados em campos guiados, com catálogo/coleta e vencimento desconhecido selecionáveis. Palavras-chave ficam como alternativa opcional. As mesmas validações, prévia e confirmação explícita continuam obrigatórias (D022).
+Revisão de 13/11/2026 (D031): Conversas apresenta sugestões próximas ao compositor sempre aberto. Bot responde com perguntas, cartões selecionáveis de ofertas/colheitas, correção e prévia dentro do histórico, com rolagem independente e confirmação explícita. A consulta do produtor permite escolher a oferta para editar. Propostas/demandas continuam nos fluxos próprios e comprador permanece somente consulta no bot. Esta disposição substitui o menu acima do histórico e a digitação recolhida de D022.
+
+Bot Conexa oferece ações visíveis desde a abertura: consultar, criar, editar e arquivar ofertas para o produtor; consulta para o comprador. Seleção da oferta e do campo a corrigir usa botões. Por pedido de 13/11/2026 (complemento D031), quantidades, preços e datas são respondidos no compositor normal, conforme a pergunta atual, sem campo duplicado no balão. Catálogo/coleta e vencimento desconhecido continuam selecionáveis. Palavras-chave ficam como alternativa opcional. As mesmas validações, prévia e confirmação explícita continuam obrigatórias (D022).
 
 “Cadastrar por conversa”, em Minhas ofertas, leva diretamente ao Bot Conexa dentro da aba Conversas, na mesma aba do navegador. Não abre diálogo separado nem inicia cadastro automaticamente; preserva o rascunho existente (D023).
 
