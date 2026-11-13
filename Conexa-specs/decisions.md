@@ -212,6 +212,16 @@ Quantidade válida de 0,001 kg a 1 centavo/kg, com mínimo zero, produz bruto e 
 
 Migration local `20261112205456_m5_zero_cent_payouts.sql`, criada pela CLI oficial, aplicada ao demo autorizado como versão `20261112205536`. Regressão PGlite reproduziu o erro antes da correção; recebimento/replay após correção geram parcelas 0/8000, com rejeição de valor negativo. A própria carga que revelou a falha foi concluída via Auth/RLS após corrigir o schema. Suíte remota completa e navegador também verificados; evidências/limites em validation.md. T28 encerrada tecnicamente, sem presumir aceite M5.
 
+## D028 — Navegação e recuperação de foco nos fluxos principais — 12/11/2026
+
+Origem: pedido explícito de revisão em 360 px/desktop, teclado, formulários, erros e vazios. Implementada localmente na `feature/revisao-fluxos-acessibilidade`, criada da dev `dd9311f`; avaliação e integração pendentes.
+
+Navegação do participante usa duas colunas no celular para expor todos os destinos. Botões limitam a largura ao contêiner, com quebra entre palavras; ações de diálogos ocupam linhas inteiras até 400 px. Preservados creme, verde, laranja escuro, marca vetorial e ilustrações locais.
+
+Região principal recebe foco após navegação/carregamento/retomada; diálogo devolve ao acionador ou conteúdo se ele desapareceu; ocultar/reexibir devolve ao filtro atual. Oferta/demanda bloqueiam campos e fechamento durante envio, preservando dados e focando erro em falha. Composição associa mensagens a quantidades/prazo inválidos, sem alterar validações de domínio ou regras de reserva. Limpar filtros restaura pesquisa e foco. DM só devolve foco ao compositor depois de liberá-lo no render de sucesso. Sem alteração de Auth, SQL, RLS ou serviços de negócio; request opcional de DemandForm serve à bancada/testes e preserva m2 como padrão.
+
+Verificações reais e limites em validation.md: site conectado consultado, falhas/sucesso de escrita em serviços em memória, teclado nativo e medidas nas duas larguras, 113 testes/lint/build aprovados. Não representa aceite M5/M6 nem nova validação remota integral.
+
 ## Modelo de novo registro
 
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.
