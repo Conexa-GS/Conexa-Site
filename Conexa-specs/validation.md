@@ -1,5 +1,17 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Saneamento documental T04/T31 e retirada de T30 — 12/11/2026
+
+Responsável: Codex. Branch `feature/saneamento-ia-tarefas`, criada da `dev` local `48ec847465d8320501a4c36044894786c4d0777d`; criação bloqueada no sandbox e repetida com escalonamento aprovado antes das edições. Sem fetch. Pedido explícito: sanear consultas/esclarecimentos antigos de IA.md com rastreabilidade e retirar a integração WhatsApp descontinuada das tarefas.
+
+[Mapa, critérios e origem](saneamento-ia.md): 54 registros originais preservados integralmente em histórico não canônico, com commit/hash; 22 entradas exclusivamente de consulta/preparação/aceite/publicação segregadas e 32 registros de programação mantidos com cinco seções e IDs originais. Trechos mistos segregados com links para a origem; programação e resultados remotos da continuação 047 preservados. Nenhum novo prompt de programação criado para esta revisão documental. T04 encerrada quanto aos artefatos versionados; ressalva de conteúdo da T31 tratada, sem certificar completude dos integrantes ou aceite acadêmico.
+
+T30 e suas subtarefas/dependências foram retiradas de tasks.md, sem renumerar as seguintes. D029 e documentos de continuidade indicam descontinuação por pedido do usuário, substituindo a pausa de D018. Código e evidências anteriores preservados como histórico; nenhuma chamada ou desativação de recurso remoto executada.
+
+Verificações locais executadas: `npm.cmd run lint` aprovado; `npm.cmd test` com **113 testes aprovados**, zero falhas; `npm.cmd run build` aprovado, com aviso preexistente de chunk acima de 500 kB. Sem mudança de interface, nova inspeção em 360 px/desktop não se aplica. Não foram repetidos testes de banco/demo, rede física ou voz; não houve migration, escrita remota, API paga, push, merge, deploy ou novo aceite humano.
+
+Conferência documental executada por script Node temporário via terminal: corpo do arquivo histórico idêntico ao blob Git original (SHA-256 conferido); 54 IDs de origem, 22 entradas segregadas e 32 canônicas com cinco seções; 13 entradas de programação sem segregação de trechos idênticas ao original. Todos os IDs mantidos na ordem original; 184 links locais/âncoras dos documentos alterados conferidos, zero destinos ausentes. tasks.md sem T30/WhatsApp/Meta/Twilio; consultas/transcrições de esclarecimento identificadas ausentes do canônico. README, AI.md, IA.md e .env.example presentes. git diff --check aprovado. O ZIP anterior não foi regenerado; T32 externa, T41 física, T42 real, T43/aceite M6 e aceite M5 conservam seus limites. Avaliação desta revisão e autorização para publicar/integrar na dev pendentes conforme workflow; sem promoção para main. Relatos abaixo são históricos, inclusive as antigas indicações de saneamento pendente.
+
 ## T32/T33/T43 — Artefatos para avaliação — 12/11/2026
 
 Responsável: Codex. `feature/t32-t33-t43-entrega`, criada da dev limpa `17d2684`; primeira criação de branch bloqueada pela escrita nos metadados Git, repetida com escalonamento aprovado antes de editar. Preparados [índice da entrega](entrega/README.md), README reproduzível, [matriz](entrega/matriz-verificacoes.md), [limitações](entrega/limitacoes.md), [roteiro](entrega/roteiro-demonstracao.md) e `scripts/package-delivery.ps1`. Evidências anteriores consolidadas com data/responsável/ambiente; nenhum teste remoto ou aceite humano reconstituído por inferência. README reorganizado para remover instruções vigentes contraditórias; relatos datados preservados nos documentos de origem/histórico Git.

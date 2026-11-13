@@ -1,5 +1,7 @@
 # Telas, fluxos e estados
 
+Atualização vigente em 12/11/2026: integração WhatsApp **descontinuada** por pedido explícito do usuário (D029) e retirada das tarefas. Menções anteriores a pausa/preparação são históricas; preservar experimentos e evidências. Esta revisão documental não executa desativação de recursos remotos.
+
 Estado vigente em [estado-atual.md](estado-atual.md). Conversas usa o bot D022–D025; M4/M5/revisões e texto/DM têm migrations aplicadas ao demo. T30 pausada; o protocolo local abaixo é histórico, sem presumir desativação de experimentos demo existentes.
 
 Evolução T30 por texto: OFERTA → perguntas → prévia versionada → corrigir/cancelar/confirmar → aguardar resultado. Resposta perdida mantém reconciliação bloqueante; não anuncia sucesso nem permite outra publicação até conferir o resultado. Estados completos em [t30-whatsapp.md](t30-whatsapp.md). Somente protocolo/demonstrador locais nesta fase; sem nova tela ou canal externo ativo.

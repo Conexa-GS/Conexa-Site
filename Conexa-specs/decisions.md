@@ -227,3 +227,11 @@ Verificações reais e limites em validation.md: site conectado consultado, falh
 ID / data / status (proposta, aceita, substituída) / contexto / decisão / justificativa / arquivos e critérios afetados / limitações / origem da autorização quando necessária.
 
 Nunca apagar decisões anteriores para esconder mudança; marcar substituição e atualizar a especificação atual.
+
+## D029 — Saneamento de IA e retirada da integração WhatsApp — 12/11/2026
+
+Origem: pedido explícito do usuário para sanear os registros antigos de IA.md (T04/T31), preservando rastreabilidade, e retirar a conexão com WhatsApp das tarefas por descontinuação. Substitui o estado de pausa de D018: T30 sai do planejamento e das dependências, sem renumerar tarefas nem declará-la implementada/concluída. Conversas no site permanece como direção vigente.
+
+[Saneamento](saneamento-ia.md): 54 registros originais preservados integralmente em histórico não canônico com commit/hash de origem; 32 registros de programação permanecem no canônico com cinco seções e seus IDs. Consultas/esclarecimentos e entradas exclusivamente de aceite/publicação foram segregados, preservando autorizações e evidências. A revisão exclusivamente documental não gera novo prompt de programação no registro. T04 encerrada quanto aos artefatos versionados; completude dos integrantes depende do grupo.
+
+Código e experimentos anteriores de WhatsApp permanecem históricos; não houve exclusão de código, chamada externa, limpeza/desativação de endpoint ou operação remota. Evidências e resultados reais em validation.md. Avaliação desta revisão e autorização de publicação/integração na dev pendentes; sem promoção para main ou novos aceites de produto.

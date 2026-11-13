@@ -1,5 +1,7 @@
 # T30 — WhatsApp oficial: especificação e preparação local
 
+Atualização vigente em 12/11/2026: integração WhatsApp **descontinuada** por pedido explícito do usuário (D029) e retirada das tarefas. Menções anteriores a pausa/preparação são históricas; preservar experimentos e evidências. Esta revisão documental não executa desativação de recursos remotos.
+
 **Atualização de 11/11/2026: T30 pausada por mudança de direção do usuário (D018).** Priorizar [conversas-site.md](conversas-site.md) e T34–T43. Texto abaixo é histórico; preservar também os experimentos em `feature/t30-twilio-supabase`, sem declarar o canal concluído nem desativar recursos remotos nesta atualização documental.
 
 Data: 10/11/2026. Status: **em avaliação, integração externa inativa**.
