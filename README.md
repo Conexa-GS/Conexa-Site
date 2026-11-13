@@ -8,6 +8,10 @@ Estado em **12/11/2026**: M1–M4 têm aceite humano no escopo registrado. T28/M
 
 ## Executar a partir do ZIP ou checkout limpo
 
+Atualização de acesso em **13/11/2026**: a entrada do site leva a `/login`, com três perfis compactos, cadastro, e-mail/senha e recuperação pelo Supabase Auth. `/demo` preserva as quatro contas fictícias como **Entrar como desenvolvedor**. No servidor Vite de desenvolvimento a opção está disponível; em build de produção exige `VITE_ENABLE_DEVELOPER_ACCESS=true`, apenas para demonstração isolada. Com o valor padrão `false`, contas compartilhadas são recusadas pela aplicação. Contas pessoais continuam usando operações e locais de teste; não cadastrar dados pessoais sensíveis nem interpretar pagamentos/entregas como serviços ativos. [Decisão e limites](Conexa-specs/decisions.md#d030--login-individual-e-acesso-de-desenvolvedor--13112026).
+
+O cadastro precisa da migration `20261113155836_personal_account_auth.sql` (já aplicada ao demo como `20261113160056`). No Supabase Auth, configurar **Site URL**, as URLs autorizadas `<origem>/login` e `<origem>/redefinir-senha` e o envio de e-mail/SMTP para a origem que será usada. A confirmação está habilitada no demo. A entrega não verificou recebimento/clique dos e-mails nem mudou SMTP/URLs remotos. O callback reconhece a sessão de confirmação/recuperação; ao confirmar a conta, escolha **Ir para meu espaço**. [Documentação de senhas do Supabase](https://supabase.com/docs/guides/auth/passwords).
+
 Requisitos: **Node 24+**, npm e terminal. Ambiente desta entrega: Node **24.21.0**, npm **11.19.0**, Windows/PowerShell. Node 24 é a referência única para executar também os testes e o broker opcional com SQLite nativo. Git e PowerShell 7.2+ são necessários apenas para regenerar o ZIP a partir de uma cópia Git. A instalação inicial precisa acessar o registro npm; dependências e `.env` não vêm no ZIP.
 
 1. Extraia o ZIP e abra um terminal dentro de `Conexa-Site`, onde está `package.json`; ou use o checkout da feature em avaliação.
@@ -39,7 +43,7 @@ npm run preview -- --host 127.0.0.1
 | --- | --- | --- |
 | `npm run lint` | ESLint do código configurado | Não prova execução ou layout; PowerShell é verificado pela execução do empacotador |
 | `npm test` | Domínio, componentes jsdom, mocks de rede/provedor/voz | Não acessa o demo nem API paga; não é navegador nativo |
-| `npm run test:db` | Nove scripts PostgreSQL local/PGlite, migrations e seed de teste | Identidade simulada/conexão serial; não é Auth/RLS ou concorrência reais do Supabase |
+| `npm run test:db` | Dez scripts PostgreSQL local/PGlite, migrations e seed de teste | Identidade simulada/conexão serial; não é Auth/RLS ou concorrência reais do Supabase |
 | `npm run build` | Build estático em `dist` | Aviso preexistente de chunk principal >500 kB; não testa deploy |
 | `npm run preview` | Serve somente o build gerado; abrir endereço informado, normalmente porta 4173 | Prévia local; não publica na internet |
 
@@ -105,7 +109,7 @@ Com `npm run dev`, abrir `/tests/ui/conversations.html`, `/tests/ui/accessibilit
 
 T39/T40 têm broker local Node 24 de instância única, WebRTC/sideband, SQLite e cotas; ambos os switches ficam desligados. Chave permanente só no servidor, nunca `VITE_`. Respostas da IA são texto; sugestão/transcrição corrigida precisa passar pelo bot, prévia e confirmação. Sem implantação, Auth/provedor/microfone reais verificados. **T42 é teste pago somente do usuário**, pelo [roteiro de voz](Conexa-specs/voz-manual.md); custo real e encerramento no provedor não são comprovados por mocks. Texto simulado independe de voz.
 
-`npm run demo:whatsapp` é um demonstrador histórico de terminal em memória, sem envio externo ou gravação no site. T30/WhatsApp está pausada por D018; experimentos preservados não são canal oficial ativo. [Escopo](Conexa-specs/t30-whatsapp.md).
+`npm run demo:whatsapp` é um demonstrador histórico de terminal em memória, sem envio externo ou gravação no site. T30/WhatsApp foi descontinuada por pedido do usuário (D029) e retirada das tarefas; experimentos preservados são históricos. [Escopo](Conexa-specs/t30-whatsapp.md).
 
 ## Empacotar para avaliação
 
@@ -121,7 +125,7 @@ Gera `artifacts/entrega/conexa-t32-t33-t43.zip`, `.zip.sha256` e `auditoria.json
 
 `src/components` reúne layout/elementos comuns; `features` contém ofertas, demandas, transporte e Conversas; `hooks` coordena sessão/consultas; `services` isola acesso ao banco e adaptação local; `domain` concentra validação/centavos/estados; `pilot` e `public/assets` preservam o piloto. GIFs locais originais e quadros estáticos mantêm movimento reduzido; origem/hashes em `public/assets/animations/sources.json`. Tailwind integrado pelo plugin Vite e CSS do piloto, sem dependência de fontes/imagens/mapas externos para avaliação local.
 
-[Especificações](Conexa-specs/README.md), [regras](Conexa-specs/business-rules.md), [decisões](Conexa-specs/decisions.md), [evidências datadas](Conexa-specs/validation.md), [auditoria acadêmica T31](Conexa-specs/t31-auditoria.md), [uso real de IA](IA.md). `AI.md` aponta para `IA.md`; saneamento de consultas históricas e completude do grupo permanecem pendentes, conforme T31. Não há território/escuta/impacto real comprovados.
+[Especificações](Conexa-specs/README.md), [regras](Conexa-specs/business-rules.md), [decisões](Conexa-specs/decisions.md), [evidências datadas](Conexa-specs/validation.md), [auditoria acadêmica T31](Conexa-specs/t31-auditoria.md), [uso real de IA](IA.md). `AI.md` aponta para `IA.md`; [saneamento T04/T31](Conexa-specs/saneamento-ia.md) concluído documentalmente, com [histórico integral segregado](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md). Completude dos registros dos integrantes e avaliação desta revisão continuam pendentes. Não há território/escuta/impacto real comprovados.
 
 Fluxo obrigatório `feature/*` criada da `dev` → avaliação → publicação/integração autorizada na `dev`. Conventional Commits; nunca desenvolver na `main`. [Regra de autorização](Conexa-specs/workflow.md#branches-e-avaliação).
 

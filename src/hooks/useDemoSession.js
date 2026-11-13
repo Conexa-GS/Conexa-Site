@@ -51,5 +51,5 @@ export function useDemoSession(service = demoSessionService) {
     catch (failure) { if (state.live) setError(failure.message); return false }
     finally { if (state.live) { state.busy = false; setPending(false) } }
   }
-  return { session, pending, restoring, error, enter, leave }
+  return { session, pending, restoring, error, enter, leave, clearError: () => setError('') }
 }

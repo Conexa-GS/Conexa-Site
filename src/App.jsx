@@ -5,6 +5,8 @@ import AppLayout from './components/AppLayout'
 import { homeFor } from './domain/profiles'
 import { ActionLink, EmptyState, ErrorNotice, Logo } from './components/ui'
 import Demo from './pages/Demo'
+import Login from './pages/Login'
+import { developerAccessEnabled } from './services/offers'
 import OffersPage from './features/offers/OffersPage'
 import { OperationPage, PaymentPage } from './pages/Previews'
 import TransportPage from './features/transport/TransportPage'
@@ -13,6 +15,7 @@ import CompositionPage from './features/demands/CompositionPage'
 import ProducerProposals from './features/demands/ProducerProposals'
 import ConversationsPage from './features/conversations/ConversationsPage'
 import './App.css'
+import './participant.css'
 const Landing = lazy(() => import('./components/Landing'))
 function AccessPage({ children }) {
   return <div className="app-shell"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /></header><main id="conteudo" className="app-content" tabIndex={-1}>{children}</main></div>
@@ -30,13 +33,14 @@ export default function App() {
   const path = useRouter(), auth = useDemoSession()
   const compositionId = path.match(/^\/comprador\/demandas\/([0-9a-f-]{36})\/composicao$/)?.[1]
   const route = compositionId ? ['buyer', 'Compor demanda'] : routes[path]
-  useEffect(() => { document.title = path === '/' ? 'Conexa — Do campo pra cidade. Mais juntos.' : `${path === '/demo' ? 'Escolha seu perfil' : compositionId ? 'Compor demanda' : routes[path]?.[1] || 'Página não encontrada'} · Conexa`; document.getElementById('conteudo')?.focus({ preventScroll: true }) }, [path, compositionId, auth.restoring, auth.session])
+  useEffect(() => { document.title = path === '/' ? 'Conexa — Do campo pra cidade. Mais juntos.' : `${path === '/login' ? 'Entre na sua conta' : path === '/redefinir-senha' ? 'Nova senha' : path === '/demo' ? 'Acesso de desenvolvedor' : compositionId ? 'Compor demanda' : routes[path]?.[1] || 'Página não encontrada'} · Conexa`; document.getElementById('conteudo')?.focus({ preventScroll: true }) }, [path, compositionId, auth.restoring, auth.session])
   if (path === '/') return <Suspense fallback={<div className="initial-loading" role="status">Preparando o caminho…</div>}><Landing /></Suspense>
-  if (path === '/demo') return <Demo auth={auth} />
+  if (path === '/login' || path === '/redefinir-senha') return <Login key={path} auth={auth} reset={path === '/redefinir-senha'} />
+  if (path === '/demo') return developerAccessEnabled ? <Demo auth={auth} /> : <Login auth={auth} />
   if (!route) return <AccessPage><EmptyState title="Esse caminho ainda não existe." action={<ActionLink href="/">Voltar ao início</ActionLink>}>Confira o endereço ou retorne à página inicial.</EmptyState></AccessPage>
-  if (auth.restoring) return <div className="initial-loading" role="status">Retomando sua sessão de demonstração…</div>
-  if (!auth.session && auth.error) return <AccessPage><ErrorNotice title="Não foi possível retomar a sessão">{auth.error}</ErrorNotice><ActionLink href="/demo">Escolher participante e tentar novamente</ActionLink></AccessPage>
-  if (!auth.session) return <AccessPage><EmptyState title="Vamos escolher seu perfil?" action={<ActionLink href="/demo">Entrar na demonstração</ActionLink>}>Abra uma sessão fictícia para explorar este espaço.</EmptyState></AccessPage>
+  if (auth.restoring) return <div className="initial-loading" role="status">Retomando sua sessão…</div>
+  if (!auth.session && auth.error) return <AccessPage><ErrorNotice title="Não foi possível retomar a sessão">{auth.error}</ErrorNotice><ActionLink href="/login">Entrar novamente</ActionLink></AccessPage>
+  if (!auth.session) return <AccessPage><EmptyState title="Entre no seu espaço." action={<ActionLink href="/login">Entrar na minha conta</ActionLink>}>Acesse sua conta para continuar suas conexões.</EmptyState></AccessPage>
   const role = auth.session.role
   let page
   if (route[0] && route[0] !== role) page = <EmptyState title="Cada perfil tem seu caminho." action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
@@ -50,5 +54,5 @@ export default function App() {
   else if (path === '/transportador/veiculos') page = <TransportPage key={`${auth.session.id}-vehicles`} session={auth.session} vehiclesOnly />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
   else page = <OperationPage role={role} />
-  return <AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate('/demo') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout>
+  return <AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate(auth.session.access === 'developer' ? '/demo' : '/login') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout>
 }

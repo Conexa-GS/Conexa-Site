@@ -1,5 +1,7 @@
 # Contratos de serviços — implementação e propostas
 
+Atualização vigente em 12/11/2026: integração WhatsApp **descontinuada** por pedido explícito do usuário (D029) e retirada das tarefas. Menções anteriores a pausa/preparação são históricas; preservar experimentos e evidências. Esta revisão documental não executa desativação de recursos remotos.
+
 Estado vigente em [estado-atual.md](estado-atual.md). Migrations M4/M5/revisões e Conversas aplicadas ao demo; verificações e limites em validation.md. Contrato atual do bot/DM: conversas-site.md, D020–D025. Voz/provedor real sem teste. Seções datadas da implementação inicial preservam o histórico; não orientam reaplicar SQL ou reabrir o modal antigo.
 
 Contrato local T39/T40 (11/11/2026, D021): [conversas-site.md](conversas-site.md#contrato-local-t39t40--d021) descreve `POST /api/voice/sessions` (`conversation_id`, SDP) e `GET`/`DELETE /api/voice/sessions/:id`. Auth/participante/bot verificados no servidor, origem exata e limites locais persistentes; devolve SDP/ID local/prazo, sem chave OpenAI. Ferramenta apenas propõe texto corrigível, sem RPC de confirmação ou escrita; envio/prévia/confirmar continuam em `site_bot`. Flags desligadas por padrão. Interface unificada substitui a emissão efêmera originalmente proposta. Testes somente locais/simulados; configuração e limites de implantação em [voz-manual.md](voz-manual.md).

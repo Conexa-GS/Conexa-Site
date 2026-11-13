@@ -1,5 +1,7 @@
 # Plano de continuidade
 
+Atualização vigente em 12/11/2026: integração WhatsApp **descontinuada** por pedido explícito do usuário (D029) e retirada das tarefas. Menções anteriores a pausa/preparação são históricas; preservar experimentos e evidências. Esta revisão documental não executa desativação de recursos remotos.
+
 Estado e próximos passos em [estado-atual.md](estado-atual.md). M1–M4 têm aceite no escopo registrado; T35/T38 e T28 estão tecnicamente verificadas. T28 inclui Auth/RLS/concorrência e ciclo completo no demo, navegador dos três perfis/F5 e D027; aceite M5 e publicação/integração da feature pendentes. Priorizar a pendência física de rede de T41 e a avaliação T43 de texto/DM; T42/voz real é do usuário. A extensão de cotações mantém pendências próprias. Não reabrir marcos aceitos como implementação inicial.
 
 ## Arquitetura existente

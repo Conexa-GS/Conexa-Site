@@ -4,7 +4,7 @@ import { createChatEnvironment } from './helpers/offer-chat-dom.mjs'
 import { createConversationsFixture } from './helpers/conversations-fixture.mjs'
 import { createBotFixture } from './helpers/site-bot-fixture.mjs'
 
-test('Cadastrar por conversa navega no App até o bot selecionado, sem modal ou novo pedido', async () => {
+test('Cadastrar com ajuda navega no App até o bot selecionado, sem modal ou novo pedido', async () => {
   const ui = await createChatEnvironment()
   const win = ui.document.defaultView
   const original = new Map()
@@ -27,7 +27,7 @@ test('Cadastrar por conversa navega no App até o bot selecionado, sem modal ou 
     await ui.mountComponent(App, {})
     await ui.click('Entrar como produtor')
     assert.equal(win.location.pathname, '/produtor/ofertas')
-    const entry = [...ui.document.querySelectorAll('a')].find(a => a.textContent.includes('Cadastrar por conversa'))
+    const entry = [...ui.document.querySelectorAll('a')].find(a => a.textContent.includes('Cadastrar com ajuda'))
     assert.ok(entry)
     assert.equal(entry.target, '')
     await ui.act(async () => { entry.click() })

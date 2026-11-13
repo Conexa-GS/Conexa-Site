@@ -18,6 +18,9 @@ export function createDemoAuth(client, accounts, password) {
       return data.session ? participant() : null
     },
     async enter(account) {
+      if (!accounts.some(allowed => allowed.id === account.id && allowed.email === account.email && allowed.role === account.role)) {
+        throw new Error('Escolha uma das contas de teste permitidas.')
+      }
       // A failed profile switch must not resume the previous participant on F5.
       const exit = await client.auth.signOut({ scope: 'local' })
       if (exit.error) throw new Error('Não foi possível encerrar o participante anterior. Tente novamente antes de trocar.')

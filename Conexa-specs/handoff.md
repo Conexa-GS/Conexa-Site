@@ -10,7 +10,7 @@ Complemento posterior D026 de 12/11, na `feature/t41-rede-recuperacao`: alerta d
 
 O demo Supabase já recebeu as migrations registradas em validation.md; nomes locais e versões remotas diferem. Não reaplicar SQL nem executar reset/repair por suposição. Identifique ambiente, histórico e escopo autorizado antes de nova operação remota. Não use segredos no navegador ou no registro de IA.
 
-Preserve creme, verde, laranja, marca vetorial e ilustrações locais. Transporte, pagamento e repasses são fictícios; M5/M6 e páginas de exemplo continuam identificados como prévias/demonstração. T30 está pausada; não ativar WhatsApp ou voz por pressuposição.
+Preserve creme, verde, laranja, marca vetorial e ilustrações locais. Transporte, pagamento e repasses são fictícios; M5/M6 e páginas de exemplo continuam identificados como prévias/demonstração. T30/WhatsApp foi descontinuada por pedido explícito do usuário e retirada das tarefas (D029); preservar experimentos como histórico. Voz continua opcional, sem ativação por pressuposição.
 
 Execute npm run lint, npm test e npm run build após mudanças; se houver interface, confira 360 px e desktop. Registre somente procedimentos reais com ambiente, responsável e limites. Diferencie implementação, verificação técnica, aceite humano e integração Git. IA.md recebe somente prompts de programação e uso real correspondente, conforme workflow.md. Apresente o resultado para avaliação e peça autorização antes de subir/integrar a nova feature na dev; não promova main automaticamente.
 

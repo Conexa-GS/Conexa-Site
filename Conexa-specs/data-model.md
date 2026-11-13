@@ -1,5 +1,7 @@
 # Modelo de dados — implementação e evolução
 
+Atualização vigente em 12/11/2026: integração WhatsApp **descontinuada** por pedido explícito do usuário (D029) e retirada das tarefas. Menções anteriores a pausa/preparação são históricas; preservar experimentos e evidências. Esta revisão documental não executa desativação de recursos remotos.
+
 Atualização T28/D027 — 12/11/2026: ciclo completo de entrega/divergência/resolução/repasses, permissões, persistência e idempotência verificados no demo por API e navegador dos três perfis. Aceite humano M5 pendente. Parcela simulada zero preserva arredondamento e uma parcela por beneficiário; negativos continuam proibidos. Evidências e versões em validation.md; relatos datados anteriores preservam seus limites históricos.
 
 Estado vigente em [estado-atual.md](estado-atual.md): M4/M5/revisões e Conversas aplicados ao demo. Seções datadas descrevem a implementação naquela etapa; WhatsApp está pausado por D018 e o demonstrador inicial não representa todos os experimentos posteriores. Modelo/contrato de Conversas em conversas-site.md, D020–D025. Nenhuma nova migration nesta consolidação.

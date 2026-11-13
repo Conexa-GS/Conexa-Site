@@ -1,6 +1,12 @@
 # Registro de uso de inteligência artificial — Conexa
 
+Registro canônico restrito a pedidos de programação, planejamento técnico aplicado à implementação e uso real de IA correspondente, conforme [workflow](Conexa-specs/workflow.md#registro-obrigatório-de-ia). As cinco seções e os IDs originais foram preservados. As entradas retratam as evidências e pendências de sua própria data; o [estado atual](Conexa-specs/estado-atual.md) orienta a continuidade.
+
+Saneamento T04/T31 em 12/11/2026: consultas/esclarecimentos e registros exclusivamente de aceite/publicação foram segregados. O [mapa do saneamento](Conexa-specs/saneamento-ia.md) explica cada grupo; a [cópia histórica integral](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md) mantém textos, autorizações e evidências anteriores com commit de origem e hash. Lacunas de numeração não representam perda de histórico. Esta revisão exclusivamente documental não gera uma nova interação de programação.
+
 ## Interação 001 — Primeira versão do site — 07/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 001](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-001--primeira-versão-do-site--07112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -35,9 +41,7 @@ Respostas representativas do Codex nesta interação:
 
 O ambiente bloqueou escrita nos metadados Git mesmo após a liberação do diretório. Foi solicitado ao usuário criar `dev` e `feature/primeira-versao-conexa` no terminal. A implementação foi preparada em área temporária até a feature estar ativa, e os manifests alterados durante a instalação foram restaurados exatamente ao HEAD no checkout original. O usuário criou as branches pelo terminal do VS Code. A branch foi conferida antes da transferência. O histórico da main permaneceu preservado.
 
-Interação sobre o impedimento: o usuário respondeu “Criei a branch de feature” e, após nova orientação, “Executei os comandos com sucesso”. As consultas locais ainda retornaram apenas `main`, por isso foi solicitada a saída literal de `git branch --show-current` e `git branch --list` para resolver a divergência antes da transferência. Os cliques de confirmação não foram tratados como prova de estado do Git.
 
-Novo prompt do usuário: “onde eu faço esses comandos? o vc code?”. O Codex explicou como abrir **Terminal → Novo Terminal** no VS Code e executar as três linhas de Git. Depois, o usuário enviou “só isso” com uma captura mostrando `Switched to a new branch 'feature/primeira-versao-conexa'` e o resultado de `branch --show-current`. O estado também foi confirmado por leitura do Git antes de aplicar o site. Resposta: “Sim, era só isso. O terminal confirma a branch correta; vou concluir a aplicação dos arquivos e a validação final.”
 
 ### Aplicação no projeto
 
@@ -62,122 +66,9 @@ As verificações foram executadas pelo Codex. A avaliação humana pelo grupo p
 
 A IA acelerou a adaptação do piloto e a construção de telas consistentes, além de tornar as regras explícitas em validações e checks de banco. A inspeção humana continua necessária para avaliar linguagem, usabilidade e aderência ao cenário real. O modo local facilita a avaliação visual, mas não demonstra persistência remota ou concorrência de reservas. A configuração de Supabase e os testes reais de RLS continuam necessários. O bloqueio do Git exigiu preparação temporária e transferência somente após a feature estar ativa; não foram fabricados commits para contornar essa limitação.
 
-## Interação 002 — Autorização de publicação — 07/11/2026
-
-### Ferramentas utilizadas
-OpenAI Codex para conferência e documentação; Git para commit, integração e publicação.
-
-### Interações realizadas
-Prompt integral: “pode subir para dev e depois para main, vou fazer deploy já”. Resposta: conferência das alterações, registro da autorização e promoção sequencial feature → dev → main.
-
-### Aplicação no projeto
-Autorização explícita para integrar e publicar a primeira versão nas branches dev e main, sem desenvolver diretamente na main. Commit segue Conventional Commits.
-
-### Validação das respostas
-Build, lint, sete testes de domínio e testes PostgreSQL locais passaram na implementação. Conferir referências remotas após os pushes. Supabase remoto continua pendente; páginas posteriores são prévias identificadas.
-
-### Análise crítica
-A autorização permite publicar a versão avaliada, mas não transforma a demonstração local em backend remoto validado. O Git precisou de execução fora do sandbox por bloqueio de escrita nos metadados.
-
-## Interação 003 — Diagnóstico e próximos passos — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para revisão da documentação, código React, serviços, SQL e testes. PowerShell, Git e Node/npm para inspeção e verificações locais. Skill Supabase consultada para orientar a revisão da integração e das permissões; não houve implementação ou operação remota.
-
-### Interações realizadas
-
-Prompt integral do pedido: “leia todo o projeto e veja qual é o proximo passo para continuar a aplicação e fale o que precisa ser feito para seguir”.
-
-Resposta representativa: “Encontrei um ponto concreto: o `.env` usa `NEXT_PUBLIC_SUPABASE_*`, mas o código Vite lê `VITE_SUPABASE_*`. Com essa configuração, a aplicação continua no modo local, mesmo com URL e chave preenchidas.”
-
-### Aplicação no projeto
-
-Análise do estado atual e recomendação de concluir M1 antes de M2: corrigir os nomes das variáveis de ambiente, conferir projeto demo, Auth, migration e seed, e verificar CRUD remoto/RLS pelos critérios AC01–04 e AC23. Demandas, composição, transporte e pagamento continuam como prévias. Nenhuma funcionalidade ou configuração foi alterada. Registro preparado na branch `feature/diagnostico-proximos-passos`, criada a partir de `origin/dev`; nenhuma integração ou publicação realizada.
-
-### Validação das respostas
-
-Executados pelo Codex: `npm.cmd run lint`, `npm.cmd test` (7 testes passaram), `npm.cmd run test:db` (PGlite com identidade simulada) e `npm.cmd run build`, todos com sucesso. O comando `npm` inicialmente foi bloqueado pela política de scripts do PowerShell; `npm.cmd` executou os mesmos scripts sem alterar a política. O `.env` foi inspecionado sem exibir seus valores. Supabase remoto, deploy, navegador, teclado e layout não foram verificados nesta interação. A avaliação humana permanece pendente.
-
-### Análise crítica
-
-A revisão identificou uma divergência de configuração que mantém o modo local ativo e confirmou a integridade dos checks locais. Testes locais não comprovam Auth real, persistência ou RLS no Supabase. A existência de URL e chave não comprova que tabelas, contas e seed estejam provisionados. A documentação de passagem e o README contêm estados históricos que precisam ser reconciliados com o Git e com as próximas evidências remotas; não foram tratados como confirmação do ambiente atual.
-
-## Interação 004 — Aceite humano do M1 — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para atualização documental; PowerShell e Git para leitura e conferência das alterações. Sem operação remota no Supabase.
-
-### Interações realizadas
-
-Prompt integral do pedido: “Corrigi os nomes, validei e testei, podemos seguir, pode marcar como concluido”. O contexto do editor mostrava a configuração com os nomes `VITE_` corrigidos; seus valores não são registrados.
-
-Resposta representativa: “Vou marcar o M1 como concluído com base na sua confirmação, registrando que a validação remota foi feita por você. Também vou atualizar as pendências para indicar o M2 como próximo marco.”
-
-### Aplicação no projeto
-
-Atualizados `Conexa-specs/tasks.md`, `Conexa-specs/validation.md` e README para registrar o aceite do M1 pelo usuário, encerrar T07/T11/T12 e indicar T13 (CRUD de demandas) como próximo passo. Preservado o histórico das verificações locais. Sem alteração funcional, commit, push ou merge nesta interação.
-
-### Validação das respostas
-
-O usuário afirmou ter corrigido a configuração, validado e testado, e autorizou expressamente marcar o marco como concluído. Não forneceu resultados individuais por critério; não foram inventados procedimentos, logs ou testes remotos executados pelo Codex. A atualização é documental, sem nova verificação de interface ou banco remoto pelo agente.
-
-Após a atualização, o Codex executou `git diff --check`, `npm.cmd run lint`, `npm.cmd test` (7 testes passaram) e `npm.cmd run build`, todos sem falha. O build emitiu aviso de chunk acima de 500 kB; isso não impediu sua conclusão.
-
-### Análise crítica
-
-O aceite humano permite atualizar o planejamento e seguir para M2. A documentação distingue esse relato das verificações automatizadas locais e preserva a limitação de não haver evidências remotas detalhadas anexadas. A configuração e as funcionalidades permanecem sob responsabilidade de validação no ambiente utilizado pelo grupo.
-
-## Interação 005 — Integração da documentação na dev — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para conferência e atualização dos registros; PowerShell e Git para inspeção, commit, sincronização e integração autorizada.
-
-### Interações realizadas
-
-Prompt integral: “pode ir para a dev, aproveita e ja faça todas as alterações de merge para ter o projeto 100% atualizado para as proximas alterações”.
-
-Resposta representativa: “Vou conferir as branches locais e remotas, registrar sua autorização e integrar a atualização na `dev`, deixando o repositório pronto para a próxima feature.”
-
-### Aplicação no projeto
-
-Autorizada a integração e publicação na `dev` da feature de diagnóstico e conclusão documental do M1. README e registro de validação ajustados para distinguir o histórico da transferência inicial do estado atual do Git. Fluxo previsto: commit Conventional Commits na feature, publicação da feature e integração/publicação na `dev`. A solicitação não autoriza promoção adicional para `main`.
-
-### Validação das respostas
-
-`git fetch origin --prune` executado; referências remotas de `main`, `dev` e da primeira feature apontavam para `aa7ce74`, sem divergência entre `origin/main` e `origin/dev`. Alterações existentes de IA.md preservadas; `.env` fora do conjunto de arquivos da entrega. Lint, sete testes de domínio e build passaram na interação anterior. A conferência final da integração deve comparar as referências local e remota da `dev` e verificar a árvore de trabalho limpa. Sem nova execução de Supabase remoto ou avaliação humana adicional nesta interação.
-
-### Análise crítica
-
-A sincronização da `dev` prepara uma base comum para M2, preservando a versão estável na `main`. Atualizar branches não implementa funcionalidades pendentes nem substitui as validações de cada novo marco. O aceite M1 continua atribuído ao relato do usuário.
-
-## Interação 006 — Preparação da M2 — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para leitura das especificações e identificação de decisões pendentes; PowerShell e Git para inspeção do checkout e criação da feature. Skill Supabase consultada para orientar o trabalho futuro de persistência e permissões.
-
-### Interações realizadas
-
-Prompt integral do pedido: “vamos dar inicio a m2, verifique a documentação, siga o padrão de branch e commits, pergunte o que não ficou explicito”.
-
-Resposta representativa: leitura das especificações e conferência do repositório antes de implementar. Foram enviadas perguntas sobre entrega completa T13–T16 ou primeira fatia T13, prazo configurável de 24 horas e autorização para migration/testes remotos ou aplicação manual do SQL. Respostas ainda pendentes neste registro. Valores de ambiente fornecidos pelo editor não foram reproduzidos.
-
-### Aplicação no projeto
-
-Criada `feature/m2-demandas-composicao` a partir da `dev` local no commit `f376e7c`, com árvore de trabalho inicialmente limpa. Revisados documentação, rotas de prévia, serviço de ofertas, sessão demo, migration M1 e testes PostgreSQL locais. Nenhuma funcionalidade M2 implementada nesta preparação. Sem push ou integração.
-
-### Validação das respostas
-
-Conferidos `git status`, branches e referências locais de acompanhamento remoto; não houve fetch nesta interação. A primeira criação de branch foi impedida pelo sandbox; a tentativa com permissão elevada foi autorizada e concluída. Não foram executados testes de aplicação, interface ou Supabase remoto nesta etapa documental. M1 permanece descrito conforme o aceite humano anterior; M2 permanece aberto.
-
-### Análise crítica
-
-O planejamento define as regras centrais da M2, mas o prazo inicial de reserva ainda é proposta e a aplicação remota exige autorização específica. Esclarecer esses pontos antes de implementar evita transformar decisões técnicas propostas em requisitos aceitos. As prévias existentes não demonstram persistência, concorrência ou reservas reais.
-
 ## Interação 007 — Implementação da M2 autorizada — 07/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 007](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-007--implementação-da-m2-autorizada--07112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -185,7 +76,8 @@ OpenAI Codex para implementação React/SQL, revisão e documentação. Skills S
 
 ### Interações realizadas
 
-Respostas integrais do usuário às perguntas da interação 006: “M2 completa (T13–T16)”; “Sim, usar 24 horas”; “Autorizar migration e testes no projeto demo”.
+Pedido de programação (resumo contextual, sem nova transcrição): implementar a M2 solicitada na interação 006. Escopo aplicado: T13–T16, reservas configuráveis de 24 horas e migration/testes no demo autorizado. A preparação e as respostas de esclarecimento estão no arquivo histórico.
+
 
 Resposta representativa: “Vou implementar a M2 completa, com reservas de 24 horas configuráveis e limitadas pela disponibilidade das ofertas. Também vou aplicar a migration e testar no Supabase demo, conforme sua autorização, e apresentar o resultado antes de subir ou integrar na dev.”
 
@@ -207,53 +99,9 @@ Desktop/360 px, teclado e fluxo visual M2 **não verificados**: host de navegado
 
 A IA acelerou a entrega de domínio, interface e transações, mas testes detectaram erros que exigiram ajustes antes do uso remoto. Testar concorrência no Supabase e usar fixtures próprias oferece evidência mais forte de saldo consistente que mocks ou banco local com conexão única. Função transacional e snapshots reduzem divergência entre perfis; lock global simplifica o protótipo, com limitação clara de escala. O bloqueio de inspeção visual impede encerrar a M2 como integralmente validada. Aceite humano e autorização para integrar continuam necessários conforme AGENTS.md/workflow.md.
 
-## Interação 008 — Aprovação de integração M2 — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registro da autorização; PowerShell e Git para conferência, sincronização, commit documental e publicação/integração na dev.
-
-### Interações realizadas
-
-Prompt integral: “pode aprovar”. Contexto: resposta ao pedido de autorização para subir e integrar a feature M2 na dev após apresentação dos resultados e da pendência visual.
-
-Resposta representativa: “Vou registrar sua aprovação e publicar/integrar a feature na dev. Vou manter a revisão visual como pendência, já que ela não foi executada pelo agente.”
-
-### Aplicação no projeto
-
-Autorização para publicar a feature `feature/m2-demandas-composicao` e integrá-la na dev, com registro documental em Conventional Commit antes da integração. Não autoriza promoção para main. Atualizados planejamento e validação para distinguir aprovação da integração de comprovação de revisão visual.
-
-### Validação das respostas
-
-Árvore inicialmente limpa, feature e commits M2 conferidos; `git fetch origin --prune` executado. Lint, 9 testes de domínio, suites PostgreSQL locais, build e testes remotos foram executados na implementação anterior; sem alteração funcional ou repetição desses testes nesta interação. Conferir igualdade entre referências local/remota da dev após publicação. O usuário não informou ter executado revisão visual; T16 permanece aberto.
-
-### Análise crítica
-
-A aprovação permite integrar o trabalho apresentado na dev, preservando os limites das evidências. Não transforma o bloqueio do navegador em verificação executada nem autoriza encerrar o marco integralmente. Main permanece fora desta autorização.
-
-## Interação 009 — Aceite visual e conclusão M2 — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para atualização documental; PowerShell e Git para leitura, conferência, commit e sincronização do registro de aceite no fluxo feature → dev. Sem alteração funcional ou operação Supabase.
-
-### Interações realizadas
-
-Prompt integral: “acabei de revisasr em 360 px/desktop e pode aprovar”. Resposta representativa: registrar a aprovação da revisão visual, encerrar T16 e M2 e atribuir essa validação ao usuário.
-
-### Aplicação no projeto
-
-Criada `feature/m2-aceite-visual` a partir da dev. Atualizados tasks.md, validation.md, README principal e das specs e handoff para registrar M2 concluído e M3/T17 como próximo marco. Preservado o histórico do bloqueio de navegador e da aprovação anterior de integração. Registro segue o fluxo de publicação M2 na dev já autorizado; nenhuma promoção para main.
-
-### Validação das respostas
-
-O usuário afirmou ter revisado em 360 px/desktop e autorizou aprovação. A revisão visual foi relatada pelo usuário, não executada ou observada pelo Codex; não foram fornecidos resultados individuais de teclado ou dos fluxos, nem inventadas capturas. Conferência documental por `git diff --check`; sem novos testes de aplicação nesta alteração apenas documental. Permanecem válidas as evidências técnicas registradas na interação 007.
-
-### Análise crítica
-
-O relato e a aprovação humana encerram a pendência que mantinha T16 aberto. Isso não substitui auditoria completa de acessibilidade nem antecipa M3. Distinguir o relato do usuário dos testes do agente mantém o histórico fiel e permite avançar no planejamento.
-
 ## Interação 010 — M3 transporte e financeiro — 07/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 010](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-010--m3-transporte-e-financeiro--07112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -263,7 +111,6 @@ OpenAI Codex: leitura das especificações, implementação JavaScript/React/SQL
 
 Prompt integral do pedido: “vamos seguir para o m3, siga o padrão de branch e commits, pergunte o que não ficou claro”. O contexto de IDE listava `.env`, tasks.md, spec.md, README.md e plan.md; nenhum valor secreto foi reproduzido.
 
-Pergunta efetivamente feita: “Posso aplicar a migration do M3 e executar testes com dados fictícios no mesmo projeto Supabase demo configurado? A autorização registrada anteriormente era específica do M2.” Resposta integral: “Sim, autorizar migration e testes do M3 no demo”.
 
 Resposta representativa: “O M3 está definido em T17–T20: veículos, indicações e cotações, resumo financeiro por produtor e confirmações por versão.” O Codex informou a criação da feature, validação local/remota e bloqueio de revisão visual, sem atribuir aprovação ao usuário.
 
@@ -308,50 +155,6 @@ Nenhuma nova migration, requisição remota de teste ou nova tentativa de navega
 ### Análise crítica
 
 O envio fica no contexto em que o comprador escolhe os produtores, reduzindo a troca de telas. Separar histórico e ocultar cartões reduz a lista inicial sem apagar a rastreabilidade. Ocultar é reversível e não suspende prazos; a preferência não sincroniza entre dispositivos. O envio continua com duas chamadas: falhas preservam rascunho em vez de alegar transação única ou sucesso falso. Os testes verificam recuperação, mas a nova organização e clareza dos textos ainda precisam da avaliação visual do usuário.
-
-## Interação 012 — Autorização de integração M3 na dev — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar autorização e integrar a feature; Git e PowerShell para conferir branches, sincronizar referências e executar integração/publicação na dev. Sem alteração funcional, migration, teste remoto ou deploy nesta interação.
-
-### Interações realizadas
-
-Prompt integral: “pode integrar”. Contexto: resposta ao pedido de autorização para integrar na dev a feature M3 com o ajuste de fluxo e organização das listas. Resposta representativa: “Vou registrar sua autorização, conferir o estado das branches e integrar a feature na dev, seguindo o workflow do projeto.”
-
-### Aplicação no projeto
-
-Autorizada a integração de `feature/m3-transporte-financeiro`, com commits `3018a85`, `6963a18` e `6d46cc6`, na dev. Registro documental preparado na feature antes da integração. A autorização não promove nada para main nem autoriza deploy. Histórico anterior de pendências preservado.
-
-### Validação das respostas
-
-Checkout limpo antes da alteração; `git fetch origin` confirmou dev local e remota sincronizadas e os três commits da feature ainda não integrados. Verificação documental por `git diff --check`. Sem novos testes de aplicação: última revisão passou em lint, 14 testes unitários, suites PGlite M1/M2/M3 e build, conforme interação 011. O usuário autorizou integrar; não relatou procedimentos de revisão em 360 px/desktop ou teclado, por isso T20 permanece aberto. O resultado efetivo da integração/publicação é conferido pelo Git e informado na resposta desta interação.
-
-### Análise crítica
-
-A autorização permite integrar o trabalho apresentado preservando o fluxo de branches. Integração não comprova testes visuais não relatados nem encerra automaticamente M3. Manter essa distinção evita transformar uma aprovação de Git em evidência de usabilidade.
-
-## Interação 013 — Aceite T20 e promoção para main — 07/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar aceite/autorizações e atualizar documentação; Git e PowerShell para conferir referências, integrar e publicar branches. Sem outra IA, alteração funcional, migration, testes remotos ou deploy.
-
-### Interações realizadas
-
-Prompt integral: “pode aprovar o t20 e depois pode subir para a main”. Resposta representativa: “Vou registrar seu aceite do T20 e conferir a sincronização das branches antes de promover a dev para a main, como você autorizou.” Nenhum relato individual de testes visuais foi fornecido.
-
-### Aplicação no projeto
-
-Criada `feature/m3-aceite-t20` a partir de dev para atualizar tasks.md, validações, README, handoff, AGENTS.md e este registro. T20 e M3 encerrados por aceite explícito do usuário; próximo marco M4/T21. Integração documental na dev e promoção/publicação da dev para main autorizadas neste pedido, preservando histórico. Não desenvolver arquivos diretamente na main; nela somente integração Git autorizada.
-
-### Validação das respostas
-
-Estado inicial limpo e dev sincronizada com origin/dev em `0a786f4`; referências remotas atualizadas por fetch. Main possui merge anterior próprio, a preservar na promoção. Conferência de documentação por `git diff --check` e conferência Git após integração/publicação. Sem novos testes de aplicação para mudança documental: permanecem os 14 testes unitários, suites PGlite, lint e build aprovados na revisão anterior e testes remotos M3 registrados na interação 010. Não inventados testes visuais em 360 px/desktop/teclado ou observação do Codex; encerramento decorre do aceite do usuário.
-
-### Análise crítica
-
-O aceite explícito encerra a pendência de avaliação e autoriza promover o marco. Preservar o histórico dos bloqueios e a origem humana da aprovação evita confundir encerramento da tarefa com procedimentos técnicos não observados. A publicação Git na main não representa deploy, cobrança, transporte real ou avanço automático no M4.
 
 ## Interação 014 — Personagens e animações com as referências fornecidas — 08/11/2026
 
@@ -458,28 +261,6 @@ Revisão dirigida em desktop 1366×900 e 360×800: home/perfis, ícones, cenas, 
 
 Aplicar a mídia entregue pelo usuário elimina a divergência de traço da interpretação vetorial anterior. Não houve redesenho, suavização generativa ou alteração dos quadros/tempos dos GIFs. Os arquivos têm resoluções e ritmos próprios, portanto a ampliação desktop pode evidenciar pixels; sua qualidade/estilo nativo foi preservado. O catálogo de GIFs é mais pesado que o código vetorial anterior; reprodução por visibilidade reduz trabalho fora da tela, mas não constitui benchmark de desempenho. Primeiros quadros estáticos atendem redução de movimento sem tentar pausar CSS sobre um GIF que continuaria rodando. Esta é revisão do agente, não aceite humano nem auditoria completa; preferência do sistema não foi emulada separadamente. A avaliação estética e a autorização de envio/integração continuam pendentes. Sem push, merge, deploy, migration ou operação real nesta revisão.
 
-## Interação 017 — Autorização de envio e integração visual na dev — 08/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar aprovação; PowerShell e Git para sincronizar, conferir, publicar e integrar branches.
-
-### Interações realizadas
-
-Prompt integral: “otimo, pode mandar pra dev”. Resposta ao resultado da substituição pelas animações GIF fornecidas. Autoriza envio da feature e integração na dev; não promoção para main ou deploy.
-
-### Aplicação no projeto
-
-Registro preparado em `feature/animacoes-personagens-ref`, junto aos commits visuais `c743fba`, `bbdb337` e `30e3a9b`. Integração/publicação na dev autorizadas pelo usuário. O histórico das revisões e da avaliação anterior é preservado.
-
-### Validação das respostas
-
-Checkout limpo antes deste registro; referências atualizadas por fetch. Última implementação passou em lint, 19 testes e build e recebeu revisão dirigida desktop/360 px, conforme interação 016. Não foram repetidos testes de aplicação para este registro documental, nem atribuídos novos procedimentos de teste ao usuário. Igualdade local/remota da dev será conferida após publicação.
-
-### Análise crítica
-
-A aprovação autoriza a integração do resultado apresentado, sem ampliar escopo para main, deploy ou operações reais. Os limites técnicos da revisão anterior permanecem registrados.
-
 ## Interação 018 — Fundos e personagens das três cenas da home — 08/11/2026
 
 ### Ferramentas utilizadas
@@ -510,28 +291,6 @@ Revisão dirigida do agente em 1366×900 e 360×800: as três cenas foram inspec
 ### Análise crítica
 
 A separação entre fundo PNG e personagem GIF permite usar os seis arquivos fornecidos sem redesenhar a arte e conserva o comportamento de redução de movimento existente. Os PNGs originais têm resolução maior e aumentam o volume das mídias entregues; não foram recomprimidos, e não houve benchmark de desempenho. As proporções e a transparência nativas foram preservadas. As capturas demonstram o enquadramento, mas não são uma gravação da animação nem substituem o aceite estético do usuário. Não houve emulação independente da preferência de movimento do sistema nesta revisão.
-
-## Interação 019 — Aprovação e promoção visual para dev e main — 08/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registro da autorização; PowerShell e Git para conferir estado local/remoto, registrar a aprovação e executar as integrações e publicações autorizadas.
-
-### Interações realizadas
-
-Prompt integral: “otimo, pode integrar e subir pra main tambem”. Resposta ao resultado apresentado na interação 018, commit `27b9d72`, com prévia e verificações. Autoriza integração/publicação na dev e promoção/publicação na main. Resposta representativa: “Vou registrar sua aprovação, integrar a feature na dev e depois promover a dev para a main, publicando as duas branches.”
-
-### Aplicação no projeto
-
-Registro preparado na `feature/cenarios-inicio-fornecidos`, antes das integrações. Fluxo autorizado: feature → dev → main, sem desenvolvimento direto na main. A main também receberá as revisões visuais anteriormente aprovadas e já presentes na dev (interações 014–017), além das três cenas da home da interação 018. Preservado o histórico, sem reescrita ou push forçado.
-
-### Validação das respostas
-
-Checkout limpo antes do registro; `git fetch origin --prune` concluído. Referências locais de dev/main coincidem com as respectivas referências remotas; main é ancestral de dev. Lint, 19 testes e build da implementação passaram na interação 018, com revisão dirigida desktop/360 px e redução de movimento. Nenhum código de aplicação foi alterado nesta autorização, portanto essas verificações não foram repetidas para o registro documental. O usuário aprovou o resultado apresentado; não lhe são atribuídos testes adicionais. As integrações e a igualdade local/remota serão conferidas após publicação.
-
-### Análise crítica
-
-A autorização explícita permite promover o conjunto visual aprovado até a main, respeitando a ordem de branches. A publicação no Git não comprova execução ou sucesso de eventual deploy automático; nenhum deploy será declarado sem evidência. Permanecem os limites técnicos e o aviso de tamanho de bundle registrados na interação 018.
 
 ## Interação 020 — Início da M4: rotas e inclusão — 08/11/2026
 
@@ -571,119 +330,9 @@ Na aplicação conectada, sessão demo de comprador consultou registros existent
 
 PGlite com identidade simulada e bancada visual não substituem Auth/RLS/persistência no Supabase demo. O erro observado na aplicação demonstra somente tratamento de indisponibilidade; não valida execução remota da função M4. Pesquisa oficial não é aprovação de fornecedor, cobertura, termos ou orçamento. M4/T21–T24 não declarados concluídos. Sem novo push, merge ou deploy; aplicação/testes remotos e integração na dev aguardam autorização correspondente após apresentação e avaliação.
 
-## Interação 021 — Autorização de envio da primeira fatia M4 à dev — 08/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar a autorização; PowerShell e Git para conferir o checkout, atualizar referências, registrar o aceite de envio e executar publicação/integração.
-
-### Interações realizadas
-
-Prompt integral: “pode mandar para dev”. Resposta ao resultado apresentado na interação 020, commit `30e742d`, com verificações, prévia e pendências explícitas. Autoriza publicar a feature e integrar/publicar esta primeira fatia na dev. Resposta representativa: “Vou registrar sua autorização, conferir o estado local e remoto e publicar/integrar a feature na dev.”
-
-### Aplicação no projeto
-
-Registro preparado em `feature/m4-rotas-inclusao`, antes da integração. Fluxo autorizado: feature → dev, preservando histórico, sem push forçado. A autorização se refere ao envio da fatia apresentada; não encerra M4/T21–T24 e não autoriza aplicação da migration no Supabase demo, API paga, promoção à main ou deploy.
-
-### Validação das respostas
-
-Checkout limpo no início; `git fetch origin --prune` concluído. Dev local e remota coincidem em `10feab7`; a feature contém um commit adicional de implementação, `30e742d`, e nenhuma divergência em relação à dev. A main local/remota está em `306fa59`. Lint, 26 testes Node, suíte local PGlite M1–M4 e build passaram na interação 020, com revisão dirigida desktop/360 px e limites em validation.md. Nenhum código de aplicação foi alterado nesta autorização; essas verificações não foram repetidas para a atualização documental. Não são atribuídos novos testes ao usuário. A igualdade local/remota da dev será conferida após publicação.
-
-### Análise crítica
-
-A autorização permite compartilhar a primeira fatia na dev mantendo sua condição de prévia e suas pendências. Publicar o código da migration no Git não significa aplicá-la no Supabase nem comprova deploy. As validações remotas e a integração externa continuam pendentes; a main fica fora desta autorização.
-
-Resultado efetivo desta interação: autorização registrada em `8beedec`; integração **local** na dev concluída pelo merge `9100107`, sem conflitos. A revisão automática de aprovação rejeitou o push da feature por considerar o destino GitHub externo não verificado e exigir autorização explícita para destino e conteúdo. Foram conferidos `.git/config`, URL de push e `git ls-remote`: origin é `https://github.com/Conexa-GS/Conexa-Site.git`, dev remota em `10feab7`, mesma base da feature. Revisados os nomes dos 26 arquivos alterados; `.env` não é rastreado e a busca por padrões de credenciais no conteúdo desses arquivos não retornou correspondências. Essas verificações não substituem uma auditoria de segredos. Uma nova tentativa direta, com essas evidências na justificativa, também foi rejeitada: a revisão exigiu confirmação explícita do usuário para publicar esse conteúdo nesse destino. Nenhum push foi executado e nenhuma alternativa de envio foi usada. A publicação permanece pendente dessa confirmação; origin/dev continua em `10feab7`. Main local/remota preservadas em `306fa59`. Este complemento documental é preparado na feature e incorporado localmente à dev; sem novos testes de aplicação, pois não altera o código já validado.
-
-## Interação 022 — Confirmação explícita do envio da M4 ao GitHub — 08/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar a confirmação; PowerShell e Git para atualizar referências, registrar a autorização na feature, incorporar o registro à dev e publicar as branches autorizadas.
-
-### Interações realizadas
-
-Prompt integral: “sim pode enviar para a dev”. Resposta à pergunta explícita: “Autoriza enviar os commits da M4 — código, migration, testes e documentação — para as branches feature/m4-rotas-inclusao e dev de Conexa-GS/Conexa-Site?”, com o destino informado como `https://github.com/Conexa-GS/Conexa-Site`. Confirma o conteúdo e o destino exigidos pela revisão automática anterior. Resposta representativa: “Vou publicar os commits autorizados em feature/m4-rotas-inclusao e dev no repositório Conexa-GS/Conexa-Site, depois conferir se a dev local e a remota coincidem.”
-
-### Aplicação no projeto
-
-Registro preparado em `feature/m4-rotas-inclusao`, preservando o merge local `9100107` e o registro do bloqueio `89bc729`. Publicação autorizada exclusivamente das branches da M4 e dev no origin já configurado. Nenhum push forçado, alteração da main, aplicação de migration no demo, ativação de API paga ou deploy incluído nesta confirmação.
-
-### Validação das respostas
-
-Checkout limpo e fetch concluído no início. Dev local e feature coincidem em `89bc729`; dev remota continua na base `10feab7`, sem novos commits concorrentes. Main local/remota coincidem em `306fa59`. Sem código de aplicação alterado nesta confirmação; mantidas as verificações da interação 020, sem repetir testes nem atribuir novos procedimentos ao usuário. O retorno do push e a leitura dos hashes remotos serão usados para confirmar o envio.
-
-### Análise crítica
-
-A confirmação responde especificamente ao bloqueio de destino e conteúdo, permitindo retomar a publicação normal no Git. Ela não resolve as pendências técnicas da M4 nem comprova aplicação no Supabase ou deploy. A feature mantém os limites e a identificação de prévia já apresentados.
-
-## Interação 023 — Confirmação final do M4 — 09/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para interpretar o aceite explícito, revisar o estado documental e atualizar `tasks.md`, o resumo das especificações, o relatório de validação e este registro. PowerShell e Git para conferir branch/status e preparar a feature documental conforme o workflow.
-
-### Interações realizadas
-
-Prompt integral: “atualize o tasks.md e deixe como o m4 confirmado”. O pedido explícito substitui o estado anterior de avaliação e determina o encerramento do marco. Resposta representativa: “A confirmação será registrada como aceite humano do marco: T21–T24 ficarão marcadas, sem transformar as limitações técnicas já documentadas em testes ou integrações que não ocorreram.”
-
-### Aplicação no projeto
-
-Criada `feature/m4-aceite-documental` a partir da dev sincronizada em `5598cc7`. Em `tasks.md`, T21–T24 foram marcadas como concluídas e M4 como confirmado no escopo demonstrado; o próximo marco passa a M5/T25. `m4-routes.md`, README das especificações e `validation.md` foram alinhados ao aceite, preservando a distinção entre conclusão por aprovação humana e evidência técnica executada.
-
-### Validação das respostas
-
-Mudança exclusivamente documental. Conferidos checkout limpo, dev local/remota coincidentes antes da alteração e conteúdo anterior de M4. Não foram repetidos lint, testes, build, navegador ou Supabase, pois nenhum código de aplicação foi alterado. Permanecem como evidência os 26 testes Node, a suíte PGlite M1–M4, build e revisão desktop/360 px da interação 020. O usuário não relatou novos testes; nenhuma validação adicional lhe é atribuída.
-
-### Análise crítica
-
-O aceite encerra o marco conforme a decisão de produto do usuário, mas não torna verdadeiras integrações não realizadas. A documentação mantém explícitos: ausência de API externa ativa, credencial/orçamento/cobertura, aplicação remota da migration e comparação de total entre composições cotadas. Esses itens ficam como limites/evoluções, enquanto o M4 confirmado corresponde ao roteiro manual seguro, fallback, inclusão explicável e comparações implementadas.
-
-## Interação 024 — Autorização para integrar o aceite M4 na dev — 09/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar a autorização; PowerShell e Git para conferir referências, registrar o aceite de integração, integrar a feature documental e publicar as branches autorizadas.
-
-### Interações realizadas
-
-Prompt integral: “autorizado”, interpretado no contexto da pergunta imediatamente anterior: “Autoriza integrar e publicar essa atualização na dev?”. Autoriza integrar e publicar a atualização documental que confirma M4; não autoriza promoção à main.
-
-### Aplicação no projeto
-
-Registro preparado em `feature/m4-aceite-documental` após o commit `167f311`. Fluxo autorizado: feature documental → dev, com publicação de ambas no origin configurado, sem force push. Nenhuma mudança de aplicação, Supabase, API externa ou deploy faz parte desta integração.
-
-### Validação das respostas
-
-Antes deste registro, checkout limpo na feature; dev local/remota e main local/remota coincidiam respectivamente em `5598cc7` e `306fa59`. A mudança é exclusivamente documental, portanto lint, testes, build e revisão visual não foram repetidos. A publicação será conferida pelos hashes remotos após o push.
-
-### Análise crítica
-
-A autorização permite que o estado documental confirmado fique disponível à equipe na dev. A main permanece preservada e o registro continua distinguindo aceite humano de validações técnicas não executadas.
-
-## Interação 025 — Confirmação do push documental para a dev — 09/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar a confirmação; PowerShell e Git para preservar a correção documental já preparada, sincronizar referências e publicar feature/dev no origin configurado.
-
-### Interações realizadas
-
-Prompt integral: “pode subir para dev”. Resposta à pergunta imediatamente anterior que identificou expressamente as branches `feature/m4-aceite-documental` e `dev` e o repositório externo `https://github.com/Conexa-GS/Conexa-Site`. Autoriza o push da atualização documental para esse destino. A main permanece fora do escopo.
-
-### Aplicação no projeto
-
-Confirmação registrada na feature documental. A correção já preparada em `IA.md`, que normaliza o texto anterior de “altorizado” para “autorizado”, foi preservada no mesmo registro documental. A dev local já contém o merge `1a0187d`; após este registro, a feature será integrada novamente e ambas as branches serão publicadas sem force push.
-
-### Validação das respostas
-
-Antes desta atualização, dev local estava três commits à frente de origin/dev; main local/remota coincidiam em `306fa59`. O origin configurado foi confirmado como `https://github.com/Conexa-GS/Conexa-Site.git`. Alterações exclusivamente documentais; testes de aplicação não foram repetidos. A conclusão do envio será verificada pelos hashes remotos.
-
-### Análise crítica
-
-A autorização agora está ligada explicitamente ao destino e às branches citadas no pedido anterior, atendendo ao bloqueio de publicação. Isso não amplia o escopo para main, Supabase, API externa ou deploy.
-
 ## Interação 026 — Início da M5: fechamento simulado — 09/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 026](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-026--início-da-m5-fechamento-simulado--09112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -696,7 +345,6 @@ pergunte o que não ficar claro”. Instruções AGENTS.md fornecidas pelo usuá
 
 Resposta representativa: “Vou ler as especificações e o estado atual da M5, conferir a branch e começar a implementação. Vou registrar as entregas no tasks.md e o uso de IA no IA.md; se houver alguma decisão em aberto, pergunto durante o trabalho.”
 
-Pergunta efetiva: “Na entrega com divergência, posso adotar que o comprador registra a resolução por escrito e depois confirma o recebimento, liberando os repasses simulados? As especificações exigem a resolução registrada, mas não definem outro responsável.” Resposta explícita: “Sim, o comprador resolve e confirma”. Confirma somente esse fluxo; não se atribui avaliação visual ou aceite da M5 ao usuário.
 
 ### Aplicação no projeto
 
@@ -721,29 +369,6 @@ Concentrar pagamento, estoque e repasses em transações permite explicar os inv
 PGlite simula identidade, não autentica usuários reais; a bancada visual não valida o servidor e não substitui o Supabase demo. T28 permanece aberta para aplicação/testes remotos autorizados, concorrência real, reload e percurso conectado nos três perfis. M5 continua em avaliação; o usuário decidiu apenas o responsável pela resolução. O workflow exige avaliação e autorização próprias antes de publicação/integração na dev. Nenhuma aprovação de marco, migration remota ou envio é presumida a partir do pedido inicial.
 
 Revisão final de permissões encontrou exposição indireta de descrições/resoluções nos eventos M3 para transportador que cotou mas não foi escolhido. A migration restringe também esse histórico após a seleção; a cotação própria permanece consultável. A fixture passou a criar uma segunda cotação e verificar o isolamento via M3/M5 e RLS. Suíte PGlite M1–M5 repetida e aprovada após a correção. Nenhuma alteração visual adicional.
-
-## Interação 027 — Autorização de publicação da M5 na dev — 09/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar autorização; PowerShell e Git para conferir referências, commitar o registro, integrar e publicar as branches autorizadas.
-
-### Interações realizadas
-
-Prompt integral: “pode subir para dev”. Resposta à pergunta explícita que identificou código, migration, testes e documentação da M5, branches feature/dev e destino Conexa-GS/Conexa-Site no GitHub. Autoriza publicação e integração na dev; não promoção à main.
-
-### Aplicação no projeto
-
-Registro preparado em feature/m5-fechamento-operacao após 882b772. Integração autorizada dessa implementação local na dev e publicação de ambas as branches em https://github.com/Conexa-GS/Conexa-Site.git, sem force push. M5 permanece em avaliação, com T28 pendente; nenhuma migration remota ou deploy incluído.
-
-### Validação das respostas
-
-Checkout limpo; fetch concluído; dev local/remota sem divergência antes da integração. Mantidas as verificações da interação 026: lint, 26 testes Node, PGlite M1–M5, build e revisão dirigida desktop/360 px. Nenhum código alterado nesta autorização; testes não repetidos para o registro documental. Publicação será conferida pelos hashes remotos.
-
-### Análise crítica
-
-A autorização permite compartilhar a implementação preparada, sem converter testes locais em validação Supabase nem declarar aceite da M5. T28, aplicação/testes no demo e avaliação humana permanecem pendentes. Main preservada.
-
 
 ## Interação 028 — Feedback de validação e falhas visível — 09/11/2026
 
@@ -777,8 +402,9 @@ Navegador em bancada local: cotação em 1366×900 e 360×800 sem overflow horiz
 
 O aviso ligado à ação e o foco eliminam a necessidade de procurar o erro no topo; mensagens por data explicam como corrigir a falha ilustrada. A validação local antecipa restrições já existentes, mas relógio do dispositivo, concorrência ou expiração durante envio ainda podem gerar recusa do servidor, que continua exibida. O foco automático fica restrito às ações para não interromper digitação durante consultas periódicas. Fixtures validam apresentação e interação, sem substituir percurso conectado, Supabase real ou auditoria completa de acessibilidade. Avaliação do usuário e autorização para push/integração na dev continuam pendentes; nenhuma promoção para main presumida.
 
-
 ## Interação 029 — Cotação distinta, revisão, negociação e desistência simulada — 09–10/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 029](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-029--cotação-distinta-revisão-negociação-e-desistência-simulada--0910112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -791,11 +417,8 @@ no momento em que a cotação for confirmada, a proposta tem que aparecer com um
 
 Resposta representativa: “Vou revisar o fluxo de cotação e os aceites para diferenciar as propostas já cotadas e permitir alterações de datas e veículo com aviso aos envolvidos. Também vou verificar como manter o frete bloqueado durante essa edição.”
 
-Pergunta efetiva: “Depois da conversa direta com o comprador (quem paga o frete), como deve ser registrada uma mudança de preço?”. Opções oferecidas: transportadora propõe/comprador aprova no site ou preço bloqueado exigindo nova proposta. Resposta integral: “a transportadora pode negociar com o comprador, ele precisa aprovar, mas caso ele não aceite o novo valor e a transportadora não aceitar o valor antigo, ela recebera uma taxa de cancelamento pois acabou atrasando a negociação e talvez prejudicando todos os envolvidos, alem da proposta ser automaticamente enviada para outra transportadora”.
 
-Pergunta efetiva: “Qual deve ser o valor da taxa de cancelamento (fixo ou percentual do frete) e quem deve recebê-la? Entendi que a transportadora desistente será quem paga; preciso definir o valor e o destinatário para registrar a simulação.” Resposta integral: “a taxa deveria varias conforme a data de recebimento e vencimento do produto, se o produto estiver longe do vencimento e longe da data prevista de entrega, o valor deve ser baixo, se a transportadora cancelar perto da data, os valores devem ser maiores devido a urgência”.
 
-Pergunta efetiva: “Para a demonstração, posso usar 5% do frete com mais de 72h, 15% entre 24h e 72h, e 30% com até 24h, considerando o menor prazo entre entrega e vencimento informado? Vou acrescentar vencimento opcional ao cadastro do produto; quando ausente, o cálculo usará a entrega e mostrará esse limite. Quem deve receber a taxa simulada: comprador, produtores ou ambos?”. Resposta integral: “pode, ambos”. Essa resposta aprova as faixas propostas, o campo/fallback e ambos os grupos destinatários. A divisão operacional 50% comprador/50% produtores, estes proporcionalmente aos alimentos, foi decisão de implementação comunicada em comentário; não se atribui ao usuário escolha explícita desse rateio exato.
 
 ### Aplicação no projeto
 
@@ -825,29 +448,6 @@ Separar edição operacional de negociação evita mudança silenciosa de frete.
 
 As faixas são política de demonstração aprovada, não cálculo de prejuízo comprovado nem cobrança juridicamente validada. Vencimento não é inventado a partir de disponibilidade; quando ausente, o site explica que usa a entrega. Encaminhamento depende de outro participante demo com veículo compatível e não garante aceite/transporte; sem alternativa, a proposta permanece pendente. PGlite e bancada não substituem Supabase real. Regras de produto foram aprovadas nas respostas acima; publicação/integração, migration remota e avaliação humana da nova implementação seguem pendentes. Nenhuma promoção à main presumida.
 
-
-## Interação 030 — Publicação na dev e promoção para main — 10/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar autorização e conferir o fluxo; PowerShell/Git para fetch, comparação das referências, commit documental na feature, publicação e integração sequencial feature → dev → main.
-
-### Interações realizadas
-
-Prompt integral: “pode subir para a dev e atualizar a main logo depois”. Autoriza expressamente publicar a feature apresentada no repositório origin https://github.com/Conexa-GS/Conexa-Site.git, integrá-la à dev e em seguida atualizar a main. Resposta representativa: “Vou conferir as referências remotas, publicar a feature e integrá-la na dev. Depois, atualizarei a main com essa versão, conforme sua autorização.” A resposta do usuário especifica Git; não é tratada como autorização para aplicar migrations no Supabase ou executar transações remotas.
-
-### Aplicação no projeto
-
-Registro preparado na feature/feedback-validacao, após 1037ff4 e 4e9f6a9, com checkout limpo. Destino origin conferido. Fluxo autorizado sem force push: publicar feature, integrar/publicar dev e depois promover/publicar main, preservando histórico remoto. Nenhum arquivo desenvolvido diretamente na main. A promoção da dev inclui sua implementação M5 já existente, com limites e pendências remotas preservados.
-
-### Validação das respostas
-
-Fetch concluído. Dev local e origin/dev coincidem em 25cdca9. Main local estava 12 commits atrás de origin/main, portanto será sincronizada antes da promoção para preservar o trabalho remoto. Feature contém dois commits de aplicação sobre a dev; registro documental não altera código. Mantidas as verificações da interação 029: lint, 32 testes Node, seis scripts de banco local, build e revisão visual dirigida em desktop/360 px. Não se atribuem novos testes ou validação humana ao usuário. Publicação será conferida pelos hashes remotos.
-
-### Análise crítica
-
-A autorização amplia explicitamente o destino para main, respeitando a ordem solicitada sem presumir liberação anterior. Publicar código e migrations no Git não aplica schema ao banco: edição/negociação continuam dependentes da migration no demo e da validação conectada. Nenhuma cobrança, mensagem externa, conta ou migration remota é executada nesta interação.
-
 ## Interação 031 — Migrations e validação real no demo — 10/11/2026
 
 ### Ferramentas utilizadas
@@ -873,28 +473,6 @@ Relatório artifacts/quote-revisions-remote.local.json e cópia datada, sem segr
 ### Análise crítica
 
 Concorrência e RLS com Auth real ampliam a evidência em relação ao PGlite, e a nova autenticação comprova persistência entre sessões. Essa evidência não demonstra recarga visual nem entrega de avisos pela interface. O demo contém somente uma transportadora; caminho com substituta e faixas 5%/30% permanecem cobertos apenas localmente. Aplicação de M5 não comprova todo o fluxo de entrega/divergência/repasses remoto nem encerra T28. Permanece necessário percurso visual conectado, segunda transportadora compatível, avaliação humana e autorização das novas alterações de teste/documentação. Não declarar marco concluído nem confundir taxas/pagamentos de demonstração com dinheiro real.
-
-## Interação 032 — Publicação da validação remota na dev — 10/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar o pedido e conferir o escopo; PowerShell/Git para inspeção, fetch, sincronização da feature, commit e publicação/integração na dev.
-
-### Interações realizadas
-
-Prompt integral: “pode subir para dev”. Autoriza publicar o teste remoto e a documentação apresentados na interação 031 e integrá-los à dev do origin https://github.com/Conexa-GS/Conexa-Site.git. Resposta representativa: “Vou conferir a branch e as alterações, criar o commit e publicar na dev, preservando o histórico remoto.” Não autoriza nova promoção para main nem declara aceite dos testes visuais pendentes.
-
-### Aplicação no projeto
-
-Alterações preparadas na feature/feedback-validacao; após fetch, dev e origin/dev coincidem em 62d1d64, que já integra a feature anterior. Feature sincronizada por fast-forward de 8e785f8 para 62d1d64, sem diferença de árvore nem perda das alterações locais. Escopo do commit: tests/remote-quote-revisions.mjs, README.md, IA.md e Conexa-specs/README.md, tasks.md, validation.md. Registro da autorização atualizado sem marcar os percursos visuais/encaminhamento com substituta como concluídos. Publicação segue feature → dev, sem force push.
-
-### Validação das respostas
-
-Destino origin conferido, fetch concluído e diff sem erros de whitespace. .env e relatório artifacts/quote-revisions-remote.local.json confirmados como ignorados; não serão incluídos no commit. Mantidos os resultados reais da interação 031: lint, 32 testes Node, seis scripts locais, build e rodada remota final com 10 grupos aprovados. Esta interação muda somente o registro da autorização; não repete operações remotas de teste nem atribui avaliação humana ao usuário. Push e integração serão conferidos pelas referências remotas antes da resposta final.
-
-### Análise crítica
-
-A autorização contempla a dev e os arquivos apresentados, preservando as pendências de navegador, segunda transportadora e aceite humano. O teste remoto é manual e limitado ao demo; sua publicação não o executa automaticamente. Migrations já aplicadas não são reaplicadas nesta interação. Sem deploy ou nova alteração na main.
 
 ## Interação 033 — Início da M6: cadastro por conversa — 10/11/2026
 
@@ -923,28 +501,6 @@ Revisão estática confirma que somente o botão explícito da prévia chama esc
 Perguntas explícitas evitam interpretar incorretamente quantidade, valor ou disponibilidade e permitem implementar acessibilidade sem nova infraestrutura. Reutilizar formulário/serviço preserva a fonte de ofertas e as regras existentes; catálogo e calendário recebem controles adicionais no adaptador. O formato guiado não interpreta frases livres nem atende áudio; WhatsApp oficial exige escopo separado. Foco/labels/estilos preparados precisam de revisão real, que o bloqueio do navegador impediu.
 
 Bloqueio em memória evita confirmação simultânea no diálogo, mas não garante idempotência após resposta perdida ou entre abas; a interface orienta conferir a lista antes de repetir. Sem verificação do chat no demo não se afirma persistência/RLS nova, e sem avaliação humana não se declara marco concluído. Commit local conserva o trabalho para revisão; publicação e integração dependem de autorização específica conforme AGENTS.md/workflow.md.
-
-## Interação 034 — Publicação da M6 na dev — 10/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registro da autorização; PowerShell/Git para conferir estado e referências, fetch, commit documental na feature, publicação e integração na dev.
-
-### Interações realizadas
-
-Prompt integral: “pode subir para dev”. Autoriza publicar e integrar na dev a primeira fatia M6 apresentada na interação 033. Resposta representativa: “Vou publicar a feature da M6 e integrá-la na dev, conforme sua autorização.” Não autoriza promoção para main nem equivale a relato de testes visuais ou encerramento da M6.
-
-### Aplicação no projeto
-
-Checkout limpo na `feature/m6-chat-acessivel`, commit de implementação `5acf064`. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `6741d8c` e feature um commit à frente, sem divergência. Registro preparado na própria feature antes da publicação; fluxo feature → dev com histórico preservado, sem force push. Nenhuma edição de código diretamente em dev/main.
-
-### Validação das respostas
-
-Mantidos os resultados da interação 033: lint, 37 testes Node e build aprovados, com aviso herdado de chunk acima de 500 kB. Esta interação altera somente documentação de autorização, sem repetir testes ou operações no demo. Diff e estado Git conferidos antes do commit; publicação e integração serão verificadas pelas referências remotas antes da resposta final. T29/AC22 completo, revisão em 360 px/desktop/teclado e persistência via chat no demo continuam pendentes em tasks.md/validation.md.
-
-### Análise crítica
-
-A autorização permite publicar a implementação apresentada na dev, sem inventar aceite de critérios ainda não executados. Publicação não demonstra persistência ou acessibilidade e não conclui M6. Sem alteração na main, deploy solicitado ou migration nesta interação.
 
 ## Interação 035 — Implementação e verificação da T29 — 10/11/2026
 
@@ -976,28 +532,6 @@ Exercitar o componente amplia a evidência dos testes de domínio: permite demon
 
 jsdom não substitui navegador e seus métodos de diálogo/rolagem são simulados. Os testes não comprovam layout, contraste, contenção nativa de foco ou uso com tecnologia assistiva; a ferramenta bloqueou a revisão visual, que permanece pendente junto do aceite humano da M6. O CRUD herdado continua sem idempotência após resposta perdida ou entre abas; uma chamada no mesmo diálogo durante envio não é garantia geral de publicação única. A implementação fica concreta para avaliação local na feature; autorização para publicar/integrar na dev será solicitada após apresentar o resultado, conforme AGENTS.md/workflow.md, sem promoção para main por pressuposição.
 
-## Interação 036 — Aprovação e publicação da T29 na dev — 10/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para registrar a autorização e conferir o escopo; PowerShell/Git para inspeção, fetch, commit documental na feature, publicação e integração na dev.
-
-### Interações realizadas
-
-Prompt integral: “aprovado”. Responde à apresentação da T29 e à pergunta explícita “Após avaliar, autoriza publicar e integrar esta feature na dev?”. Autoriza publicar e integrar a `feature/t29-chat-validacao` apresentada, com implementação em `54b8780`. Resposta representativa: “Vou publicar a feature aprovada e integrá-la na dev, preservando o histórico e registrando sua autorização no IA.md.” Não contém relato de procedimentos visuais/teclado nem autoriza promoção para main.
-
-### Aplicação no projeto
-
-Checkout inicial limpo na `feature/t29-chat-validacao`; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Registro preparado na própria feature antes de publicar. Fluxo autorizado feature → dev, com Conventional Commits e sem force push. Nenhuma edição de código diretamente em dev/main, deploy ou operação remota no Supabase nesta interação.
-
-### Validação das respostas
-
-Fetch concluído e referências conferidas antes da integração. Mantidos os resultados reais da interação 035: lint, 42 testes e build aprovados; cinco grupos de verificação do componente com serviço real/Auth/RLS demo aprovados e fixtures próprias arquivadas. Mudança desta interação é documental, sem repetir testes ou ações remotas no banco. Diff e estado Git conferidos antes do commit; publicação/integração serão verificadas pelas referências remotas antes da resposta final.
-
-### Análise crítica
-
-A aprovação permite publicar a T29 apresentada na dev, preservando as limitações explicitadas. Não comprova revisão visual em 360 px/desktop, teclado nativo, leitor de tela ou F5; esses itens continuam registrados como pendentes, sem declarar M6 integralmente concluída. T28/M5 e demais marcos permanecem com seus estados anteriores. Sem autorização ou alteração da main nesta interação.
-
 ## Interação 037 — Preparação local da T30 — 10/11/2026
 
 ### Ferramentas utilizadas
@@ -1026,35 +560,9 @@ Primeira tentativa do teste novo falhou por sintaxe de asserção; corrigida e s
 
 Separar protocolo/recebimento do banco e do provedor torna o fluxo verificável sem credenciais e preserva validações de ofertas. Isso permite detectar confirmação obsoleta e risco de duplicação após resultado incerto antes de ativar o canal. Contudo, módulo puro não resolve autorização, persistência ou idempotência distribuída; o demonstrador sequencial em memória não substitui inbox/outbox e transação no Supabase. O aceite HTTP não comprova publicação nem entrega ao telefone. A próxima fatia exige vínculo verificado e gateway restrito antes de contato real, com autorização específica de ativação. Nenhum teste ou aceite foi atribuído ao usuário.
 
-## Interação 038 — Publicação da preparação T30 na dev — 10/11/2026
-
-### Ferramentas utilizadas
-
-OpenAI Codex para executar a instrução de desenvolvimento Git e registrar sua autorização; PowerShell/Git para conferir estado, fetch, commit documental na feature, publicação e integração na dev. Sem alteração de código ou operação no Supabase/Meta.
-
-### Interações realizadas
-
-Prompt integral de execução: “pode publicar  e integrar com a dev”. Autoriza publicar e integrar a preparação T30 apresentada, commit `b9d895e`, da `feature/t30-preparacao`. Resposta representativa: “Vou publicar a feature e integrá-la na dev, registrando sua autorização no IA.md e preservando o histórico.” Não inclui perguntas/consultas de orientação nem autoriza promoção para main, custos, deploy do webhook ou mensagens reais.
-
-### Aplicação no projeto
-
-Checkout inicial limpo na feature; origin conferido como `https://github.com/Conexa-GS/Conexa-Site.git`. Fetch confirmou dev/origin/dev iguais em `af7174f`, com feature um commit à frente e sem divergência. Registro preparado na própria feature antes da publicação, sem edição direta em dev/main. Fluxo autorizado feature → dev, sem force push. A integração externa permanece inativa; escopo e pendências de t30-whatsapp.md preservados.
-
-### Validação das respostas
-
-Mantidos lint, 55 testes, build e demonstrador aprovados na interação 037; mudança desta rodada somente documental, sem repetir testes. Fetch executado com acesso correspondente. Consulta adicional ls-remote no sandbox não conectou; referências obtidas pelo fetch continuam disponíveis para conferência. Diff/estado verificados antes do commit; a publicação/integração será conferida por novo fetch e referências remotas antes da resposta final.
-
-### Análise crítica
-
-A autorização permite publicar a preparação apresentada, sem demonstrar persistência WhatsApp no Supabase, identidade por telefone, concorrência ou tráfego Meta. Não encerra T30/M6 nem pendências M5/T28/T29 visual. Nenhum teste ou aceite adicional foi atribuído ao usuário. Promoção para main e ativação externa continuam fora desta autorização.
-
-Resultado desta rodada: commit de autorização `ea3ba0e` criado na feature. A revisão automática rejeitou o push por exigir confirmação explícita do destino GitHub e do conteúdo a publicar. Conferidos novamente origin/push URL, os 19 arquivos alterados, exemplo de servidor com valores vazios e ausência de `.env` rastreado; busca por padrões de tokens no diff de código/documentação (exceto histórico IA.md) retornou zero, sem equivaler a auditoria de segredos. Registros anteriores de autorização para o mesmo origin foram apresentados como evidência numa segunda tentativa direta. A revisão rejeitou novamente: considerou insuficiente a autorização atual sem nomear destino/payload e não aceitou os registros como substituto de confirmação. Nenhum push executado, sem alternativa de envio ou contorno. Publicação de `feature/t30-preparacao` e `dev` em `https://github.com/Conexa-GS/Conexa-Site.git` permanece bloqueada até confirmação explícita desse destino e do conteúdo (código, testes, especificação/documentação, registro de IA e exemplo vazio de configuração).
-
-Trabalho autorizado não afetado: preparar este complemento na feature e integrá-la localmente à dev com merge que preserva histórico, sem conflitos esperados. A conferência final usará referências locais e as remotas obtidas no fetch; origin/dev permanece em `af7174f` enquanto o push estiver bloqueado. Main e sistemas Meta/Supabase não serão alterados. Nenhum teste de aplicação repetido nesta correção documental.
-
-Confirmação posterior do usuário: “mande para o github”, em resposta à pergunta que identificou explicitamente `https://github.com/Conexa-GS/Conexa-Site`, branches `feature/t30-preparacao` e `dev`, e conteúdo (código, testes, documentação T30, IA.md e configuração de exemplo vazia). Autoriza retomar a publicação nesse destino após o bloqueio automático. Integração local já concluída sem conflitos em `c0d70d0`; fetch confirmou origin/dev sem avanço e dev quatro commits à frente. Confirmação registrada na feature antes de incorporá-la à dev e enviar ambas as branches, sem force push. Main permanece em `169b1b4`. Esta atualização documental não repete testes nem amplia a autorização para Meta/Supabase/deploy; envio será conferido nas referências remotas antes da resposta final.
-
 ## Interação 043 — Planejamento de Conversas no site — 11/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 043](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-043--planejamento-de-conversas-no-site--11112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -1087,9 +595,9 @@ Separar texto simulado de integração opcional permite implementar e testar sem
 
 Resultado das verificações desta atualização documental: npm.cmd run lint aprovado; npm.cmd test aprovado com 55 testes, zero falhas; npm.cmd run build aprovado, com aviso de chunk principal acima de 500 kB já presente na base. git diff --check aprovado. Nenhuma alteração de UI: revisão em 360 px/desktop não executada nesta rodada e permanece tarefa da implementação. Sem chamadas pagas ou testes remotos. Estes testes verificam a base da dev, não implementam nem validam AC24–AC32. Revisão de links, escopo e estado Git feita antes da entrega; commit local documental preparado sem autorização presumida de publicação.
 
-Complemento de autorização da interação 043 — 11/11/2026: usuário respondeu “pode integrar” à apresentação do commit 559a64a e à pergunta explícita sobre publicar/integrar o planejamento na dev. Autoriza publicar a feature e integrar/publicar dev no origin https://github.com/Conexa-GS/Conexa-Site.git; main preservada. Fetch confirmou dev/origin/dev em 3197eaf e checkout limpo. Conteúdo restrito aos dez arquivos documentais apresentados. Mantidos lint, 55 testes e build já aprovados; sem alteração de runtime ou nova execução de testes nesta autorização. Integração/publicação serão conferidas pelas referências Git antes da resposta final, sem presumir conclusão da funcionalidade ou dos marcos.
-
 ## Interação 044 — Primeira implementação de Conversas no site — 11/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 044](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-044--primeira-implementação-de-conversas-no-site--11112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -1117,11 +625,10 @@ Componente: bloqueio de envio duplo, HTML literal, falha preservando chave/texto
 
 Separar entrega visual/mensagens do intérprete e da aplicação de ofertas torna a primeira fatia avaliável sem custo de IA e preserva RN45. RLS/idempotência no banco evitam confiar no remetente ou reenvio fornecidos pelo cliente; PGlite não prova concorrência com sessões remotas nem autorização de eventos Realtime. Rascunho humano volátil não substitui persistência de comandos, e bot não deve anunciar recursos futuros como ativos. Nova migration precisa autorização e testes demo; publicação/integração depende da avaliação posterior exigida pelo workflow. Sem push, merge, deploy, alteração remota, uso de microfone ou aceite de M6/M5 nesta rodada. T30/experimentos preservados, sem desativar endpoint.
 
-Complemento de autorização — 11/11/2026: usuário respondeu “pode integrar com a dev” à entrega do commit `3b9fbf2`. Autoriza publicação da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e fetch executado antes da integração. Registro preparado na feature, preservando as verificações da implementação (lint, 61 testes, sete scripts locais de banco e build); nenhuma alteração de runtime nesta rodada ou novo teste atribuído ao usuário. Migration/testes no Supabase não incluídos nesta autorização específica; main, aceite M6/M5 e voz permanecem independentes. Referências serão conferidas após publicação, sem force push.
-
 ## Interação 045 — Bot por texto e comandos de ofertas — 11/11/2026
 
-Autorização posterior de integração — 11/11/2026: após apresentação do commit `e58d861` e pergunta sobre publicar/integrar a feature na dev, usuário respondeu “mande para dev”. Autoriza publicação da feature e integração/publicação da dev no origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo; fetch confirmou dev/origin/dev em `b1867a5`. Preservadas as verificações da entrega (lint, 68 testes, oito scripts PGlite e build); sem mudança de runtime ou novos testes nesta autorização. Não inclui main, migrations/testes no Supabase, voz ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 045](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-045--bot-por-texto-e-comandos-de-ofertas--11112026). Uso de IA e evidências de programação preservados.
+
 
 ### Ferramentas utilizadas
 
@@ -1153,6 +660,8 @@ Intenções delimitadas permitem avaliar a experiência sem tokens, mas exigem f
 
 ## Interação 046 — IA/voz opcional nas Conversas — 11/11/2026
 
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 046](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-046--iavoz-opcional-nas-conversas--11112026). Uso de IA e evidências de programação preservados.
+
 ### Ferramentas utilizadas
 
 OpenAI Codex para leitura, implementação React/Node e documentação; PowerShell/Git e apply_patch para branch/alterações/verificações; Node 24/SQLite, React/Vite/jsdom e PGlite para testes locais; skill OpenAI Docs e documentação oficial para contrato Realtime; skill Computer Use e navegador in-app para bancada visual/teclado. Sem subagentes, chamadas de modelo no produto, sessão paga, microfone ou escrita remota no Supabase.
@@ -1181,9 +690,9 @@ Bancada real em 1366×900 e 360×800, sem overflow horizontal observado; transcr
 
 Manter texto simulado e exigir início manual evita custo ao abrir a aba e permite avaliar o fluxo sem áudio. Controle de chamada no servidor e cotas persistentes evitam confiar só no cronômetro ou na validade de token efêmero, mas são limites operacionais, não garantia de custo em reais. Resposta incerta não pode disparar repetição paga; foi adotado bloqueio conservador com conciliação. Queda do broker exige recuperação/supervisão, e este servidor local de instância única não é implantação pública pronta. Saída do modelo continua não confiável; sugestão só entra no fluxo de oferta após revisão/envio explícitos, e confirmação/estoque continuam no banco. Mocks não comprovam precisão da transcrição, negociação WebRTC, Auth/sideband/hangup reais ou consumo. Esses testes e T42 ficam com o usuário; M6/M5/T30 e publicação dependem de seus próprios critérios/autorizações.
 
-Complemento de autorização da interação 046 — 11/11/2026: após apresentação do commit f36db6d e pergunta explícita sobre publicar/integrar a feature, usuário respondeu “pode integrar na dev”. Autoriza publicação da feature e integração/publicação da dev no origin conferido https://github.com/Conexa-GS/Conexa-Site.git. Checkout limpo na feature antes da operação; fetch repetido com permissão de escrita Git após bloqueio inicial do FETCH_HEAD. Preservadas as verificações da entrega (lint, 83 testes, oito scripts PGlite, build e bancada desktop/360 px); sem alteração de runtime ou novos testes nesta autorização. Não inclui main, migrations remotas, ativação de voz, chamada paga ou aceite M6/M5. Referências serão conferidas após publicação, sem force push.
-
 ## Interação 047 — Preparação da verificação demo de Conversas — 11/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 047](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-047--preparação-da-verificação-demo-de-conversas--11112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -1213,7 +722,7 @@ Revisão final acrescentou ao script PGlite uma segunda execução com resposta 
 
 Compartilhar o cenário entre PostgreSQL local e runner remoto reduz erro de contrato no roteiro, mas não verifica HTTP/Auth/websocket nem corridas entre conexões sem a execução remota. Guardas de destino e chave pública evitam apontar a rotina para outro projeto ou usar autoridade administrativa. O teste deixa 82 mensagens fictícias e auditoria no histórico; isso exige avaliação/autorização e contas ociosas. Observação de três segundos sem evento ao terceiro é evidência limitada, complementada por SELECT/RLS, não garantia irrestrita. A limpeza não promete rollback de histórico nem recuperação após interrupção do processo/rede. F5, contextos de navegador independentes, falha real e reservas/compromissos remotos continuam pendentes; voz paga permanece exclusiva do usuário em T42. A preparação não encerra T41 ou qualquer marco.
 
-Complemento autorizado da interação 047 — 11/11/2026: após apresentação de `76e306c` e pergunta separando migrations/testes demo de publicação/integração, usuário respondeu “autorizo os dois”. Autoriza concluir ambas as ações no demo `conexa` (`ppbneiusqlitvewwoact`) e origin `https://github.com/Conexa-GS/Conexa-Site.git`; não promove main, publica deploy, ativa voz ou encerra marcos. Checkout limpo e dev/origin/dev em `96e5f33` após fetch. Skill Supabase lida, changelog e documentação oficial de Realtime consultados; conector confirmou projeto saudável e ausência de tabelas/RPCs. Aplicados os dois arquivos SQL integrais por apply_migration, sem reaplicar migrations anteriores: `site_conversations` = `20261111223622`, `site_offer_bot` = `20261111223632`. Conferidos RLS/grants nas cinco tabelas, publicação de mensagens, search_path e EXECUTE dos gateways; função privada de escrita sem acesso dos clientes.
+Continuação técnica em 11/11/2026, após autorização preservada no histórico: Checkout limpo e dev/origin/dev em `96e5f33` após fetch. Skill Supabase lida, changelog e documentação oficial de Realtime consultados; conector confirmou projeto saudável e ausência de tabelas/RPCs. Aplicados os dois arquivos SQL integrais por apply_migration, sem reaplicar migrations anteriores: `site_conversations` = `20261111223622`, `site_offer_bot` = `20261111223632`. Conferidos RLS/grants nas cinco tabelas, publicação de mensagens, search_path e EXECUTE dos gateways; função privada de escrita sem acesso dos clientes.
 
 Teste `npm.cmd run test:conversations:demo` passou na primeira execução com rede autorizada, nove grupos, processo finalizado com código 0; relatório ignorado pelo Git `artifacts/conversations-36611d27-d93f-4940-97ab-54c4f067a6e9.local.json`. Auth real de quatro perfis mais segunda sessão de Ana; confirmação/replay concorrentes, revisão antiga/corrigida, conflito com gateway do formulário, permissões/SELECT RLS, par direto/remetente, não lidas/leitura, nova autenticação, três páginas com 81 mensagens recuperadas e arquivamento confirmados. Comprador recebeu INSERT por websocket; João não recebeu mensagens da conversa na janela observada, com canais saudáveis. Uma oferta própria criada/arquivada; 82 mensagens humanas fictícias e auditoria preservadas. Nenhum dado anterior excluído, conta criada, segredo registrado, mensagem externa, microfone ou API paga.
 
@@ -1249,6 +758,8 @@ Opções antecipam as ações suportadas e dispensam memorizar comandos; número
 
 ## Interação 049 — Atalho direto ao bot na aba Conversas — 11/11/2026
 
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 049](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-049--atalho-direto-ao-bot-na-aba-conversas--11112026). Uso de IA e evidências de programação preservados.
+
 ### Ferramentas utilizadas
 
 OpenAI Codex para ajuste React/roteamento e documentação; PowerShell/Git/apply_patch, Node/Vite/jsdom para implementação/verificações; skill Computer Use e navegador in-app para revisão dirigida do atalho no site conectado. Sem subagentes, ferramentas administrativas remotas, migration, microfone ou API paga.
@@ -1275,9 +786,9 @@ Revisão Computer Use no site conectado ao demo, em 1366×900 e 360×800, entrad
 
 Reunir o cadastro em um único bot evita manter duas experiências distintas e torna as opções guiadas acessíveis pelo atalho já conhecido. Seleção inicial aguarda dados sem disparar comandos e Voltar permanece sob controle da pessoa. Sem configuração do Supabase, Conversas informa indisponibilidade; o atalho não usa o cadastro em memória como se fosse persistência remota. Teste integrado protege navegação/ausência de modal, enquanto revisão conectada é limitada ao acesso, sem novo CRUD ou auditoria completa. Pendências de M6/M5 e integração/publicação desta feature permanecem independentes.
 
-Complemento de autorização das interações 048/049 — 11/11/2026: após apresentação de `64c3227` (opções guiadas) e `d4f17bc` (atalho direto), usuário respondeu “sim” à solicitação de publicar/integrar ambos na dev. Autoriza publicação da `feature/bot-opcoes-guiadas` e integração/publicação na dev no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Sem promoção para main, deploy, migration, voz paga ou aceite de marco. Checkout limpo antes do registro; preservadas as verificações finais: lint, 89 testes, build e revisão do atalho conectado em desktop/360 px. Sem alteração funcional nesta autorização; resultado das referências conferido na entrega, sem force push.
-
 ## Interação 050 — Continuação T41: retomada da sessão demo — 11/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 050](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-050--continuação-t41-retomada-da-sessão-demo--11112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -1307,9 +818,9 @@ Computer Use conectado ao demo: Ana desktop 1366×900, bot aberto pelo atalho, 4
 
 Retomar uma sessão exige tanto token quanto participante atual validado, e storage personalizado sozinho não isola o broadcast interno do Auth. Chave exclusiva por documento resolve eventos cruzados sem trocar a fonte de dados do domínio. sessionStorage tem limites de disponibilidade/cópia/restauração do navegador; não é autenticação de produção e requer saída explícita. Testes simulam Auth/rede e não comprovam todos os fluxos remotos. Revisão conectada comprova retomada/consulta do histórico existente e perfis separados; não é novo CRUD/DM ou falha física de rede. T35/T38/T41 continuam parciais, T42/voz paga é do usuário, M6/T43 e M5/T28 dependem de suas verificações/aceites. Integração/publicação desta feature exige avaliação e autorização conforme workflow.
 
-Complemento de autorização da interação 050 — 11/11/2026: após apresentação do commit `4e02c7d`, verificações e limites, usuário respondeu “sim autorizo” à publicação da feature e integração na dev. Destino conferido: origin `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo antes do registro; fetch executado antes de integrar. Autorização restrita a feature/dev, sem promover main, deploy, migrations, voz paga ou aceite de marcos. Verificações funcionais da entrega preservadas; este complemento é documental. Publicação sem force push e referências conferidas ao concluir.
-
 ## Interação 051 — T41: bot/DM após F5, recuperação e estoque — 11/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 051](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-051--t41-botdm-após-f5-recuperação-e-estoque--11112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas utilizadas
 
@@ -1340,9 +851,9 @@ Roteiro remoto criou reserva real e pagamento exclusivamente simulado para compr
 
 Idempotência no banco só protege reenvio quando o cliente conserva a mesma chave: o journal fecha a lacuna de F5 e a verificação explícita evita nova escrita automática. Conferir chave antes de limpar também protege contra respostas de componentes desmontados. Storage é recuperabilidade local, não autorização; histórico/estoque continuam sob RPC/RLS. Testes controlados exercitam as duas posições da falha com persistência real, mas não equivalem a desligar fisicamente a rede ou validar websocket sob uma queda real. Voz segue simulada e depende de T42; avaliação humana/publicação desta feature continuam separadas conforme workflow.
 
-Complemento de autorização da interação 051 — 11/11/2026: após apresentação do commit `18c7c72`, verificações e limites, usuário solicitou explicitamente “suba para a dev e de merge com a main”. Autoriza publicar a feature, integrá-la/publicá-la na dev e promover a dev para main no origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`. Checkout limpo e referências locais/remotas sincronizadas antes do registro, após fetch. A promoção inclui o conteúdo já acumulado na dev desde a última integração na main, preservando o histórico das duas branches. Não autoriza deploy, migrations adicionais, uso pago ou encerramento das pendências T41/T42/T43/M6/M5 por pressuposição. Resultados funcionais da entrega preservados: lint, 108 testes, nove scripts PGlite, build e quatro grupos remotos aprovados; sem repetir escritas fictícias no demo nesta autorização. Integrações sem force push e referências remotas conferidas ao concluir.
-
 ## Interação 052 — T41: rede emulada, reenvio e erro de consulta — 12/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 052](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-052--t41-rede-emulada-reenvio-e-erro-de-consulta--12112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas de IA utilizadas
 
@@ -1374,9 +885,9 @@ Prova física foi preparada, mas usuário escolheu deixá-la pendente; mensagem 
 
 Banco idempotente exige chave durável e replay correspondente; F5 e contagem remota confirmam mais do que um clique isolado. Recuperar uma consulta não pode ser anunciado como confirmação de uma escrita incerta. A regressão protege essa diferença e evita alerta obsoleto que fazia a recuperação parecer malsucedida. Falha no serviço, emulação offline e interrupção física têm alcances diferentes; a última foi adiada explicitamente, e o WebSocket existente não foi comprovadamente interrompido pela emulação. Testes locais e navegador real são complementares, com evidências separadas de aceite/publicação.
 
-Complemento de autorização da interação 052 — 12/11/2026: após apresentação do commit `0c6e564`, verificações, evidências e pendência física, usuário respondeu “autorizo” à publicação da `feature/t41-rede-recuperacao` e integração na `dev`. Origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, checkout limpo e fetch concluído antes de registrar. Autoriza push da feature e integração/publicação na dev, sem force push; não inclui promoção para main, deploy, nova migration, teste pago ou encerramento de T41/M6. Verificações anteriores preservadas, sem repetir escritas no demo para uma integração sem mudança funcional adicional. Referências remotas devem ser conferidas após publicação.
-
 ## Interação 053 — T28/M5: ciclo completo, permissões e repasses no demo — 12/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 053](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-053--t28m5-ciclo-completo-permissões-e-repasses-no-demo--12112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas de IA e finalidades
 
@@ -1408,9 +919,9 @@ Advisors de segurança antes/depois sem novos achados: avisos prévios de funç�
 
 O percurso nominal passava, mas um valor válido nas fronteiras de arredondamento deixava a entrega paga sem conclusão. Preservar zero no registro evita criar preço mínimo artificial ou omitir beneficiário. Concorrência real, reautenticação, leitura final e navegador complementam PGlite: repetição sequencial isolada não comprova corrida, e clicar não comprova persistência. Fixtures próprias mantêm rastreabilidade, com custo de histórico fictício permanente no demo; arquivamento não libera compromissos de cargas entregues. Isolamento de outra transportadora, auditoria integral de acessibilidade, aceite humano e publicação não foram inferidos dos testes executados.
 
-Complemento de autorização da interação 053 — 12/11/2026: após apresentação do commit `ba8f30b`, verificações e evidências, usuário respondeu “pode integrar” à pergunta explícita sobre publicar a feature e integrá-la na dev. Autoriza push de `feature/t28-m5-verificacao` e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Não inclui main, deploy ou aceite humano M5 por pressuposição. Verificações funcionais da entrega preservadas; não repetir escritas no demo para integração sem mudança funcional. Referências remotas conferidas ao concluir.
-
 ## Interação 054 — verificação conectada de cotações — 12/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 054](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-054--verificação-conectada-de-cotações--12112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas de IA e finalidades
 
@@ -1440,9 +951,9 @@ Comprador cancelou somente a carga própria pelo site; nova Auth arquivou duas o
 
 A recarga real e as sessões independentes complementam as provas anteriores por API: confirmam o estado que cada perfil efetivamente recebe. Conferência SQL distingue sucesso visual de persistência e comprova a soma das parcelas, sem transformar leitura administrativa em prova nova de RLS. A falta de segunda conta impede validar encaminhamento completo; registrar a ausência é mais fiel que fabricar uma substituta. As fixtures deixam histórico fictício permanente, embora estoque e cadastros próprios tenham sido liberados/arquivados. Revisão dirigida não substitui auditoria completa de acessibilidade, concorrência ou avaliação humana.
 
-Complemento de autorização da interação 054 — 12/11/2026: após apresentação do commit `82932d6`, evidências e limitação de segunda transportadora, usuário respondeu “autorizo” à pergunta explícita sobre publicar a feature e integrar na dev. Autoriza push de `feature/cotacoes-validacao-conectada` e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Não inclui main, deploy, nova conta/migration, aceite humano da extensão ou encerramento de marco. Verificações anteriores preservadas, sem repetir testes funcionais/escritas remotas para esta integração exclusivamente documental. Resultado Git conferido nas referências remotas ao concluir.
-
 ## Interação 055 — verificação de rotas manuais e inclusão no demo — 12/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 055](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-055--verificação-de-rotas-manuais-e-inclusão-no-demo--12112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas de IA e finalidades
 
@@ -1472,9 +983,9 @@ Primeiro fetch remoto no sandbox falhou antes de login/escrita. Execução com r
 
 Dados reais do demo distinguem a candidata de alimentos mais baratos da prioridade a quem tem menos entregas, sem fabricar vendas ou economia logística. A prova por API verifica limites e preservação de estado; o site mostra as razões e exige seleção/envio explícitos, e F5 comprova reconsulta após retomada. Comparação de dois donos do mesmo perfil e desempate por idade com identidades controladas continuam como evidência PGlite, pois não se criaram contas/datas artificiais no demo. Uma transportadora não permite demonstrar duas cotações remotas equivalentes. Não foram ativados mapas nem testada falha de fornecedor; total entre composições com fretes próprios segue fora do escopo. Revisão dirigida não equivale a auditoria integral de acessibilidade ou novo aceite M4. Histórico das fixtures fica no demo mesmo após arquivamento. Publicação/integração da feature ainda dependem de autorização após avaliação.
 
-Complemento de autorização da interação 055 — 12/11/2026: após apresentação de `4ace62c`, evidências e limites, usuário respondeu “autorizo” à pergunta explícita sobre publicar `feature/m4-verificacao-demo` e integrar na `dev`. Autoriza push da feature e integração/publicação na dev do origin conferido `https://github.com/Conexa-GS/Conexa-Site.git`, sem force push. Checkout limpo e fetch concluído antes deste registro. Sem autorização de main/deploy, API externa ou ampliação do aceite M4. Verificações técnicas anteriores preservadas; sem novas escritas no demo para esta integração documental. Referências remotas conferidas ao concluir.
-
 ## Interação 056 — revisão de fluxos, responsividade e teclado — 12/11/2026
+
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 056](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-056--revisão-de-fluxos-responsividade-e-teclado--12112026). Uso de IA e evidências de programação preservados.
 
 ### Ferramentas de IA e finalidades
 
@@ -1505,8 +1016,6 @@ Lint, 113 testes Node e build aprovados; aviso de bundle >500 kB preexistente. Q
 ### Análise crítica
 
 A inspeção no navegador revelou defeitos que o DOM simulado não detecta: transbordamento do botão e tentativa de foco em campo ainda desabilitado. Testes de componentes complementam essa evidência ao controlar a latência e a falha sem alterar operações compartilhadas no demo. Reutilizar a validação de domínio na composição evita introduzir uma regra de saldo diferente. A revisão mantém a identidade visual e melhora recuperação sem alegar auditoria integral WCAG: leitor de tela, contraste completo, todos os estados remotos/CRUD/RLS, voz e rede física não foram novamente verificados. Bancadas e leitura do demo têm limites distintos; avaliação humana e autorização para publicar/integrar continuam pendentes.
-
-Complemento de autorização da interação 056 — 12/11/2026: após apresentação do commit 160d235, correções, verificações e limites, usuário respondeu “pode integrar” à pergunta explícita sobre subir a feature e integrar na dev. Autoriza publicação de feature/revisao-fluxos-acessibilidade e integração/publicação na dev do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Sem autorização de main/deploy ou ampliação de aceite de marco. Testes anteriores preservados; integração documental/Git não exige repetir operações no demo. Referências remotas serão conferidas ao concluir.
 
 ## Interação 057 — T31: auditoria e roteiro de CRUD remoto — 12/11/2026
 
@@ -1542,6 +1051,8 @@ A conferência distingue um requisito quantitativo de uma evidência funcional: 
 
 ## Interação 058 — T32/T33/T43: artefatos e empacotador — 12/11/2026
 
+Nota de saneamento: trechos de esclarecimento/autorização segregados no [histórico da interação 058](Conexa-specs/historico/ia-antes-saneamento-2026-11-12.md#interação-058--t32t33t43-artefatos-e-empacotador--12112026). Uso de IA e evidências de programação preservados.
+
 ### Ferramentas de IA e finalidades
 
 Codex para programar e verificar o empacotador de fontes, consolidar README/matriz/limitações/roteiro e registrar resultados reais. PowerShell/Git/Node/npm, ESLint, testes Node/jsdom/PGlite, ZipArchive/SHA-256 e fetch HTTP local. Skill Supabase consultada para orientações de configuração, sem implementar integração ou alterar banco. Sem subagentes, dependências novas, API paga, microfone ou mensagens externas.
@@ -1570,4 +1081,75 @@ Primeira criação de branch bloqueada por escrita Git, repetida com escalonamen
 
 O empacotador reduz o risco de anexar configuração local e comprova integridade dos bytes entregues; a instalação em pasta extraída detecta dependências acidentais do checkout. Seleção por caminho e padrões não certifica ausência universal de segredos, especialmente imagens/credenciais desconhecidas, e manifesto não é assinatura. A exceção do teste sintético é explícita e estreita, em vez de excluir testes ou ignorar arquivos inteiros. Mocks/PGlite/HTTP local têm limites diferentes de Supabase, navegador, rede física e voz reais. T33 registra a matriz concluída, T32 permanece parcial por acessos/deploy/envios, e T43/aceite M6, aceite M5, T41 física, T42 real e saneamento histórico de IA continuam pendentes. Publicação/integração da feature depende da avaliação e autorização do usuário conforme workflow; não inclui main.
 
-Complemento de autorização da interação 058 — 12/11/2026: após apresentação do commit 1360611, artefatos, verificações e pendências, usuário respondeu “pode subir para a dev e depois para a main”. Autoriza publicar feature/t32-t33-t43-entrega, integrar/publicar na dev e depois promover/publicar na main do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Não constitui aceite M5/M6, validação de voz/rede física, deploy ou envio acadêmico. Verificações técnicas da entrega preservadas; referências remotas serão conferidas ao concluir.
+
+## Interação 059 — Área do participante acessível — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex com a skill design-taste-frontend para reformular a área do participante em React/CSS. PowerShell, Git, Node, ESLint, testes existentes e Vite; scripts headless da própria skill com Edge/Chromium para capturas e verificações locais. Sem subagentes, IA externa paga ou escrita no Supabase.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido de programação:
+
+> use a skill [$design-taste-frontend](C:\Users\Murilo\.agents\skills\design-taste-frontend\SKILL.md) para reformular a area de usuario, as informações atuais estão difíceis de entender, o foco é na facilidade de usabilidade, pessoas mais velhas e simples são o publico alvo, quero interfaces objetivas, organizadas, sem informações desnecessárias para o uso direto e amigável
+
+Resposta inicial real: “Vou usar a skill **design-taste-frontend** para reorganizar a área do usuário, priorizando leitura fácil, botões claros e menos informação por tela. Primeiro vou conferir as regras do projeto e os fluxos atuais, preservando a identidade visual do Conexa.” O usuário também forneceu o conteúdo da skill; não foi uma nova solicitação de funcionalidade.
+
+### Aplicação no projeto
+
+Feature feature/area-usuario-acessivel criada da dev 48ec847; checkout anterior limpo preservado em sua branch. AppLayout recebe navegação legível com ícones e troca de participante por botão textual, preservando saída. PageHeading aceita título sem frase de apresentação. participant.css amplia texto/controles e organiza celular, formulários e listas. Ofertas perdem decoração e blocos promocionais; ação principal no título e alternativa Cadastrar com ajuda mantêm os fluxos reais. Comprador vê Meus pedidos; rotas e serviços continuam os mesmos. Composição, propostas, conversas, veículos e entregas recebem títulos diretos; detalhes de roteiro e comparação abrem sob demanda, sem esconder preço, prazo, decisões ou bloqueios. Ilustrações locais da escolha de perfil e marca vetorial preservadas. Bancada visual local adicionada e teste do atalho do bot atualizado para o novo rótulo.
+
+### Verificação, testes e ajustes reais
+
+Leituras das especificações, regras e workflow antes da alteração. Branch exigiu escalonamento por escrita Git, aprovado. A tentativa de usar Python encontrou somente o alias indisponível do Windows; edição feita com Node e apply_patch. Primeira suíte encontrou uma falha por rótulo antigo no teste do bot; atualizado o texto, mantendo todas as asserções do comportamento. Rodadas seguintes: 113 testes aprovados; lint/build aprovados, com aviso preexistente de bundle >500 kB. Validação de foco, erros e preservação de campos está nos testes existentes, não foi alegada como teste humano.
+
+Capturas headless e gate da skill na bancada sem configuração remota. A primeira captura sem escalonamento não concluiu; processo de comando interrompido e capturador executado com escalonamento aprovado. Uma captura móvel perdeu a navegação e foi repetida em perfil próprio. O gate apontou 29 FAIL/22 WARN, majoritariamente regras de landing page incompatíveis com o objetivo explícito. Contraste do aviso/nota, foco visível e alvos de marca/busca foram ajustados. Checker de layout sem Chrome inicialmente; com Edge explícito falhou internamente ao acessar map/sections. Detalhes, ocorrências e limites em Conexa-specs/area-usuario-acessivel.md. Sem declarar aprovação do gate, Auth/RLS remoto, teste com público-alvo, aceite humano ou integração.
+
+### Análise crítica
+
+Nomes de tarefas, leitura maior e menos mensagens concorrentes reduzem a carga de interpretação, mas a facilidade para pessoas mais velhas precisa de observação com usuários reais. O pedido prevaleceu sobre hero de tela inteira, efeitos e sorteio de estilo da skill; a paleta existente é parte da identidade. Testes em jsdom não medem layout e capturas locais não demonstram persistência. Roteiro e análises continuam acessíveis por teclado nos detalhes nativos; confirmações e regras financeiras não foram substituídas. A camada CSS é isolada à área do aplicativo e deve ser avaliada também com dados remotos extensos. Não houve nova dependência, migration, push/merge/deploy ou aprovação presumida. Avaliação e autorização para dev permanecem pendentes.
+
+Complemento de verificação visual desta interação: capturas da skill inspecionadas em 1440/1024/820/360 px (produtor), 768/390 px (comprador), modais de oferta/pedido em 360 px e indisponibilidade de veículos desktop. Sem sobreposição/corte dos cartões observados. Modais fotografados na parte inicial rolável, não percorrem teclado/rolagem por navegador. Última simplificação de quantidade repetida e nota do comprador compilou depois dessas capturas.
+
+Encerramento do gate desta interação: segunda rodada 28 FAIL; após alinhar bordas dos botões principais e substituir as regras antigas que removiam o foco, terceira rodada **GATE: OPEN 24 (rounds used up)**, 20 WARN e nenhum waiver. Checker de layout executou dentro do gate com Edge explícito; o erro map/sections foi da tentativa standalone. Lista completa de achados no relatório da área do participante. Lint/build/diff-check finais aprovados e suíte completa final com 113 testes aprovados.
+
+Performance da bancada Vite de desenvolvimento (1 rodada em 1440/390): 4 FAIL por transferência/JS não empacotado (aprox. 28/24 MB), 1 WARN por 106 requests no desktop. Sem pedidos quebrados, layout shift 0,001/0,000, sem WebGL e imagens locais de 1,1 KiB. Não é medição do build de produção nem aprovação de performance; JSON local em .taste-skill/perf.json. O build de produção continua com aviso preexistente de chunk JS >500 kB.
+## Interação 060 — Login individual e acesso de desenvolvedor — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para analisar o fluxo existente, implementar React/CSS/Auth e preparar testes/documentação; ferramentas locais para lint/testes/build/PGlite, Supabase MCP para inspeção, migration e fixtures temporárias, documentação oficial de Auth e scripts headless da habilidade de design para capturas. Sem geração de imagens ou uso de outra IA externa.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: criar sessão de login real, manter versão atual apenas para testes, usar referências desktop/mobile, oferecer três opções pequenas de tipo de usuário, evitar aparência de formulário com caixas e incluir entrada de desenvolvedor para testar/demonstrar todas as contas. As referências visuais foram usadas como direção de composição; identidade do piloto preservada. Resposta aplicada: credenciais individuais no Supabase, seletor compacto de três perfis, campos com linha inferior, layout dividido/versão mobile e entrada developer restrita às quatro contas fictícias. Não houve aprovação humana presumida.
+
+### 3. Aplicação no código
+
+`Login.jsx`/`login.css`, `account-auth.js`, hook de sessão e integração em App/landing/layout/demo; `account_kind` e trigger privada para cadastro validado, com locais acadêmicos. Demo condicionado ao modo DEV/flag e bloqueado no build padrão. Reuso dos SVGs locais, navegação e RLS existentes; nenhuma credencial administrativa incluída no cliente. Testes novos do serviço, componente, PostgreSQL e roteiro Auth/RLS remoto manual.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 119 testes, build e dez scripts PGlite com sucesso. Auth/RLS remotos passaram nos três perfis com contas QA temporárias, refresh, retomada por novo cliente, papel imutável e demo desligado; fixtures removidas. Corrigidos nomes de ação no roteiro remoto (M2 `list`; transportador consulta M3). Capturas desktop/360 px revisadas; fundo retangular substituído por SVG e contorno global do main corrigido. Gate reportou OFF, sem afirmar aprovação. Envio/clique de e-mails, SMTP/URLs e percurso completo em navegador seguem sem validação; detalhes em validation.md. Avaliação humana e autorização de publicação/integração pendentes.
+
+### 5. Análise crítica
+
+Reaproveitar Auth/RLS evita inventar uma sessão baseada só na seleção visual e mantém fluxos acadêmicos funcionando. Separar credenciais pessoais das contas compartilhadas torna os testes explícitos, mas o ambiente continua compartilhado e simulado. A integração de confirmação/recuperação depende de configurações externas e de caixa de entrada controlada para prova ponta a ponta. Testes de serviço, jsdom, PGlite, Auth real e capturas têm alcances distintos; não comprovam liberação comercial, aceite humano ou revisão integral de teclado/navegador.
+
+## Interação 061 — Correção visual do login dividido — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para corrigir React/CSS; scripts locais de lint, testes e build; Chrome headless para revisão dirigida.
+
+### 2. Prompts e respostas representativos
+Transcrição do pedido: “pare de criar animações para o site, está tirando completamente do design. fora que eu quero a tela completamente dividida, uma parte verde e a outra clara”. Aplicação: retirada das ilustrações e movimentos adicionados ao login, com divisão integral verde/creme.
+
+### 3. Aplicação no código
+Login.jsx e login.css: painel verde de ponta a ponta na metade esquerda e acesso creme na direita, marca clara no verde, cabeçalho/rodapé integrados. Mobile com topo verde e acesso claro abaixo, sem cartão externo. Sem alteração de autenticação ou banco. Não criar novas animações nas próximas alterações de design sem pedido do usuário.
+
+### 4. Verificação, testes e ajustes
+Executados lint, suíte de testes e build; resultados finais e revisão desktop/360 px registrados em validation.md. Não houve aceite humano nem autorização de publicação/integração.
+
+### 5. Análise crítica
+A correção segue a divisão de tela pedida e elimina as intervenções visuais rejeitadas. A avaliação anterior não representava aceite do usuário; a revisão conserva o comportamento de login e continua para avaliação.

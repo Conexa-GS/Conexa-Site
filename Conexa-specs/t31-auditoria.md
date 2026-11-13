@@ -1,5 +1,7 @@
 # T31 — Conferência acadêmica — 12/11/2026
 
+Complemento de saneamento em 12/11/2026: a ressalva de conteúdo identificada nesta auditoria foi tratada na `feature/saneamento-ia-tarefas`. [Mapa, critérios e origem](saneamento-ia.md); [histórico integral não canônico](historico/ia-antes-saneamento-2026-11-12.md). T04 encerrada quanto aos artefatos versionados; 32 registros canônicos com cinco seções. O relato abaixo preserva o resultado da auditoria original e não reabre essa ressalva. Completude dos integrantes e avaliação desta revisão continuam pendentes, sem novo aceite humano.
+
 Responsável: Codex. Escopo solicitado: componentes, hooks, `useState`/`useEffect`, CRUD remoto, commits significativos e registros de IA. Conferência executada em `feature/t31-auditoria-academica`, criada da `dev` limpa em `5ac6fce`. Não houve fetch nesta auditoria: as contagens abaixo se referem ao histórico local desse commit, sem certificar o estado atual do GitHub.
 
 **Resultado: conferência T31 concluída, com ressalva no conteúdo histórico de IA.md.** Os requisitos técnicos examinados têm evidências; o saneamento dos registros antigos e as entregas T32/T33 permanecem pendentes. Isto não é aceite humano, conclusão de todos os marcos ou autorização para publicar/integrar.

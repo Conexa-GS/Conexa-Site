@@ -5,4 +5,4 @@
 @import './pilot/polish.css';
 @import './pilot/animations.css';
 html{scrollbar-gutter:stable}button:disabled{cursor:wait;opacity:.6}input,select,textarea{font:inherit;color:inherit}select:focus-visible,input:focus-visible{outline:3px solid #b24124;outline-offset:3px}
-#conteudo:focus{outline:none}
+#conteudo:focus{outline:3px solid #b24124;outline-offset:4px}

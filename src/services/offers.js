@@ -2,6 +2,7 @@ import { futureDate, today } from '../domain/offers'
 import { isRemote, supabase } from './supabase'
 import { m2 } from './m2'
 import { createDemoAuth } from './demo-auth'
+import { createAccountAuth } from './account-auth'
 
 export const accounts = [
   { id: 'ana', name: 'Ana Oliveira', role: 'producer', label: 'Sítio Boa Semente', email: import.meta.env.VITE_DEMO_ANA_EMAIL || 'ana@conexa.invalid', art: 'produtora' },
@@ -17,12 +18,15 @@ let localOffers = [
 ].map(offer => ({ ...offer, available_from: today(), available_until: futureDate(14), status: 'published', version: 1 }))
 const hydrate = offer => ({ ...offer, products: products.find(p => p.id === offer.product_id), participants: { display_name: accounts.find(a => a.id === offer.producer_id)?.name }, locations: locations.find(l => l.id === offer.pickup_location_id) })
 const check = result => { if (result.error) throw new Error('Não foi possível acessar os dados. Verifique a conexão e a configuração do Supabase.'); return result.data }
-export const demoSessionService = isRemote ? createDemoAuth(supabase, accounts, import.meta.env.VITE_DEMO_PASSWORD || '') : {
+export const developerAccessEnabled = import.meta.env.DEV || import.meta.env.VITE_ENABLE_DEVELOPER_ACCESS === 'true'
+const demoAuth = isRemote ? createDemoAuth(supabase, accounts, developerAccessEnabled ? import.meta.env.VITE_DEMO_PASSWORD || '' : '') : {
   restore: async () => null,
   enter: async account => ({ ...account, display_name: account.name }),
   leave: async () => {},
   subscribe: () => () => {},
 }
+export const accountAuth = createAccountAuth(supabase, demoAuth, developerAccessEnabled)
+export const demoSessionService = accountAuth
 export const signInDemo = account => demoSessionService.enter(account)
 export const signOutDemo = () => demoSessionService.leave()
 export async function listCatalog(session) {
