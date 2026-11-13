@@ -1418,3 +1418,47 @@ Codex executou lint, 130 testes existentes e build com sucesso; aviso preexisten
 ### 5. Análise crítica
 
 CSS nativo liga o efeito à posição de rolagem sem renderizações React por quadro, mantendo o gesto normal do navegador. Poster e texto conservam uma abertura legível quando a mídia não reproduz. Movimento reduzido e pausa compartilhada oferecem alternativa ao zoom e ao vídeo automático. O arquivo de cerca de 5,9 MB adiciona transferência e decodificação; pausa fora da seção reduz trabalho, mas não elimina o download. Cover privilegia preencher a tela e recorta laterais em 360 px. Compatibilidade sem scroll timeline tem fallback estático, sem verificação em múltiplos navegadores. Avaliação humana e autorização para subir/integrar na dev pendentes.
+
+## Interação 074 — Perfis minimalistas no acesso de desenvolvedor — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar React/CSS e documentação. Terminal/Git para criar feature da dev e executar verificações locais. Navegador integrado via Computer Use para revisão desktop/360 px e capturas, com leitura da skill computer-use. Sem subagentes, geração de imagem ou alteração de banco.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “na parte de entrar como desenvolvedor, deixe os perfis igual ao da pagina principal, tire os subtítulos desnecessários. deixe o mais otimizado e minimalista possivel”. Resposta aplicada: compartilhar fotos/camada verde da página principal, retirar descrições e rótulos repetidos e preservar seleção de conta e entrada nos três perfis.
+
+### 3. Aplicação no código
+
+Demo.jsx usa cartões fotográficos, título único, nomes das contas e ações Entrar com nomes acessíveis por função. Escolha Ana/João preservada e bloqueada durante envio. demo.css define três colunas desktop, empilhamento móvel e foco visível. profile-photos.css compartilha fundos com Landing.jsx/home.html/profile-carousel.css, evitando duplicar os gradientes e URLs. Removida a montagem de MotionArtwork nesta tela. Aviso compacto preserva identificação de simulação e comportamento local volátil. D041/spec/README/validation documentam a revisão.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes existentes, build e diff-check com sucesso; aviso preexistente de bundle acima de 500 kB. Navegador integrado conferiu desktop 1224×901 e 360×800, sem overflow horizontal, com os três cartões, aviso final e seletor de produtor. Tab do seletor ao botão verificado; fotos e gradiente dos três perfis da home conferidos após extração dos estilos. Capturas locais em validation.md. Sem novo teste automatizado, autenticação remota, operação no Supabase, publicação ou aprovação humana presumida.
+
+### 5. Análise crítica
+
+Compartilhar o tratamento fotográfico mantém as duas páginas visualmente consistentes. Menos textos e a retirada da animação reduzem elementos na tela sem remover escolha de participante ou identificação de simulação. Empilhamento móvel evita movimentar controles interativos em carrossel. Fotos existentes continuam com recorte cover; não houve medição de ganho de desempenho nem redução do aviso de bundle global. Revisão visual não comprova todos os dispositivos, leitor de tela ou novo teste de autenticação. Avaliação e autorização para subir/integrar na dev pendentes.
+
+## Interação 075 — Seleção limpa de produtor e títulos sem pontos — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para alterar React/CSS e registros; terminal para lint/testes/build; Computer Use para revisão desktop/360 px e seleção por clique/teclado. Sem subagentes ou geração de imagem.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “tire os '.' e na hora de selecionar o produtor, deixe uma seleção mais limpa e não esse fundo padrão azul”. Aplicado: títulos e aviso sem pontos finais; opções Ana/João visíveis em creme/verde, substituindo o menu nativo.
+
+### 3. Aplicação no código
+
+Demo.jsx troca select por fieldset com radios e nomes completos acessíveis. demo.css oculta visualmente os radios, estiliza seus rótulos e diferencia seleção/foco. Estado React e bloqueio durante envio preservados. Alteração restrita ao acesso de desenvolvedor.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes existentes e build aprovados; aviso de bundle preexistente. Navegador integrado conferiu desktop e 360 px, clique em João, seta para Ana e ausência de overflow horizontal móvel. Evidências em validation.md. Sem autenticação remota ou aprovação humana presumida.
+
+### 5. Análise crítica
+
+Duas opções sempre visíveis evitam abrir menu do sistema e tornam o estado selecionado claro. Radios mantêm navegação nativa por teclado sem lógica adicional de dropdown. Nomes curtos reduzem texto; nome completo e propriedade permanecem no nome acessível. Sem prova de aparelho físico ou leitor de tela. Publicação/integração ainda dependem de autorização.

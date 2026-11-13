@@ -1,5 +1,11 @@
 # Registro de decisões
 
+## D041 — Perfis minimalistas no acesso de desenvolvedor — 13/11/2026
+
+Pedido explícito: “na parte de entrar como desenvolvedor, deixe os perfis igual ao da pagina principal, tire os subtítulos desnecessários. deixe o mais otimizado e minimalista possivel”. A tela `/demo` usa as mesmas três fotos locais e camada verde dos cartões da página principal, com estilos compartilhados em profile-photos.css. Retiradas ilustrações animadas desta tela, descrições por função, rótulos fictícios repetidos, navegação duplicada e rodapé promocional. Título único, nomes das contas, seletor Ana/João e botões Entrar mantidos. Aviso único identifica contas fictícias (ou prévia local volátil), pagamentos e entregas simulados.
+
+Desktop exibe três cartões fixos; até 760 px, cartões empilhados permitem operar o seletor e os botões sem carrossel. Nomes acessíveis distinguem as três ações, preservando foco visível, estado de envio e tratamento de erro. Regras de acesso/autenticação D030 não mudam. Feature criada da dev local `499e563`; lint, 130 testes e build passaram, com revisão desktop/360 px descrita em validation.md. Avaliação humana e autorização para publicação/integração na dev pendentes.
+
 ## D032 — Voz e GPT-Live para uma etapa futura — 13/11/2026
 
 Voz e integração GPT-Live ficam adiadas sem prazo, fora do escopo ativo.
@@ -365,3 +371,11 @@ CSS scroll timeline nativa mantém rolagem normal: seção de 235svh, palco stic
 Controle “Pausar vídeo e efeitos” compartilha a preferência já usada pelas ilustrações/perfis. Preferência reduzida elimina zoom/trecho fixo e pausa reprodução; preferência do sistema desabilita a reativação. Vídeo pausa fora da seção ou com documento oculto; cleanup remove observer/listeners e encerra reprodução. Mantidos autoplay/muted/playsinline e propriedade muted. Falha ou bloqueio de reprodução conserva poster/fundo e textos.
 
 Lint, 130 testes e build aprovados; revisão no navegador integrado em 1366×900 e 360×800, incluindo zoom nos dois sentidos de escala, continuidade ilustrada, pausa/retomada e movimento reduzido do sistema emulado. Evidências e limites em validation.md. Avaliação humana e autorização de publicação/integração pendentes; sem novo aceite de marco ou operação remota.
+
+### Complemento D041 — títulos e seleção de produtor — 13/11/2026
+
+Pedido posterior remove pontos da tela de desenvolvedor e troca o select nativo por duas opções Ana/João sempre visíveis, com seleção creme e verde, eliminando o menu azul do sistema. Radios nativos preservam exclusividade, nomes completos acessíveis e navegação por setas; seleção segue bloqueada durante envio. Demais telas não alteradas por esta revisão. Avaliação e autorização de publicação permanecem pendentes.
+
+### Autorização de publicação D041 — 13/11/2026
+
+Após apresentação dos cartões minimalistas e seleção Ana/João sem menu azul, usuário autorizou: “pode mandar para dev”. Autoriza commit, publicação da feature e integração/publicação na dev do origin Conexa-GS/Conexa-Site. Não inclui main ou comprovação de deploy. Verificações técnicas e limites registrados preservados.
