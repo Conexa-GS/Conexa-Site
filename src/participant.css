@@ -1,0 +1,112 @@
+/* Área de tarefas: leitura confortável e ações estáveis, na paleta do piloto. */
+.app-shell { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 17px; line-height: 1.6; --muted: #3e503d; --border: #b8c4ad; }
+.app-shell h1 { font-size: clamp(30px, 3vw, 40px); line-height: 1.2; letter-spacing: -.025em; }
+.app-shell h2 { font-size: 26px; letter-spacing: -.02em; }
+.app-shell h3 { font-size: 21px; letter-spacing: -.01em; }
+.app-shell .app-header, .app-shell .app-nav, .app-shell .app-content, .app-shell .app-footer { width: min(1184px, calc(100% - 64px)); }
+.app-shell .app-header { min-height: 96px; }
+.app-shell .session-controls strong { font-size: 17px; max-width: none; }
+.app-shell .session-controls small { font-size: 15px; }
+.app-shell .switch-participant { display: flex; align-items: center; gap: 8px; margin-left: 20px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: transparent; font-size: 16px; min-height: 48px; }
+.app-shell .app-nav { border: 0; padding-block: 8px 16px; }
+.app-shell .app-nav-links { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; width: 100%; }
+.app-shell .app-nav-links > a { min-height: 58px; padding: 12px 18px; gap: 10px; font-size: 17px; border: 1px solid var(--border); border-radius: 8px; white-space: normal; }
+.app-shell .app-nav-links svg { flex-shrink: 0; }
+.app-shell .app-nav-links > a[aria-current=page] { background: #174d38; color: #fff9ec; border-color: #174d38; }
+.app-shell .app-nav-links > a:after { display: none; }
+.app-shell .app-nav-links > a:hover:not([aria-current=page]) { background: #e7efd7; }
+.app-shell .demo-banner { padding: 10px 24px; font-size: 15px; line-height: 1.5; color: #3e503d; }
+.app-shell .app-content:focus-visible { outline: 3px solid #b24124; outline-offset: 4px; }
+.app-shell .app-content { padding-block: 32px 64px; }
+.app-shell .page-heading { max-width: 760px; }
+.app-shell .page-intro { max-width: 660px; font-size: 18px; margin-top: 12px; }
+.app-shell .task-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.app-shell .task-heading > .button { flex-shrink: 0; }
+.app-shell .guided-entry { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid var(--border); }
+.app-shell .guided-entry .button { min-height: 48px; padding: 8px 16px; }
+.app-shell .button, .app-shell .text-link, .app-shell .refresh-button, .app-shell .back-link, .app-shell .offer-actions button { font-size: 17px; min-height: 48px; line-height: 1.4; }
+.app-shell .button { padding: 14px 22px; gap: 12px; border-radius: 8px; }
+.app-shell .button:not(.button-outline):not(.button-danger) { border: 1px solid #174d38; }
+.app-shell button, .app-shell a { touch-action: manipulation; }
+.app-shell .text-link { padding-block: 10px; text-decoration: underline; text-underline-offset: 4px; }
+.app-shell button:not(:disabled), .app-shell a { transition: background-color .16s, transform .16s; }
+.app-shell .button:hover { transform: translateY(-2px); }
+.app-shell .button:active { transform: translateY(1px); }
+.app-shell :is(p, li, dt, dd, small, label, input, select, textarea, summary, .eyebrow, .muted, .inline-caption, .field-help, .field-error) { font-size: 16px; line-height: 1.6; }
+.app-shell .eyebrow { letter-spacing: .03em; }
+.app-shell .field > span { font-size: 17px; }
+.app-shell .field input, .app-shell .field select { min-height: 50px; font-size: 18px; border-color: #879b80; }
+.app-shell .field-help { margin-top: 6px; }
+.app-shell .section-toolbar p, .app-shell .offer-details, .app-shell .offer-price > span { font-size: 16px; }
+.app-shell .filter-bar { align-items: stretch; gap: 16px; }
+.app-shell .search-field { background: #fffdf6; min-height: 54px; }
+.app-shell .search-field input, .app-shell .filter-select select, .app-shell .filter-select > span { font-size: 17px; }
+.app-shell .search-field input { min-height: 48px; }
+.app-shell .brand-link { min-height: 44px; align-items: center; }
+.app-shell .filter-select { background: #fffdf6; }
+.app-shell .offer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.app-shell .offer-card { border-radius: 12px; position: relative; }
+.app-shell .produce-art { display: none; }
+.app-shell .offer-card-copy { padding: 24px; }
+.app-shell .offer-card h2 { font-size: 28px; }
+.app-shell .offer-card-top { align-items: flex-start; flex-wrap: wrap; margin-bottom: 16px; }
+.app-shell .offer-card-top .eyebrow { font-size: 16px; letter-spacing: 0; }
+.app-shell .offer-description { font-size: 17px; }
+.app-shell .offer-details { gap: 12px; margin-block: 20px; }
+.app-shell .offer-details svg { width: 20px; height: 24px; }
+.app-shell .offer-price { align-items: flex-start; flex-direction: column; }
+.app-shell .offer-price > strong { font-size: 30px; }
+.app-shell .offer-actions button { padding: 10px 6px; }
+.app-shell .status-badge { font-size: 15px; line-height: 1.4; padding: 7px 12px; white-space: normal; }
+.app-shell .inline-note { font-size: 16px; }
+.app-shell .empty-state { width: 100%; padding: 40px 24px; }
+.app-shell .empty-state p { font-size: 17px; }
+.app-shell .app-dialog { width: min(720px, calc(100% - 24px)); padding: 32px; }
+.app-shell .app-dialog h2 { font-size: 28px; line-height: 1.25; }
+.app-shell summary { min-height: 48px; padding-block: 10px; }
+.app-shell .wide-card { background: #fffdf6; border-radius: 12px; }
+.app-shell .card-heading { flex-wrap: wrap; }
+.app-shell .card-heading h2 { font-size: 24px; }
+.app-shell .record-filter { min-height: 48px; font-size: 16px; border-radius: 8px; }
+.app-shell .record-entry { position: relative; padding-top: 0; }
+.app-shell .record-visibility { justify-content: flex-end; }
+.app-shell .profile-card > p, .app-shell .profile-card .compact > span, .app-shell .participant-label small { font-size: 16px; }
+.app-shell .profile-card .button { font-size: 17px; }
+.app-shell .profile-art { height: 170px; }
+.app-shell .app-footer { font-size: 15px; }
+@media(max-width: 900px) {
+  .app-shell .app-nav-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .app-shell .session-avatar { display: none; }
+  .app-shell .profile-grid { grid-template-columns: 1fr; }
+}
+@media(max-width: 600px) {
+  .app-shell .app-header, .app-shell .app-nav, .app-shell .app-content, .app-shell .app-footer { width: calc(100% - 32px); }
+  .app-shell .app-header { align-items: flex-start; padding-block: 20px; gap: 16px; flex-wrap: wrap; }
+  .app-shell .brand-link img { width: 132px; }
+  .app-shell .session-controls { width: 100%; justify-content: space-between; align-items: center; gap: 12px; }
+  .app-shell .session-controls strong { font-size: 16px; }
+  .app-shell .switch-participant { margin: 0; font-size: 15px; padding: 8px; gap: 6px; max-width: 47%; }
+  .app-shell .switch-participant svg { flex-shrink: 0; }
+  .app-shell .app-nav-links { gap: 8px; }
+  .app-shell .app-nav-links > a { font-size: 16px; padding: 12px 10px; gap: 8px; }
+  .app-shell .demo-banner { font-size: 15px; padding: 12px 16px; }
+  .app-shell .task-heading { align-items: stretch; flex-direction: column; gap: 20px; }
+  .app-shell .task-heading > .button, .app-shell .guided-entry .button { width: 100%; justify-content: center; }
+  .app-shell .guided-entry { gap: 10px; }
+  .app-shell .filter-bar { flex-direction: column; }
+  .app-shell .filter-select { min-height: 54px; justify-content: space-between; }
+  .app-shell .filter-select select { max-width: 70%; }
+  .app-shell .refresh-button { align-self: flex-start; padding: 8px 0; }
+  .app-shell .offer-grid { grid-template-columns: 1fr; }
+  .app-shell .offer-card-copy { padding: 20px; }
+  .app-shell .form-grid { grid-template-columns: 1fr; }
+  .app-shell .app-dialog { padding: 28px 20px; }
+  .app-shell .form-actions .button { width: 100%; font-size: 17px; }
+  .app-shell .section-toolbar > .button { width: 100%; }
+  .app-shell .money-list > div { flex-wrap: wrap; }
+  .app-shell .money-list dd { white-space: normal; }
+}
+@media(prefers-reduced-motion: reduce) {
+  .app-shell button, .app-shell a { transition: none; }
+  .app-shell .button:hover, .app-shell .button:active { transform: none; }
+}
