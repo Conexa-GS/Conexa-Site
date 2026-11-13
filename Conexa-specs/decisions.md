@@ -255,3 +255,23 @@ A pedido explícito do usuário, a composição anterior do login foi substituí
 ## Autorização de integração e promoção — 13/11/2026
 
 Após a correção visual do login, o usuário autorizou explicitamente: “pode passar para dev e depois para a main”. Autoriza commit/publicação da feature e integração sequencial feature/login-real → dev → main. Não equivale a relato de teste humano, validação de e-mails ou novo aceite M5/M6. Verificações e limites técnicos anteriores preservados.
+
+## D031 — Conversas com interface de mensageiro — 13/11/2026
+
+Origem: pedido explícito para aproximar Conversas das referências de aplicativos de mensagens, manter digitação acessível, mover sugestões para junto do chat e apresentar informações/seleção de ofertas dentro das respostas do bot. Implementação em `feature/conversas-mensageiro`, criada da dev `36ee42d`; para avaliação.
+
+Substitui a disposição visual de D022: o campo de texto fica sempre aberto no rodapé, com sugestões próximas quando não há operação em preparo. Perguntas, cartões de ofertas/colheitas, seleção do campo, entrada guiada, prévia e confirmação pertencem ao último balão do bot. Desktop mantém contatos e conversa lado a lado; mobile mostra uma área por vez. Respostas extensas começam pela pergunta/opções; o histórico rola independentemente do compositor. Enter envia, Shift+Enter mantém quebra de linha. Sem animações novas.
+
+Consulta do produtor permite selecionar uma oferta e iniciar sua edição, inclusive quando há mais de uma colheita do mesmo alimento. Cartões distinguem quantidade livre/total, preço, disponibilidade, coleta e identificação recolhida. Dados técnicos do histórico são apresentados com texto legível; não há regravação das mensagens remotas nem snapshots históricos novos. Controles ativos refletem somente o estado atual consultado e não permanecem na prévia após sucesso. Durante correção, ocultar a prévia até usar o valor ou voltar aos campos. Erro de revisão invalida também a seleção local do campo.
+
+RN45, Auth/RLS, idempotência, recuperação por chave e confirmação versionada permanecem nos gateways existentes. Não adiciona escrita de propostas/demandas/transporte/pagamentos pelo bot: Sobre o bot oferece acesso aos fluxos existentes. Comprador continua com consulta, sem editar ofertas de terceiros. Voz/IA opcionais ficam em Sobre o bot, desabilitadas por padrão no ambiente normal. Não houve migration ou operação no Supabase nesta revisão. Não encerra M6 nem presume aceite/publicação/integração.
+
+### Complemento D031 — Responder no compositor normal — 13/11/2026
+
+Pedido explícito de ajuste: preservar a seleção de alimento por opções, mas permitir responder quantidade/preço no chat normal. Remove o formulário FieldAnswer e seu botão Usar este valor do balão. Quantidades, preços e datas passam pelo compositor, com foco e indicação contextual; a mesma entrada atende à correção de um campo selecionado. Alimento, coleta, Não sei informar e Voltar aos campos continuam como opções no balão. Comandos de cancelar/consultar mantêm o interpretador existente; respostas simples usam answerOfferChat, sem inferir valores ou salvar o catálogo.
+
+A resposta digitada aparece como mensagem do usuário e a próxima pergunta é mostrada pelo bot. Perguntas já vistas na visita são preservadas como apresentação em memória; nenhuma mensagem remota é alterada e a recarga ainda depende do histórico textual existente, sem novos snapshots persistidos. Resposta inválida conserva o texto para correção; confirmação versionada, recuperação por chave e RN45 mantidas. Continuação na mesma feature, sem aprovação de publicação/integração inferida do comentário favorável às opções.
+
+### Autorização de publicação e promoção de Conversas — 13/11/2026
+
+Usuário autorizou explicitamente: “pode mandar para dev e depois para main”. Autoriza publicar a feature/conversas-mensageiro, integrar na dev e promover sequencialmente para main. Não equivale a novos testes humanos, deploy comprovado ou aceite integral de M6. Verificações locais e limites registrados acima permanecem válidos. Autorização registrada fora de IA.md, pois não constitui prompt de programação.

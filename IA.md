@@ -1153,3 +1153,70 @@ Executados lint, suíte de testes e build; resultados finais e revisão desktop/
 
 ### 5. Análise crítica
 A correção segue a divisão de tela pedida e elimina as intervenções visuais rejeitadas. A avaliação anterior não representava aceite do usuário; a revisão conserva o comportamento de login e continua para avaliação.
+
+
+## Interação 062 — Fonte principal e limpeza visual — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para revisar os componentes e CSS e implementar a limpeza solicitada. Skill design-taste-frontend para orientar tipografia, hierarquia e adaptação ao celular, subordinada à identidade existente. Terminal para verificações locais; navegador integrado para inspeção visual e capturas.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: trocar a fonte principal do site pelo import fornecido do Google Fonts (Chivo, Pirata One e Poppins), retirar subtextos desnecessários, contornos laranja e numerações desnecessárias, deixando a interface limpa. Resposta aplicada: Poppins como fonte principal, redução de textos promocionais/repetidos e numeração decorativa; preservação das informações necessárias à operação simulada. A escolha de Poppins foi uma interpretação informada ao usuário, sem registrar aceite presumido.
+
+### 3. Aplicação no código
+
+Import em src/index.css, preconnects em index.html e família compartilhada no CSS do piloto/participantes. Ajustes de peso e tamanho dos títulos para a nova fonte; bordas neutras e foco verde no lugar dos contornos laranja, sem moldura de foco no conteúdo principal. Limpeza no início, login, seleção de perfis, ofertas, pedidos, composição, transporte e conversas; remoção da numeração decorativa na prévia de operação e do prefixo técnico M4 nos avisos que continuam identificados como prévias. artwork.js/motion.js ajustados às legendas removidas. Sem alteração de regras de negócio, autenticação, serviços ou banco; sem novas animações.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou npm run lint, npm test (119 aprovados, zero falhas), npm run build e git diff --check com sucesso. Build mantém aviso de chunk acima de 500 kB. Inspeção no navegador do início/login em desktop e 360 px; ofertas em desktop/360 px e modal Nova oferta em 360 px em bancada local com envDir:false. Poppins carregada e ausência de rolagem horizontal conferidas nos estados inspecionados. Ajustados títulos cuja nova largura quebrava linhas no celular e o espaço do seletor de alimentos. Detalhes e limites em Conexa-specs/validation.md. Sem novo teste remoto de CRUD/RLS, aceite humano, push, merge ou deploy.
+
+### 5. Análise crítica
+
+Compartilhar a fonte evita diferenças entre o site público e a área de tarefas. Remover redundâncias reduz a carga de leitura, mas orientações de confirmação, erros, dados financeiros e avisos de simulação precisam permanecer. Google Fonts depende de acesso externo, com fallback local configurado; as três famílias fornecidas não implicam usar todas no texto principal. A inspeção foi dirigida e não certifica todos os estados ou fluxos do produto. A avaliação humana e a autorização para publicação/integração continuam pendentes.
+
+## Interação 063 — Conversas como aplicativo de mensagens — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para analisar o chat existente, implementar React/CSS, revisar contratos e preparar teste/documentação. Terminal para lint, testes e build; navegador integrado para inspeção desktop/360 px e capturas de bancada. Sem geração de imagem, chamada de IA externa, API paga ou voz real.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: transformar a área de conversa em algo semelhante a um app de mensagens, com sugestões perto do chat ao iniciar, digitação acessível, informações retornadas como mensagens do bot e opção para selecionar proposta/colheita ou item a editar; usar as quatro imagens de referência. Resposta aplicada: histórico unificado em balões, cartões selecionáveis de ofertas/colheitas, perguntas e prévia dentro da conversa, compositor sempre aberto e sugestões no rodapé. Propostas/demandas continuam nos fluxos existentes com atalhos; não foram inventadas novas permissões de operação pelo bot.
+
+### 3. Aplicação no código
+
+BotThread.jsx, ConversationsPage.jsx e conversations.css: nova organização de mensageiro, cartões com disponibilidade/coleta e identificação recolhida, seleção diretamente da consulta para edição, correção contextual e confirmação versionada no balão, Enter/Shift+Enter e rolagem independente. Voz opcional e informações complementares recolhidas em Sobre o bot. Sucesso remove controles da prévia e rejeição de revisão limpa seleção local do campo. Preservados serviços, banco, idempotência, permissões, marca e paleta do piloto. Sem novas animações.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 120 testes, build e diff-check com sucesso; detalhes e limites em validation.md. Atualizadas expectativas anteriores de compositor oculto e respostas técnicas. Acrescentado teste com duas colheitas do mesmo alimento e edição somente da selecionada; rejeição de revisão exercitada com campo guiado aberto. Inspeção em bancada local no navegador integrado em 360×800 e 1280×900: consulta, escolha, correção de quantidade, prévia, cancelamento e envio por Enter, com compositor visível e sem rolagem horizontal nos estados conferidos. Nenhuma operação remota ou avaliação humana presumida.
+
+### 5. Análise crítica
+
+A organização reduz a distância entre pergunta, seleção e resposta; a identificação por alimento, valores e disponibilidade facilita distinguir ofertas sem expor UUID como informação principal. O interpretador continua delimitado e simulado, com ações guiadas como alternativa. A apresentação não transforma mensagens humanas em comandos nem amplia acesso do comprador. Cartões e controles refletem o estado atual, enquanto o servidor conserva o histórico textual original; esta entrega não adiciona snapshots antigos de cartões. A bancada permite revisar interação/layout, mas não substitui prova remota, teclado virtual físico ou avaliação de usuários. Feature para avaliação; publicação/integração dependem de autorização no workflow.
+
+## Interação 064 — Responder às perguntas pelo chat normal — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar React/CSS e os testes de componente. Terminal para lint/testes/build; navegador integrado para conferir o fluxo desktop/360 px em bancada de memória e salvar capturas. Sem serviço de IA externo ou operação no Supabase.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: ao criar uma oferta, o bot deve perguntar e o usuário responder no próprio chat; manter a seleção de alimento por opções, mas permitir responder quanto vender e valores pelo campo normal. Aplicação: retirada do formulário duplicado do balão e uso do compositor para respostas de quantidade, preço, mínimo e datas. A imagem fornecida foi usada como referência do problema, não como instrução independente.
+
+### 3. Aplicação no código
+
+BotThread.jsx encaminha respostas simples à pergunta atual usando answerOfferChat e mantém o interpretador para comandos. Mensagem enviada conserva o texto digitado; contexto/foco/teclado decimal orientam a resposta no compositor. Alimento/coleta/Não sei informar permanecem em botões no balão. Perguntas já vistas são mantidas na apresentação em memória durante a visita, com histórico remoto intacto. CSS de FieldAnswer removido. Testes de criação/correção usam o compositor normal.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 120 testes, build e diff-check com sucesso. Verificados preço inválido preservado, resposta válida no histórico, continuidade das perguntas, criação completa e confirmação separada, além dos testes existentes de conflito/recuperação. No navegador integrado, bancada local percorreu seleção do alimento e respostas 20/5,00 por Enter, com revisão visual desktop e 360 px; sem campo duplicado ou overflow horizontal nos estados vistos. Evidências e limites em validation.md. Sem teste remoto, microfone, API paga ou aprovação humana de integração presumida.
+
+### 5. Análise crítica
+
+Responder no mesmo campo aproxima a criação de uma conversa e elimina repetição da pergunta/rótulo. O bot continua delimitado: aceita valores e datas explícitos, mantém validações e requer revisão/confirmar para publicar. Opções de catálogo evitam nomes ambíguos. A preservação visual das perguntas nesta visita não cria snapshots persistidos; F5 continua dependente dos textos remotos existentes. A bancada não substitui teste com teclado virtual físico, leitor de tela ou aceitação do fluxo por usuários reais. Publicação/integração seguem pendentes conforme workflow.

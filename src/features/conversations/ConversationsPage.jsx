@@ -111,8 +111,8 @@ function Thread({ conversation, session, service, revision, refresh, composer, s
         <ol>{history.messages.map(message => <li className={`conversation-bubble ${message.sender_id === session.id ? 'own' : ''}`} key={message.id}><span className="sr-only">{message.sender_id === session.id ? 'Você' : conversation.title}: </span><p>{message.body}</p><time dateTime={message.created_at}>{time(message.created_at)}</time></li>)}</ol><div ref={end} />
       </div>
       <div className="conversation-composer"><form onSubmit={send}>
-        <label htmlFor="conversation-message">Sua mensagem</label>
-        <textarea ref={input} id="conversation-message" maxLength={2000} rows={3} value={composer.body} disabled={sending || composer.locked} onChange={event => setComposer({ body: event.target.value, key: null, locked: false })} aria-describedby="message-help" />
+        <label className="sr-only" htmlFor="conversation-message">Sua mensagem</label>
+        <textarea ref={input} id="conversation-message" placeholder="Escreva sua mensagem…" maxLength={2000} rows={2} value={composer.body} disabled={sending || composer.locked} onChange={event => setComposer({ body: event.target.value, key: null, locked: false })} aria-describedby="message-help" onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing && !composer.locked) { event.preventDefault(); void send(event) } }} />
         <div className="conversation-send-row"><small id="message-help">{composer.locked ? 'Envio a verificar. Reenvie com a mesma chave para evitar duplicação.' : `${composer.body.length}/2000 · texto dentro da Conexa`}</small><button className="button" disabled={sending || !composer.body.trim()} type="submit">{sending ? 'Enviando…' : composer.locked ? 'Verificar envio' : 'Enviar'}<PaperPlaneTilt size={18} aria-hidden="true" /></button></div>
       </form>{sendError && <ErrorNotice autoFocus title="Não foi possível confirmar o envio">{sendError} Seu texto foi preservado. Verifique o envio antes de escrever outra mensagem.</ErrorNotice>}<p className="sr-only" role="status">{notice}</p></div>
   </section>
@@ -127,6 +127,7 @@ export default function ConversationsPage({ session, service = conversationServi
   const [actionError, setActionError] = useState('')
   const openRef = useRef(false)
   const listHeading = useRef(null)
+  const layout = useRef(null)
   const returnToList = useRef(false)
   useEffect(() => {
     if (selected === null && returnToList.current) {
@@ -135,6 +136,8 @@ export default function ConversationsPage({ session, service = conversationServi
     }
   }, [selected])
   const conversation = inbox.conversations.find(item => selected === 'bot' ? item.kind === 'bot' : item.id === selected)
+  const conversationId = conversation?.id
+  useEffect(() => { if (conversationId) layout.current?.scrollIntoView({ block: 'start', behavior: 'instant' }) }, [conversationId])
   function updateComposer(id, draft, expectedKey) {
     if (!outbox.save(id, draft, expectedKey)) return false
     setDrafts(previous => ({ ...previous, [id]: draft }))
@@ -149,13 +152,13 @@ export default function ConversationsPage({ session, service = conversationServi
   }
   function back() { returnToList.current = true; setSelected(null) }
   return <>
-    <PageHeading title="Conversas">Escolha uma pessoa para conversar ou peça ajuda ao Bot Conexa.</PageHeading>
-    <p className="preview-notice">Prévia em avaliação · ajuda por texto sem custo. Confira e confirme os dados antes de salvar. Voz opcional em preparação.</p>
+    <PageHeading title="Conversas" />
+    <p className="preview-notice">Prévia em avaliação · confirme os dados antes de salvar. Voz em preparação.</p>
     {inbox.error && <ErrorNotice retry={inbox.reload}>{inbox.error}</ErrorNotice>}
     {actionError && <ErrorNotice autoFocus>{actionError}</ErrorNotice>}
     {outbox.warning() && <p role="status">{outbox.warning()} Confira o histórico antes de iniciar outro envio.</p>}
     {Object.values(drafts).some(draft => draft.locked) && <p role="status">Há envio a verificar nesta aba. Abra a conversa e use Verificar envio ou Verificar pedido pendente antes de iniciar outro.</p>}
-    <div className={`conversations-layout ${conversation ? 'has-selection' : ''}`}>
+    <div ref={layout} className={`conversations-layout ${conversation ? 'has-selection' : ''}`}>
       <aside className="conversation-sidebar" aria-label="Lista de conversas"><div className="conversation-list-heading"><h2 ref={listHeading} tabIndex={-1}>Conversas</h2><button className="text-link" onClick={inbox.reload}>Atualizar</button></div>
         {inbox.loading && <p role="status">Carregando conversas…</p>}
         <ul className="conversation-list">{inbox.conversations.map(item => <li key={item.id}><button aria-current={item.id === conversation?.id ? 'true' : undefined} onClick={() => setSelected(item.id)}><span className={`conversation-avatar ${item.kind === 'bot' ? 'bot' : ''}`} aria-hidden="true">{item.kind === 'bot' ? <Robot size={24} /> : <ChatCircleDots size={24} />}</span><span className="conversation-list-copy"><strong>{item.title}</strong><small>{item.kind === 'bot' ? 'Assistente Conexa · cadastro guiado' : item.last_body || 'Comece uma conversa'}</small>{item.last_at && <time dateTime={item.last_at}>{time(item.last_at)}</time>}</span>{item.unread > 0 && <span className="conversation-unread" aria-label={`${item.unread} mensagens não lidas`}>{item.unread}</span>}</button></li>)}</ul>

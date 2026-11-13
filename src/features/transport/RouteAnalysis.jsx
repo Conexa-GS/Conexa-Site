@@ -8,7 +8,7 @@ const stopLabel = { departure: 'Saída', pickup: 'Coleta', destination: 'Destino
 
 export function QuoteComparison({ load }) {
   const groups = comparableQuotes(load).filter(group => group.length > 1)
-  return <section className="m4-analysis" aria-label="Comparação de cotações"><p className="eyebrow">M4 · PRÉVIA EM AVALIAÇÃO</p><h3>Compare o mesmo serviço.</h3>
+  return <section className="m4-analysis" aria-label="Comparação de cotações"><p className="eyebrow">PRÉVIA EM AVALIAÇÃO</p><h3>Compare o mesmo serviço.</h3>
     <p>Cotações da versão atual, dentro da validade, com a mesma saída, coletas, destino, retorno, horários, conservação e serviços incluídos.</p>
     {!groups.length ? <p>Ainda não há duas cotações comparáveis. Saídas, horários ou serviços diferentes não comprovam menor frete para o mesmo roteiro.</p> : groups.map(group => <div key={group[0].id} className="m4-alternatives">{group.map((quote, index) => <article className="m4-candidate" key={quote.id}><h4>Cotação {quote.id.slice(0, 8)}</h4><dl className="money-list"><div><dt>Frete fechado</dt><dd>{currency(quote.total_cents)}</dd></div><div><dt>Total comprador</dt><dd>{currency(quote.buyerTotal)}</dd></div><div><dt>Diferença para o menor deste grupo</dt><dd>{currency(quote.total_cents - group[0].total_cents)}</dd></div></dl><p>{index === 0 ? 'Menor valor entre as cotações deste grupo.' : 'Alternativa comparável.'} Pedágios incluídos; taxa zero. A seleção e os aceites continuam necessários.</p></article>)}</div>)}
   </section>

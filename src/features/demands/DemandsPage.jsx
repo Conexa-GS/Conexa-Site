@@ -25,7 +25,7 @@ export default function DemandsPage({ session }) {
     catch (failure) { setError(failure.message) }
     finally { setPending(false) }
   }
-  return <><PageHeading title="Meus pedidos">Informe o alimento e a quantidade de que precisa. Depois, escolha os produtores.</PageHeading>
+  return <><PageHeading title="Meus pedidos" />
     <div className="section-toolbar"><h2>Pedidos de alimentos</h2><button className="button" disabled={!catalog || Boolean(state.error)} onClick={() => setEditing({})}>Novo pedido</button></div>
     {catalogError && <ErrorNotice>{catalogError} Recarregue a página para tentar novamente.</ErrorNotice>}{state.error && <ErrorNotice retry={state.reload}>{state.error}</ErrorNotice>}{notice && <p className="success-notice" role="status">{notice}</p>}
     {state.loading ? <p role="status">Carregando pedidos…</p> : !state.error && <>

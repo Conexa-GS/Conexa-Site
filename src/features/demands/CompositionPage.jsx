@@ -46,8 +46,8 @@ export default function CompositionPage({ demandId }) {
     finally { setPending(false) }
   }
   if (state.proposal && state.proposal.status !== 'draft') return <><BackLink href="/comprador/demandas">Meus pedidos</BackLink><EmptyState title="Esta demanda já tem uma proposta enviada.">Acompanhe as respostas em Meus pedidos. Para alterar a composição, cancele a proposta atual antes de remontar.</EmptyState></>
-  return <><BackLink href="/comprador/demandas">Meus pedidos</BackLink><PageHeading title="Escolher produtores">Selecione as quantidades e envie daqui mesmo. Os produtores recebem a proposta e os alimentos ficam reservados no envio; frete e compra final ainda serão confirmados.</PageHeading>
-    <ol className="demand-steps" aria-label="Etapas do pedido"><li>1. Pedido cadastrado</li><li aria-current="step">2. Escolher produtores</li><li>3. Enviar e acompanhar respostas</li></ol>
+  return <><BackLink href="/comprador/demandas">Meus pedidos</BackLink><PageHeading title="Escolher produtores">O envio reserva os alimentos. Frete e compra dependem das próximas confirmações.</PageHeading>
+    <ol className="demand-steps" aria-label="Etapas do pedido"><li>Pedido cadastrado</li><li aria-current="step">Escolher produtores</li><li>Enviar e acompanhar respostas</li></ol>
     {state.loading ? <p role="status">Buscando ofertas…</p> : state.error ? <ErrorNotice retry={() => setRevision(n => n + 1)}>{state.error}</ErrorNotice> : <div className="split-content"><section className="wide-card"><h2>{state.demand.product_name} · {quantity(state.demand.quantity)} {state.demand.unit}</h2><p>Destino: {state.demand.destination_address}</p><button className="text-link" onClick={() => setRevision(n => n + 1)}>Atualizar saldo</button>
       {!state.candidates.length && <EmptyState title="Nenhuma oferta compatível.">Verifique alimento, unidade e disponibilidade. Sua demanda não foi reduzida.</EmptyState>}
       {!draft && <InclusionComparison key={revision} demand={state.demand} disabled={pending} onChoose={(candidates, values) => { setState(previous => ({ ...previous, candidates })); setSelected(values) }} />}

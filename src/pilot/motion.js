@@ -87,8 +87,6 @@ export function mountMotion() {
     const loaded = state.load > .98 && state.unload < .02
     emptyTruck.hidden = loaded; loadedTruck.hidden = !loaded
     collection.classList.toggle('is-loaded', state.load > .98); delivery.classList.toggle('is-delivered', state.unload > .98)
-    $('collection-caption').textContent = state.load > .98 ? 'Colheita a bordo. Próxima parada: cidade.' : state.load > .02 ? 'Coletando os alimentos.' : 'A próxima parada é no produtor.'
-    $('delivery-caption').textContent = state.unload > .98 ? 'Alimentos entregues ao mercado.' : state.unload > .02 ? 'Descarregando no mercado.' : 'Da colheita até o mercado.'
     $('road-travelled').style.strokeDashoffset = String(total - state.distance)
     $('mini-progress').style.transform = `scaleX(${state.distance / total})`
   }

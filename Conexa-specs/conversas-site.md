@@ -1,5 +1,9 @@
 # Conversas no site — escopo, contratos e histórico M6
 
+Revisão local em 13/11/2026 (D031): interface de mensageiro com compositor sempre aberto, sugestões junto ao campo e perguntas/cartões/seleção/prévia dentro do último balão do bot. Consulta do produtor permite escolher a oferta/colheita a editar. Substitui a disposição visual de D022, preservando seus gateways, permissões e confirmação explícita. Propostas/demandas mantêm seus fluxos existentes. Verificações locais e limites em validation.md; avaliação e autorização de integração pendentes.
+
+Complemento D031, 13/11/2026: bot pergunta os valores/datas no balão e a pessoa responde pelo compositor normal, tanto na criação quanto na correção. Removido o formulário duplicado do balão; opções de alimento/coleta e Não sei informar permanecem. Valores simples usam o campo atual e as validações existentes; comandos de cancelar/consultar continuam disponíveis. Perguntas já exibidas nesta visita permanecem legíveis ao avançar; essa apresentação fica em memória, não altera mensagens do servidor nem promete preservar os mesmos balões após F5.
+
 Atualização vigente em 12/11/2026: integração WhatsApp **descontinuada** por pedido explícito do usuário (D029) e retirada das tarefas. Menções anteriores a pausa/preparação são históricas; preservar experimentos e evidências. Esta revisão documental não executa desativação de recursos remotos.
 
 Estado vigente em 12/11/2026: [estado-atual.md](estado-atual.md). Texto/DM e D022–D025 implementados, integrados e tecnicamente verificados no escopo registrado; T35/T38 encerradas. T41 parcial pela rede física; T42/voz real e T43/aceite M6 pendentes. Migrations de texto já aplicadas. Relatos iniciais abaixo são históricos; D021 substitui token efêmero e D025 substitui journal apenas em memória.

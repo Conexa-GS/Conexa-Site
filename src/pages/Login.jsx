@@ -7,9 +7,9 @@ import { homeFor } from '../domain/profiles'
 import './login.css'
 
 const profiles = [
-  { role: 'producer', label: 'Produtor', icon: Plant, art: 'produtora', line: 'Sua colheita tem\nnovos caminhos.', copy: 'Ofereça sua produção e encontre quem valoriza o que vem do campo.' },
-  { role: 'buyer', label: 'Comprador', icon: Basket, art: 'mercado', line: 'Mais perto de\nquem produz.', copy: 'Encontre alimentos de pequenos produtores e reúna suas compras.' },
-  { role: 'carrier', label: 'Transportador', icon: Truck, art: 'transportadora', line: 'Cada caminho,\numa conexão.', copy: 'Conecte coletas e entregas para levar o campo mais longe.' },
+  { role: 'producer', label: 'Produtor', icon: Plant, line: 'Sua colheita tem\nnovos caminhos.' },
+  { role: 'buyer', label: 'Comprador', icon: Basket, line: 'Mais perto de\nquem produz.' },
+  { role: 'carrier', label: 'Transportador', icon: Truck, line: 'Cada caminho,\numa conexão.' },
 ]
 export default function Login({ auth, reset = false, service = accountAuth }) {
   const preferred = new URLSearchParams(window.location.search).get('perfil')
@@ -50,17 +50,13 @@ export default function Login({ auth, reset = false, service = accountAuth }) {
     <header className="login-header"><Link href="/" className="brand-link" aria-label="Conexa, início"><img src="/assets/marca/conexa-logo-claro.svg" width="168" height="39" alt="Conexa" /></Link><Link href="/" className="login-back"><ArrowLeft size={17} />Voltar ao início</Link></header>
     <main className="login-main" id="conteudo" tabIndex={-1}>
       <aside className="login-story" aria-label="Sua conexão com o campo">
-        <p className="login-kicker"><span /> Do campo pra cidade. Mais juntos.</p>
         <h2>{profile.line.split('\n').map((line, i) => <span key={line}>{line}{i === 0 && <br />}</span>)}</h2>
-        <p className="login-story-copy">{profile.copy}</p>
-        <div className="login-story-bottom"><span>Pequenas ofertas.<br /><strong>Novas conexões.</strong></span><img src="/assets/marca/conexa-simbolo.svg" alt="" width="44" height="44" /></div>
       </aside>
       <section className="login-entry" aria-labelledby="login-title">
         <div className="login-entry-inner">
           {!['recover', 'reset'].includes(mode) && <div className="login-tabs" aria-label="Acesso à conta"><button type="button" aria-pressed={mode === 'login'} onClick={() => changeMode('login')} disabled={busy}>Entrar</button><button type="button" aria-pressed={mode === 'signup'} onClick={() => changeMode('signup')} disabled={busy}>Criar conta</button></div>}
-          <p className="login-kicker">SEU ESPAÇO NA CONEXA</p>
           <h1 id="login-title">{({ login: 'Bom ter você aqui.', signup: 'Vamos nos conectar.', recover: 'Recupere seu acesso.', reset: 'Uma nova senha.' })[mode]}</h1>
-          <p className="login-intro">{({ login: 'Entre para continuar suas conexões.', signup: 'Sua próxima conexão começa por aqui.', recover: 'Vamos enviar um link para o seu e-mail.', reset: 'Escolha uma senha para voltar à sua conta.' })[mode]}</p>
+          {mode === 'recover' && <p className="login-intro">Vamos enviar um link para o seu e-mail.</p>}
           {auth.session && mode !== 'reset' ? <div className="login-current"><p>Você está conectado como <strong>{auth.session.display_name || auth.session.name}</strong>.</p><Link className="login-submit" href={homeFor(auth.session.role)}>Ir para meu espaço <ArrowRight size={20} /></Link><button className="login-text-button" onClick={auth.leave} disabled={busy}>Sair desta conta</button></div> : <>
             {['login', 'signup'].includes(mode) && <fieldset className="login-profiles" disabled={busy}><legend>Eu sou</legend><div>{profiles.map(({ role: value, label, icon: Icon }) => <label key={value} className={role === value ? 'selected' : ''}><input type="radio" name="profile" value={value} checked={role === value} onChange={() => { setRole(value); setError('') }} /><Icon size={21} weight={role === value ? 'fill' : 'regular'} /><span>{label}</span></label>)}</div></fieldset>}
             <form onSubmit={submit} aria-busy={busy}>
@@ -76,7 +72,7 @@ export default function Login({ auth, reset = false, service = accountAuth }) {
               {['recover', 'reset'].includes(mode) && <button className="login-text-button" type="button" onClick={() => { changeMode('login'); if (reset) navigate('/login') }} disabled={busy}>Voltar para entrar</button>}
             </form>
           </>}
-          {developerAccessEnabled && <div className="login-developer"><Link href="/demo"><Code size={19} />Entrar como desenvolvedor<ArrowRight size={16} /></Link><p>Contas de teste para conhecer todos os perfis.</p></div>}
+          {developerAccessEnabled && <div className="login-developer"><Link href="/demo"><Code size={19} />Entrar como desenvolvedor<ArrowRight size={16} /></Link></div>}
         </div>
       </section>
     </main>
