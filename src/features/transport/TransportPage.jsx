@@ -36,7 +36,7 @@ export default function TransportPage({ session, vehiclesOnly = false }) {
     } catch (failure) { setError({ message: failure.message, id: payload.id, action }); state.reload(); return false }
     finally { setPending(false) }
   }
-  return <><PageHeading title={vehiclesOnly ? 'Meus veículos' : 'Entregas e valores'}>{vehiclesOnly ? 'Cadastre a capacidade e os cuidados que seu veículo oferece.' : 'Acompanhe o frete, confira os valores e veja o que precisa da sua confirmação. Transporte e pagamento são simulados.'}</PageHeading>
+  return <><PageHeading title={vehiclesOnly ? 'Meus veículos' : 'Entregas e valores'} />
     <div className="section-toolbar"><h2>{vehiclesOnly ? 'Cadastrar veículo' : 'Acompanhar propostas'}</h2><button className="text-link" onClick={state.reload}>Atualizar</button></div>
     {notice && <p className="success-notice" role="status">{notice}</p>}
     {detachedError && <ErrorNotice autoFocus title="Não foi possível concluir a ação">{error.message} A proposta pode ter mudado de estado; confira também o Histórico.</ErrorNotice>}

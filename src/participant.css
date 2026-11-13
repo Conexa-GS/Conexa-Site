@@ -1,5 +1,5 @@
 /* Área de tarefas: leitura confortável e ações estáveis, na paleta do piloto. */
-.app-shell { font-family: "Trebuchet MS", Arial, sans-serif; font-size: 17px; line-height: 1.6; --muted: #3e503d; --border: #b8c4ad; }
+.app-shell { font-family: var(--font-sans); font-size: 17px; line-height: 1.6; --muted: #3e503d; --border: #b8c4ad; }
 .app-shell h1 { font-size: clamp(30px, 3vw, 40px); line-height: 1.2; letter-spacing: -.025em; }
 .app-shell h2 { font-size: 26px; letter-spacing: -.02em; }
 .app-shell h3 { font-size: 21px; letter-spacing: -.01em; }
@@ -16,7 +16,7 @@
 .app-shell .app-nav-links > a:after { display: none; }
 .app-shell .app-nav-links > a:hover:not([aria-current=page]) { background: #e7efd7; }
 .app-shell .demo-banner { padding: 10px 24px; font-size: 15px; line-height: 1.5; color: #3e503d; }
-.app-shell .app-content:focus-visible { outline: 3px solid #b24124; outline-offset: 4px; }
+
 .app-shell .app-content { padding-block: 32px 64px; }
 .app-shell .page-heading { max-width: 760px; }
 .app-shell .page-intro { max-width: 660px; font-size: 18px; margin-top: 12px; }
@@ -44,6 +44,7 @@
 .app-shell .search-field input { min-height: 48px; }
 .app-shell .brand-link { min-height: 44px; align-items: center; }
 .app-shell .filter-select { background: #fffdf6; }
+.app-shell .filter-select select { max-width: 230px; }
 .app-shell .offer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .app-shell .offer-card { border-radius: 12px; position: relative; }
 .app-shell .produce-art { display: none; }

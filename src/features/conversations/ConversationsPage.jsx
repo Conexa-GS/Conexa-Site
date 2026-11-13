@@ -149,8 +149,8 @@ export default function ConversationsPage({ session, service = conversationServi
   }
   function back() { returnToList.current = true; setSelected(null) }
   return <>
-    <PageHeading title="Conversas">Escolha uma pessoa para conversar ou peça ajuda ao Bot Conexa.</PageHeading>
-    <p className="preview-notice">Prévia em avaliação · ajuda por texto sem custo. Confira e confirme os dados antes de salvar. Voz opcional em preparação.</p>
+    <PageHeading title="Conversas" />
+    <p className="preview-notice">Prévia em avaliação · confirme os dados antes de salvar. Voz em preparação.</p>
     {inbox.error && <ErrorNotice retry={inbox.reload}>{inbox.error}</ErrorNotice>}
     {actionError && <ErrorNotice autoFocus>{actionError}</ErrorNotice>}
     {outbox.warning() && <p role="status">{outbox.warning()} Confira o histórico antes de iniciar outro envio.</p>}

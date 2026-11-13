@@ -1,5 +1,17 @@
 # Verificação da primeira versão — 07/11/2026
 
+## Tipografia e limpeza visual — 13/11/2026
+
+Responsável: Codex. Branch `feature/tipografia-interface-limpa`, criada da `dev` limpa `db3290d2fc8e4a1184430a7a2636e2f1893054e0`. Pedido do usuário: trocar a fonte principal usando o import do Google Fonts fornecido e retirar subtextos, contornos laranja e numerações desnecessários. Poppins adotada como principal dentre as três famílias do link, com fallback Arial/sans-serif. Marca vetorial, ilustrações locais e paleta preservadas; nenhuma animação nova.
+
+Implementação: import global e preconnects, fonte compartilhada por títulos/controles/área dos participantes, peso e tamanho dos títulos ajustados para Poppins. Removidos textos promocionais repetidos no login/início, legendas decorativas das ilustrações, introduções redundantes nas páginas de tarefas e números decorativos das seções/etapas. Mantidos estados, dados, valores, revisões, instruções de confirmação, erros e identificação de simulações/prévias. Contorno do conteúdo principal ao navegar removido; foco dos controles preservado em verde. Bordas decorativas de destaque/negociação em verde/neutro. Código de movimento deixou de atualizar as legendas removidas.
+
+Verificação local final: `npm run lint` aprovado, `npm test` com **119 testes aprovados**, zero falhas, e `npm run build` aprovado. Build conserva aviso de chunk acima de 500 kB. `git diff --check` aprovado. Sem novos testes que apenas reproduzam a edição de textos/CSS.
+
+Navegador integrado: início e login em desktop e **360×800**, com Poppins carregada e sem rolagem horizontal nos estados inspecionados; início também capturado em **1366×900**. Seção de produtores percorrida pelo link da página; numeração/legendas redundantes ausentes e console do início sem erros capturados. Área de ofertas e modal Nova oferta conferidos na bancada `tests/ui/participant.html`, usando servidor Vite separado em `127.0.0.1:5176`, `envDir:false`, dados locais e nenhuma gravação. Área de ofertas conferida em desktop/360 px; modal conferido em 360 px. Inspeção dirigida, sem revisão visual integral de todos os estados de transporte/composição/conversas. Não foram repetidos testes remotos de CRUD/RLS nem executadas migrations, pagamentos, transportes, envios de mensagens ou autenticações novas. Capturas locais do início desktop/mobile e login desktop preparadas para avaliação.
+
+Após a apresentação da mudança, o usuário autorizou explicitamente em 13/11/2026: “pode mandar para a dev”. Autorização restrita à publicação/integração desta alteração na `dev`; não representa relato de testes humanos individuais. Nenhuma promoção para `main` ou implantação autorizada nesta interação.
+
 ## Saneamento documental T04/T31 e retirada de T30 — 12/11/2026
 
 Responsável: Codex. Branch `feature/saneamento-ia-tarefas`, criada da `dev` local `48ec847465d8320501a4c36044894786c4d0777d`; criação bloqueada no sandbox e repetida com escalonamento aprovado antes das edições. Sem fetch. Pedido explícito: sanear consultas/esclarecimentos antigos de IA.md com rastreabilidade e retirar a integração WhatsApp descontinuada das tarefas.

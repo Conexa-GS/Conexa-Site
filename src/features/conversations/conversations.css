@@ -77,7 +77,7 @@
 .voice-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 .voice-panel button { white-space: normal; }
 .voice-active { border-left: 4px solid #9c4329; padding-left: 10px; font-weight: 600; }
-.conversations-layout :focus-visible { outline: 3px solid #9c4329; outline-offset: 3px; }
+.conversations-layout :focus-visible { outline: 3px solid #174d38; outline-offset: 3px; }
 @media (max-width: 760px) {
   .conversations-layout { display: block; min-height: 400px; border-radius: 14px; }
   .conversation-main { display: none; padding: 17px 12px; }

@@ -1153,3 +1153,26 @@ Executados lint, suíte de testes e build; resultados finais e revisão desktop/
 
 ### 5. Análise crítica
 A correção segue a divisão de tela pedida e elimina as intervenções visuais rejeitadas. A avaliação anterior não representava aceite do usuário; a revisão conserva o comportamento de login e continua para avaliação.
+
+
+## Interação 062 — Fonte principal e limpeza visual — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para revisar os componentes e CSS e implementar a limpeza solicitada. Skill design-taste-frontend para orientar tipografia, hierarquia e adaptação ao celular, subordinada à identidade existente. Terminal para verificações locais; navegador integrado para inspeção visual e capturas.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: trocar a fonte principal do site pelo import fornecido do Google Fonts (Chivo, Pirata One e Poppins), retirar subtextos desnecessários, contornos laranja e numerações desnecessárias, deixando a interface limpa. Resposta aplicada: Poppins como fonte principal, redução de textos promocionais/repetidos e numeração decorativa; preservação das informações necessárias à operação simulada. A escolha de Poppins foi uma interpretação informada ao usuário, sem registrar aceite presumido.
+
+### 3. Aplicação no código
+
+Import em src/index.css, preconnects em index.html e família compartilhada no CSS do piloto/participantes. Ajustes de peso e tamanho dos títulos para a nova fonte; bordas neutras e foco verde no lugar dos contornos laranja, sem moldura de foco no conteúdo principal. Limpeza no início, login, seleção de perfis, ofertas, pedidos, composição, transporte e conversas; remoção da numeração decorativa na prévia de operação e do prefixo técnico M4 nos avisos que continuam identificados como prévias. artwork.js/motion.js ajustados às legendas removidas. Sem alteração de regras de negócio, autenticação, serviços ou banco; sem novas animações.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou npm run lint, npm test (119 aprovados, zero falhas), npm run build e git diff --check com sucesso. Build mantém aviso de chunk acima de 500 kB. Inspeção no navegador do início/login em desktop e 360 px; ofertas em desktop/360 px e modal Nova oferta em 360 px em bancada local com envDir:false. Poppins carregada e ausência de rolagem horizontal conferidas nos estados inspecionados. Ajustados títulos cuja nova largura quebrava linhas no celular e o espaço do seletor de alimentos. Detalhes e limites em Conexa-specs/validation.md. Sem novo teste remoto de CRUD/RLS, aceite humano, push, merge ou deploy.
+
+### 5. Análise crítica
+
+Compartilhar a fonte evita diferenças entre o site público e a área de tarefas. Remover redundâncias reduz a carga de leitura, mas orientações de confirmação, erros, dados financeiros e avisos de simulação precisam permanecer. Google Fonts depende de acesso externo, com fallback local configurado; as três famílias fornecidas não implicam usar todas no texto principal. A inspeção foi dirigida e não certifica todos os estados ou fluxos do produto. A avaliação humana e a autorização para publicação/integração continuam pendentes.
