@@ -235,3 +235,23 @@ Origem: pedido explícito do usuário para sanear os registros antigos de IA.md 
 [Saneamento](saneamento-ia.md): 54 registros originais preservados integralmente em histórico não canônico com commit/hash de origem; 32 registros de programação permanecem no canônico com cinco seções e seus IDs. Consultas/esclarecimentos e entradas exclusivamente de aceite/publicação foram segregados, preservando autorizações e evidências. A revisão exclusivamente documental não gera novo prompt de programação no registro. T04 encerrada quanto aos artefatos versionados; completude dos integrantes depende do grupo.
 
 Código e experimentos anteriores de WhatsApp permanecem históricos; não houve exclusão de código, chamada externa, limpeza/desativação de endpoint ou operação remota. Evidências e resultados reais em validation.md. Avaliação desta revisão e autorização de publicação/integração na dev pendentes; sem promoção para main ou novos aceites de produto.
+
+## D030 — Login individual e acesso de desenvolvedor — 13/11/2026
+
+Origem: pedido explícito para login real, versão anterior apenas para testes, três opções pequenas de perfil, referência desktop dividida/mobile com aparência de aplicativo e entrada de desenvolvedor para demonstração. Substitui a exclusão de autenticação individual do escopo inicial; implementação em `feature/login-real`, da dev `807254e`, ainda para avaliação.
+
+`/login` usa Supabase Auth com e-mail/senha, cadastro, confirmação de e-mail conforme configuração do servidor, recuperação/redefinição e retomada na mesma aba. Três radios escolhem produtor/comprador/transportador; no login, divergência com o perfil da tabela encerra a sessão e pede correção. Campos têm linha inferior e rótulos persistentes, com mostrar senha, feedback e bloqueio durante envio. Desktop divide narrativa/ilustração e acesso; mobile usa superfície creme e ilustração compacta. Marca e SVGs locais preservados.
+
+`/demo` é **Entrar como desenvolvedor** e preserva apenas Ana, João, comprador e transportador fictícios. Não significa impersonação de contas pessoais. Disponível em Vite DEV ou `VITE_ENABLE_DEVELOPER_ACCESS=true`; build padrão recusa contas compartilhadas e não inclui sua senha. Não existe chave administrativa no frontend nem desvio de RLS. O serviço legado continua validando a lista permitida/identidade remota.
+
+Migration aditiva cria `participants.account_kind` (`demo`/`personal`) e trigger privada de cadastro. A escolha inicial de papel/nome é validada e persistida no servidor, sem concessão de escrita direta de perfil; alterações posteriores de user_metadata não mudam autorização. `is_demo=true` continua sendo a fronteira das operações acadêmicas existentes, inclusive para identidade individual: os locais iniciais de produtor/comprador são explicitamente fictícios e pagamentos/transporte continuam simulados. Esta entrega não cria ambiente comercial nem isolamento entre organizações.
+
+Migration local `20261113155836_personal_account_auth.sql`, gerada pela CLI oficial, aplicada ao projeto demo Conexa como `20261113160056`. Cadastro via trigger e Auth/RLS reais verificados com três fixtures temporárias provisionadas sem enviar e-mails e removidas depois. Envio/recebimento/clique dos e-mails, URLs autorizadas e SMTP não foram alterados nem comprovados. Registro em validation.md; sem aceite humano, push, merge, promoção para main ou deploy inferidos.
+
+## Correção visual do login dividido — 13/11/2026
+
+A pedido explícito do usuário, a composição anterior do login foi substituída por duas metades de ponta a ponta: verde #174d38 à esquerda e creme à direita, com marca clara e cabeçalho/rodapé integrados. No mobile, topo verde e acesso claro abaixo, sem cartão. Ilustrações e movimentos adicionados ao login retirados; não criar novas animações sem pedido explícito. Esta revisão visual substitui a proposta anterior de D030; autenticação, migration e limites de e-mail preservados. Feature permanece para avaliação, sem push/merge/deploy.
+
+## Autorização de integração e promoção — 13/11/2026
+
+Após a correção visual do login, o usuário autorizou explicitamente: “pode passar para dev e depois para a main”. Autoriza commit/publicação da feature e integração sequencial feature/login-real → dev → main. Não equivale a relato de teste humano, validação de e-mails ou novo aceite M5/M6. Verificações e limites técnicos anteriores preservados.

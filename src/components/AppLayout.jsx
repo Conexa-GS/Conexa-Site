@@ -9,7 +9,7 @@ export default function AppLayout({ session, path, leave, children }) {
   const Icon = icons[session.role]
   return <div className="app-shell">
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
-    <header className="app-header"><Logo /><div className="session-controls"><span className="session-avatar"><Icon size={22} aria-hidden="true" /></span><div><strong>{session.display_name || session.name}</strong><small>{names[session.role]} · perfil fictício</small></div><button onClick={leave} className="switch-participant"><SignOut size={22} aria-hidden="true" /><span>Trocar participante</span></button></div></header>
+    <header className="app-header"><Logo /><div className="session-controls"><span className="session-avatar"><Icon size={22} aria-hidden="true" /></span><div><strong>{session.display_name || session.name}</strong><small>{names[session.role]} · {session.access === 'personal' ? 'minha conta' : 'perfil de teste'}</small></div><button onClick={leave} className="switch-participant"><SignOut size={22} aria-hidden="true" /><span>{session.access === 'personal' ? 'Sair' : 'Trocar participante'}</span></button></div></header>
     <nav className="app-nav" aria-label="Navegação do participante"><div className="app-nav-links">{profileRoutes[session.role].map(([href, label]) => {
       const NavIcon = href.endsWith('/conversas') ? ChatCircleDots : href.endsWith('/ofertas') ? Plant : href.endsWith('/veiculos') ? Truck : ClipboardText
       const active = path === href || (href.endsWith('/demandas') && path.startsWith(`${href}/`))
