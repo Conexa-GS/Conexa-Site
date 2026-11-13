@@ -1,5 +1,7 @@
 # Limitações e pendências da entrega
 
+Atualização de escopo em **13/11/2026 (D032)**: voz/GPT-Live guardada no planejamento futuro, sem prazo e fora da entrega ativa. T42, AC32 e a parte de integração paga de AC31 estão adiadas; limites de voz abaixo são históricos, sem teste real concluído e sem bloquear T43/M6 de texto/DM. A alternativa por texto sem API paga continua requisito ativo.
+
 Consolidação documental em **12/11/2026**. As verificações anteriores são evidências datadas; não certificam disponibilidade atual de serviços externos. Nenhum aceite novo é presumido nesta entrega.
 
 | Pendência / limite | Evidência disponível | Como encerrar ou avaliar |

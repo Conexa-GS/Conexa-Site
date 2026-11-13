@@ -1,5 +1,7 @@
 # Conexa — Pacote de especificações
 
+Decisão vigente em **13/11/2026 (D032)**: voz/GPT-Live guardada no planejamento futuro, fora do escopo ativo e sem prazo. T42 fica adiada, não concluída; sua ausência não bloqueia a avaliação T43/M6 de texto/DM. Código e evidências anteriores preservados, sem ativação ou teste pago. Menções anteriores a voz como pendência ativa são históricas.
+
 Complemento de 13/11/2026: login individual e cadastro nos três perfis preparados em `feature/login-real`, criada da dev `807254e`. A entrada anterior é exclusiva para testes/desenvolvedor; operações continuam simuladas. Migration aplicada ao Supabase demo, Auth/RLS dos três perfis verificados com fixtures temporárias removidas. Confirmação/recuperação por e-mail exigem avaliação ponta a ponta de envio e URLs. [D030](decisions.md#d030--login-individual-e-acesso-de-desenvolvedor--13112026) e [evidências](validation.md#login-individual-e-acesso-de-desenvolvedor--13112026). Avaliação humana e autorização de push/integração pendentes.
 
 Atualização vigente em 12/11/2026: [saneamento T04/T31](saneamento-ia.md) concluído documentalmente, com consultas/esclarecimentos e aceites/publicações segregados em histórico rastreável; T04 encerrada quanto aos artefatos versionados. T30/WhatsApp **descontinuada** por pedido do usuário e retirada do planejamento (D029). Menções anteriores a saneamento pendente ou canal pausado são históricas. Avaliação desta revisão e autorização de publicação/integração na dev pendentes; demais aceites e verificações mantêm seus limites.

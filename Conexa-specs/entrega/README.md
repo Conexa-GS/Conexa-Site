@@ -1,5 +1,7 @@
 # Entrega para avaliação — T32/T33/T43
 
+Escopo atualizado em **13/11/2026 (D032)**: voz/GPT-Live guardada no planejamento futuro, sem prazo; T42 adiada e fora da avaliação atual de texto/DM em T43/M6. Base opcional e evidências preservadas. As referências anteriores a voz pendente descrevem a entrega original; esta revisão documental não regenerou o ZIP.
+
 Preparada em **12/11/2026**, pelo Codex, na `feature/t32-t33-t43-entrega`, criada da `dev` em `17d2684`. Este pacote apresenta o checkout para avaliação; não registra aprovação, deploy ou envio acadêmico.
 
 | Artefato | Finalidade |
@@ -29,7 +31,7 @@ Antes de substituir a saída fixa, relê cada entrada do novo ZIP e compara hash
 
 ## Avaliação e aceite a registrar
 
-T32 fica **parcial**: README e pacote local preparados; privacidade/acesso de escrita dos professores, deploy e links finais não foram comprovados. T33 tem a matriz entregue para avaliação, sem transformar critérios com ressalva em aceites. T43 tem a consolidação e o roteiro preparados; avaliação/aceite M6 permanece aberto, assim como voz real/T42 e rede física/T41. O aceite M5 é independente.
+T32 fica **parcial**: README e pacote local preparados; privacidade/acesso de escrita dos professores, deploy e links finais não foram comprovados. T33 tem a matriz entregue para avaliação, sem transformar critérios com ressalva em aceites. T43 tem a consolidação e o roteiro preparados; avaliação/aceite M6 de texto/DM e rede física/T41 permanecem abertos. Voz/T42 adiada para uma etapa futura (D032), sem bloquear esse aceite. O aceite M5 é independente.
 
 O avaliador pode registrar sua decisão neste formato, sem preencher como resultado antes de executar:
 
@@ -37,4 +39,4 @@ O avaliador pode registrar sua decisão neste formato, sem preencher como result
 | --- | --- | --- | --- | --- |
 | Pendente | T32/T33/T43, texto/DM, M5 ou M6 — indicar qual | Pendente | Pendente | Pendente |
 
-Publicar a feature e integrá-la na `dev` depende de autorização após esta avaliação, conforme [workflow.md](../workflow.md#branches-e-avaliação). Essa autorização não significa promoção à `main`, deploy ou aceite M5/M6. Voz real pode continuar pendente ao avaliar texto/DM; não declarar AC32 real aprovado.
+Publicar a feature e integrá-la na `dev` depende de autorização após esta avaliação, conforme [workflow.md](../workflow.md#branches-e-avaliação). Essa autorização não significa promoção à `main`, deploy ou aceite M5/M6. Voz está fora do escopo ativo (D032); não declarar AC32 real aprovado.

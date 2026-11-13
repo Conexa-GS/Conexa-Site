@@ -1,5 +1,7 @@
 # Especificação funcional
 
+Escopo vigente em **13/11/2026 (D032)**: voz/GPT-Live está no planejamento futuro, adiada sem prazo e fora da entrega ativa. RF11/M6 mantém bot guiado por texto, prévia e confirmação; RF12 mantém mensagens. T42 adiada não bloqueia T43/aceite M6 de texto/DM. Referências anteriores a voz opcional planejada ficam como histórico; código e evidências preservados, sem ativação.
+
 Estado de execução consolidado em [estado-atual.md](estado-atual.md), 12/11/2026. Requisitos não são evidência de teste ou aceite; procedimentos e limites em validation.md.
 
 T28/M5 tecnicamente verificada no Supabase demo em 12/11, inclusive ciclo de entrega/divergência/resolução/repasses e percurso dos três perfis com F5; aceite humano M5 pendente. D027 preserva uma parcela simulada por beneficiário mesmo quando o valor do alimento arredonda a zero centavos, sem permitir negativos.
@@ -39,7 +41,7 @@ Recuperação D026: consultar estado/histórico com sucesso limpa o erro da cons
 | US08 Participantes aprovam operação | RF08 Confirmações e histórico | Apenas transições permitidas; mudanças relevantes invalidam aceites; notificações persistidas e negociação com manutenção do valor original ou desistência/taxa simulada e reencaminhamento |
 | US09 Comprador demonstra pagamento | RF09 Pagamento simulado | Aprovado, pendente ou recusado; sem cobrança real |
 | US10 Participantes acompanham entrega | RF10 Entrega e repasses | Mesma operação nos três perfis e repasses simulados após recebimento |
-| US11 Produtor gerencia ofertas por conversa | RF11 Bot Conexa no site | Criar/atualizar/arquivar ofertas próprias por texto, com prévia e confirmação; voz opcional em demonstração e mesmas regras do formulário. Implementado em T29/T34–T37, verificado no demo para texto com D025; voz real e aceite M6 pendentes |
+| US11 Produtor gerencia ofertas por conversa | RF11 Bot Conexa no site | Criar/atualizar/arquivar ofertas próprias por texto, com prévia, confirmação e mesmas regras do formulário. Implementado em T29/T34–T37, verificado no demo para texto com D025; aceite M6 pendente. Voz guardada para uma etapa futura (D032), fora do escopo ativo |
 | US12 Produtor e comprador conversam na plataforma | RF12 Mensagens entre participantes | Aba Conversas nos dois perfis, histórico persistido, mensagens individuais e não lidas; acordos por texto não executam operações. Implementado e tecnicamente verificado em T35/T38 e D025; aceite M6 pendente |
 
 ## Requisitos de qualidade
@@ -65,7 +67,7 @@ Bot Conexa oferece ações visíveis desde a abertura: consultar, criar, editar 
 - M3: transporte, cotações, valores individuais e confirmações finais.
 - M4: rotas, comparação de alternativas e critérios de inclusão.
 - M5: pagamento, acompanhamento, recebimento, cancelamento e repasses simulados.
-- M6: chat acessível; T29 é a base guiada existente. Nova prioridade: aba Conversas no site para produtor/comprador, bot para gerenciar ofertas e mensagens individuais. Texto simulado sem custo como padrão; OpenAI Realtime/voz opcional para testes manuais do usuário. T34–T40 implementadas nos escopos registrados, T35/T38 verificadas tecnicamente; T41 parcial, T42 e T43/aceite do marco pendentes.
+- M6: chat acessível; T29 é a base guiada existente. Aba Conversas no site para produtor/comprador, bot para gerenciar ofertas por texto e mensagens individuais. T34–T38 implementadas nos escopos registrados, T35/T38 verificadas tecnicamente; T41 parcial e T43/aceite do marco pendente. Base opcional T39/T40 preservada; voz/GPT-Live e T42 adiadas para uma etapa futura (D032), sem bloquear a avaliação de texto/DM.
 
 T30/WhatsApp descontinuada por pedido explícito do usuário em 12/11/2026 (D029) e retirada das tarefas. A [especificação anterior](t30-whatsapp.md) conserva somente a origem histórica dos experimentos.
 
@@ -75,4 +77,4 @@ Direção vigente em 12/11/2026 (D029, substitui a pausa de D018): integração 
 
 Atualização local T39/T40 em 11/11/2026: adaptador Realtime opcional e entrada de voz/transcrição preparados, desabilitados por padrão, com respostas em texto; D021 substitui emissão efêmera pelo SDP intermediado no servidor. Continua sem voz/provedor reais verificados. Testes pagos T42 exclusivos do usuário e requisitos de configuração/implantação em [voz-manual.md](voz-manual.md); não encerra M6.
 
-Dinheiro real, transporte físico, autenticação de produção, integração WhatsApp (descontinuada, D029), otimização global de frota, múltiplos compradores por carga, certificação de segurança alimentar e integração obrigatória com os trabalhos das outras matérias. Transcrição/voz via OpenAI é exceção demo opcional planejada para teste manual pago pelo usuário; tem implementação local opcional desabilitada, ainda sem validação real ou implantação. Grupos, anexos, chamadas entre participantes e escrita de demandas/transporte/pagamentos/aceites pelo bot ficam fora desta fatia.
+Dinheiro real, transporte físico, autenticação de produção, integração WhatsApp (descontinuada, D029), otimização global de frota, múltiplos compradores por carga, certificação de segurança alimentar e integração obrigatória com os trabalhos das outras matérias. Transcrição/voz via OpenAI e integração GPT-Live estão adiadas para uma etapa futura (D032); base local opcional desabilitada preservada, sem validação real ou implantação. Grupos, anexos, chamadas entre participantes e escrita de demandas/transporte/pagamentos/aceites pelo bot ficam fora desta fatia.
