@@ -26,7 +26,7 @@ test('Conversas: bot indisponível sem configuração; contatos abrem mensagem; 
     assert.match(ui.document.querySelector('.conversation-list button').textContent, /Bot Conexa/)
     await choose('Bot Conexa')
     assert.match(ui.document.querySelector('.conversation-thread').textContent, /Bot por texto precisa do Supabase demo configurado/)
-    assert.equal(ui.document.querySelector('textarea'), null)
+    assert.equal(ui.document.getElementById('bot-message').disabled, true)
     assert.equal(fixture.sends.length, 0)
     await choose('Restaurante')
     assert.equal(ui.document.activeElement.id, 'thread-title')
