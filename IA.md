@@ -1264,3 +1264,25 @@ Codex executou npm run lint, npm test (123 aprovados, zero falhas), npm run buil
 ### 5. Análise crítica
 
 O iframe permite visualizar o percurso nas ruas sem nova dependência ou infraestrutura, mantendo atribuições do provedor. Pontos inventados evitam associar pessoas aos estabelecimentos do mapa base; nomes/POIs do Google continuam reais e não são participantes. Chave pública de exibição precisa de restrições por API/site e não equivale a credencial de servidor Routes. Sem chave só o roteiro textual foi revisado; cobertura e traçado efetivos dependem de validação posterior. A origem externa impede detectar todos os erros dentro do iframe: lista, instrução e recarregar/fechar são preservados. Distâncias/tempos não certificam caminhões nem alteram cotação ou estados. A revisão foi dirigida e mantém pendências de avaliação/integração e dos marcos anteriores.
+
+## Interação 067 — Frete e previsão por distância com Google Maps — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para implementar domínio, React/CSS, adaptador e broker Node, testes e documentação. Terminal para verificações locais; documentação oficial Google consultada via web; navegador integrado para revisão de bancada desktop/360 px e teclado. Sem subagentes, API de IA externa ou consulta Google paga.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “quero uma funcionalidade que calcula o frete automático e a previsão de entrega conforme a distancia do trajeto com a api do google maps”. Resposta aplicada: Routes API no servidor fornece distância/direção; calculador usa tarifas da transportadora, retorno/paradas separados e aplica frete/horário para revisão na nova cotação, sem confirmar automaticamente. Fórmula de produto escolhida pelo usuário: base + valor por km + adicionais. Pergunta de esclarecimento não registrada como prompt de programação.
+
+### 3. Aplicação no código
+
+freight-estimate.js concentra percurso e fórmula em centavos. FreightCalculator apresenta tarifas, roteiro, consulta explícita, estimativa e aplicação; QuoteForm preenche somente preço/entrega, preserva validações e renova confirmação. DemoFreightCalculator/Previews usam coordenadas Botucatu sem mudar valores/estados ilustrativos. routes.js consulta o broker com sessão; routes-handler.mjs/routes.mjs validam Auth/papel/origem/quota, chamam Compute Routes com chave privada/field mask e tratam falhas sem expor segredos. Configuração .env.routes.example, comando dev:routes e proxy Vite; README/specs registram D034, pré-requisitos e limites. Conteúdo Google não é gravado, sem migration.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes, build e diff-check com sucesso; aviso preexistente de bundle acima de 500 kB. Sete testes novos usam Google/Auth simulados e jsdom, verificando dinheiro/mínimo/retorno/entrega, ordenação, field mask/segredo, limites/origem/Auth/concorrência/falhas, recomputação local, invalidação e aplicação sem enviar. Lint inicial apontou export ausente na bancada, corrigido antes da rodada final. Navegador integrado na bancada local com mocks em 1366×900 e 360×800, sem overflow (1351/1366 e 345/360), retorno/invalidação/falha e aplicação de R$ 45/entrega 09:10 em campos conferidos. Corrigido vínculo do datetime-local ao estado após a revisão detectar ausência da saída no cálculo; testado novamente no componente e no navegador. Tab alcançou a confirmação das condições. Evidências/capturas e limites em validation.md. Sem Google real, novo teste remoto Supabase, relato de aceite humano, publicação ou integração.
+
+### 5. Análise crítica
+
+A distância permite explicitar a formação do preço e distinguir direção de espera/coleta; o retorno não atrasa uma entrega já ocorrida. Tarifas/adicionais precisam ser informados e revisados: o Google não define preço comercial nem confirma pedágio/caminhão. A consulta exige clique para controlar consumo; mudar tarifas não gera nova chamada. Quotas do broker são voláteis e não representam limite de gasto ou solução distribuída. Cadastros demo com nomes fictícios podem não ser roteáveis; exemplo independente usa coordenadas inventadas sem atribuir negócios reais aos participantes. Chave/Google e fluxo remoto completo permanecem pendentes, assim como termos/privacidade e infraestrutura antes de ativação. Testes simulados e revisão de bancada não comprovam cobertura real, persistência desta fatia ou aprovação humana. Autorização para publicar/integrar na dev será solicitada após apresentação, conforme workflow.

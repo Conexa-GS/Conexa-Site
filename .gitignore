@@ -31,6 +31,7 @@ artifacts/a11y-review/*.local.jpg
 .cache/
 .voice-data/
 !.env.voice.example
+!.env.routes.example
 artifacts/entrega/
 .taste-skill/
 artifacts/participant*.local.png

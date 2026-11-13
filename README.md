@@ -1,10 +1,29 @@
 # Conexa
 
+Extensão em avaliação (13/11/2026): cálculo opcional de frete e previsão de entrega por Google Maps Routes, na nova cotação da transportadora e no cenário de Botucatu. [Configuração e limites](#frete-automático-e-previsão-de-entrega--google-maps-routes). Sem consulta Google real ou implantação comprovada.
+
 Do campo pra cidade. Mais juntos.
 
 Aplicação acadêmica React/Vite/Tailwind para reunir ofertas de pequenos produtores, demandas de compradores e transporte local. Cenários, participantes, pagamentos, estornos, viagens e repasses são **fictícios ou simulados**. A identidade do piloto usa creme, verde, laranja, marca vetorial e ilustrações locais.
 
 Estado atualizado em **13/11/2026**: M1–M4 têm aceite humano no escopo registrado. T28/M5 e texto/DM foram tecnicamente verificados no Supabase demo; aceite M5 e T43/aceite M6 continuam pendentes. T41 mantém rede física pendente. Voz/GPT-Live foi guardada no planejamento futuro (D032), sem prazo; T42 adiada, fora do escopo ativo e sem bloquear a avaliação de texto/DM. Base opcional preservada e desabilitada por padrão; roteiros de voz são referência histórica, sem ativação nesta decisão. [Estado completo](Conexa-specs/estado-atual.md), [matriz de verificações](Conexa-specs/entrega/matriz-verificacoes.md) e [limitações](Conexa-specs/entrega/limitacoes.md).
+
+## Frete automático e previsão de entrega — Google Maps Routes
+
+Preparado em `feature/frete-google-maps`, para avaliação. A nova cotação da transportadora oferece **Calcular com Google Maps** e **Usar estimativa na cotação**. Fórmula escolhida: base + km × tarifa por km + adicionais; piso opcional antes dos adicionais. Tarifas/paradas ficam em branco até preenchimento (informe 0 quando não se aplicarem). Retorno acordado entra no preço, mas não no horário de entrega. A previsão soma saída, direção até o destino e paradas informadas, exibindo São Paulo. Sem trânsito em tempo real, pedágio automático ou restrições para caminhão; revisar serviços/prazo antes da confirmação demo.
+
+1. No Google Cloud, habilitar **Routes API**, faturamento e uma chave exclusiva para servidor, restrita à API e ao IP de saída quando disponível. Definir cotas no Google Cloud antes de testar. Não reutilizar a chave Embed pública.
+2. Copiar `.env.routes.example` para `.env.routes` (ignorado pelo Git) e preencher `GOOGLE_MAPS_ROUTES_KEY`. O comando lê também `.env`, reutilizando as variáveis Supabase publicáveis existentes. Nunca usar prefixo `VITE_` na chave Routes ou `service_role` para autenticação.
+3. Executar `npm run dev:routes` em outro terminal e `npm run dev` para o frontend. Node 24, como no projeto. Porta padrão do broker 8788; proxy Vite aponta para 127.0.0.1:8788. Se mudar a porta, ajustar o proxy. `CONEXA_ROUTES_ORIGIN` precisa corresponder à origem exata do navegador (`http://localhost:5173` por padrão; 127.0.0.1 ou outra porta são origens distintas).
+4. Entrar como transportadora conectada e abrir a nova cotação de uma proposta apta. Preencher saída/horário/retorno, tarifas e minutos totais de paradas; conferir lista de locais e calcular. O broker valida Auth e papel carrier. **Usar estimativa** preenche frete/entrega e desmarca a confirmação; a cotação só é gravada pela confirmação existente, com as validações M3.
+
+Para experimentar sem trocar nomes fictícios por negócios reais, a operação de exemplo da transportadora (`/operacoes/exemplo`) oferece o mesmo cálculo com coordenadas inventadas do mapa Botucatu. O resultado não altera o resumo financeiro de exemplo nem grava cotação. Cadastros demo antigos podem conter só nomes fictícios e não gerar trajeto: o cálculo de uma cotação usa exatamente seus locais, sem substituir silenciosamente pelos pontos ilustrativos. Use endereços roteáveis ou coordenadas nos dados de demonstração antes de testar aquela carga.
+
+Sem chave, broker, sessão ou rota completa, continuar com a cotação manual. Consultas exigem clique, sem repetição automática; editar tarifas recalcula localmente. Uma consulta por participante por vez, 20 por participante/hora e 100 totais/hora no processo demo; reiniciar zera contadores. Isso não limita gasto financeiro: cotas Google continuam necessárias, e mais de 10 intermediárias pode mudar cobrança (máximo técnico: 25). Chave nunca sai no bundle/resposta. Distância/tempo/resposta Google não são persistidos; somente frete/horário revisados entram no contrato demo ao confirmar. Sem migration ou mudança nos fluxos de negociação/revisão de cotação confirmada.
+
+Build Vite é estático: hospedar `dist` sozinho não hospeda o broker. Para implantação, fornecer serviço Node e proxy HTTPS de mesma origem, segredo no servidor, quota compartilhada se houver múltiplos processos, termos e privacidade públicos compatíveis com Google e revisão de cobertura/acesso. Nenhuma credencial, API/faturamento ou implantação foi ativada nesta entrega. Consulta Google real e ponta a ponta Auth/broker/Google permanecem pendentes. Roteiro de teste local: `/tests/ui/freight.html` usa mocks explícitos, sem consulta Google/Supabase.
+
+Fontes oficiais consultadas em 13/11/2026: [Compute Routes e distância/duração](https://developers.google.com/maps/documentation/routes/compute_route_directions), [intermediárias](https://developers.google.com/maps/documentation/routes/intermed_waypoints), [configuração da API/chave](https://developers.google.com/maps/documentation/routes/get-api-key), [uso/cotas/cobrança](https://developers.google.com/maps/documentation/routes/usage-and-billing) e [políticas/atribuição](https://developers.google.com/maps/documentation/routes/policies). Contrato e limites específicos em [frete-google-maps.md](Conexa-specs/frete-google-maps.md).
 
 ## Executar a partir do ZIP ou checkout limpo
 

@@ -299,3 +299,17 @@ Verificação local: lint, 123 testes e build passaram; três testes novos sem r
 ### Autorização de integração de Google Maps — 13/11/2026
 
 Após apresentação da feature/google-maps-simulacao e orientação sobre criação da chave, o usuário autorizou explicitamente: “pode enviar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não inclui promoção para main, deploy, comprovação de configuração da chave ou teste real do Google Maps. Verificações locais e limites de D033 preservados; a autorização não equivale a teste humano do mapa.
+
+## D034 — Frete automático e previsão por distância — 13/11/2026
+
+Pedido de programação do usuário: calcular frete e previsão de entrega com Google Maps. Fórmula escolhida explicitamente: base + valor por km + adicionais. A transportadora informa tarifas; mínimo opcional fica explícito, com 0 para não aplicar piso. Não adotar tarifa comercial inventada.
+
+Escolhida Routes API Compute Routes no servidor, com chave privada separada de Embed, Auth/papel carrier, origem exata, quotas demo e timeout sem retry. Percurso conserva saída, todas as coletas, destino e eventual retorno. Distância total calcula frete; direção até destino e paradas informadas calculam entrega. Retorno não é somado ao prazo de entrega. Sem trânsito em tempo real, pedágio ou restrição de caminhão. Fonte/limites visíveis; fallback manual preservado.
+
+Na nova cotação, aplicar estimativa preenche frete/entrega e desmarca a confirmação. Roteiro/saída alterados invalidam o resultado para aplicação e avisam se campos já foram preenchidos. Confirmação/RPC M3 e negociação de frete confirmado são preservadas; cálculo não grava nem altera aceites/estoque/status. Exemplo Botucatu usa pontos fictícios do mapa, sem mudar resumo financeiro ilustrativo. Uma cotação consulta seus próprios locais somente por clique, sem atribuir geografia real a nomes fictícios. Contrato completo em frete-google-maps.md e configuração no README.
+
+D034 amplia o escopo que D033 excluía (Routes/frete), a pedido do usuário, e preserva a visualização Embed independente. Implementação local em feature/frete-google-maps criada da dev; lint, 130 testes e build aprovados, revisão de bancada desktop/360 px. Sem chave configurada, Google real, teste Auth/broker/Google ponta a ponta, migration remota, aceite humano, push/merge/deploy ou autorização de promoção à main. Quotas em memória não são teto financeiro e reiniciam com o processo; ativação exige cotas Google/configuração e pré-requisitos de implantação. Detalhes em validation.md.
+
+### Autorização de publicação de D034 — 13/11/2026
+
+Após apresentação da implementação, verificações e limites, usuário autorizou: “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção à main, deploy ou gasto/configuração Google; consulta real e demais limites técnicos permanecem pendentes. Esta manifestação é autorização Git, sem presumir testes humanos individuais.
