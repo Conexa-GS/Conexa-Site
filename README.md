@@ -8,6 +8,10 @@ Estado em **12/11/2026**: M1–M4 têm aceite humano no escopo registrado. T28/M
 
 ## Executar a partir do ZIP ou checkout limpo
 
+Atualização de acesso em **13/11/2026**: a entrada do site leva a `/login`, com três perfis compactos, cadastro, e-mail/senha e recuperação pelo Supabase Auth. `/demo` preserva as quatro contas fictícias como **Entrar como desenvolvedor**. No servidor Vite de desenvolvimento a opção está disponível; em build de produção exige `VITE_ENABLE_DEVELOPER_ACCESS=true`, apenas para demonstração isolada. Com o valor padrão `false`, contas compartilhadas são recusadas pela aplicação. Contas pessoais continuam usando operações e locais de teste; não cadastrar dados pessoais sensíveis nem interpretar pagamentos/entregas como serviços ativos. [Decisão e limites](Conexa-specs/decisions.md#d030--login-individual-e-acesso-de-desenvolvedor--13112026).
+
+O cadastro precisa da migration `20261113155836_personal_account_auth.sql` (já aplicada ao demo como `20261113160056`). No Supabase Auth, configurar **Site URL**, as URLs autorizadas `<origem>/login` e `<origem>/redefinir-senha` e o envio de e-mail/SMTP para a origem que será usada. A confirmação está habilitada no demo. A entrega não verificou recebimento/clique dos e-mails nem mudou SMTP/URLs remotos. O callback reconhece a sessão de confirmação/recuperação; ao confirmar a conta, escolha **Ir para meu espaço**. [Documentação de senhas do Supabase](https://supabase.com/docs/guides/auth/passwords).
+
 Requisitos: **Node 24+**, npm e terminal. Ambiente desta entrega: Node **24.21.0**, npm **11.19.0**, Windows/PowerShell. Node 24 é a referência única para executar também os testes e o broker opcional com SQLite nativo. Git e PowerShell 7.2+ são necessários apenas para regenerar o ZIP a partir de uma cópia Git. A instalação inicial precisa acessar o registro npm; dependências e `.env` não vêm no ZIP.
 
 1. Extraia o ZIP e abra um terminal dentro de `Conexa-Site`, onde está `package.json`; ou use o checkout da feature em avaliação.
@@ -39,7 +43,7 @@ npm run preview -- --host 127.0.0.1
 | --- | --- | --- |
 | `npm run lint` | ESLint do código configurado | Não prova execução ou layout; PowerShell é verificado pela execução do empacotador |
 | `npm test` | Domínio, componentes jsdom, mocks de rede/provedor/voz | Não acessa o demo nem API paga; não é navegador nativo |
-| `npm run test:db` | Nove scripts PostgreSQL local/PGlite, migrations e seed de teste | Identidade simulada/conexão serial; não é Auth/RLS ou concorrência reais do Supabase |
+| `npm run test:db` | Dez scripts PostgreSQL local/PGlite, migrations e seed de teste | Identidade simulada/conexão serial; não é Auth/RLS ou concorrência reais do Supabase |
 | `npm run build` | Build estático em `dist` | Aviso preexistente de chunk principal >500 kB; não testa deploy |
 | `npm run preview` | Serve somente o build gerado; abrir endereço informado, normalmente porta 4173 | Prévia local; não publica na internet |
 

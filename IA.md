@@ -1115,3 +1115,41 @@ Complemento de verificação visual desta interação: capturas da skill inspeci
 Encerramento do gate desta interação: segunda rodada 28 FAIL; após alinhar bordas dos botões principais e substituir as regras antigas que removiam o foco, terceira rodada **GATE: OPEN 24 (rounds used up)**, 20 WARN e nenhum waiver. Checker de layout executou dentro do gate com Edge explícito; o erro map/sections foi da tentativa standalone. Lista completa de achados no relatório da área do participante. Lint/build/diff-check finais aprovados e suíte completa final com 113 testes aprovados.
 
 Performance da bancada Vite de desenvolvimento (1 rodada em 1440/390): 4 FAIL por transferência/JS não empacotado (aprox. 28/24 MB), 1 WARN por 106 requests no desktop. Sem pedidos quebrados, layout shift 0,001/0,000, sem WebGL e imagens locais de 1,1 KiB. Não é medição do build de produção nem aprovação de performance; JSON local em .taste-skill/perf.json. O build de produção continua com aviso preexistente de chunk JS >500 kB.
+## Interação 060 — Login individual e acesso de desenvolvedor — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para analisar o fluxo existente, implementar React/CSS/Auth e preparar testes/documentação; ferramentas locais para lint/testes/build/PGlite, Supabase MCP para inspeção, migration e fixtures temporárias, documentação oficial de Auth e scripts headless da habilidade de design para capturas. Sem geração de imagens ou uso de outra IA externa.
+
+### 2. Prompts e respostas representativos
+
+Resumo do prompt de programação real: criar sessão de login real, manter versão atual apenas para testes, usar referências desktop/mobile, oferecer três opções pequenas de tipo de usuário, evitar aparência de formulário com caixas e incluir entrada de desenvolvedor para testar/demonstrar todas as contas. As referências visuais foram usadas como direção de composição; identidade do piloto preservada. Resposta aplicada: credenciais individuais no Supabase, seletor compacto de três perfis, campos com linha inferior, layout dividido/versão mobile e entrada developer restrita às quatro contas fictícias. Não houve aprovação humana presumida.
+
+### 3. Aplicação no código
+
+`Login.jsx`/`login.css`, `account-auth.js`, hook de sessão e integração em App/landing/layout/demo; `account_kind` e trigger privada para cadastro validado, com locais acadêmicos. Demo condicionado ao modo DEV/flag e bloqueado no build padrão. Reuso dos SVGs locais, navegação e RLS existentes; nenhuma credencial administrativa incluída no cliente. Testes novos do serviço, componente, PostgreSQL e roteiro Auth/RLS remoto manual.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 119 testes, build e dez scripts PGlite com sucesso. Auth/RLS remotos passaram nos três perfis com contas QA temporárias, refresh, retomada por novo cliente, papel imutável e demo desligado; fixtures removidas. Corrigidos nomes de ação no roteiro remoto (M2 `list`; transportador consulta M3). Capturas desktop/360 px revisadas; fundo retangular substituído por SVG e contorno global do main corrigido. Gate reportou OFF, sem afirmar aprovação. Envio/clique de e-mails, SMTP/URLs e percurso completo em navegador seguem sem validação; detalhes em validation.md. Avaliação humana e autorização de publicação/integração pendentes.
+
+### 5. Análise crítica
+
+Reaproveitar Auth/RLS evita inventar uma sessão baseada só na seleção visual e mantém fluxos acadêmicos funcionando. Separar credenciais pessoais das contas compartilhadas torna os testes explícitos, mas o ambiente continua compartilhado e simulado. A integração de confirmação/recuperação depende de configurações externas e de caixa de entrada controlada para prova ponta a ponta. Testes de serviço, jsdom, PGlite, Auth real e capturas têm alcances distintos; não comprovam liberação comercial, aceite humano ou revisão integral de teclado/navegador.
+
+## Interação 061 — Correção visual do login dividido — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para corrigir React/CSS; scripts locais de lint, testes e build; Chrome headless para revisão dirigida.
+
+### 2. Prompts e respostas representativos
+Transcrição do pedido: “pare de criar animações para o site, está tirando completamente do design. fora que eu quero a tela completamente dividida, uma parte verde e a outra clara”. Aplicação: retirada das ilustrações e movimentos adicionados ao login, com divisão integral verde/creme.
+
+### 3. Aplicação no código
+Login.jsx e login.css: painel verde de ponta a ponta na metade esquerda e acesso creme na direita, marca clara no verde, cabeçalho/rodapé integrados. Mobile com topo verde e acesso claro abaixo, sem cartão externo. Sem alteração de autenticação ou banco. Não criar novas animações nas próximas alterações de design sem pedido do usuário.
+
+### 4. Verificação, testes e ajustes
+Executados lint, suíte de testes e build; resultados finais e revisão desktop/360 px registrados em validation.md. Não houve aceite humano nem autorização de publicação/integração.
+
+### 5. Análise crítica
+A correção segue a divisão de tela pedida e elimina as intervenções visuais rejeitadas. A avaliação anterior não representava aceite do usuário; a revisão conserva o comportamento de login e continua para avaliação.

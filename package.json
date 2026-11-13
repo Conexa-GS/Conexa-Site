@@ -14,7 +14,7 @@
     "test:m5:check": "node tests/remote-m5.mjs --check",
     "test:m5:demo": "node tests/remote-m5.mjs --run-demo",
     "demo:whatsapp": "node scripts/whatsapp-demo.mjs",
-    "test:db": "node tests/database.mjs && node tests/m2-database.mjs && node tests/m3-database.mjs && node tests/m4-database.mjs && node tests/m5-database.mjs && node tests/quote-revisions-database.mjs && node tests/conversations-database.mjs && node tests/site-bot-database.mjs && node tests/conversations-acceptance-database.mjs",
+    "test:db": "node tests/database.mjs && node tests/m2-database.mjs && node tests/m3-database.mjs && node tests/m4-database.mjs && node tests/m5-database.mjs && node tests/quote-revisions-database.mjs && node tests/conversations-database.mjs && node tests/site-bot-database.mjs && node tests/conversations-acceptance-database.mjs && node tests/account-auth-database.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

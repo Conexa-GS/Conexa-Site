@@ -11,5 +11,5 @@ export default function Landing() {
     const dispose = mountMotion()
     return () => { dispose(); removeArtwork() }
   }, [])
-  return <div onClick={event => { const button = event.target.closest('[data-connect]'); if (button) navigate(`/demo${button.dataset.profile ? `?perfil=${button.dataset.profile}` : ''}`) }} dangerouslySetInnerHTML={{ __html: markup }} />
+  return <div onClick={event => { const button = event.target.closest('[data-connect]'); if (button) navigate(`/login${button.dataset.profile ? `?perfil=${button.dataset.profile}` : ''}`) }} dangerouslySetInnerHTML={{ __html: markup }} />
 }

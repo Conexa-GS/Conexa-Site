@@ -17,7 +17,7 @@ Território real e evidência de escuta: pendentes de preenchimento pelo grupo. 
 - Transportador: autônomo ou empresa; cadastra veículo, apresenta cotação e executa mudanças de status da viagem.
 - Organizador: responsabilidade exercida pelo comprador no MVP; não criar um quarto portal administrativo obrigatório.
 
-Um seletor de participantes fictícios permite demonstrar os perfis. Requisitos de autenticação de produção ficam fora do MVP.
+Atualização de 13/11/2026, por pedido explícito do usuário (D030): entrada principal em `/login` com e-mail/senha individuais no Supabase Auth, cadastro nos três perfis, confirmação de e-mail e recuperação de senha. O seletor anterior fica em `/demo`, identificado como acesso de desenvolvedor às quatro contas fictícias, disponível em desenvolvimento ou build de demonstração explicitamente habilitada. Não concede acesso a credenciais/contas pessoais de terceiros. As operações de negócio continuam acadêmicas e simuladas; login individual não representa liberação comercial do produto.
 
 Retomada demo D024: com Supabase, recarregar a mesma aba revalida Auth/participante e mantém o acesso ao perfil. Sessão é armazenada por aba e Trocar participante a encerra; outro documento não recebe os eventos Auth dessa aba. Sem configuração ou com storage bloqueado, não prometer retomada persistente. A sessão salva não substitui validação no servidor nem RLS.
 
