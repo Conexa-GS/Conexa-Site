@@ -1539,3 +1539,35 @@ Lint, 113 testes Node e build aprovados; aviso preexistente de chunk >500 kB pre
 ### Análise crítica
 
 A conferência distingue um requisito quantitativo de uma evidência funcional: hooks precisam de consumidores reais, commits de mudanças coerentes e Delete de exclusão observada. Reautenticação e consultas pelos serviços da aplicação comprovam persistência remota nesta rodada, mas não substituem F5/revisão visual ou auditoria de segurança completa. A execução inicial também revelou recursos Auth abertos na infraestrutura de teste; encerrá-los permite repetir o roteiro sem processo retido. As cinco seções formais de IA.md não garantem que o conteúdo respeite somente programação: consultas antigas foram apontadas, sem inventar histórico nem atribuir aprovação ao grupo. A completude de todos os usos de IA ainda depende de conferência dos integrantes. Publicação/integração depende da avaliação e autorização do usuário conforme workflow.
+
+## Interação 058 — T32/T33/T43: artefatos e empacotador — 12/11/2026
+
+### Ferramentas de IA e finalidades
+
+Codex para programar e verificar o empacotador de fontes, consolidar README/matriz/limitações/roteiro e registrar resultados reais. PowerShell/Git/Node/npm, ESLint, testes Node/jsdom/PGlite, ZipArchive/SHA-256 e fetch HTTP local. Skill Supabase consultada para orientações de configuração, sem implementar integração ou alterar banco. Sem subagentes, dependências novas, API paga, microfone ou mensagens externas.
+
+### Prompts e respostas representativos
+
+Transcrição do pedido que originou a programação do empacotador e a preparação dos artefatos:
+
+> Prepare os artefatos de T32/T33/T43: README reproduzível, matriz de verificações, limitações, roteiro de demonstração e ZIP sem segredos. Apresente a entrega para avaliação, mantendo aceite humano e voz real como pendências quando aplicável.
+
+Resposta inicial real: “Vou ler as especificações e conferir o estado atual do projeto para preparar os artefatos de T32/T33/T43 com evidências verificáveis, registrando as pendências de aceite humano e voz real.” Registro do uso de IA correspondente à programação/verificação do empacotador; não inclui consultas/esclarecimentos ou aprovações inventadas.
+
+### Aplicação no projeto
+
+Feature feature/t32-t33-t43-entrega criada da dev limpa 17d2684. scripts/package-delivery.ps1 seleciona arquivos Git rastreados/novos não ignorados por caminhos/extensões permitidos, rejeita links e configuração preenchida, procura padrões de credenciais e valores locais sem imprimi-los e valida três exemplos de ambiente. Gera ZIP com fontes/assets/lockfile/testes/migrations/docs, manifesto SHA-256 e metadados; relê todas as entradas/hash/contagem antes de substituir a saída. Credenciais conhecidas ficam fora do pacote. Artefatos locais ignorados em artifacts/entrega; ESLint ignora somente essa pasta gerada para não analisar suas extrações. README reorganizado e Conexa-specs/entrega reúne matriz AC01–32, requisitos acadêmicos, limitações e roteiro. Tasks/estado/índice/validation atualizados, sem mudança da aplicação ou do banco.
+
+### Verificação, testes e ajustes reais
+
+Checkout: lint, 113 testes e build aprovados; aviso preexistente de chunk >500 kB. Empacotador executado com PowerShell 7.6.9; mínimo declarado 7.2 por APIs .NET usadas. ZIP com 274 entradas relidas/hash comparado, inventário independente sem Git, .env preenchido, dependências, build, relatórios ou cotas. Marcador sintético de chave em fonte permitida e senha sintética em .env.example foram bloqueados e preservaram o ZIP anterior; bytes do exemplo restaurados. Credencial local sintética em .env.package-probe também bloqueou cópia correspondente em Markdown; fixtures temporárias removidas sem imprimir valores.
+
+Extração nova sem credenciais: npm ci --offline --no-audit --no-fund instalou 218 pacotes do cache pelo lockfile; lint, 113 testes, nove scripts PGlite e build passaram. Preview local e HTTP conferiram home, quatro caminhos diretos com fallback SPA e assets (200); processo encerrado. Não foi inspeção visual ou download de dependências pela rede. Instalação/suítes ocorreram na extração preliminar com aplicação/lockfile iguais aos finais; documentação, mínimo PowerShell e exclusão das cópias geradas no ESLint foram consolidados depois. Conferidos 45 links/âncoras e igualdade byte a byte de 232 fontes/assets/testes mais package/lockfile/Vite/HTML com a extração testada. Duas gerações consecutivas produziram SHA-256 idêntico. Pacote final regenerado com releitura/hash após documentação/commit. Resultados e limites em validation.md, seção T32/T33/T43.
+
+Primeira criação de branch bloqueada por escrita Git, repetida com escalonamento aprovado antes de editar. Primeiro script falhou por terminador de comentário; corrigido. Varredura bloqueou URL sintética user:pass de um teste negativo existente: adicionada exceção literal restrita àquele caminho/padrão, conservando o teste e demais bloqueios. Uma tentativa de patch documental referiu contexto inexistente de IA.md; foi recusada sem aplicar o conjunto e reaplicada com contexto correto. Sem nova UI, não houve nova revisão de 360 px/desktop; as evidências anteriores foram apenas consolidadas. Sem testes remotos, Auth/provedor/voz reais, migrations, push/merge/deploy ou aceite humano nesta preparação.
+
+### Análise crítica
+
+O empacotador reduz o risco de anexar configuração local e comprova integridade dos bytes entregues; a instalação em pasta extraída detecta dependências acidentais do checkout. Seleção por caminho e padrões não certifica ausência universal de segredos, especialmente imagens/credenciais desconhecidas, e manifesto não é assinatura. A exceção do teste sintético é explícita e estreita, em vez de excluir testes ou ignorar arquivos inteiros. Mocks/PGlite/HTTP local têm limites diferentes de Supabase, navegador, rede física e voz reais. T33 registra a matriz concluída, T32 permanece parcial por acessos/deploy/envios, e T43/aceite M6, aceite M5, T41 física, T42 real e saneamento histórico de IA continuam pendentes. Publicação/integração da feature depende da avaliação e autorização do usuário conforme workflow; não inclui main.
+
+Complemento de autorização da interação 058 — 12/11/2026: após apresentação do commit 1360611, artefatos, verificações e pendências, usuário respondeu “pode subir para a dev e depois para a main”. Autoriza publicar feature/t32-t33-t43-entrega, integrar/publicar na dev e depois promover/publicar na main do origin conferido https://github.com/Conexa-GS/Conexa-Site.git, sem force push. Checkout limpo e fetch concluído antes deste registro. Não constitui aceite M5/M6, validação de voz/rede física, deploy ou envio acadêmico. Verificações técnicas da entrega preservadas; referências remotas serão conferidas ao concluir.

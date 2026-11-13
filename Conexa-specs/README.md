@@ -1,5 +1,7 @@
 # Conexa — Pacote de especificações
 
+Complemento T32/T33/T43, 12/11/2026: [entrega para avaliação](entrega/README.md) reúne README reproduzível, matriz com evidências/aceites separados, limitações, roteiro e empacotador/ZIP local verificado. T33 concluída como registro documental; T32 parcial por repo/permissões/deploy/envios, T43/aceite M6 e aceite M5 pendentes. Voz real/T42 e rede física/T41 continuam abertas. Nenhuma publicação/integração, implantação ou aprovação humana presumida. Este complemento atualiza as indicações anteriores de ausência de artefatos T32/T33; [verificações desta entrega](validation.md#t32t33t43--artefatos-para-avaliação--12112026).
+
 Complemento T31, 12/11/2026: conferência acadêmica executada com componentes/hooks, useState/useEffect, CRUD/Auth/RLS reais e histórico significativo comprovados. Conteúdo histórico de IA.md tem consulta/esclarecimento fora da regra vigente; T31 concluída como conferência com ressalva, sem encerrar saneamento de IA, T04/T32–T33 ou aceites de produto. [Relatório e evidências](t31-auditoria.md). Feature em avaliação, sem publicação/integração presumida.
 
 Estado consolidado em **12/11/2026**: o site está implementado; M1–M4 têm aceite humano no escopo registrado. Texto/DM está tecnicamente verificado no demo, inclusive F5; T35/T38 encerradas tecnicamente. T28/M5 também encerrada tecnicamente no demo; aceite M5 pendente. T41 mantém rede física pendente; voz/T42 e avaliação T43/M6 continuam abertas.

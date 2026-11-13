@@ -1,5 +1,33 @@
 # Verificação da primeira versão — 07/11/2026
 
+## T32/T33/T43 — Artefatos para avaliação — 12/11/2026
+
+Responsável: Codex. `feature/t32-t33-t43-entrega`, criada da dev limpa `17d2684`; primeira criação de branch bloqueada pela escrita nos metadados Git, repetida com escalonamento aprovado antes de editar. Preparados [índice da entrega](entrega/README.md), README reproduzível, [matriz](entrega/matriz-verificacoes.md), [limitações](entrega/limitacoes.md), [roteiro](entrega/roteiro-demonstracao.md) e `scripts/package-delivery.ps1`. Evidências anteriores consolidadas com data/responsável/ambiente; nenhum teste remoto ou aceite humano reconstituído por inferência. README reorganizado para remover instruções vigentes contraditórias; relatos datados preservados nos documentos de origem/histórico Git.
+
+Ambiente: Windows, Node 24.21.0, npm 11.19.0 e PowerShell 7.6.9. Empacotador exige Git/PowerShell 7.2+, sem npm. Seleciona fontes rastreados/novos não ignorados em caminhos/extensões permitidos, rejeita links/reparse points e exclui ambiente preenchido, Git, dependências, builds, relatórios/capturas locais, caches e cotas SQLite. Confere exemplos vazios, padrões e correspondência com credenciais locais >=8 caracteres sem imprimir valores; apenas a URL sintética do teste negativo de configuração tem exceção literal restrita ao próprio arquivo. Cria manifesto/metadados e relê todas as entradas/hash/contagem antes de substituir o ZIP. Credenciais desconhecidas e conteúdo semântico de imagens continuam fora da garantia do detector.
+
+| Procedimento executado | Resultado e limite |
+| --- | --- |
+| `npm.cmd run lint` no checkout | Aprovado; repetido após ignorar somente `artifacts/entrega/**` no ESLint para evitar analisar cópias geradas. PowerShell verificado pela execução do empacotador, não pelo ESLint |
+| `npm.cmd test` no checkout | 113 testes aprovados, zero falhas; Node/jsdom/mocks, sem Supabase/API paga |
+| `npm.cmd run build` no checkout configurado | Aprovado; principal 686,19 kB/gzip 196,26 kB, aviso preexistente >500 kB. `dist` não entra no ZIP |
+| `pwsh -NoProfile -File ./scripts/package-delivery.ps1` | Aprovado após correções; 274 entradas incluindo `ENTREGA.json` e `MANIFEST.sha256`. Saídas em `artifacts/entrega/`, ignoradas; SHA-256 do ZIP/auditoria externos para evitar autorreferência |
+| Prova negativa com marcador sintético de chave em `.md` permitido | Recusada sem imprimir o valor; ZIP anterior manteve hash. Fixture removida |
+| Prova negativa com senha sintética preenchendo `.env.example` | Recusada como exemplo com credencial; ZIP anterior preservado e bytes originais restaurados em finally |
+| Prova negativa com credencial sintética em `.env.package-probe` e `.md` | Comparação por valor bloqueou sem imprimir a credencial; ambos os arquivos removidos |
+| Inventário independente com ZipArchive | 274 entradas; somente três arquivos `.env*.example` permitidos, sem ambiente preenchido, Git, dependências, build ou relatórios locais |
+| Extração em diretório novo e `npm.cmd ci --offline --no-audit --no-fund` | 218 pacotes instalados do cache local, sem copiar `node_modules` ou `.env`; instalação pelo lockfile comprovada. Não foi testado download do registro npm pela rede |
+| Lint/testes/build na cópia extraída sem credenciais | Aprovados: 113 testes, zero falhas. Build sem Supabase: principal 470,62 kB/gzip 141,54 kB; não é o mesmo bundle configurado do checkout |
+| `npm.cmd run test:db` na cópia extraída | Nove scripts PGlite aprovados, incluindo zero centavos, Conversas/bot e cenário T41. Identidade simulada/conexão serial, sem Auth/Realtime ou concorrência remota |
+| Preview extraído em `127.0.0.1:4187` e HTTP | Home, `/demo`, `/produtor/ofertas`, `/comprador/conversas`, `/operacoes` e assets retornaram 200; caminhos diretos devolveram HTML da SPA. Processo próprio encerrado. Não é execução visual/JS no navegador ou deploy |
+| Repetição do empacotador, links e comparação da cópia testada | Duas gerações consecutivas produziram SHA-256 idêntico; 45 links locais/âncoras dos cinco artefatos conferidos; 232 fontes/assets/testes e package/lockfile/Vite/HTML comparados byte a byte com a extração testada, sem diferença |
+
+A instalação/suítes usaram extração preliminar com os mesmos arquivos de aplicação/lockfile da entrega; revisões documentais, exigência mínima PowerShell e exclusão de cópias geradas no ESLint foram consolidadas depois. O ZIP final é regenerado após a documentação/commit e tem cada entrada relida/hash conferido. Mesmos arquivos, HEAD e branch produzem bytes iguais no ambiente verificado; o HEAD sozinho não identifica alterações locais.
+
+Primeira tentativa do script falhou no terminador de comentário PowerShell antes de empacotar; corrigido. Primeira varredura válida bloqueou URL sintética `user:pass` do teste negativo de configuração. Criada exceção literal restrita àquele caminho/padrão, preservando o teste e os demais bloqueios. Provas negativas posteriores confirmaram recusas esperadas. Sem mudança de aplicação, UI, domínio, schema, migrations ou permissões remotas. Sem nova revisão visual em 360 px/desktop; evidência anterior dirigida preservada, smoke HTTP não apresentado como revisão visual.
+
+T33 concluída como registro documental. T32 parcial: README/pacote preparados, repo privado/acesso de escrita dos professores, deploy/links e envios não comprovados. T43 tem documentação/roteiro prontos para avaliação; aceite M6, aceite M5, rede física/T41, voz real/T42 e saneamento histórico de IA.md pendentes. Sem API paga, microfone, escrita remota, mensagem externa, alteração de conta, push, merge ou deploy. Publicação/integração na dev depende da avaliação/autorização do usuário conforme workflow; main fora desta entrega.
+
 ## T31 — Conferência acadêmica — 12/11/2026
 
 Responsável: Codex. Branch `feature/t31-auditoria-academica`, criada da dev limpa `5ac6fce`; primeira tentativa de criar a branch bloqueada por escrita nos metadados Git, repetida com escalonamento aprovado antes das edições. [Relatório completo](t31-auditoria.md): critérios, dez componentes com consumidores reais, seis hooks em uso, useState/useEffect, serviços/domínio separados, quinze commits significativos e ressalvas dos registros de IA. Sem fetch; histórico local não certifica o estado atual do GitHub.

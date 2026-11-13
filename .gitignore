@@ -31,3 +31,4 @@ artifacts/a11y-review/*.local.jpg
 .cache/
 .voice-data/
 !.env.voice.example
+artifacts/entrega/
