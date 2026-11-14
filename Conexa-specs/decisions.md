@@ -424,3 +424,23 @@ Implementação na feature/home-fotografica existente, criada da dev fba0512, pr
 
 Usuário autorizou explicitamente: ‘pode mandar para dev e depois para a main’. Abrange reformulação fotográfica e ajustes subsequentes, nova paleta e tipografia apresentados nesta conversa. Autoriza commit/publicação da feature, integração/publicação na dev e promoção para main. Publicação Git não comprova deploy nem novo aceite de marco.
 
+
+## D045 — Foto opcional do lote na oferta — 14/11/2026
+
+Pedido explícito: permitir ao produtor tirar/escolher uma foto, por exemplo dos 50 kg de cenoura anunciados, para destacar e organizar a oferta. Uma foto por oferta nesta fatia; campo opcional em criação/edição, prévia completa, troca/remoção com salvamento explícito e foto nos cartões dos dois perfis. Sem foto de catálogo presumida para ofertas antigas. Mantidas paleta sage e marca da dev atual (D044).
+
+Implementação em feature/foto-oferta, criada da dev 741ba24 limpa. JPG/PNG/WebP até 10 MB são decodificados e redesenhados no navegador, reduzidos a até 1600 px no lado maior e convertidos a JPEG até 2 MB, sem copiar metadados da câmera. Formatos não suportados orientam escolher outra foto. capture=environment sugere câmera traseira no celular; disponibilidade depende do aparelho/navegador.
+
+Supabase: coluna opcional photo_path, bucket privado offer-photos com limite 2 MB/JPEG, nomes aleatórios no namespace do produtor e URLs assinadas de uma hora, renovadas ao atualizar a lista. Policies permitem envio pelo produtor, leitura por dono/comprador com oferta visível e exclusão somente de foto própria sem vínculo. Sem sobrescrita de objetos. write_offer mantém autenticação, versão, saldo e triggers; preserva photo_path quando a chave é omitida pelo bot. Arquivar conserva foto/histórico. Troca/remoção/exclusão tentam limpar arquivos sem vínculo; falhas de limpeza não desfazem o salvamento. Falhas de rede podem deixar uploads órfãos, exigindo limpeza posterior; foto vinculada é protegida da limpeza compensatória.
+
+Migration local 202611140001_offer_photos.sql validada com PostgreSQL/PGlite. Inspeção somente leitura do demo confirmou estrutura anterior e ausência de bucket. Tentativa de apply_migration rejeitada pela revisão automática: alteração persistente de schema/bucket/RLS/função SECURITY DEFINER exige aprovação explícita para esta mudança remota. Não reaplicada por outra via; sem dados remotos alterados nesta rodada. Implementação local não comprova Storage/Auth/RLS reais ou persistência após F5. Autorização remota, avaliação e push/integração na dev pendentes; sem promoção para main.
+
+### Complemento D045 — Imagens padrão por produto — 14/11/2026
+
+Novo pedido explícito do usuário: usar F:/alfaces.jpg, F:/cenoura.jpg e F:/tomates.jpg como padrão de cada produto ao criar ofertas, mantendo edição posterior. Substitui a decisão anterior de não presumir imagem de catálogo para esses três alimentos. Imagens fornecidas têm identificação Imagem padrão, sem alegar fotografia do lote real. Sem foto própria, cartões e prévia usam a imagem local correspondente ao nome do produto; ofertas já existentes também recebem esse padrão de apresentação. Selecionar outro alimento troca somente a imagem padrão; uma foto própria escolhida continua prioritária. Trocar foto/câmera seguem disponíveis; Usar imagem padrão remove a foto própria ao salvar e restaura a referência do produto.
+
+Sem nova coluna, migration ou escrita remota. photo_path nulo/ausente representa ausência de foto própria e usa o padrão local na apresentação, inclusive em ofertas criadas pelo bot. Nome do catálogo determina o arquivo, sem fixar UUIDs demo. Produtos não mapeados conservam estado sem foto. Três derivados JPEG de 1200×670, qualidade 85, total 558.430 bytes, em public/assets/products; originais no F: preservados, sem geração de imagem ou alteração de conteúdo. Aplicação da migration/validação remota de fotos próprias continua pendente de aprovação; as imagens padrão independem do Storage. Publicação/integração na dev continuam aguardando avaliação/autorização.
+
+### Autorização de publicação D045 — 14/11/2026
+
+Usuário autorizou explicitamente: “pode mandar para dev e depois para a main”. Abrange publicar a feature de fotos/imagens padrão, integrar na dev e promover para main. Autorização Git não é autorização explícita para a migration Supabase anteriormente bloqueada, nem comprova deploy ou validação remota de fotos próprias. Padrões locais funcionam sem essa migration; pendência de Storage preservada.

@@ -1,3 +1,4 @@
+import { storageSchema } from './helpers/storage-schema.mjs'
 import { PGlite } from '@electric-sql/pglite'
 import { readFile, readdir } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
@@ -9,6 +10,7 @@ await db.exec(`create role anon; create role authenticated; create schema auth; 
 create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
 grant usage on schema auth to authenticated; grant execute on function auth.uid() to authenticated;`)
 for (const [name, id] of Object.entries(ids)) await db.query('insert into auth.users values($1,$2)', [id, `${name === 'buyer' ? 'comprador' : name === 'carrier' ? 'transporte' : name}@conexa.invalid`])
+await storageSchema(db)
 for (const file of (await readdir('supabase/migrations')).filter(f => f.endsWith('.sql')).sort()) await db.exec(await readFile(`supabase/migrations/${file}`, 'utf8'))
 await db.exec(await readFile('supabase/seed.sql', 'utf8'))
 await db.query("insert into public.participants(id,display_name,role,is_demo) values($1,'Comprador alheio','buyer',true),($2,'Outra transportadora','carrier',true)", [ids.outsider, ids.other])

@@ -82,3 +82,9 @@ Políticas mínimas: produtor modifica suas ofertas; comprador modifica suas dem
 - loads.replacement_carrier_id: transportadora compatível notificada automaticamente, sem aceitar/preencher cotação por ela; null quando não encontrada. Reservas existentes permanecem ativas e sujeitas ao prazo original.
 
 Sem escrita REST direta em negociações, notificações, taxas ou parcelas. Gateways privados e advisory lock já usado pelas reservas/aceites/pagamento serializam mutações. Nenhum dado novo inventa vencimentos históricos, contas financeiras ou cobrança real. Contratos, distribuição e permissões em contracts.md; migration aplicada e verificação remota parcial em 10/11, com limites em validation.md.
+
+## D045 — Foto opcional da oferta — 14/11/2026
+
+Complemento vigente: photo_path nulo/ausente continua significando ausência de foto própria, mas a apresentação usa imagem local padrão para Alface/Cenoura/Tomate, conforme nome do catálogo. Referências do usuário não são gravadas como upload ou URL no banco. Foto própria existente tem prioridade; nenhuma alteração adicional de schema necessária.
+
+Preparado localmente: offers.photo_path nullable aponta para um objeto JPEG privado em offer-photos, nomeado produtor UUID/arquivo UUID.jpg. Uma foto atual por oferta; não existe foto inferida de produto. Trigger valida namespace e existência do arquivo quando o vínculo muda. Não compõe snapshots financeiros nem altera load_items. Metadados originais não são copiados pelo cliente; dados do arquivo são armazenados no Storage, não em base64 no banco. Migração e validação remota pendentes de autorização explícita. Detalhes em decisions.md D045 e validation.md.
