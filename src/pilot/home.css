@@ -5,7 +5,6 @@
   padding: 20px var(--home-gutter);
   border-bottom: 1px solid var(--line);
 }
-.photo-landing .header nav { gap: clamp(20px, 3vw, 48px); }
 .photo-landing .header .button { border-radius: 3px; min-width: 100px; justify-content: center; }
 .photo-landing h2 { font-size: clamp(36px, 4.1vw, 64px); line-height: 1.08; letter-spacing: -.055em; }
 .photo-landing h3 { margin: 0; letter-spacing: -.035em; }
@@ -133,7 +132,6 @@ html[data-motion='reduced'] .photo-landing .home-profile-row:hover img { transfo
   .photo-landing .header { min-height: 80px; padding-block: 18px; flex-wrap: wrap; gap: 16px; }
   .photo-landing .header .wordmark svg { width: 130px; }
   .photo-landing .header .button { min-width: 78px; }
-  .photo-landing .header nav { display: flex; order: 3; width: 100%; justify-content: space-between; gap: 12px; font-size: 10px; }
   .photo-landing .home-introduction { grid-template-columns: 1fr; gap: 26px; padding: 60px var(--home-gutter); }
   .photo-landing .home-introduction > p { font-size: 14px; }
   .photo-landing .home-audience-heading { align-items: start; gap: 20px; padding-bottom: 22px; }
