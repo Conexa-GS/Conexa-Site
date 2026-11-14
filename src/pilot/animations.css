@@ -5,9 +5,9 @@
 .truck-state{width:100%;height:100%}.truck-state[hidden]{display:none!important}
 .portrait>.provided-animation,.people-line i>.provided-animation{border-radius:50%}
 .profile-art.gif-profile{position:relative;isolation:isolate}
-.profile-grid .profile-card .profile-art.gif-profile{background:#fff9ec}
-.profile-grid .profile-card .profile-art.gif-profile-farmer{background:#fef9f3}
-.profile-grid .profile-card .profile-art.gif-profile-carrier{background:#fef7ee}
+.profile-grid .profile-card .profile-art.gif-profile{background:#dad7cd}
+.profile-grid .profile-card .profile-art.gif-profile-farmer{background:var(--surface)}
+.profile-grid .profile-card .profile-art.gif-profile-carrier{background:var(--surface)}
 .profile-art.gif-profile .provided-art{padding:8px 0 0}
 .profile-art.gif-profile .profile-symbol{z-index:1;background:var(--cream)}
 .inclusion-art>.provided-animation{height:auto;aspect-ratio:271/308}

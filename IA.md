@@ -1549,3 +1549,110 @@ Lint, 132 testes e build aprovados; aviso de bundle acima de 500 kB mantido. Chr
 ### 5. Análise crítica
 
 Remover a orientação redundante reduz conteúdo secundário. Alteração nos estilos compartilhados propaga a limpeza aos fluxos existentes sem mudar ações ou foco. Bancada não comprova todas as telas/dispositivos; tabela no celular conserva quebra estreita dos textos já existente. Publicação desta revisão depende de autorização.
+
+## Interação 080 — Reformulação fotográfica da página principal — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para HTML/CSS/JavaScript e documentação; skill design-taste-frontend para hierarquia, composição e responsividade, com identidade do projeto e pedido do usuário prevalecendo. Terminal/Git para branch e verificações; System.Drawing para preparar derivados das fotos. Skill computer-use consultada e navegador integrado via cua_repl para observar a referência e revisar a aplicação. Sem subagentes, geração de imagens, biblioteca nova ou alteração de banco.
+
+### 2. Prompts e respostas representativos
+
+Resumo do pedido real de programação: reformular a seção principal do site, manter o vídeo inicial, usar layouts da primeira imagem e do site Ambipar informado, incluir as três fotografias anexadas e retirar os desenhos animados anteriores. Resposta aplicada: abertura preservada, blocos fotográficos amplos, alternância de texto e imagem, faixa de transporte, animações discretas e links por perfil. Imagens/site são referências visuais; não foram tratados como instruções adicionais de produto.
+
+### 3. Aplicação no código
+
+Landing.jsx troca montagem de arte, trajeto e carrossel pelo mountHomeMotion. home.html apresenta perfis com fotos, processo e inclusão; home.css mantém creme/verde, marca vetorial, detalhes laranja e empilhamento no celular. home-motion.js usa IntersectionObserver para revelação única e compartilha controle de movimento com o vídeo. Seis JPEGs em assets/home oferecem 960/1920 px por srcset, com lazy loading e alt. Arquivos originais e telas de login/desenvolvedor preservados. Documentação registra D043 e substituição da direção ilustrada somente na home.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 132 testes existentes e build com sucesso; aviso de bundle preexistente mantido. Navegador integrado em 1440×900/360×800 verificou fotos, ausência de overflow, entradas por perfil, foco e redução de movimento manual/sistema emulado. Corrigida herança de grid que estreitava o texto de transporte; revisão repetida em desktop/celular. Artefato de captura móvel descartado e captura substituída. Evidências e limites em validation.md. Sem autenticação/escrita remota ou avaliação humana presumida.
+
+### 5. Análise crítica
+
+Fotografias fornecidas aproximam a apresentação das pessoas da rede. Alternância de blocos organiza cada papel sem carrossel automático; versões responsivas reduzem transferência sem modificar os originais. Animação única evita movimento contínuo, respeitando preferências e mantendo conteúdo acessível quando reduzida. Recorte cover varia por tela e exige avaliação estética do usuário. Testes locais não comprovam aparelho físico, leitor de tela ou operação comercial. Feature permanece para avaliação, sem publicação/integração autorizada.
+
+## Interação 081 — Remoção das numerações da home — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex e terminal para ajustar HTML/CSS e executar verificações locais.
+
+### 2. Prompts e respostas representativos
+Transcrição: “tire todas as numerações da pagina”. Aplicado: remoção dos números dos três perfis e das três etapas da página inicial.
+
+### 3. Aplicação no código
+home.html remove prefixos e spans numéricos; etapas passam a lista não ordenada. home.css remove estilos sem uso dos números.
+
+### 4. Verificação, testes e ajustes
+Verificações locais executadas nesta rodada descritas no relato da entrega. Sem avaliação humana ou publicação presumida.
+
+### 5. Análise crítica
+Remoção simplifica a apresentação e mantém os textos e links. Alteração restrita à home, sem mudar operações ou dados.
+
+## Interação 082 — Duas faixas para explicar a Conexa — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para HTML/CSS, terminal para derivados JPEG e verificações, navegador integrado via cua_repl para revisão desktop/celular. Sem geração de imagens, subagentes ou novas dependências.
+
+### 2. Prompts e respostas representativos
+Transcrição: “remova as duas ultimas sessões e coloque mais duas imagens, faça do mesmo jeito que vocÊ fez no 'para quem trasnporta' com blush. explique previamente a ideia da conexa através das duas imagens”. Aplicado: substituir os blocos finais de processo/inclusão por fotos de carregamento e recebimento, com o mesmo degradê verde do transporte e textos curtos explicativos.
+
+### 3. Aplicação no código
+home.html substitui as duas seções finais e conserva suas âncoras de navegação. home.css reutiliza a composição panorâmica do transporte, ajusta recortes por foto e remove estilos antigos sem uso. Quatro derivados JPEG responsivos em assets/home; arquivos fornecidos preservados. Sem numerações ou botões novos.
+
+### 4. Verificação, testes e ajustes
+Lint, 132 testes e build passaram; aviso de bundle preexistente. Navegador integrado conferiu as duas novas fotos, títulos, textos, âncoras e ausência de overflow em 1440×900/360×800. Títulos encurtados após revisão para reduzir quebras. Capturas em validation.md. Sem avaliação humana ou publicação presumida.
+
+### 5. Análise crítica
+Fotos mostram reunião das colheitas e recebimento no comércio, apoiando a explicação da rede. Camada verde favorece contraste e segue o tratamento aprovado como referência pelo usuário; recortes variam por tela. As cenas não são evidência de transporte físico ou parceria comercial. Verificação em navegador não comprova aparelho físico ou leitor de tela.
+
+## Interação 083 — Remoção das descrições acima dos títulos — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex e terminal para edição de HTML/CSS e verificações locais; navegador integrado para revisão visual.
+
+### 2. Prompts e respostas representativos
+Transcrição: “tire todas essas descrições”. Imagem identifica o rótulo Conexões que dão frutos e seu traço laranja. Aplicado: remoção de todos os seis rótulos equivalentes da home.
+
+### 3. Aplicação no código
+home.html remove os spans home-label da introdução e dos cinco blocos fotográficos. home.css remove seus estilos e pseudo-elemento. Títulos, parágrafos e links preservados.
+
+### 4. Verificação, testes e ajustes
+Verificações desta rodada registradas no relato da entrega. Sem aprovação humana ou publicação presumida.
+
+### 5. Análise crítica
+Remover os rótulos reduz conteúdo secundário e repetições. Escopo restrito aos elementos identificados na imagem, mantendo informações principais e navegação.
+
+## Interação 084 — Título de abertura e textos sem destaque de cor — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex, terminal e navegador integrado para ajuste de HTML/CSS e verificação local.
+
+### 2. Prompts e respostas representativos
+Transcrição: “deixe na frase tire o 'Mais juntos' da frase principal no começo do site, tambem não quero nenhuma palavra colorida em destaque”. Aplicado: abertura somente Do campo / pra cidade; títulos da home sem realce parcial em verde claro.
+
+### 3. Aplicação no código
+home.html remove Mais juntos do h1 e o span de ir mais longe. home.css e video-intro.css removem regras dos destaques de títulos. Paleta geral e marca preservadas.
+
+### 4. Verificação, testes e ajustes
+Verificações executadas nesta rodada descritas no relato da entrega. Sem avaliação humana ou publicação presumida.
+
+### 5. Análise crítica
+Títulos usam cor uniforme adequada ao fundo; mudança editorial não afeta operações ou navegação.
+
+## Interação 085 — Paleta sage e tipografia do login — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para CSS e documentação; terminal/Python Pillow para decodificar a referência AVIF para inspeção, sem alterar a imagem original; navegador integrado para conferir tipografia e telas. Sem geração de imagens, dependências novas, subagentes ou escrita no banco.
+
+### 2. Prompts e respostas representativos
+Transcrição: “Atualize a paleta de cores do site para essa na imagem e verifique se a fonte usada na pagina principal é a mesma que a utilizada na area de logar na conta, se for outra, deixe todas com a a fonte de login”. Referência fornecida: sage-green-minimal-palette.avif. Aplicado: cinco cores da referência, tema compartilhado e títulos da home com o mesmo peso do login.
+
+### 3. Aplicação no código
+Novo theme.css define A3B18A, DAD7CD, 588157, 3A5A40 e 344E41, com superfície clara derivada. Atualizados os estilos globais, home/vídeo, login/demo, workspace, participantes, conversas e transporte. Marca vetorial conserva desenho e recebe cores novas. Fotografias/ilustrações preservadas. Família já era Poppins nas duas páginas; home usava peso 700 e login 500. Títulos da home passam a 500 com espaçamento equivalente, sem destaques coloridos. Cores semânticas de alerta/erro e atribuição externa mantêm sua finalidade.
+
+### 4. Verificação, testes e ajustes
+Lint, 132 testes e build passaram, com aviso preexistente de bundle. Navegador integrado conferiu home, login e bancada interna em 1440×900/360×800 sem overflow horizontal. Computados Poppins e peso 500 nos títulos da home/login, fonte carregada, fundo DAD7CD e principal 344E41. Nenhuma autenticação ou operação remota. Evidências em validation.md; avaliação humana/publicação pendentes.
+
+### 5. Análise crítica
+Tokens compartilhados mantêm consistência entre entrada e área interna. Verdes escuros são usados para leitura e ações; tons mais claros servem como fundo/apoio. A família já coincidia, mas o peso distinto explicava a diferença percebida. Revisão interna usa fixtures de bancada e não comprova todas as telas autenticadas, aparelho físico ou auditoria completa de acessibilidade. Nova paleta prevalece sobre a direção creme/verde/laranja anterior por pedido explícito.

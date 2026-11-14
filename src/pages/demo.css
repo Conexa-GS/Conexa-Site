@@ -7,11 +7,11 @@
 .demo-profile .demo-producer-options { display: flex; gap: 8px; border: 0; padding: 0; }
 .demo-producer-options label { position: relative; flex: 1; min-width: 0; cursor: pointer; }
 .demo-producer-options input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.demo-producer-options span { display: flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #fff9ec80; border-radius: 999px; }
+.demo-producer-options span { display: flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #dad7cd80; border-radius: 999px; }
 .demo-producer-options input:checked + span { background: var(--cream); color: var(--green); font-weight: 600; }
 .demo-producer-options input:focus-visible + span { outline: 3px solid var(--cream); outline-offset: 4px; }
 .demo-producer-options:disabled label { opacity: .65; cursor: wait; }
-.demo-enter { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; border: 1px solid #fff9ec80; border-radius: 999px; padding: 12px 20px; background: transparent; color: inherit; font-size: 15px; }
+.demo-enter { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; border: 1px solid #dad7cd80; border-radius: 999px; padding: 12px 20px; background: transparent; color: inherit; font-size: 15px; }
 .demo-enter:hover:not(:disabled) { background: var(--cream); color: var(--green); }
 .demo-profile button:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
 .demo-profile :disabled { opacity: .65; cursor: wait; }

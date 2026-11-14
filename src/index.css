@@ -5,5 +5,6 @@
 @import './pilot/site.css';
 @import './pilot/polish.css';
 @import './pilot/animations.css';
-html{scrollbar-gutter:stable}button:disabled{cursor:wait;opacity:.6}input,select,textarea{font:inherit;color:inherit}select:focus-visible,input:focus-visible{outline:3px solid #174d38;outline-offset:3px}
+@import './theme.css';
+html{scrollbar-gutter:stable}button:disabled{cursor:wait;opacity:.6}input,select,textarea{font:inherit;color:inherit}select:focus-visible,input:focus-visible{outline:3px solid #344e41;outline-offset:3px}
 #conteudo:focus{outline:none}
