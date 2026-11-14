@@ -1,5 +1,11 @@
 # Registro de decisões
 
+## D041 — Perfis minimalistas no acesso de desenvolvedor — 13/11/2026
+
+Pedido explícito: “na parte de entrar como desenvolvedor, deixe os perfis igual ao da pagina principal, tire os subtítulos desnecessários. deixe o mais otimizado e minimalista possivel”. A tela `/demo` usa as mesmas três fotos locais e camada verde dos cartões da página principal, com estilos compartilhados em profile-photos.css. Retiradas ilustrações animadas desta tela, descrições por função, rótulos fictícios repetidos, navegação duplicada e rodapé promocional. Título único, nomes das contas, seletor Ana/João e botões Entrar mantidos. Aviso único identifica contas fictícias (ou prévia local volátil), pagamentos e entregas simulados.
+
+Desktop exibe três cartões fixos; até 760 px, cartões empilhados permitem operar o seletor e os botões sem carrossel. Nomes acessíveis distinguem as três ações, preservando foco visível, estado de envio e tratamento de erro. Regras de acesso/autenticação D030 não mudam. Feature criada da dev local `499e563`; lint, 130 testes e build passaram, com revisão desktop/360 px descrita em validation.md. Avaliação humana e autorização para publicação/integração na dev pendentes.
+
 ## D032 — Voz e GPT-Live para uma etapa futura — 13/11/2026
 
 Voz e integração GPT-Live ficam adiadas sem prazo, fora do escopo ativo.
@@ -337,3 +343,39 @@ Pedido explícito do usuário: “tire as letras laranjas e botões laranjas, de
 Esta manifestação autoriza commit/publicação da atualização acumulada de D035–D037 na feature/home-acesso-entrar, integração/publicação na dev e promoção/publicação da versão mais recente na main. Fluxo feature → dev → main preservado, sem edição ou commit de desenvolvimento diretamente na main. A dev de origem é bee2696, e a main remota antes da promoção é 416d014; a promoção também inclui Google Maps/frete já integrados na dev (D033/D034). Commits e resultado da publicação são verificáveis no histórico Git e no relato final. A autorização não equivale a testes individuais relatados pelo usuário, deploy comprovado, configuração Google ou novo aceite de marcos.
 
 Lint, 130 testes e build aprovados; revisão visual da página principal e login em 1366×900 e 360×800, com evidências em validation.md. Limites das funcionalidades anteriores permanecem vigentes.
+
+## D038 — Perfis fixos no desktop e fotografias do login — 13/11/2026
+
+Pedido do usuário: retirar a rolagem infinita dos perfis na versão de computador e, se possível, usar as imagens do login como fundo. Acima de 760 px, três cartões fixos lado a lado, sem cópias visíveis nem avanço automático. Até 760 px, preservada a faixa horizontal contínua de D036. Troca de breakpoint reposiciona a faixa e atualiza a descrição acessível.
+
+As fotos locais plantacao.jpg, comerciante.jpg e transportadora.jpg do login são reutilizadas como fundo dos respectivos cartões em ambas as larguras, com degradê creme e texto verde. Retratos ilustrados dos cartões ficam ocultos; demais ilustrações e marca mantidas. Links de login por função preservados. Implementação na feature/perfis-fixos-fotografias, criada da dev local 3c7e559. Verificações em validation.md; sem nova publicação ou integração desta revisão. O push anterior de D037 foi rejeitado pela revisão automática por exigir confirmação explícita do destino remoto e das branches; main local 11423a9 e dev local 3c7e559 não foram enviadas.
+
+## D039 — Camada verde nos perfis como no login — 13/11/2026
+
+Pedido posterior: “não gostei tanto do bluch branco, deixe parecido com a sessão login”. Substitui o degradê creme de D038 pela mesma camada verde do login (#174d3873, #174d3899 a 45%, #174d38d9), mantendo as fotos e usando texto creme. Contorno de foco também creme para leitura sobre fundo escuro. Perfis continuam fixos no desktop e com carrossel móvel. Revisão local na mesma feature/perfis-fixos-fotografias; envio remoto anterior permanece pendente, sem nova tentativa nesta alteração.
+
+### Autorização de publicação D038/D039 — 13/11/2026
+
+Após apresentação dos perfis fixos e camada verde, usuário autorizou: “pode subir para dev”. Autoriza commit e integração/publicação desta revisão na dev do origin configurado, Conexa-GS/Conexa-Site. Não amplia esta autorização para main nem comprova deploy ou testes humanos específicos. Verificações locais das revisões preservadas.
+
+## D040 — Vídeo de abertura com aproximação e afastamento — 13/11/2026
+
+Autorização posterior do usuário: “pode mandar para dev”. Autoriza commit, publicação da feature e integração/publicação na dev do origin Conexa-GS/Conexa-Site. Não inclui main ou comprovação de deploy; verificações e limites abaixo preservados.
+
+Pedido explícito do usuário: usar `F:/video conexa.mp4` como fundo no começo da página, sem som, e aproximar/afastar conforme a rolagem para parecer entrar e sair do vídeo. Implementação na `feature/video-abertura-scroll`, criada da dev local `a141553`.
+
+Arquivo copiado sem transcodificação para public/assets/video/conexa-abertura.mp4 (5.875.392 bytes, hashes SHA-256 iguais na origem/destino); poster JPEG extraído de um quadro do vídeo no navegador local. Abertura em largura total recebe o título principal anterior, camada verde e texto creme/verde claro. A seção ilustrada seguinte conserva cenário, personagens e trajeto, com título secundário “Uma rede que move a colheita.”, evitando dois h1.
+
+CSS scroll timeline nativa mantém rolagem normal: seção de 235svh, palco sticky de 100svh, vídeo de escala 1,02 até 1,5 e retorno a 1,02; moldura recua para 0,9 e perde opacidade na saída. Texto desaparece na entrada. Sem nova dependência ou listener de scroll para o efeito. Sem suporte, a abertura fica em fluxo normal, com vídeo em ciclo. Recorte cover varia conforme a largura.
+
+Controle “Pausar vídeo e efeitos” compartilha a preferência já usada pelas ilustrações/perfis. Preferência reduzida elimina zoom/trecho fixo e pausa reprodução; preferência do sistema desabilita a reativação. Vídeo pausa fora da seção ou com documento oculto; cleanup remove observer/listeners e encerra reprodução. Mantidos autoplay/muted/playsinline e propriedade muted. Falha ou bloqueio de reprodução conserva poster/fundo e textos.
+
+Lint, 130 testes e build aprovados; revisão no navegador integrado em 1366×900 e 360×800, incluindo zoom nos dois sentidos de escala, continuidade ilustrada, pausa/retomada e movimento reduzido do sistema emulado. Evidências e limites em validation.md. Avaliação humana e autorização de publicação/integração pendentes; sem novo aceite de marco ou operação remota.
+
+### Complemento D041 — títulos e seleção de produtor — 13/11/2026
+
+Pedido posterior remove pontos da tela de desenvolvedor e troca o select nativo por duas opções Ana/João sempre visíveis, com seleção creme e verde, eliminando o menu azul do sistema. Radios nativos preservam exclusividade, nomes completos acessíveis e navegação por setas; seleção segue bloqueada durante envio. Demais telas não alteradas por esta revisão. Avaliação e autorização de publicação permanecem pendentes.
+
+### Autorização de publicação D041 — 13/11/2026
+
+Após apresentação dos cartões minimalistas e seleção Ana/João sem menu azul, usuário autorizou: “pode mandar para dev”. Autoriza commit, publicação da feature e integração/publicação na dev do origin Conexa-GS/Conexa-Site. Não inclui main ou comprovação de deploy. Verificações técnicas e limites registrados preservados.

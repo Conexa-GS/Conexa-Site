@@ -1351,3 +1351,114 @@ Codex executou lint, 130 testes existentes, build e diff-check com sucesso; avis
 ### 5. Análise crítica
 
 O verde unifica a leitura e as ações, preservando contraste com o creme e mantendo os arquivos visuais originais. A revisão de cores não altera validações, autenticação ou banco. A publicação da última versão da dev também leva as atualizações de Google Maps/frete já existentes nessa branch, sem comprovar configuração de chaves, testes reais Google, deploy ou aceite de marcos. Os registros anteriores de avaliação/autorização pendentes são históricos quanto à publicação desta atualização, sem ampliação das evidências técnicas.
+
+## Interação 071 — Perfis fixos no computador com fotos do login — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar CSS/JavaScript e documentação. Terminal para lint/testes/build; navegador integrado via Computer Use para revisão desktop/360 px e captura. Sem subagentes, IA externa ou edição/geração de fotografias.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “na versão de computador, tire a rolagem infinita dos perfis. se possivel, coloque as imagens da sessão login no fundo dos perfis”. Aplicado: três cartões fixos acima de 760 px e fotografias locais do login como fundo por função; carrossel móvel preservado.
+
+### 3. Aplicação no código
+
+profile-carousel.js condiciona avanço e posição inicial ao breakpoint móvel, observa sua mudança e atualiza a descrição acessível. profile-carousel.css oculta cópias no desktop e aplica fotos com degradê creme, mantendo textos verdes e links. Retratos dos cartões ocultos, arquivos visuais originais preservados. Feature criada da dev local; D038/spec/validation registram comportamento e limites.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes, build e diff-check passaram. Desktop 1366×900 e celular 360×800 conferidos no navegador integrado; posição fixa, cópias ocultas no desktop, avanço móvel e retorno ao desktop verificados. Clique no comprador preservou seleção no login. Sem autenticação ou operação remota; avaliação humana não presumida. Publicação anterior segue pendente após rejeição automática do push; esta revisão não realizou nova tentativa de envio.
+
+### 5. Análise crítica
+
+As fotos já disponíveis diferenciam as atividades e evitam novos arquivos. O degradê permite manter texto verde legível sobre fundos variados; cover recorta as imagens conforme a largura. Layout fixo no desktop permite ver os três caminhos simultaneamente, enquanto a faixa móvel conserva cartões legíveis. Revisão local não comprova aparelho físico, leitor de tela ou envio ao GitHub.
+
+## Interação 072 — Camada verde nos perfis como no login — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar CSS e documentação; terminal para lint/testes/build; navegador integrado via Computer Use para revisão desktop/360 px e captura local. Sem geração ou edição das fotografias.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “não gostei tanto do bluch branco, deixe parecido com a sessão login”. Aplicado: retirar o degradê branco/creme dos cartões e usar a camada verde e texto creme da apresentação do login.
+
+### 3. Aplicação no código
+
+profile-carousel.css reutiliza as mesmas cores/opacidades do gradiente de login.css sobre as três fotos locais. Texto e contorno de foco em creme; fotos, links, layout fixo desktop e carrossel móvel preservados. D039 atualiza a decisão visual anterior.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes existentes, build e diff-check passaram. Revisão visual desktop/360 px no navegador integrado; texto computado creme e página sem overflow nas medidas conferidas. Captura desktop local perfis-verde-login.png. Sem autenticação, operação remota ou aprovação humana presumida; envio GitHub anterior permanece pendente sem nova tentativa.
+
+### 5. Análise crítica
+
+A camada verde aproxima os cartões da identidade do login e mantém as fotografias visíveis. O texto creme oferece contraste sobre a área escurecida, substituindo o texto verde que dependia do fundo claro. Fotografias continuam com recorte responsivo e esta revisão dirigida não certifica todos os dispositivos ou acessibilidade assistiva.
+
+## Interação 073 — Vídeo na abertura e zoom por rolagem — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para implementar a abertura e documentar o comportamento, com orientação da skill design-taste-frontend sobre movimento e responsividade. Terminal/Git para preparar feature da dev, copiar/conferir mídia e executar lint/testes/build. Navegador integrado via Computer Use para verificar desktop/360 px, capturar um quadro como poster, emular movimento reduzido e salvar capturas. Sem subagentes, IA de imagem, provedor de vídeo ou alteração de banco.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “deixe esse video de fundo no começo da pagina principal do site (sem som).
+coloque um efeito de scroll na tela, onde o usuario vai rolar um pouco a tela e parecer que está entrando no video, depois de rolar mais um pouco vai aparecer um efeito de saindo do video (os efeitos vão aproximar e afastar)”. Arquivo indicado: F:/video conexa.mp4. Resposta aplicada: abertura com reprodução sem som, aproximação e afastamento por rolagem, seguida das ilustrações; controle compartilhado de movimento.
+
+### 3. Aplicação no código
+
+home.html acrescenta vídeo, poster, camada de contraste, título e botão; título ilustrado passa a h2 com texto próprio. Landing.jsx monta video-intro.js/css e seu cleanup. CSS usa scroll timeline nativa e sticky com transform/opacity, sem biblioteca adicional ou novo listener de scroll. JavaScript cuida de muted, visibilidade, preferência compartilhada e pausa/retomada; motion.js escuta o mesmo evento para sincronizar os controles. Mídia local em public/assets/video. D040/spec/README/estado-atual/validation registram o escopo.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes existentes e build com sucesso; aviso preexistente de chunk acima de 500 kB. Navegador integrado conferiu vídeo 1280×720/10,03 s, muted e reprodução, escala máxima 1,5, afastamento, pausa fora da abertura, sequência ilustrada, controle compartilhado e ausência de overflow horizontal em desktop/360 px. Preferência do sistema emulada pausou vídeo e removeu zoom/fixação. Capturas locais e medidas em validation.md. Após HMR do HTML bruto remover as ilustrações injetadas durante a bancada, recarga completa confirmou sua montagem normal. Python do alias WindowsApps não pôde executar; poster foi extraído pelo canvas do navegador local. Não foram presumidos aparelho físico, leitor de tela, autoplay bloqueado ou teste humano. Sem publicação/integração desta alteração.
+
+### 5. Análise crítica
+
+CSS nativo liga o efeito à posição de rolagem sem renderizações React por quadro, mantendo o gesto normal do navegador. Poster e texto conservam uma abertura legível quando a mídia não reproduz. Movimento reduzido e pausa compartilhada oferecem alternativa ao zoom e ao vídeo automático. O arquivo de cerca de 5,9 MB adiciona transferência e decodificação; pausa fora da seção reduz trabalho, mas não elimina o download. Cover privilegia preencher a tela e recorta laterais em 360 px. Compatibilidade sem scroll timeline tem fallback estático, sem verificação em múltiplos navegadores. Avaliação humana e autorização para subir/integrar na dev pendentes.
+
+## Interação 074 — Perfis minimalistas no acesso de desenvolvedor — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar React/CSS e documentação. Terminal/Git para criar feature da dev e executar verificações locais. Navegador integrado via Computer Use para revisão desktop/360 px e capturas, com leitura da skill computer-use. Sem subagentes, geração de imagem ou alteração de banco.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “na parte de entrar como desenvolvedor, deixe os perfis igual ao da pagina principal, tire os subtítulos desnecessários. deixe o mais otimizado e minimalista possivel”. Resposta aplicada: compartilhar fotos/camada verde da página principal, retirar descrições e rótulos repetidos e preservar seleção de conta e entrada nos três perfis.
+
+### 3. Aplicação no código
+
+Demo.jsx usa cartões fotográficos, título único, nomes das contas e ações Entrar com nomes acessíveis por função. Escolha Ana/João preservada e bloqueada durante envio. demo.css define três colunas desktop, empilhamento móvel e foco visível. profile-photos.css compartilha fundos com Landing.jsx/home.html/profile-carousel.css, evitando duplicar os gradientes e URLs. Removida a montagem de MotionArtwork nesta tela. Aviso compacto preserva identificação de simulação e comportamento local volátil. D041/spec/README/validation documentam a revisão.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 130 testes existentes, build e diff-check com sucesso; aviso preexistente de bundle acima de 500 kB. Navegador integrado conferiu desktop 1224×901 e 360×800, sem overflow horizontal, com os três cartões, aviso final e seletor de produtor. Tab do seletor ao botão verificado; fotos e gradiente dos três perfis da home conferidos após extração dos estilos. Capturas locais em validation.md. Sem novo teste automatizado, autenticação remota, operação no Supabase, publicação ou aprovação humana presumida.
+
+### 5. Análise crítica
+
+Compartilhar o tratamento fotográfico mantém as duas páginas visualmente consistentes. Menos textos e a retirada da animação reduzem elementos na tela sem remover escolha de participante ou identificação de simulação. Empilhamento móvel evita movimentar controles interativos em carrossel. Fotos existentes continuam com recorte cover; não houve medição de ganho de desempenho nem redução do aviso de bundle global. Revisão visual não comprova todos os dispositivos, leitor de tela ou novo teste de autenticação. Avaliação e autorização para subir/integrar na dev pendentes.
+
+## Interação 075 — Seleção limpa de produtor e títulos sem pontos — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para alterar React/CSS e registros; terminal para lint/testes/build; Computer Use para revisão desktop/360 px e seleção por clique/teclado. Sem subagentes ou geração de imagem.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “tire os '.' e na hora de selecionar o produtor, deixe uma seleção mais limpa e não esse fundo padrão azul”. Aplicado: títulos e aviso sem pontos finais; opções Ana/João visíveis em creme/verde, substituindo o menu nativo.
+
+### 3. Aplicação no código
+
+Demo.jsx troca select por fieldset com radios e nomes completos acessíveis. demo.css oculta visualmente os radios, estiliza seus rótulos e diferencia seleção/foco. Estado React e bloqueio durante envio preservados. Alteração restrita ao acesso de desenvolvedor.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes existentes e build aprovados; aviso de bundle preexistente. Navegador integrado conferiu desktop e 360 px, clique em João, seta para Ana e ausência de overflow horizontal móvel. Evidências em validation.md. Sem autenticação remota ou aprovação humana presumida.
+
+### 5. Análise crítica
+
+Duas opções sempre visíveis evitam abrir menu do sistema e tornam o estado selecionado claro. Radios mantêm navegação nativa por teclado sem lógica adicional de dropdown. Nomes curtos reduzem texto; nome completo e propriedade permanecem no nome acessível. Sem prova de aparelho físico ou leitor de tela. Publicação/integração ainda dependem de autorização.

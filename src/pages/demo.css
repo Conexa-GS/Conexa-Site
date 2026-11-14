@@ -1,0 +1,25 @@
+.demo-page .page-heading { margin-bottom: 32px; }
+.demo-profiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.demo-profile { display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; min-height: 500px; padding: 32px; }
+.demo-page .demo-profile h2 { color: inherit; font-size: clamp(28px, 2.8vw, 38px); line-height: 1.15; letter-spacing: -1px; }
+.demo-profile.preferred { outline: 2px solid var(--cream); outline-offset: -8px; }
+.demo-profile .demo-account { width: 100%; min-width: 0; min-height: 48px; margin: 18px 0 22px; padding: 10px 0; font-size: 14px; line-height: 1.8; color: inherit; }
+.demo-profile .demo-producer-options { display: flex; gap: 8px; border: 0; padding: 0; }
+.demo-producer-options label { position: relative; flex: 1; min-width: 0; cursor: pointer; }
+.demo-producer-options input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.demo-producer-options span { display: flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #fff9ec80; border-radius: 999px; }
+.demo-producer-options input:checked + span { background: var(--cream); color: var(--green); font-weight: 600; }
+.demo-producer-options input:focus-visible + span { outline: 3px solid var(--cream); outline-offset: 4px; }
+.demo-producer-options:disabled label { opacity: .65; cursor: wait; }
+.demo-enter { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; border: 1px solid #fff9ec80; border-radius: 999px; padding: 12px 20px; background: transparent; color: inherit; font-size: 15px; }
+.demo-enter:hover:not(:disabled) { background: var(--cream); color: var(--green); }
+.demo-profile button:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
+.demo-profile :disabled { opacity: .65; cursor: wait; }
+.demo-context { margin-top: 22px; font-size: 12px; color: var(--muted); }
+@media (max-width: 1000px) { .demo-profile { padding: 24px; } }
+@media (max-width: 760px) {
+  .demo-page .page-heading { margin-bottom: 24px; }
+  .demo-profiles { grid-template-columns: 1fr; gap: 16px; }
+  .demo-profile { min-height: 360px; }
+  .demo-page .demo-profile h2 { font-size: 30px; }
+}
