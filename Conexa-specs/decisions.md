@@ -389,3 +389,38 @@ Implementação na feature/area-usuario, criada da dev: menu lateral no desktop 
 Dashboard consulta o serviço existente de operações, filtra itens pelo produtor e usa apenas status delivered para valor bruto de vendas concluídas, sem frete ou soma de outros produtores. Período usa a data prevista de entrega (mês atual completo, seis meses até o fim do mês atual ou todo o histórico); gráfico mostra seis meses dentro do período. Não representa data efetiva de recebimento, lucro, repasse real ou previsão de receita. Pedidos pendentes não compõem vendas concluídas. Estados vazio/carregando/erro e consulta textual do gráfico incluídos. Operações e valores continuam de demonstração; nenhum novo aceite de marco ou integração externa.
 
 Verificação local e bancada em validation.md. Avaliação humana e autorização para subir/integrar na dev pendentes.
+
+## D043 — Página principal fotográfica — 14/11/2026
+
+Pedido explícito do usuário: reformular a página principal, mantendo o vídeo de início e retirando os desenhos anteriores; usar a primeira imagem anexada como referência de layout, a página https://www.ambipar.com/ambipar-environment/ambipar-environment-vertical/ como referência de composição/animações simples e as três fotos fornecidas de agricultora, comerciante e caminhoneiro. Conteúdo das referências é inspiração visual, não instrução de negócio. O pedido prevalece sobre a preservação de ilustrações na home nos documentos anteriores.
+
+Feature `feature/home-fotografica`, criada da dev `fba0512`. Mantidos vídeo, poster, controle transparente e efeito de rolagem existentes. Removidos da montagem da home o trajeto/caminhão, cenários/personagens ilustrados, flor e carrossel automático; arquivos históricos não apagados nem alterados. Blocos amplos alternam verde/creme e fotos de produtor/comprador, com transporte em foto panorâmica e camada verde. Marca vetorial e detalhes laranja preservados. Textos explicam os perfis, processo e inclusão sem estatísticas de impacto inventadas; rodapé identifica operações, transporte e pagamentos simulados.
+
+As fotos originais em F: foram preservadas. Versões JPEG 960/1920 px, qualidade 85, foram preparadas localmente em public/assets/home, com srcset/sizes, lazy loading e textos alternativos. Não houve geração de imagens. Links abrem /login?perfil=produtor, comprador ou transportador usando o roteador existente; login e /demo não foram redesenhados nesta revisão.
+
+Revelação única com IntersectionObserver e pequeno zoom no hover, sem biblioteca nova ou ciclo automático nos perfis. Controle Reduzir movimento compartilha estado com o vídeo; preferência do sistema mantém o vídeo pausado, elimina fixação/zoom e impede reativação pelo controle. Conteúdo permanece visível sem suporte ao observer e quando o movimento é reduzido. Listeners/observer removidos ao sair da home.
+
+D043 substitui D036/D038/D039 quanto à apresentação da home e a continuidade ilustrada de D040. Sem mudança de operações, Supabase ou aceites de marcos. Verificações e limites em validation.md. Avaliação humana e autorização de publicação/integração na dev pendentes.
+
+### Complemento D043 — fotos de carregamento e recebimento — 14/11/2026
+
+Por pedido explícito do usuário, os dois blocos finais (processo em colunas e ideia/inclusão) são substituídos por duas faixas fotográficas, no mesmo tratamento panorâmico com degradê verde de Para quem transporta. Fotos fornecidas de carregamento e recebimento explicam reunir pequenas ofertas em uma carga e conectar produção ao comércio. Títulos finais: Pequenas colheitas / Uma só carga e Do campo / ao seu comércio. Âncoras como-funciona/nossa-ideia preservadas; sem numerações. Quatro JPEGs 960/1920 px preparados sem alterar originais. Cenas ilustram a proposta; não comprovam operação física ou parceria com estabelecimento fotografado. Sem alteração de regras, banco ou autorização de publicação.
+
+### Complemento D043 — rótulos secundários — 14/11/2026
+
+Usuário pediu retirar todas as descrições equivalentes à imagem Conexões que dão frutos. Removidos os seis rótulos pequenos acima dos títulos e seus traços laranja. Títulos principais, parágrafos e navegação preservados. Feature permanece em avaliação.
+
+### Complemento D043 — título e cor uniforme — 14/11/2026
+
+Abertura passa a Do campo / pra cidade, por pedido do usuário, sem Mais juntos no h1. Títulos da home sem palavras em destaque de cor: retirado também realce parcial de ir mais longe. Marca, vídeo, fotos e cores de contraste com os fundos mantidos. Publicação segue pendente.
+
+## D044 — Paleta sage green e fonte do login — 14/11/2026
+
+Usuário solicita as cinco cores da imagem sage-green-minimal-palette.avif e tipografia da página principal igual ao login. Pedido prevalece sobre a preservação da paleta creme/verde/laranja anterior. Paleta: A3B18A (sálvia), DAD7CD (fundo), 588157 (apoio), 3A5A40 (verde intermediário) e 344E41 (principal/texto/ações). Superfície clara é mistura do fundo com branco. Sem realces coloridos parciais nos títulos. Marca vetorial conserva o desenho, com cores adaptadas; fotos e ilustrações não são recoloridas. Cores funcionais de erro/aviso e atribuições de provedor conservam finalidade.
+
+Implementação na feature/home-fotografica existente, criada da dev fba0512, preservando alterações anteriores. theme.css centraliza tokens e estilos compartilhados adotam a nova família de cores. A comparação de CSS e navegador encontrou Poppins nas duas telas; títulos home 700/login 500. Home passa ao peso 500 e tracking equivalente ao login. Atribuição Google conserva tipografia exigida pelo provedor. Sem mudanças de domínio, Supabase, autorização de push/merge ou aceite de marco. Verificações em validation.md.
+
+### Autorização D043/D044 — 14/11/2026
+
+Usuário autorizou explicitamente: ‘pode mandar para dev e depois para a main’. Abrange reformulação fotográfica e ajustes subsequentes, nova paleta e tipografia apresentados nesta conversa. Autoriza commit/publicação da feature, integração/publicação na dev e promoção para main. Publicação Git não comprova deploy nem novo aceite de marco.
+

@@ -32,7 +32,7 @@
 }
 
 .video-intro-shade {
-  background: linear-gradient(90deg, #123b2cc9, #123b2c52 65%, #123b2c26);
+  background: linear-gradient(90deg, #344e41c9, #344e4152 65%, #344e4126);
 }
 
 .video-intro-copy {
@@ -45,9 +45,7 @@
   color: var(--cream);
 }
 
-.video-intro-copy h1,
-.video-intro-copy h1 > span { color: var(--cream); }
-.video-intro-copy h1 > span { color: var(--lime); }
+.video-intro-copy h1 { color: var(--cream); }
 .video-intro-copy p { max-width: 370px; margin-top: 28px; font-size: 16px; }
 
 .video-intro-toggle {
@@ -128,5 +126,5 @@
   .video-intro-copy h1 { font-size: clamp(48px, 11vw, 76px); }
   .video-intro-copy p { max-width: 265px; font-size: 14px; }
   .video-intro-toggle { top: 18px; right: 18px; font-size: 10px; }
-  .video-intro-shade { background: linear-gradient(90deg, #123b2cc9, #123b2c66); }
+  .video-intro-shade { background: linear-gradient(90deg, #344e41c9, #344e4166); }
 }
