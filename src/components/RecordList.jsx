@@ -41,7 +41,7 @@ export default function RecordList({ records, scope, participantId, label, rende
     </div>
     <p className="inline-caption">{view === 'active' ? 'Canceladas, expiradas e arquivadas ficam no Histórico.' : view === 'history' ? 'Registros encerrados, preservados para consulta.' : 'Ocultar muda apenas sua visualização neste navegador. Reservas, prazos e respostas continuam valendo.'}</p>
     {notice && <p role="status" className="inline-note">{notice}</p>}
-    {!visible.length && <EmptyState title={view === 'active' ? 'Nenhum registro ativo por aqui.' : view === 'history' ? 'Histórico vazio.' : 'Nenhum registro oculto.'}>{view === 'active' ? 'Confira o Histórico ou as Ocultas, ou inicie uma nova conexão.' : 'Os registros aparecerão aqui quando houver itens nesta lista.'}</EmptyState>}
+    {!visible.length && <EmptyState title={view === 'active' ? 'Nenhum registro ativo por aqui' : view === 'history' ? 'Histórico vazio' : 'Nenhum registro oculto'}>{view === 'active' ? 'Confira o Histórico ou as Ocultas, ou inicie uma nova conexão.' : 'Os registros aparecerão aqui quando houver itens nesta lista.'}</EmptyState>}
     {sections.filter(section => section.records.length).map((section, index) => <div key={section.title || index}>
       {section.title && <h3 className="record-section-title">{section.title} · {section.records.length}</h3>}
       {section.records.map(record => <div className="record-entry" key={record.id}>

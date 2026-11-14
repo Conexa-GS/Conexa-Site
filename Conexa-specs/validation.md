@@ -977,3 +977,19 @@ Codex alterou somente a apresentação dos cartões em profile-carousel.css: cam
 ### Complemento D041 — seleção sem menu nativo — 13/11/2026
 
 Codex revisou Demo.jsx/demo.css para remover pontos dos títulos/aviso e usar radios estilizados Ana/João, sem menu select do sistema. Lint, 130 testes e build passaram; aviso preexistente de bundle acima de 500 kB. Navegador integrado em desktop 1224×901 e 360×800: seleção por clique em João e por ArrowLeft para Ana comprovadas na árvore acessível; celular com scrollWidth 345 para viewport 360. Capturas perfis-dev-selecao-desktop.png e perfis-dev-selecao-mobile.png na mesma pasta externa desta revisão. Viewport restaurada, sem entrada de conta, alteração remota ou aceite humano presumido.
+
+## Área de usuário e dashboard — D042 — 13/11/2026
+
+Feature/area-usuario criada a partir da dev limpa. Codex implementou AppLayout/workspace.css, rotas/perfis, SalesDashboard/ProducerOrders, agregação sales.js e acesso do comprador às propostas. Lint, 132 testes e build aprovados na primeira rodada; teste de entrada do bot ajustado para passar pelo dashboard e clicar Produtos. Dois testes novos verificam isolamento dos valores por produtor, exclusão de estados não concluídos, filtro de datas e gráfico atravessando o ano com meses vazios. Build mantém aviso de bundle acima de 500 kB.
+
+Navegador integrado e helper Computer Use falharam na inicialização (failed to write kernel assets). Alternativa: Chrome local headless com CDP e perfil temporário separado. Bancada tests/ui/workspace.html apresenta três operações explicitamente fictícias por componente de conteúdo; não autentica conta nem grava operações. AppLayout conserva consulta de notificações existente. Revisão desktop 1440×1100 e celular 360×800; scrollWidth respectivamente 1425 e 360. Menu celular mostrou seis destinos, abriu/fechou com aria-expanded correspondente; seletor alterado para mês atual. Conflito de precedência do display da app-shell detectado na captura desktop e corrigido; capturas repetidas. Evidências externas: C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1d76d-2ff5-7091-8307-751b3269d91e/workspace-desktop.png, workspace-mobile.png e workspace-menu.png.
+
+Limites: bancada com fixtures não comprova os indicadores com dados de conta autenticada no Supabase, CRUD/RLS remotos, aparelho físico ou leitor de tela. Sem migrations, escrita de dados remotos, push, merge, deploy ou aceite humano desta mudança. Demais marcos e aceites preservados. Nova rodada final das verificações registrada no relato de entrega.
+
+Rodada final após os ajustes de CSS/período e a separação do componente de conteúdo: npm run lint, npm test (132/132), npm run build e git diff --check aprovados. Aviso de bundle acima de 500 kB mantido. Chrome temporário de revisão encerrado; servidor local da feature disponível na porta 5176 para avaliação.
+
+### Complemento D042 — limpeza do menu — 13/11/2026
+
+Por pedido explícito do usuário, removido o cartão Conexões que dão frutos do menu lateral (JSX e estilos) e retirado o sublinhado/borda inferior apenas do link Ver todos os pedidos. Lint, 132 testes e build aprovados; aviso de bundle preexistente mantido. Chrome headless/CDP na bancada visual 1440×900 e 360×900 confirmou bloco ausente, decoração none e borda 0 px no link, sem overflow horizontal. Capturas externas workspace-clean-1440.png e workspace-clean-360.png na mesma pasta de D042. Sem teste remoto, novo aceite humano ou integração/publicação.
+
+Autorização de publicação D042: usuário respondeu ‘pode’ ao pedido explícito de subir e integrar na dev, incluindo o redesenho e a limpeza do menu. Autorização restrita à feature → dev; sem promoção para main ou comprovação de deploy.

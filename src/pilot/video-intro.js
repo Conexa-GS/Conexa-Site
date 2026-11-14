@@ -16,8 +16,10 @@ export function mountVideoIntro() {
     const reduced = isMotionReduced()
     toggle.disabled = preference.matches
     toggle.setAttribute('aria-pressed', String(reduced))
-    toggle.textContent = preference.matches ? 'Movimento reduzido pelo sistema'
+    const label = preference.matches ? 'Movimento reduzido pelo sistema'
       : reduced ? 'Ativar vídeo e efeitos' : 'Pausar vídeo e efeitos'
+    toggle.setAttribute('aria-label', label)
+    toggle.title = label
     if (reduced || !visible || document.hidden) video.pause()
     else video.play().then(() => {
       // A play request can settle after navigation or a preference change.

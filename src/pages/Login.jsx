@@ -7,9 +7,9 @@ import { homeFor } from '../domain/profiles'
 import './login.css'
 
 const profiles = [
-  { role: 'producer', label: 'Produtor', icon: Plant, line: 'Sua colheita tem\nnovos caminhos.', image: 'plantacao.jpg', imageAlt: 'Plantação verde no campo' },
-  { role: 'buyer', label: 'Comprador', icon: Basket, line: 'Mais perto de\nquem produz.', image: 'comerciante.jpg', imageAlt: 'Loja de frutas e verduras' },
-  { role: 'carrier', label: 'Transportador', icon: Truck, line: 'Cada caminho,\numa conexão.', image: 'transportadora.jpg', imageAlt: 'Caminhões no pátio de uma transportadora' },
+  { role: 'producer', label: 'Produtor', icon: Plant, line: 'Sua colheita tem\nnovos caminhos', image: 'plantacao.jpg', imageAlt: 'Plantação verde no campo' },
+  { role: 'buyer', label: 'Comprador', icon: Basket, line: 'Mais perto de\nquem produz', image: 'comerciante.jpg', imageAlt: 'Loja de frutas e verduras' },
+  { role: 'carrier', label: 'Transportador', icon: Truck, line: 'Cada caminho,\numa conexão', image: 'transportadora.jpg', imageAlt: 'Caminhões no pátio de uma transportadora' },
 ]
 export default function Login({ auth, reset = false, service = accountAuth }) {
   const preferred = new URLSearchParams(window.location.search).get('perfil')
@@ -56,7 +56,7 @@ export default function Login({ auth, reset = false, service = accountAuth }) {
       <section className="login-entry" aria-labelledby="login-title">
         <div className="login-entry-inner">
           {!['recover', 'reset'].includes(mode) && <div className="login-tabs" aria-label="Acesso à conta"><button type="button" aria-pressed={mode === 'login'} onClick={() => changeMode('login')} disabled={busy}>Entrar</button><button type="button" aria-pressed={mode === 'signup'} onClick={() => changeMode('signup')} disabled={busy}>Criar conta</button></div>}
-          <h1 id="login-title">{({ login: 'Bom ter você aqui.', signup: 'Vamos nos conectar.', recover: 'Recupere seu acesso.', reset: 'Uma nova senha.' })[mode]}</h1>
+          <h1 id="login-title">{({ login: 'Bom ter você aqui', signup: 'Vamos nos conectar', recover: 'Recupere seu acesso', reset: 'Uma nova senha' })[mode]}</h1>
           {mode === 'recover' && <p className="login-intro">Vamos enviar um link para o seu e-mail.</p>}
           {auth.session && mode !== 'reset' ? <div className="login-current"><p>Você está conectado como <strong>{auth.session.display_name || auth.session.name}</strong>.</p><Link className="login-submit" href={homeFor(auth.session.role)}>Ir para meu espaço <ArrowRight size={20} /></Link><button className="login-text-button" onClick={auth.leave} disabled={busy}>Sair desta conta</button></div> : <>
             {['login', 'signup'].includes(mode) && <fieldset className="login-profiles" disabled={busy}><legend>Eu sou</legend><div>{profiles.map(({ role: value, label, icon: Icon }) => <label key={value} className={role === value ? 'selected' : ''}><input type="radio" name="profile" value={value} checked={role === value} onChange={() => { setRole(value); setError('') }} /><Icon size={21} weight={role === value ? 'fill' : 'regular'} /><span>{label}</span></label>)}</div></fieldset>}

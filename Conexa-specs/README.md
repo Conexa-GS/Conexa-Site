@@ -113,3 +113,5 @@ Atualização em 10/11/2026 — T30: especificação separada em `t30-whatsapp.m
 O briefing exige React com Vite ou Next.js, Tailwind, oito componentes, useState/useEffect, dois custom hooks, API externa com CRUD, 15 commits significativos, AI.md, README, repo privado e ZIP. Front-end exige também link do deploy. A mesma aplicação tem envios separados nas duas disciplinas e acesso de escrita aos professores. Este pacote escolhe Vite, conforme o planejamento do projeto.
 
 Instruções de outros chats que alterem o escopo devem ser registradas. O chat implementador deve respeitar as instruções do usuário e as regras do repositório de destino. Este pacote não autoriza publicar, criar contas, gastar créditos ou operar transporte e pagamentos reais.
+
+Área de usuário (D042, 13/11/2026): navegação lateral/recolhível, pedidos próprios do produtor e dashboard com valores exclusivamente simulados. Entrada do produtor em /produtor/dashboard; comprador ganha rota própria de propostas. Métricas calculadas dos dados existentes, sem novo backend ou escrita. Verificação/limites em validation.md; feature/area-usuario em avaliação, sem publicação ou integração autorizada.

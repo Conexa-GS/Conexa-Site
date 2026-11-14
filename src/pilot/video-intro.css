@@ -54,16 +54,24 @@
   position: absolute;
   top: 24px;
   right: max(24px, calc((100% - 1270px) / 2));
-  padding: 11px 17px;
-  border: 1px solid #fff9ec70;
-  border-radius: 30px;
-  background: #174d38e6;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
   color: var(--cream);
   font-size: 11px;
   line-height: 1.5;
 }
 
-.video-intro-toggle:hover { background: var(--green); }
+.video-intro-toggle:hover { background: transparent; color: var(--lime); }
+.video-intro-toggle svg { width: 24px; height: 24px; fill: currentColor; }
+.video-intro-toggle .video-play-icon { display: none; }
+.video-intro-toggle[aria-pressed="true"] .video-pause-icon { display: none; }
+.video-intro-toggle[aria-pressed="true"] .video-play-icon { display: block; }
 .video-intro-toggle:focus-visible { outline-color: var(--cream); }
 .video-intro-toggle:disabled { cursor: default; opacity: 1; }
 
