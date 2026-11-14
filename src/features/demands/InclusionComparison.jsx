@@ -13,7 +13,7 @@ export default function InclusionComparison({ demand, disabled, onChoose, reques
     catch (error) { setState({ loading: false, error: error.message, candidates: null }) }
   }
   return <section className="m4-analysis" aria-label="Comparação de composições">
-    <p className="eyebrow">PRÉVIA EM AVALIAÇÃO</p><h3>Mais caminhos para compor.</h3>
+    <p className="eyebrow">PRÉVIA EM AVALIAÇÃO</p><h3>Mais caminhos para compor</h3>
     <p>Compare duas candidatas: preço dos alimentos e prioridade a produtores com menos vendas concluídas na plataforma, com desempate pela oferta mais antiga. Frete e viabilidade final dependem de cotação e aceites.</p>
     <button className="button button-outline" disabled={disabled || state.loading} onClick={compare}>{state.loading ? 'Consultando histórico…' : 'Comparar composições'}</button>
     {state.loading && <p role="status">Consultando saldo e histórico da plataforma…</p>}

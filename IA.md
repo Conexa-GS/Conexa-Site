@@ -1462,3 +1462,24 @@ Lint, 130 testes existentes e build aprovados; aviso de bundle preexistente. Nav
 ### 5. Análise crítica
 
 Duas opções sempre visíveis evitam abrir menu do sistema e tornam o estado selecionado claro. Radios mantêm navegação nativa por teclado sem lógica adicional de dropdown. Nomes curtos reduzem texto; nome completo e propriedade permanecem no nome acessível. Sem prova de aparelho físico ou leitor de tela. Publicação/integração ainda dependem de autorização.
+## Interação 076 — Títulos sem pontos e pausa por ícone — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para ajustar textos, HTML, CSS e JavaScript. Terminal/Git para criar feature da dev e executar verificações. Navegador integrado via Computer Use, com leitura da skill computer-use, para conferir desktop/360 px. Sem subagentes ou alteração de banco.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “tire todos os '.' dos titulos e deixe o botão de pausar apenas como um icone transparente”. Resposta aplicada: títulos estáticos da home, login e telas internas sem pontos; controle do vídeo somente com ícone de pausa/reprodução sobre fundo transparente.
+
+### 3. Aplicação no código
+
+Textos de títulos e estados vazios ajustados nos componentes e páginas. home.html inclui SVGs decorativos; video-intro.css remove fundo e borda do controle e conserva área de interação de 44 px. video-intro.js atualiza nome acessível, tooltip e estado pressionado sem substituir os ícones. Preferência do sistema e controle compartilhado preservados.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 130 testes existentes e build aprovados; aviso preexistente de bundle acima de 500 kB. Navegador integrado conferiu home em 1366×900 e 360×800, títulos sem pontos, fundo computado transparente, pausa e retomada do vídeo e ausência de overflow horizontal. Captura local titulos-pausa-360.png na pasta de visualizações desta conversa. Verificações locais não comprovam aparelho físico, leitor de tela ou avaliação humana. Sem publicação/integração.
+
+### 5. Análise crítica
+
+Ícones reduzem o peso visual sem remover o nome acessível ou a ação de retomada. SVGs locais dispensam dependências e conservam contraste com o vídeo. Foram alterados textos de interface definidos no código; dados cadastrados por participantes permanecem intactos. Avaliação humana e autorização para subir/integrar na dev pendentes.
