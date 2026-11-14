@@ -1,6 +1,6 @@
 .profile-photo {
   background-color: var(--green);
-  background-image: linear-gradient(180deg, #174d3873, #174d3899 45%, #174d38d9), var(--profile-photo);
+  background-image: linear-gradient(180deg, #344e4173, #344e4199 45%, #344e41d9), var(--profile-photo);
   background-size: cover;
   background-position: center;
   color: var(--cream);

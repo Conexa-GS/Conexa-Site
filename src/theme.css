@@ -1,0 +1,17 @@
+/* Palette supplied by the user: sage green minimal. */
+:root {
+  --sage: #a3b18a;
+  --canvas: #dad7cd;
+  --leaf: #588157;
+  --forest: #3a5a40;
+  --pine: #344e41;
+  --surface: color-mix(in srgb, var(--canvas) 65%, white);
+  --cream: var(--canvas);
+  --green: var(--pine);
+  --orange: var(--leaf);
+  --lime: var(--sage);
+  --yellow: var(--sage);
+  --ink-soft: var(--forest);
+  --line: #344e4129;
+  --font-sans: 'Poppins', Arial, sans-serif;
+}

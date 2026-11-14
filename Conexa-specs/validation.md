@@ -999,3 +999,35 @@ Autorização de publicação D042: usuário respondeu ‘pode’ ao pedido expl
 feature/limpeza-acoes criada da dev 7595870. Pedido do usuário remove integralmente o bloco Mais tempo para o que você cultiva do dashboard e sublinhados das ações compartilhadas (incluindo linhas inferiores text-link, links do rodapé e controle do carrossel). Alterados SalesDashboard.jsx, workspace.css, participant.css, site.css e profile-carousel.css; foco preservado. Lint, 132 testes e build aprovados, com aviso preexistente de bundle. Chrome headless/CDP em 1440×900/360×900 na bancada: bloco ausente, ações sem decoração/linha inferior e sem overflow horizontal. Capturas actions-clean-1440.png e actions-clean-360.png em C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1d76d-2ff5-7091-8307-751b3269d91e. Tabela móvel conserva quebra estreita preexistente. Sem nova escrita remota, verificação de todas as telas, aceite humano ou publicação presumida.
 
 Usuário autorizou explicitamente a publicação desta revisão no repositório Conexa-GS/Conexa-Site e integração na dev e main. Autorização Git não comprova deploy ou novos aceites de marco.
+
+## Página principal fotográfica — D043 — 14/11/2026
+
+Codex implementou a reformulação em feature/home-fotografica, criada da dev limpa fba0512. Landing.jsx deixa de montar artwork/motion/carrossel antigos; home.html, home.css e home-motion.js compõem apresentação fotográfica, processo e inclusão. Vídeo e sua lógica/CSS existentes preservados. Fotos locais fornecidas foram redimensionadas/recomprimidas para 960/1920 px com System.Drawing; originais preservados. Seis derivados somam aproximadamente 1,5 MB, com seleção responsiva e carregamento sob demanda.
+
+Verificações locais pelo Codex: npm run lint aprovado; npm test com 132/132 aprovados; npm run build aprovado, mantendo aviso preexistente de bundle acima de 500 kB. Revisão visual no navegador integrado via cua_repl, com viewport desktop 1440×900 e celular 360×800. Confirmados vídeo sem som, fotografias carregadas, ausência de elementos de desenhos na home e ausência de overflow horizontal. As três entradas foram clicadas e abriram login com produtor, comprador e transportador selecionados; nenhuma conta foi autenticada. Foco por Tab percorreu comprador → transportador com indicação visível. Controle de movimento reduziu a preferência, pausou vídeo e revelou todos os blocos pendentes; preferência do sistema emulada pausou vídeo, desabilitou reativação e deixou palco em position relative. Sem erros de console na revisão final.
+
+Na revisão foi corrigida a faixa de transporte que herdava o grid de duas colunas e estreitava o texto. Desktop voltou a usar bloco único com texto em 53% da largura; celular conserva flex e texto na largura disponível. Conferência repetida nas duas larguras sem overflow. Captura móvel via CDP com recorte de página apresentou artefato de captura; descartada e substituída por screenshot nativa após ajuste da viewport pelo navegador. Preferência emulada e viewport temporárias restauradas.
+
+Evidências externas: C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1d7fd-32cf-78b2-a95f-a678f0ff680a/home-fotos-desktop.png, home-fotos-360.png e home-fotos-completa.png. Servidor Vite local na porta 5173 para avaliação. Limites: navegador emulado não comprova aparelho físico ou leitor de tela; não houve CRUD/RLS remoto, pagamentos, transporte físico ou novo aceite humano. Nenhum push, merge, deploy ou integração foi executado nesta revisão.
+
+### Complemento D043 — faixas de carregamento/recebimento — 14/11/2026
+
+Codex substituiu as duas seções finais em home.html, reutilizando o tratamento da faixa de transporte e retirando estilos antigos de processo/ideia de home.css. Quatro derivados responsivos das duas fotos fornecidas, com alt/lazy loading. Lint, 132/132 testes e build passaram (aviso preexistente de bundle). Títulos reduzidos na revisão visual; build final repetido após ajuste textual.
+
+Navegador integrado em 1440×900 e 360×800: duas fotos carregadas, textos legíveis, âncoras do cabeçalho levando às novas seções e ausência de overflow horizontal. Seletores home-process/home-idea/home-steps ausentes. Viewport restaurada. Capturas em C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1d7fd-32cf-78b2-a95f-a678f0ff680a/: home-carga-desktop.png, home-recebimento-desktop.png, home-carga-360.png e home-recebimento-360.png. Capturas antigas da página completa conservam contexto anterior. Sem aparelho físico, leitor de tela, escrita remota ou aceite humano. Publicação/integração seguem pendentes.
+
+### Complemento D043 — remoção dos rótulos — 14/11/2026
+
+Pedido do usuário remove os seis rótulos home-label e traços laranja acima dos títulos. HTML e CSS correspondentes removidos; títulos, explicações e ações mantidos. Navegador integrado em 1440×900/360×800 conferiu composição e zero elementos home-label, sem overflow móvel. Capturas home-sem-rotulos-desktop.png e home-sem-rotulos-360.png na pasta externa desta conversa. Lint, 132 testes e build executados nesta rodada; resultados no relato de entrega. Viewport restaurada. Sem avaliação humana, publicação ou alteração de dados.
+
+### Complemento D043 — abertura sem Mais juntos e sem realces — 14/11/2026
+
+Pedido explícito remove Mais juntos apenas do título inicial; h1 passa a Do campo / pra cidade. Removido destaque verde claro de ir mais longe e suas regras de cor, mantendo títulos uniformes sobre os respectivos fundos. Navegador integrado conferiu 1440×900/360×800, zero spans nos títulos da home, h1 creme e ausência de overflow móvel. Captura abertura-sem-destaque-desktop.png na pasta externa desta conversa. Viewport restaurada; sem alteração de dados, aceite humano ou publicação.
+
+## D044 — Paleta sage e tipografia — 14/11/2026
+
+Codex inspecionou cópia PNG decodificada da referência AVIF fornecida: cores A3B18A, DAD7CD, 588157, 3A5A40 e 344E41. Paleta aplicada via theme.css, estilos das páginas/área interna e cores da marca vetorial, sem alterar fotos. Lint, npm test (132/132) e build aprovados; aviso preexistente de chunk acima de 500 kB mantido.
+
+Navegador integrado em 1440×900 e 360×800 conferiu home, login e bancada tests/ui/workspace.html, sem overflow horizontal. Home e login: font-family Poppins, Arial, sans-serif, título peso 500; document.fonts.check para Poppins aprovado. Fundo computado rgb(218,215,205) e botões/bloco principal rgb(52,78,65). Home antes usava a mesma família com título peso 700, agora alinhado ao login. Bancada interna usa fixtures explícitas, sem autenticação/alteração remota. Viewport restaurada.
+
+Capturas na pasta externa desta conversa C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1d7fd-32cf-78b2-a95f-a678f0ff680a/: paleta-home-desktop.png, paleta-home-360.png, paleta-login-desktop.png, paleta-login-360.png, paleta-workspace-desktop.png e paleta-workspace-360.png. Não é auditoria completa de contraste/acessibilidade, verificação de todas as páginas com dados reais ou aparelho físico. Sem aceite humano, publicação ou integração presumidos.

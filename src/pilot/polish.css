@@ -7,9 +7,9 @@
 .scene-marker{position:absolute;bottom:0;left:12%;display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.2px;color:var(--ink-soft)}.scene-marker i{display:block;width:6px;height:6px;border-radius:50%;background:var(--orange)}
 .depot-station{top:50px;right:-22px;width:57%;aspect-ratio:1.28}.depot-station .dock{left:67%;top:91%}.farm-station{left:-20px;top:138px;width:55%;aspect-ratio:1.28}.farm-station .dock{left:62%;top:101%}.farm-station .cargo-source{left:48%;top:61%}.market-station{right:-15px;top:165px;width:55%;aspect-ratio:1.28}.market-station .dock{left:35%;top:100%}.market-station .cargo-destination{left:53%;top:63%}.hero-stamp{top:27px;right:10px;width:96px;z-index:2}
 
-.route-layer #road-soft{stroke:#e5e5ce;opacity:.35;stroke-width:56}.route-layer #road-base{stroke:#dce1c4;stroke-width:34}.route-layer #road-dashes{stroke:#fff9ec;stroke-width:2;stroke-dasharray:6 15}.route-layer #road-travelled{stroke:#a4b282;stroke-width:2;opacity:.6}
+.route-layer #road-soft{stroke:var(--surface);opacity:.35;stroke-width:56}.route-layer #road-base{stroke:var(--sage);stroke-width:34}.route-layer #road-dashes{stroke:#dad7cd;stroke-width:2;stroke-dasharray:6 15}.route-layer #road-travelled{stroke:var(--forest);stroke-width:2;opacity:.6}
 .journey-indicator{gap:13px}.journey-kind{padding-right:12px;border-right:1px solid var(--line);font-size:8px;letter-spacing:.5px;text-transform:uppercase}.journey-indicator #trip-label{min-width:162px}
-.portrait,.people-line i{position:relative;background:#f7efdf}.people-line i{width:40px;height:40px}.audience-row .portrait{width:84px;height:84px}.audience-row p{font-size:13px;color:var(--ink-soft);margin-top:7px}
+.portrait,.people-line i{position:relative;background:var(--surface)}.people-line i{width:40px;height:40px}.audience-row .portrait{width:84px;height:84px}.audience-row p{font-size:13px;color:var(--ink-soft);margin-top:7px}
 .inclusion-art{max-width:300px;transform:none}
 .art-paused .route-layer{opacity:.28}
 
