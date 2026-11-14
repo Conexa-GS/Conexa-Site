@@ -1059,3 +1059,37 @@ npm run lint, npm test (139/139) e npm run build aprovados; aviso preexistente d
 Revisão visual deste complemento pelo Codex: bancada local em 1440×900 e 360×800. Nova oferta passou por Alface, Tomate e Cenoura com as imagens correspondentes; três arquivos carregados com largura natural 1200 px. Sem overflow de página (1425/1440 e 345/360). Arquivo local escolhido por Trocar foto, preparado e salvo apenas na bancada; reabertura em Editar oferta manteve foto própria prioritária. Usar imagem padrão restaurou Cenoura após salvar, mantendo os 50 kg. Snapshot DOM foi usado para conferir o estado final quando a árvore nativa de acessibilidade demorou a atualizar. Viewport restaurada; bancada deixada para avaliação. Sem aparelho físico, câmera real, leitor de tela, upload ao Supabase ou persistência após F5; nenhuma nova tentativa da migration bloqueada.
 
 Capturas deste complemento em C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1db50-a7af-7ab2-b571-d3702479e53e/: imagem-padrao-criacao-desktop.jpg, imagem-padrao-criacao-360.jpg e imagens-padrao-ofertas-desktop.jpg. Imagens fornecidas pelo usuário, identificadas como padrão; valores e salvamento de bancada fictícios. Revisão humana e autorização de publicação/integração pendentes.
+
+## Cores e cantos da área de perfil — 14/11/2026
+
+Feature feature/cores-navegacao-perfil criada da dev 0430a75, com árvore inicialmente limpa. workspace.css aplica sálvia A3B18A à navegação lateral e ao cabeçalho compartilhados pelos papéis; texto 24392E reforça contraste sobre esse fundo. Raios de 4 px nos links de menu, botões e seletor de período; 6 px no avatar, cartões e painéis principais. Home/login e operações preservados.
+
+Codex executou npm run lint, npm test (139 aprovados, zero falhas) e npm run build, aprovados; aviso preexistente de bundle acima de 500 kB. Revisão pelo navegador integrado na bancada /tests/ui/workspace.html, com dados fictícios em 1440×900/360×800: fundos sálvia e cantos menores, sem overflow horizontal, menu móvel abre e fecha. Texto escurecido após conferir contraste. Sem autenticação, alteração de banco, aparelho físico ou novo aceite de marco.
+
+Capturas locais em C:/Users/Murilo/.codex/visualizations/2026/11/14/01a1db6a-2c32-7793-ae2b-824ae9dbcd99/: perfil-desktop.png, perfil-celular.png e perfil-menu-celular.png. Viewport restaurada. Avaliação humana e autorização para subir/integrar na dev pendentes; sem push, merge ou promoção para main.
+
+### Complemento — Cabeçalho verde escuro — 14/11/2026
+
+Por novo pedido do usuário, workspace.css altera somente o tratamento do cabeçalho para pine #344E41, com textos/menu móvel canvas #DAD7CD e foco de teclado claro. Lateral sálvia e cantos menores da rodada anterior preservados. Feature/cores-navegacao-perfil permanece em avaliação.
+
+Codex executou npm run lint, npm test (139/139) e npm run build, aprovados; aviso de bundle acima de 500 kB preexistente. Navegador integrado conferiu /tests/ui/workspace.html em 1440×900 e 360×800: cabeçalho escuro, textos/ícone claros, sem overflow horizontal. Cores computadas 52/78/65 no fundo e 218/215/205 nos textos. Viewport restaurada. Sem autenticação, escrita remota ou aparelho físico. Capturas no diretório de evidências da rodada anterior: perfil-header-escuro-desktop.png e perfil-header-escuro-celular.png. Avaliação humana e autorização de push/integração na dev pendentes.
+
+### Complemento — Marca unida e cabeçalho fixo — 14/11/2026
+
+AppLayout.jsx remove slogan abaixo da marca e Meu espaço da lateral/caminho da página. workspace.css alinha fundo verde escuro da marca aos 92 px do cabeçalho, sem separação; marca clara com filtro restrito à lateral. Cabeçalho sticky com top zero e z-index 20. Menu móvel fixo sob cabeçalho de 80 px, com altura limitada e rolagem própria. Feature atual preservada, sem push/merge.
+
+Codex: lint, 139 testes e build aprovados, com aviso preexistente de bundle. Bancada /tests/ui/workspace.html em 1440×900 e 360×800, sem overflow horizontal. Após rolar 759 px no desktop, cabeçalho permaneceu em top 0; celular rolado manteve header em 0 e menu aberto em 80 px. Abertura/fechamento conferidos. Viewport restaurada. Capturas no diretório de evidências desta feature: perfil-header-unido.png e perfil-header-unido-celular.png. Sem aparelho físico ou escrita remota. Avaliação humana e autorização de publicação/integração pendentes.
+
+### Complemento — Menu mobile sem marca e com animação — 14/11/2026
+
+workspace.css oculta marca no mobile, ajusta botão de fechar sobre fundo sálvia e adiciona surgimento por opacidade/deslocamento de 16 px em 240 ms. prefers-reduced-motion desabilita animação; regra inspecionada sem emulação. Sombra/overscroll do painel e reticências para nomes longos no cabeçalho mobile complementam o ajuste. Desktop conserva marca e não recebe animação.
+
+Codex executou lint, npm test (139/139) e build, aprovados com aviso de bundle preexistente. Navegador integrado: bancada /tests/ui/workspace.html em 360×800, sem overflow, logo display none, animação computada 0.24s workspace-menu-enter e abrir/fechar conferidos. Em 1440×900, logo display flex, animação none, sem overflow. Viewport restaurada. Captura local no diretório desta feature: perfil-mobile-sem-marca.png. Sem aparelho físico, autenticação ou escrita remota. Feature em avaliação; push/integração continuam pendentes de autorização.
+
+### Complemento — Saída suave do menu mobile — 14/11/2026
+
+workspace.css usa transições bidirecionais de opacidade/deslocamento em 240 ms, com display allow-discrete e starting-style; substitui keyframes anteriores. Movimento reduzido desabilita transições. Em navegadores sem suporte à transição discreta de display, fechamento pode ser imediato.
+
+Codex executou lint, npm test (139/139) e build, aprovados; aviso preexistente de bundle. Bancada no navegador integrado em 360×800: abertura/fechamento/reabertura, estado fechado display none, transições computadas 240 ms, sem overflow. Em 1440×900, sidebar flex e opacidade 1, sem overflow. Captura estática perfil-menu-fechamento.png no diretório desta feature mostra estado final, sem comprovar movimento intermediário. Método CDP para desacelerar não suportado, sem alteração aplicada; viewport restaurada. Sem aparelho físico, escrita remota ou avaliação humana presumida. Publicação/integração na dev pendentes de autorização.
+
+Autorização Git desta revisão — 14/11/2026: usuário declarou “pode mandar para dev e depois para a main”, autorizando a integração/publicação da feature de navegação e cabeçalho em ambas as branches nessa ordem. Autorização restrita a Git; não comprova deploy, aparelho físico ou aceite de outros marcos. Lint, 139 testes e build da rodada anterior aprovados; código preservado desde essas verificações.

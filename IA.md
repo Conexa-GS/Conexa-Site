@@ -1690,3 +1690,88 @@ Codex executou lint, 139 testes e build, aprovados; aviso preexistente de bundle
 
 ### 5. Análise crítica
 Imagens padrão organizam os cartões e reduzem trabalho no cadastro. Foto própria continua prioritária e pode ser alterada na edição. Identificação Imagem padrão evita confundir referência do alimento com prova do lote anunciado. Derivados reduzem os três arquivos de cerca de 10 MB para 558.430 bytes, preservando originais. Mapeamento contempla o catálogo atual de três produtos; novos alimentos precisam de nova referência. Padrões não dependem de Storage, mas persistir fotos próprias mantém as pendências remotas já registradas.
+
+## Interação 088 — Cores e cantos da área de perfil — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex e terminal para CSS, Git e verificações locais. Skill Computer Use e navegador integrado via cua_repl para revisão em desktop e 360 px. Sem subagentes, dependências novas ou operações remotas.
+
+### 2. Prompts e respostas representativos
+Transcrição: “deixe a barra de navegação lateral e o header da sessão de perfil, com uma outra cor, e deixe as bordas menos arredondadas”. Resposta real: “Vou usar verde sálvia na lateral e no cabeçalho, mantendo o fundo claro do conteúdo. Também vou reduzir os cantos dos menus, cartões e botões da área de perfil.”
+
+### 3. Aplicação no código
+workspace.css usa verde sálvia na lateral e no cabeçalho compartilhados pelos três papéis, com texto verde escuro derivado para contraste. Menus/botões/seletor usam raio de 4 px; avatar, cartões e painéis, 6 px. Superfícies principais da navegação permanecem retas; regras restritas à área interna preservam home/login e marca.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso de bundle acima de 500 kB já existente. Bancada local /tests/ui/workspace.html conferida em 1440×900 e 360×800, sem overflow horizontal; menu móvel abriu/fechou. Ajustado texto sobre sálvia para melhorar contraste. Capturas e limites em validation.md. Avaliação humana e autorização de publicação/integração pendentes.
+
+### 5. Análise crítica
+Fundo sálvia diferencia navegação e conteúdo sem sair da paleta vigente; raios menores reduzem o aspecto arredondado. Bancada usa componentes reais e dados fictícios, sem autenticação ou escrita no Supabase. Revisão visual não comprova aparelhos físicos nem todos os fluxos dos três papéis.
+
+## Interação 089 — Cabeçalho em verde escuro — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl para revisão desktop/celular, conforme Computer Use já consultada. Sem subagentes ou escrita remota.
+
+### 2. Prompts e respostas representativos
+Transcrição: “coloque o header com o verde mais escuro”. Resposta real: “Vou aplicar o verde mais escuro da paleta no cabeçalho e clarear os textos para manter o contraste.”
+
+### 3. Aplicação no código
+workspace.css aplica pine #344E41 ao cabeçalho e canvas #DAD7CD aos textos e ícone do menu móvel. Foco de teclado do cabeçalho recebe contorno claro. Alteração continua na feature/cores-navegacao-perfil, preservando os ajustes anteriores.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso preexistente de bundle. Navegador integrado conferiu bancada em 1440×900/360×800, sem overflow horizontal, com fundo e textos computados correspondentes. Capturas em validation.md; avaliação/publicação pendentes.
+
+### 5. Análise crítica
+Cabeçalho escuro distingue a identificação da sessão; texto e menu claros mantêm leitura sobre o fundo. Bancada com dados fictícios não comprova todos os fluxos autenticados nem aparelho físico.
+
+## Interação 090 — Marca unida ao cabeçalho fixo — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para React/CSS e verificações; navegador integrado via cua_repl, conforme Computer Use já consultada, para desktop e celular. Sem subagentes ou escrita remota.
+
+### 2. Prompts e respostas representativos
+Transcrição: “tire o 'do campo pra cidade', e deixe o icone da conexa colado com o header e da mesma cor escura. além de tirar o 'meu espaço' e fixar o header no topo da tela”. Resposta real: “Vou unir a área da marca ao cabeçalho com o mesmo fundo verde escuro, remover ‘Do campo pra cidade’ e ‘Meu espaço’ e manter o cabeçalho visível ao rolar a página.”
+
+### 3. Aplicação no código
+AppLayout.jsx remove slogan e rótulos Meu espaço da navegação/cabeçalho, mantendo nome da página. workspace.css une fundo da marca ao cabeçalho escuro, alinha altura de 92 px e apresenta marca clara por filtro local. Cabeçalho sticky no topo, lateral desktop preservada. No celular, menu fixo abaixo dos 80 px do cabeçalho, com rolagem própria e fechamento acessível.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso de bundle preexistente. Bancada em 1440×900/360×800 sem overflow horizontal. Rolagem desktop de 759 px manteve topo do cabeçalho em zero; no celular rolado, cabeçalho em zero e menu em 80 px. Menu abriu/fechou. Evidências em validation.md; sem aprovação/publicação presumida.
+
+### 5. Análise crítica
+Faixa contínua simplifica identificação e remove textos redundantes. Cabeçalho sticky ocupa espaço no fluxo; menu celular sobrepõe o conteúdo sem deslocar o cabeçalho. Bancada fictícia não comprova aparelho físico ou todos os fluxos autenticados.
+
+## Interação 091 — Menu mobile sem marca e surgimento suave — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl seguindo Computer Use já consultada para revisão mobile/desktop. Sem subagentes, dependências ou escrita remota.
+
+### 2. Prompts e respostas representativos
+Transcrição: “quero que arrume a versão mobile. tire o icone da conexa. coloque uma animação de surgimento suave.” Resposta real: “Vou ajustar o menu mobile: remover a marca Conexa, reorganizar o botão de fechar e adicionar uma entrada suave ao abrir a navegação, respeitando a preferência por movimento reduzido.”
+
+### 3. Aplicação no código
+workspace.css oculta a marca somente no menu mobile, ajusta espaço e cor do botão de fechar, adiciona sombra e limita propagação da rolagem do painel. Abertura recebe opacidade/deslocamento horizontal de 16 px em 240 ms, desabilitada por prefers-reduced-motion. Nomes longos no cabeçalho mobile usam reticências.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso de bundle preexistente. Bancada em 360×800: marca ausente, abertura/fechamento conferidos, animação computada 240 ms, sem overflow. Em 1440×900: marca visível, sem animação/overflow. Regra de movimento reduzido inspecionada no CSS, sem emulação nesta rodada. Captura e limites em validation.md. Sem avaliação humana/publicação presumida.
+
+### 5. Análise crítica
+Remover a marca redundante libera espaço vertical; movimento curto suaviza entrada sem atrasar navegação. Verificação visual usa bancada fictícia e não comprova aparelho físico ou todos os tamanhos/nomes reais.
+
+## Interação 092 — Saída suave do menu mobile — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl seguindo Computer Use já consultada. Sem subagentes, dependências ou escrita remota.
+
+### 2. Prompts e respostas representativos
+Transcrição: “coloque uma animação quando a aba é fechada”. Resposta real: “Vou adicionar uma saída suave ao fechar o menu mobile, combinando com a animação de abertura.” Contexto aplicado: aba lateral de navegação mobile.
+
+### 3. Aplicação no código
+workspace.css substitui keyframes de entrada por transições de opacidade e deslocamento de 16 px em 240 ms, tanto ao abrir quanto ao fechar. Transição discreta de display mantém painel durante a saída em navegadores compatíveis; starting-style define entrada. Movimento reduzido desabilita transições. Estado React e ações de fechar existentes preservados.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso de bundle preexistente. Bancada em 360×800: abrir, fechar e reabrir, estado final display none, transições computadas 240 ms e sem overflow. Em 1440×900, lateral flex/opacidade 1, sem overflow. Captura estática do estado fechado não demonstra o movimento intermediário. Tentativa de desacelerar pela API CDP indisponível; nenhuma alteração aplicada por ela. Viewport restaurada; avaliação humana/publicação pendentes.
+
+### 5. Análise crítica
+Transições usam os mesmos estados de abertura/fechamento, sem temporizadores ou estado adicional. Navegadores sem transição discreta podem fechar imediatamente; movimento reduzido também fecha sem efeito. Bancada não comprova aparelhos físicos ou navegador móvel específico.
