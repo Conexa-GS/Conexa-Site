@@ -1483,3 +1483,47 @@ Lint, 130 testes existentes e build aprovados; aviso preexistente de bundle acim
 ### 5. Análise crítica
 
 Ícones reduzem o peso visual sem remover o nome acessível ou a ação de retomada. SVGs locais dispensam dependências e conservam contraste com o vídeo. Foram alterados textos de interface definidos no código; dados cadastrados por participantes permanecem intactos. Avaliação humana e autorização para subir/integrar na dev pendentes.
+
+## Interação 077 — Redesenho da área de usuário — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para implementar React/CSS, agregação de indicadores e documentação. Skill design-taste-frontend para hierarquia/estados/responsividade com identidade do projeto prevalecendo. Terminal para Git e verificações. Ferramentas de navegador integrado/Computer Use falharam ao iniciar; Chrome headless/CDP foi usado para revisão local. Sem subagentes, imagens geradas ou dependências novas.
+
+### 2. Prompts e respostas representativos
+
+Transcrição do pedido de programação: “preciso que você altere completamente a área de usuário. quero um menu de navegação podendo levar o usuário para sessão de produtos, pedidos, mensagens, informações sobre entrega, propostas e um dashboard caso o usuário queria monitorar o fluxo de vendas (no caso do fazendeiro)”. Três imagens fornecidas orientaram estrutura de navegação/painel. Resposta aplicada: menu lateral e móvel, dashboard do produtor, resumo dos pedidos e reaproveitamento dos fluxos persistidos. A consulta anterior sobre nomenclatura não integra este registro.
+
+### 3. Aplicação no código
+
+AppLayout.jsx/workspace.css substituem navegação horizontal por espaço de trabalho. App.jsx e profiles.js acrescentam rotas e entrada do produtor no dashboard. SalesDashboard.jsx consulta useM3; sales.js soma somente itens próprios de operações concluídas, com datas previstas e valores simulados explícitos. ProducerOrders.jsx lista pedidos próprios e liga aos fluxos de proposta/entrega. ProducerProposals.jsx atende também comprador. Bancada visual isolada em tests/ui/workspace e testes em sales.test.js; teste do atalho ao bot atualizado para navegar por Produtos.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 132 testes e build com sucesso na primeira rodada. Novos testes de domínio verificam isolamento por produtor, estados, datas e virada de ano. Chrome headless em 1440×1100/360×800 conferiu painel com fixtures, ausência de overflow horizontal, abertura/fechamento do menu e seleção do período. Corrigido conflito de display na captura desktop e repetida revisão; filtro inclui todo o mês corrente para acompanhar entregas futuras nele. Não houve teste autenticado dos novos indicadores no Supabase, escrita de operações, teste em aparelho físico ou avaliação humana. Evidências/limites em validation.md; aviso de bundle preexistente permanece.
+
+### 5. Análise crítica
+
+Reutilizar serviços e fluxos existentes evita duplicar regras de reserva, aceite e entrega. Separar valores concluídos de pedidos pendentes evita apresentar proposta como receita; gráfico explicita agrupamento por entrega prevista e não demonstra lucro ou recebimento financeiro real. Layout móvel conserva todos os destinos sem comprimir rótulos. Bancada valida composição visual, mas exige avaliação conectada para confirmar o resultado da conta. Publicação e integração dependem de autorização do usuário.
+
+## Interação 078 — Limpeza do menu lateral — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para edição de JSX/CSS, terminal para verificações e Chrome headless/CDP para revisão da bancada visual.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “tire essa parte completamente desnecessária (imagem anexada), tire esse sublinhado do 'ver todos os pedidos'”. Imagem identifica o cartão Conexões que dão frutos. Aplicado: remoção integral do cartão e do sublinhado do link solicitado.
+
+### 3. Aplicação no código
+
+AppLayout.jsx remove bloco workspace-help e ícone sem uso; workspace.css remove estilos do cartão. SalesDashboard.jsx identifica o link com dashboard-orders-link; regra específica retira decoração e borda inferior sem afetar demais links.
+
+### 4. Verificação, testes e ajustes
+
+Codex executou lint, 132 testes e build aprovados (aviso de bundle acima de 500 kB mantido). Chrome local com fixture visual em 1440×900/360×900 confirmou ausência do bloco, text-decoration none/borda 0 px no link e ausência de overflow horizontal. Capturas workspace-clean-1440.png e workspace-clean-360.png na pasta de visualizações desta conversa. Sem escrita remota ou avaliação humana presumida.
+
+### 5. Análise crítica
+
+Remoção reduz conteúdo secundário na navegação. Regra restrita mantém o restante da interface e o foco acessível. Bancada não comprova aparelho físico. Feature segue em avaliação, sem publicação/integração.

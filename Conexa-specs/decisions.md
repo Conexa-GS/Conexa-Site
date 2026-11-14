@@ -379,3 +379,13 @@ Pedido posterior remove pontos da tela de desenvolvedor e troca o select nativo 
 ### Autorização de publicação D041 — 13/11/2026
 
 Após apresentação dos cartões minimalistas e seleção Ana/João sem menu azul, usuário autorizou: “pode mandar para dev”. Autoriza commit, publicação da feature e integração/publicação na dev do origin Conexa-GS/Conexa-Site. Não inclui main ou comprovação de deploy. Verificações técnicas e limites registrados preservados.
+
+## D042 — Área de usuário com navegação lateral e painel do produtor — 13/11/2026
+
+Pedido de programação: redesenhar a área de usuário tomando os três exemplos visuais como referência de estrutura, com produtos, pedidos, mensagens, entrega, propostas e dashboard de vendas para fazendeiro. Paleta creme/verde/laranja, marca vetorial e ilustrações locais preservadas.
+
+Implementação na feature/area-usuario, criada da dev: menu lateral no desktop e recolhível no celular, identificação da conta e saída; produtor entra em /produtor/dashboard. Produtos reutiliza ofertas; pedidos do produtor apresenta resumo dos itens próprios e acessos aos fluxos existentes; comprador conserva demandas e ganha acesso direto às suas propostas. Mensagens usa Conversas existente para produtor/comprador; transportador mantém solicitações, veículos e entregas, sem inventar suporte a mensagens ou catálogo nesse perfil.
+
+Dashboard consulta o serviço existente de operações, filtra itens pelo produtor e usa apenas status delivered para valor bruto de vendas concluídas, sem frete ou soma de outros produtores. Período usa a data prevista de entrega (mês atual completo, seis meses até o fim do mês atual ou todo o histórico); gráfico mostra seis meses dentro do período. Não representa data efetiva de recebimento, lucro, repasse real ou previsão de receita. Pedidos pendentes não compõem vendas concluídas. Estados vazio/carregando/erro e consulta textual do gráfico incluídos. Operações e valores continuam de demonstração; nenhum novo aceite de marco ou integração externa.
+
+Verificação local e bancada em validation.md. Avaliação humana e autorização para subir/integrar na dev pendentes.
