@@ -1656,3 +1656,37 @@ Lint, 132 testes e build passaram, com aviso preexistente de bundle. Navegador i
 
 ### 5. Análise crítica
 Tokens compartilhados mantêm consistência entre entrada e área interna. Verdes escuros são usados para leitura e ações; tons mais claros servem como fundo/apoio. A família já coincidia, mas o peso distinto explicava a diferença percebida. Revisão interna usa fixtures de bancada e não comprova todas as telas autenticadas, aparelho físico ou auditoria completa de acessibilidade. Nova paleta prevalece sobre a direção creme/verde/laranja anterior por pedido explícito.
+
+## Interação 086 — Foto do lote na oferta — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para implementar React/JavaScript/CSS/SQL e documentação; terminal/Git para criar feature da dev e executar verificações; plugin Supabase para documentação oficial, inspeção somente leitura e tentativa de aplicar migration, rejeitada pela revisão automática. Skill Computer Use consultada e navegador integrado via cua_repl para revisão desktop/360 px e seletor de arquivo local. Sem subagentes, IA de imagem, dependências novas ou escrita remota efetivada.
+
+### 2. Prompts e respostas representativos
+Transcrição do pedido de programação: “Quero que o produtor tenha uma opção de colocar uma foto para a oferta, a ideia é ele poder tirar uma foto de por exemplo: 50kg de cenoura e colocar na oferta de 50kg, para ficar com mais destaque e mais organizado”. Resposta representativa real: “Vou verificar o fluxo de criação das ofertas e as regras do projeto para incluir uma foto vinculada à oferta, com opção de usar a câmera do celular.” Aplicado: foto opcional por oferta com prévia, edição e destaque nos cartões.
+
+### 3. Aplicação no código
+OfferPhoto/OfferPhotoField e CSS apresentam imagem, estado vazio/erro, câmera, escolha, troca/remoção. OfferForm mantém a foto separada dos valores validados e só confirma ao salvar. useOffers/services/offers encaminham o arquivo e consultam URLs temporárias; offer-photos prepara JPEG até 1600 px/2 MB a partir de JPG/PNG/WebP até 10 MB e gerencia upload/limpeza. Migration 202611140001_offer_photos.sql prepara coluna, bucket privado, trigger, RLS e extensão do gateway canônico preservando o bot. Bancada ilustrativa e testes de serviço/UI/SQL; helper de estrutura Storage nas suítes cumulativas. Especificações e D045 atualizados.
+
+### 4. Verificação, testes e ajustes
+Codex executou lint, npm test (138/138), build, dez suítes PostgreSQL existentes e suíte nova de fotos, aprovados; aviso preexistente de bundle. Testes usam mocks/jsdom/PGlite e não comprovam Auth/Storage reais. Navegador integrado conferiu escolha/preparação de arquivo, prévia, salvamento volátil, leitura no comprador, remoção confirmada, foco e ausência de overflow em 1440×900/360×800. Foto ilustrativa do projeto, sem câmera física ou escrita remota. Migration remota bloqueada pela revisão automática por exigir aprovação explícita; não contornada. Detalhes, capturas e limites em validation.md. Sem aceite humano, integração ou publicação presumidos.
+
+### 5. Análise crítica
+Foto por oferta diferencia lotes sem deduzir estoque ou qualidade pela imagem. Campo opcional preserva ofertas existentes; normalização reduz tráfego e não copia metadados originais. Bucket privado evita exposição pública permanente; URL assinada dura uma hora e pode ser compartilhada por quem a possui até expirar. Suporte à câmera/formatos depende do navegador; HEIC exige alternativa JPG/PNG/WebP. Limpeza pode falhar ou deixar upload órfão após rede incerta, sem apagar foto ainda vinculada. A integração só pode ser considerada verificada após autorização e testes reais no demo. A revisão automática restringiu a aplicação remota mesmo com implementação local pronta.
+
+## Interação 087 — Imagens padrão dos produtos — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para React/JavaScript/CSS, testes e documentação; terminal para inspeção, preparo técnico dos derivados JPEG via System.Drawing e verificações locais. Navegador integrado via cua_repl, seguindo Computer Use já consultada, para revisão responsiva e escolha de arquivo na bancada. Sem IA de imagem, subagentes, dependência nova ou alteração remota do Supabase.
+
+### 2. Prompts e respostas representativos
+Transcrição: “por padrão deixe essas imagens para cada produto, faça com que seja possivel editar depois, mas na hora de criar ofertas, essas imagens fiquem como padrão”. Arquivos fornecidos: alfaces.jpg, cenoura.jpg e tomates.jpg. Resposta real: “Vou definir essas três imagens como padrão de alface, cenoura e tomate. Ao escolher o produto, a oferta já mostrará a imagem correspondente, e o produtor poderá substituí-la por uma foto própria depois.”
+
+### 3. Aplicação no código
+Derivados locais em public/assets/products e mapa product-photos.js por nome do catálogo. OfferPhoto escolhe imagem padrão somente na ausência de foto própria e a identifica como padrão. OfferPhotoField permite trocar/capturar e restaurar padrão, mantendo confirmação ao salvar. Bancada mostra os três alimentos. Especificação e decisão D045 complementadas; significado de photo_path nulo permanece sem foto própria, com fallback visual local, sem nova migration.
+
+### 4. Verificação, testes e ajustes
+Codex executou lint, 139 testes e build, aprovados; aviso preexistente de bundle. Teste de formulário percorre os três produtos na criação sem anexar/enviar arquivo; edição mantém quantidade e permite retorno ao padrão. Revisão no navegador integrado em desktop/360 px registrada em validation.md. Sem repetir SQL/Storage reais, pois não houve alteração de persistência; migration de fotos próprias continua local e bloqueada sem autorização explícita. Sem aprovação humana ou publicação presumida.
+
+### 5. Análise crítica
+Imagens padrão organizam os cartões e reduzem trabalho no cadastro. Foto própria continua prioritária e pode ser alterada na edição. Identificação Imagem padrão evita confundir referência do alimento com prova do lote anunciado. Derivados reduzem os três arquivos de cerca de 10 MB para 558.430 bytes, preservando originais. Mapeamento contempla o catálogo atual de três produtos; novos alimentos precisam de nova referência. Padrões não dependem de Storage, mas persistir fotos próprias mantém as pendências remotas já registradas.

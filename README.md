@@ -1,5 +1,17 @@
 # Conexa
 
+Fotos das ofertas (D045, 14/11/2026): criação/edição com câmera ou arquivo, prévia, troca/remoção e foto nos cartões. **Preparado localmente; envio real aguarda autorização para aplicar a migration no Supabase demo.** [Verificações e limites](Conexa-specs/validation.md#fotos-das-ofertas--d045--14112026).
+
+### Fotos das ofertas
+
+Alface, cenoura e tomate começam com as imagens padrão fornecidas pelo usuário. Escolher o alimento troca a referência automaticamente; Trocar foto permite usar foto própria e Usar imagem padrão restaura a referência ao salvar. Padrões também aparecem em ofertas existentes sem foto própria, com identificação Imagem padrão. Arquivos locais em public/assets/products funcionam sem atualização do banco; o bloqueio de Storage abaixo vale para fotos próprias.
+
+Em Produtos → Nova oferta/Editar oferta, use Tirar foto (câmera quando suportada) ou Escolher/Trocar foto, confira a prévia e salve. Remover só confirma ao salvar. JPG/PNG/WebP até 10 MB; navegador redimensiona para até 1600 px e converte a JPEG até 2 MB, sem copiar metadados originais. HEIC/SVG não suportados; escolha JPG/PNG/WebP. Sem deduzir quantidade/preço pela imagem.
+
+A migration `supabase/migrations/202611140001_offer_photos.sql` acrescenta photo_path, bucket privado e policies. **Não aplicada remotamente: revisão automática exige autorização explícita do usuário.** Não criar bucket público para contornar regras. Acesso segue [Storage privado do Supabase](https://supabase.com/docs/guides/storage/buckets/fundamentals). URLs temporárias duram uma hora; Atualizar renova a consulta. Oferta continua visível se a foto falhar. Uploads sem vínculo podem restar após falhas de rede; limpeza só por dono autenticado e nunca de arquivo ainda vinculado. Arquivar conserva a foto.
+
+Sem Supabase, fotos seguem o modo local volátil existente e não sobrevivem à recarga. Bancada em `/tests/ui/offer-photos.html`, no servidor de desenvolvimento, usa fotos ilustrativas locais sem escrita remota. Não é tela de produção. Verificar policies locais com `npm run test:photos:db` ou `npm run test:db`; não comprovam serviço HTTP de Storage ou RLS reais.
+
 Extensão em avaliação (13/11/2026): cálculo opcional de frete e previsão de entrega por Google Maps Routes, na nova cotação da transportadora e no cenário de Botucatu. [Configuração e limites](#frete-automático-e-previsão-de-entrega--google-maps-routes). Sem consulta Google real ou implantação comprovada.
 
 Do campo pra cidade. Mais juntos.

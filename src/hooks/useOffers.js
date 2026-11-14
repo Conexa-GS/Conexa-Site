@@ -13,7 +13,7 @@ export function useOffers(session) {
     }).catch(error => { if (active) setState(previous => ({ ...previous, loading: false, error: error.message })) })
     return () => { active = false }
   }, [session, revision])
-  async function save(input, previous) { await saveOffer(session, input, previous); reload() }
+  async function save(input, previous, photo) { await saveOffer(session, input, previous, photo); reload() }
   async function remove(offer) { await deleteOffer(session, offer); reload() }
   async function archive(offer) { await archiveOffer(session, offer); reload() }
   return { ...state, reload, save, remove, archive }
