@@ -28,7 +28,7 @@
 .app-shell .button { padding: 14px 22px; gap: 12px; border-radius: 8px; }
 .app-shell .button:not(.button-outline):not(.button-danger) { border: 1px solid #174d38; }
 .app-shell button, .app-shell a { touch-action: manipulation; }
-.app-shell .text-link { padding-block: 10px; text-decoration: underline; text-underline-offset: 4px; }
+.app-shell .text-link { padding-block: 10px; text-decoration: none; }
 .app-shell button:not(:disabled), .app-shell a { transition: background-color .16s, transform .16s; }
 .app-shell .button:hover { transform: translateY(-2px); }
 .app-shell .button:active { transform: translateY(1px); }
