@@ -1527,3 +1527,25 @@ Codex executou lint, 132 testes e build aprovados (aviso de bundle acima de 500 
 ### 5. Análise crítica
 
 Remoção reduz conteúdo secundário na navegação. Regra restrita mantém o restante da interface e o foco acessível. Bancada não comprova aparelho físico. Feature segue em avaliação, sem publicação/integração.
+
+## Interação 079 — Remoção de bloco auxiliar e sublinhados — 13/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex para JSX/CSS e documentação; terminal para verificações; Chrome headless/CDP para revisão local.
+
+### 2. Prompts e respostas representativos
+
+Transcrição: “tire a parte que está anexada na imagem e aproveite para alterar todos os botões que estão sublinhados e remova o sublinhado”. A imagem identifica Mais tempo para o que você cultiva. Aplicado: remoção do bloco e dos sublinhados das ações.
+
+### 3. Aplicação no código
+
+SalesDashboard.jsx e workspace.css removem bloco workspace-welcome e estilos associados. participant.css elimina decoração textual das ações; site.css remove linha inferior de text-link e sublinhados do rodapé; profile-carousel.css remove linha do controle de movimento. Foco de teclado preservado.
+
+### 4. Verificação, testes e ajustes
+
+Lint, 132 testes e build aprovados; aviso de bundle acima de 500 kB mantido. Chrome na bancada de dashboard em 1440×900/360×900: bloco ausente, links de ação com text-decoration none e border-bottom 0px, sem overflow horizontal. Capturas actions-clean-1440.png e actions-clean-360.png na pasta externa desta conversa. Sem novos testes para remoção visual de baixo impacto, escrita no Supabase ou aceite humano presumido.
+
+### 5. Análise crítica
+
+Remover a orientação redundante reduz conteúdo secundário. Alteração nos estilos compartilhados propaga a limpeza aos fluxos existentes sem mudar ações ou foco. Bancada não comprova todas as telas/dispositivos; tabela no celular conserva quebra estreita dos textos já existente. Publicação desta revisão depende de autorização.

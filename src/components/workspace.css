@@ -59,10 +59,6 @@
 .dashboard-table th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #69775c; font-weight: 500; }
 .dashboard-table td { font-size: 14px; }
 .dashboard-table th, .dashboard-table td { padding: 15px 12px; border-bottom: 1px solid #e3e5d6; }
-.workspace-welcome { display: flex; align-items: center; gap: 28px; padding: 24px 28px; background: #e9edda; border-radius: 12px; margin-bottom: 24px; }
-.workspace-welcome img { width: 140px; height: 105px; object-fit: contain; }
-.app-shell .workspace-welcome h2 { font-size: 20px; }
-.workspace-welcome p { font-size: 14px !important; color: #54684a; margin-block: 8px; }
 @media(max-width: 1200px) { .app-shell.workspace { grid-template-columns: 218px minmax(0, 1fr); } .workspace-header { padding-inline: 24px; } .app-shell.workspace .app-content { padding-inline: 24px; } .dashboard-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media(max-width: 760px) {
   .app-shell.workspace { display: block; }
@@ -88,8 +84,6 @@
   .dashboard-metric > strong { font-size: 24px; }
   .dashboard-panels { grid-template-columns: 1fr; gap: 16px; }
   .dashboard-panel { padding: 20px; }
-  .workspace-welcome { padding: 20px; gap: 8px; }
-  .workspace-welcome img { width: 80px; height: 90px; }
   .sales-chart { gap: 8px; }
 }
 
