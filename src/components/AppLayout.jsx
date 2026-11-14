@@ -13,14 +13,13 @@ export default function AppLayout({ session, path, leave, children }) {
   const [open, setOpen] = useState(false)
   const menuButton = useRef(null)
   const entries = session.role === 'carrier' ? [...profileRoutes.carrier, ['/operacoes', 'Entregas']] : profileRoutes[session.role]
-  const activeLabel = entries.find(([href]) => path === href || (href.endsWith('/demandas') && path.startsWith(`${href}/`)))?.[1] || 'Meu espaço'
+  const activeLabel = entries.find(([href]) => path === href || (href.endsWith('/demandas') && path.startsWith(`${href}/`)))?.[1] || 'Perfil'
   function closeMenu() { setOpen(false); menuButton.current?.focus() }
   return <div className="app-shell workspace">
     <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <aside className={`workspace-sidebar ${open ? 'is-open' : ''}`} onKeyDown={event => { if (event.key === 'Escape') closeMenu() }}>
-      <div className="workspace-brand"><Logo /><span>Do campo pra cidade.</span></div>
+      <div className="workspace-brand"><Logo /></div>
       <button className="workspace-close" onClick={closeMenu} aria-label="Fechar navegação"><X size={24} /></button>
-      <p className="workspace-nav-label">MEU ESPAÇO</p>
       <nav id="workspace-navigation" aria-label="Navegação do participante"><div className="workspace-links">{entries.map(([href, label]) => {
         const NavIcon = navIcon(href)
         const active = path === href || (href.endsWith('/demandas') && path.startsWith(`${href}/`))
@@ -30,7 +29,7 @@ export default function AppLayout({ session, path, leave, children }) {
       <button onClick={leave} className="workspace-signout"><SignOut size={22} aria-hidden="true" />{session.access === 'personal' ? 'Sair da conta' : 'Trocar participante'}</button></div>
     </aside>
     <div className="workspace-body">
-      <header className="workspace-header"><div className="workspace-location"><button ref={menuButton} className="workspace-menu" aria-expanded={open} aria-controls="workspace-navigation" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar navegação' : 'Abrir navegação'}><List size={25} /></button><span>Meu espaço <span aria-hidden="true">/</span> <strong>{activeLabel}</strong></span></div><div className="workspace-user"><span className="workspace-avatar"><Icon size={22} aria-hidden="true" /></span><div><strong>{session.display_name || session.name}</strong><small>{names[session.role]} · {session.access === 'personal' ? 'minha conta' : 'perfil de teste'}</small></div></div></header>
+      <header className="workspace-header"><div className="workspace-location"><button ref={menuButton} className="workspace-menu" aria-expanded={open} aria-controls="workspace-navigation" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar navegação' : 'Abrir navegação'}><List size={25} /></button><span><strong>{activeLabel}</strong></span></div><div className="workspace-user"><span className="workspace-avatar"><Icon size={22} aria-hidden="true" /></span><div><strong>{session.display_name || session.name}</strong><small>{names[session.role]} · {session.access === 'personal' ? 'minha conta' : 'perfil de teste'}</small></div></div></header>
       <div className="workspace-demo" role="note"><span className="status-dot" />Ambiente de demonstração · dados fictícios, sem pagamentos ou entregas reais.{!isRemote && ' Alterações locais não persistem após recarregar.'}</div>
       <main id="conteudo" className="app-content" tabIndex={-1}><TransportNotifications key={`notifications-${session.id}`} session={session} />{children}</main>
       <footer className="app-footer"><span>Conexa · Mais juntos, do campo à cidade.</span><span>Protótipo acadêmico · FIAP</span></footer>
