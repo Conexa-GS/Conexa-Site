@@ -3,6 +3,8 @@ import { isRemote, supabase } from './supabase'
 import { m2 } from './m2'
 import { createDemoAuth } from './demo-auth'
 import { createAccountAuth } from './account-auth'
+import { createOfferPhotoService, photoDataUrl } from './offer-photos'
+const offerPhotos = createOfferPhotoService(supabase)
 
 export const accounts = [
   { id: 'ana', name: 'Ana Oliveira', role: 'producer', label: 'Sítio Boa Semente', email: import.meta.env.VITE_DEMO_ANA_EMAIL || 'ana@conexa.invalid', art: 'produtora' },
@@ -41,12 +43,17 @@ export async function listOffers(session) {
   else query = query.gte('available_until', today())
   const offers = check(await query)
   const balances = await m2('balances')
-  return offers.map(offer => ({ ...offer, quantity_free: balances.find(b => b.id === offer.id)?.quantity_free ?? 0 }))
+  return offerPhotos.urls(offers.map(offer => ({ ...offer, quantity_free: balances.find(b => b.id === offer.id)?.quantity_free ?? 0 })))
 }
-export async function saveOffer(session, input, previous) {
+export async function saveOffer(session, input, previous, photo) {
+  if (isRemote && photo !== undefined) return offerPhotos.save(session, input, previous, photo, data => writeOffer(session, data, previous))
+  if (!isRemote && photo !== undefined) input = { ...input, photo_url: photo ? await photoDataUrl(photo) : null }
+  return writeOffer(session, input, previous)
+}
+async function writeOffer(session, input, previous) {
   if (!isRemote) {
     if (session.role !== 'producer' || (previous && previous.producer_id !== session.id)) throw new Error('Somente o produtor responsável pode alterar esta oferta.')
-    const offer = { ...input, producer_id: session.id, id: previous?.id || crypto.randomUUID(), version: (previous?.version || 0) + 1 }
+    const offer = { ...previous, ...input, producer_id: session.id, id: previous?.id || crypto.randomUUID(), version: (previous?.version || 0) + 1 }
     localOffers = previous ? localOffers.map(o => o.id === previous.id ? offer : o) : [offer, ...localOffers]
     return
   }
@@ -79,6 +86,7 @@ export async function deleteOffer(session, offer) {
   const result = await supabase.from('offers').delete().eq('id', offer.id).eq('version', offer.version).select('id').single()
   if (result.error?.code === '23503') throw new Error('Oferta vinculada ao histórico. Use Arquivar para preservar os valores acordados.')
   check(result)
+  await offerPhotos.removeUnused(offer.photo_path)
 }
 
 export async function archiveOffer(session, offer) {

@@ -12,6 +12,10 @@ Estes IDs são a referência canônica deste pacote e substituem a numeração d
 
 ## Cadastros
 
+Complemento RN50/D045, 14/11/2026: alface, cenoura e tomate recebem imagem padrão fornecida pelo usuário quando não houver foto própria. Selecionar o produto define o padrão; foto própria tem prioridade. Usar imagem padrão na edição só remove a foto própria após salvar. Imagem padrão é identificada como referência, sem afirmar que retrata o lote real. Este complemento prevalece sobre a ausência de imagem presumida na primeira implementação de D045.
+
+- RN50 (D045, 14/11/2026): oferta admite uma foto opcional do lote; a foto não determina quantidade, qualidade, disponibilidade, reserva ou confirmação de venda. Somente o produtor responsável pode vincular/substituir/remover a foto da própria oferta. Ausência de foto não bloqueia publicação. Foto só é alterada ao salvar; cancelar mantém a versão anterior. Comprador autenticado consulta fotos das ofertas que pode consultar; sem bucket público. Bot por texto preserva a foto ao editar outros campos.
+
 - RN01: cada oferta pertence a um produtor; demanda a um comprador; cotação a um transportador.
 - RN02: oferta exige produto, quantidade positiva, unidade, preço unitário de venda, mínimo líquido unitário, coleta e período de disponibilidade. Venda unitária não pode ficar abaixo do mínimo. Vencimento do produto é opcional e separado da disponibilidade; quando informado, não pode anteceder seu fim e é preservado no snapshot da composição.
 - RN03: demanda exige produto, quantidade positiva, unidade, destino e data desejada.
