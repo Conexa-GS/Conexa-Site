@@ -1,7 +1,7 @@
-/* Palette supplied by the user: sage green minimal. */
+/* Sage green palette with the brighter white requested by the user. */
 :root {
   --sage: #a3b18a;
-  --canvas: #dad7cd;
+  --canvas: #ffffff;
   --leaf: #588157;
   --forest: #3a5a40;
   --pine: #344e41;

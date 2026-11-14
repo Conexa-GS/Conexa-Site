@@ -1093,3 +1093,23 @@ workspace.css usa transições bidirecionais de opacidade/deslocamento em 240 ms
 Codex executou lint, npm test (139/139) e build, aprovados; aviso preexistente de bundle. Bancada no navegador integrado em 360×800: abertura/fechamento/reabertura, estado fechado display none, transições computadas 240 ms, sem overflow. Em 1440×900, sidebar flex e opacidade 1, sem overflow. Captura estática perfil-menu-fechamento.png no diretório desta feature mostra estado final, sem comprovar movimento intermediário. Método CDP para desacelerar não suportado, sem alteração aplicada; viewport restaurada. Sem aparelho físico, escrita remota ou avaliação humana presumida. Publicação/integração na dev pendentes de autorização.
 
 Autorização Git desta revisão — 14/11/2026: usuário declarou “pode mandar para dev e depois para a main”, autorizando a integração/publicação da feature de navegação e cabeçalho em ambas as branches nessa ordem. Autorização restrita a Git; não comprova deploy, aparelho físico ou aceite de outros marcos. Lint, 139 testes e build da rodada anterior aprovados; código preservado desde essas verificações.
+
+## Remoção da navegação da home — 14/11/2026
+
+Por pedido explícito do usuário, feature/remover-navegacao-home criada da dev 2b9acaf. Removidos os links Como funciona / Para quem / Nossa ideia de home.html e suas regras específicas em home.css; cabeçalho mantém marca e Entrar. Codex executou lint, 139 testes e build, todos aprovados, com aviso preexistente de bundle acima de 500 kB. Navegador integrado na home local: 360×800 e 1440×900, nav ausente, cabeçalho de 80/96 px, scrollWidth 345/1425 px e innerWidth 360/1440 px, sem overflow horizontal. Conferência visual limitada ao navegador desktop com viewport móvel, sem aparelho físico. Viewport restaurada. Sem alterações remotas ou aceite humano presumido; publicação/integração na dev aguardam autorização.
+
+### Complemento — Branco mais vivo — 14/11/2026
+
+Por pedido explícito com amostra de cor, theme.css usa --canvas #ffffff; --cream e --surface acompanham o token. Codex executou lint, 139 testes e build aprovados (aviso preexistente de bundle). Home conferida em 360×800 e 1440×900 no navegador integrado: fundo computado rgb(255, 255, 255), sem overflow horizontal. Viewport restaurada. Demais telas/aparelhos físicos não revistos; sem aceite humano ou publicação presumidos. Alterações anteriores preservadas; push/integração na dev aguardam autorização.
+
+### Complemento — Tom anterior no login — 14/11/2026
+
+Por pedido explícito, login.css restaura --canvas #dad7cd e derivados somente em .login-page, mantendo #ffffff global. Lint, 139 testes e build aprovados; aviso preexistente de bundle e diagnóstico de tempo de plugins. Codex conferiu login em 360×800 e 1440×900 no navegador integrado: fundo rgb(218, 215, 205), tokens local #dad7cd/global #ffffff e sem overflow horizontal. Viewport restaurada; sem autenticação, aparelho físico ou aceite humano presumido. Push/integração pendentes.
+
+## Área de usuário com superfícies claras — 14/11/2026
+
+Pedido explícito com referência visual de painel claro: AppLayout.jsx e workspace.css adaptados na feature/remover-navegacao-home, já criada da dev 2b9acaf, preservando alterações anteriores. Menu lateral/header brancos, fundo #f6f7f8, cartões brancos com bordas sutis, item ativo verde suave e caminho papel/seção no header. Header desktop de 76 px e navegação mais compacta; menu mobile conserva comportamento e movimento reduzido. Escopo compartilhado por produtor/comprador/transportador; sem novos dados ou ações de negócio.
+
+Codex executou npm run lint, npm test (139/139) e npm run build, aprovados com aviso preexistente de bundle acima de 500 kB. Bancada fictícia /tests/ui/workspace.html, sem autenticação/escrita remota, conferida visualmente em 1440×900 e 360×800. Header/sidebar computados rgb(255, 255, 255); scrollWidth 1425/345 px, sem overflow. Menu mobile abre/fecha e volta a display none. Viewport restaurada. Não revisadas todas as páginas/estados autenticados ou aparelho físico. Avaliação humana e autorização de push/integração na dev pendentes.
+
+Autorização Git dos ajustes visuais — 14/11/2026: usuário declarou “pode mandar para dev e depois para a main”, autorizando publicar/integrar os ajustes pendentes desta feature na dev e promover para main nessa ordem. Escopo: remoção da navegação da home, branco compartilhado com exceção do login e área de usuário clara. Lint, 139 testes e build aprovados na última rodada; autorização Git não comprova deploy ou teste em aparelho físico.

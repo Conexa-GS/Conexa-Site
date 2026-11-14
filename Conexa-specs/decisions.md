@@ -444,3 +444,17 @@ Sem nova coluna, migration ou escrita remota. photo_path nulo/ausente representa
 ### Autorização de publicação D045 — 14/11/2026
 
 Usuário autorizou explicitamente: “pode mandar para dev e depois para a main”. Abrange publicar a feature de fotos/imagens padrão, integrar na dev e promover para main. Autorização Git não é autorização explícita para a migration Supabase anteriormente bloqueada, nem comprova deploy ou validação remota de fotos próprias. Padrões locais funcionam sem essa migration; pendência de Storage preservada.
+
+### Complemento D043 — Remoção dos atalhos do cabeçalho — 14/11/2026
+
+Por pedido explícito do usuário com referência visual, remover a barra Como funciona / Para quem / Nossa ideia na home, em celular e desktop. Substitui a apresentação desses atalhos; seções e seus IDs continuam disponíveis, com marca e Entrar no cabeçalho. Implementação e verificações em validation.md; avaliação humana e autorização de push/integração na dev pendentes.
+
+### Complemento D044 — Branco mais vivo — 14/11/2026
+
+Usuário solicita substituir o tom claro mostrado por branco mais vivo. Token compartilhado --canvas passa de #dad7cd para branco puro #ffffff, com --cream e --surface derivados. Substitui o neutro anterior somente nos usos desses tokens; verdes, imagens e cores fixas preservados. Verificação e limites em validation.md; publicação/integração pendentes.
+
+Complemento D044 — Exceção do login (14/11/2026): por pedido explícito, a tela de login conserva a cor anterior #dad7cd e suas superfícies derivadas por tokens locais de .login-page. Branco puro permanece no tema compartilhado. Verificação em validation.md; sem publicação presumida.
+
+### Complemento D042 — Área de usuário com superfícies claras — 14/11/2026
+
+Por pedido explícito com imagem de referência, substituir sidebar sálvia e header verde por superfícies brancas, fundo cinza claro e destaque verde suave no item ativo. Reduzir densidade do cabeçalho, acrescentar caminho papel/seção e usar cartões brancos com divisórias discretas. Identidade Conexa, Poppins, menus dos três papéis, responsividade e operações existentes preservados. Referência orienta a apresentação; não implica criar uma tela de configurações ou ações sem função. Home branca e exceção do login em #dad7cd preservadas. Evidências e limites em validation.md; sem publicação/integração ou aceite presumidos.

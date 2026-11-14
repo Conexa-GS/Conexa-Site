@@ -1775,3 +1775,71 @@ Lint, 139 testes e build aprovados; aviso de bundle preexistente. Bancada em 360
 
 ### 5. Análise crítica
 Transições usam os mesmos estados de abertura/fechamento, sem temporizadores ou estado adicional. Navegadores sem transição discreta podem fechar imediatamente; movimento reduzido também fecha sem efeito. Bancada não comprova aparelhos físicos ou navegador móvel específico.
+
+## Interação 093 — Remoção da navegação da home — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para localizar e remover a barra e executar verificações; navegador integrado via cua_repl para revisão responsiva, com consulta à skill Computer Use. Sem subagentes ou escrita remota.
+
+### 2. Prompts e respostas representativos
+Transcrição: “tire essa barra de navegação desnecessária”, acompanhada de imagem com Como funciona / Para quem / Nossa ideia. Resposta real: “Vou localizar a barra ‘Como funciona / Para quem / Nossa ideia’, removê-la e conferir o layout em celular e desktop.” Aspas simples normalizadas neste registro.
+
+### 3. Aplicação no código
+src/pilot/home.html remove o nav com os três links do cabeçalho. src/pilot/home.css remove as duas regras específicas desse nav. Marca, Entrar e conteúdo das seções preservados. Feature criada da dev local 2b9acaf.
+
+### 4. Verificação, testes e ajustes
+Codex executou npm run lint, npm test (139/139) e npm run build, aprovados; aviso preexistente de bundle acima de 500 kB. Home local conferida no navegador integrado em 360×800 e 1440×900: nav ausente no DOM, cabeçalho de 80/96 px e sem overflow horizontal. Viewport restaurada. Sem validação em aparelho físico ou avaliação humana presumida; push/integração pendentes.
+
+### 5. Análise crítica
+Remoção direta elimina a linha adicional no celular e os atalhos redundantes do desktop sem acrescentar estado ou dependências. Verificação local não comprova publicação ou comportamento em todos os dispositivos.
+
+## Interação 094 — Branco mais vivo — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl para revisão responsiva, seguindo a skill Computer Use já consultada.
+
+### 2. Prompts e respostas representativos
+Transcrição: “troque essa cor para um branco mais vivo”, com amostra clara anexada. Resposta real: “Vou trocar esse tom claro por um branco mais vivo e conferir o resultado na página inicial.”
+
+### 3. Aplicação no código
+src/theme.css altera --canvas de #dad7cd para #ffffff. --cream e --surface derivam desse token e acompanham o branco nos componentes que o utilizam. Cores fixas e verdes preservados. Trabalho anterior de remoção da navegação mantido na feature atual, criada da dev.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso preexistente de bundle acima de 500 kB. Home no navegador integrado em 360×800 e 1440×900: fundo computado rgb(255, 255, 255), conferência visual e ausência de overflow horizontal. Viewport restaurada. Demais telas e aparelhos físicos não revistos nesta rodada. Avaliação humana e publicação/integração pendentes.
+
+### 5. Análise crítica
+Token compartilhado mantém consistência nas superfícies derivadas e entrega branco puro. Tons fixos de outras telas não foram substituídos em massa; revisão visual concentrou-se na home.
+
+## Interação 095 — Tom anterior somente no login — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl para inspeção responsiva, com Computer Use já consultada.
+
+### 2. Prompts e respostas representativos
+Transcrição: “volte a cor anterior somente para a sessão de login”. Resposta real: “Vou restaurar o tom anterior somente na tela de login, mantendo o branco mais vivo nas demais áreas.”
+
+### 3. Aplicação no código
+src/pages/login.css define --canvas #dad7cd, --cream e --surface no escopo .login-page. O token global permanece #ffffff; estilos anteriores e alterações pendentes preservados.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso de bundle acima de 500 kB e diagnóstico de tempo de plugins no build. Login conferido no navegador integrado em 360×800 e 1440×900: fundo rgb(218, 215, 205), token local #dad7cd e global #ffffff, sem overflow horizontal. Viewport restaurada. Sem autenticação, aparelho físico ou aceite humano presumido. Publicação pendente.
+
+### 5. Análise crítica
+Escopo CSS restaura as superfícies derivadas do login sem reverter o branco compartilhado. Fundos fixos do login já conservavam o tom antigo; redefinição local assegura consistência dos tokens herdados. Revisão restrita à apresentação da tela.
+
+## Interação 096 — Área de usuário com superfícies claras — 14/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS, componente e verificações. Skill design-taste-frontend para hierarquia visual, adaptada à referência explícita e à estrutura existente; Computer Use já consultada e navegador integrado via cua_repl para revisão. Sem subagentes, dependências novas ou escrita remota.
+
+### 2. Prompts e respostas representativos
+Transcrição: “deixe a sessão de usuario com esse aspecto, pode alterar as cores da barra de navegação e header”, acompanhada de referência de painel claro com menu lateral. Resposta real: “Vou adaptar a área do usuário ao aspecto da referência: menu lateral claro, header compacto e conteúdo em cartões sobre fundo cinza suave. Vou preservar os menus e as funções de cada perfil.”
+
+### 3. Aplicação no código
+AppLayout.jsx acrescenta papel/seção ao caminho mostrado no header. workspace.css usa tokens locais de fundo #f6f7f8, cartões/menu/header brancos, bordas #e4e8e5 e destaque verde suave na navegação ativa. Sidebar de 220 px (208 px no intervalo intermediário), header de 76 px no desktop, avatar circular, títulos menores e divisórias nos painéis/tabelas. Menu mobile mantém estados, transições e preferência de movimento existentes. Home/login e alterações anteriores preservados.
+
+### 4. Verificação, testes e ajustes
+Lint, 139 testes e build aprovados; aviso preexistente de bundle acima de 500 kB. Bancada fictícia tests/ui/workspace.html no navegador integrado em 1440×900 e 360×800: header/menu brancos, conteúdo e cartões conferidos, sem overflow horizontal. Abertura e fechamento do menu mobile conferidos; display none após fechar. Viewport restaurada. Sem sessão autenticada ou revisão individual de todas as telas dos três perfis; aparelhos físicos e avaliação humana pendentes. Sem push/integração.
+
+### 5. Análise crítica
+Estilos compartilhados dão unidade aos perfis sem trocar os fluxos por uma tela de configurações fictícia. Verdes preservam a marca na referência clara; nenhum campo de busca ou ação sem função foi acrescentado. Bancada visual não comprova todos os estados de dados reais.
