@@ -14,6 +14,8 @@ import DemandsPage from './features/demands/DemandsPage'
 import CompositionPage from './features/demands/CompositionPage'
 import ProducerProposals from './features/demands/ProducerProposals'
 import ConversationsPage from './features/conversations/ConversationsPage'
+import SalesDashboard from './features/workspace/SalesDashboard'
+import ProducerOrders from './features/workspace/ProducerOrders'
 import './App.css'
 import './participant.css'
 const Landing = lazy(() => import('./components/Landing'))
@@ -21,6 +23,8 @@ function AccessPage({ children }) {
   return <div className="app-shell"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /></header><main id="conteudo" className="app-content" tabIndex={-1}>{children}</main></div>
 }
 const routes = {
+  '/produtor/dashboard': ['producer', 'Dashboard'], '/produtor/pedidos': ['producer', 'Pedidos'],
+  '/comprador/propostas': ['buyer', 'Propostas'],
   '/produtor/conversas': ['producer', 'Conversas'], '/comprador/conversas': ['buyer', 'Conversas'],
   '/produtor/ofertas': ['producer', 'Minhas ofertas'], '/produtor/propostas': ['producer', 'Propostas recebidas'],
   '/comprador/ofertas': ['buyer', 'Explorar alimentos'], '/comprador/demandas': ['buyer', 'Minhas demandas'],
@@ -46,7 +50,9 @@ export default function App() {
   if (route[0] && route[0] !== role) page = <EmptyState title="Cada perfil tem seu caminho" action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
   else if (path.endsWith('/conversas')) page = <ConversationsPage key={auth.session.id} session={auth.session} initialBot={new URLSearchParams(window.location.search).get('conversa') === 'bot'} />
   else if (path.endsWith('/ofertas')) page = <OffersPage key={auth.session.id} session={auth.session} />
-  else if (path === '/produtor/propostas') page = <ProducerProposals key={auth.session.id} session={auth.session} />
+  else if (path === '/produtor/dashboard') page = <SalesDashboard key={auth.session.id} session={auth.session} />
+  else if (path === '/produtor/pedidos') page = <ProducerOrders key={auth.session.id} session={auth.session} />
+  else if (path.endsWith('/propostas')) page = <ProducerProposals key={auth.session.id} session={auth.session} />
   else if (path === '/comprador/demandas') page = <DemandsPage key={auth.session.id} session={auth.session} />
   else if (compositionId) page = <CompositionPage key={compositionId} demandId={compositionId} />
   else if (path.endsWith('/composicao')) page = <EmptyState title="Escolha uma demanda cadastrada" action={<ActionLink href="/comprador/demandas">Minhas demandas</ActionLink>}>A composição agora usa ofertas consultadas no Supabase.</EmptyState>
