@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { PaperPlaneTilt, Robot } from '@phosphor-icons/react'
+import { PaperPlaneTilt } from '@phosphor-icons/react'
 import { ActionLink, ErrorNotice } from '../../components/ui'
 import { siteBotService } from '../../services/site-bot'
 import { botQuestion, canConfirmBot, interpretSiteBot, offerFields } from '../../domain/site-bot'
 import { answerOfferChat, offerChatSteps } from '../../domain/offer-chat'
 import { currency, quantity } from '../../domain/offers'
 import VoicePanel from './VoicePanel'
+import BotAvatar from './BotAvatar'
 
 function Preview({ draft, catalog }) {
   if (!draft || !['create', 'edit', 'archive'].includes(draft.intent) || (draft.intent !== 'create' && !draft.target_id)) return null
@@ -188,7 +189,7 @@ export default function BotThread({ conversation, session, service = siteBotServ
       {active && <button className="text-link bot-cancel" disabled={blocked} onClick={() => prepare('Cancelar rascunho', { intent: 'cancel', fields: {} })}>Cancelar rascunho</button>}
     </>
   return <section className="conversation-thread bot-thread" aria-labelledby="bot-title" aria-busy={busy}>
-    <header className="conversation-thread-heading"><span className="conversation-avatar bot"><Robot size={25} aria-hidden="true" /></span><div><h2 id="bot-title" ref={heading} tabIndex={-1}>Bot Conexa</h2><p>Seu assistente de ofertas · texto simulado</p></div><details className="conversation-info"><summary>Sobre o bot</summary><div><p>Use dados fictícios. Só altero ofertas depois que você revisar e confirmar. Propostas, demandas e confirmações continuam nos seus fluxos.</p><ActionLink href={session.role === 'producer' ? '/produtor/propostas' : '/comprador/demandas'}>{session.role === 'producer' ? 'Ver propostas' : 'Ver demandas'}</ActionLink><ActionLink href={session.role === 'producer' ? '/produtor/ofertas' : '/comprador/ofertas'}>Abrir ofertas e formulário</ActionLink><VoicePanel conversationId={cid} disabled={blocked} {...voice} onUseText={text => { setComposer({ body: text, locked: false }); input.current?.focus() }} /></div></details></header>
+    <header className="conversation-thread-heading"><BotAvatar /><div><h2 id="bot-title" ref={heading} tabIndex={-1}>Bot Conexa</h2><p>Seu assistente de ofertas · texto simulado</p></div><details className="conversation-info"><summary>Sobre o bot</summary><div><p>Use dados fictícios. Só altero ofertas depois que você revisar e confirmar. Propostas, demandas e confirmações continuam nos seus fluxos.</p><ActionLink href={session.role === 'producer' ? '/produtor/propostas' : '/comprador/demandas'}>{session.role === 'producer' ? 'Ver propostas' : 'Ver demandas'}</ActionLink><ActionLink href={session.role === 'producer' ? '/produtor/ofertas' : '/comprador/ofertas'}>Abrir ofertas e formulário</ActionLink><VoicePanel conversationId={cid} disabled={blocked} {...voice} onUseText={text => { setComposer({ body: text, locked: false }); input.current?.focus() }} /></div></details></header>
     <div ref={historyElement} className="conversation-history bot-history" tabIndex={0} role="region" aria-label="Histórico do bot">
       <p className="conversation-date">Conversa com o Bot Conexa</p>
       {history.has_more && <button className="text-link" disabled={busy} onClick={older}>Carregar mensagens anteriores</button>}

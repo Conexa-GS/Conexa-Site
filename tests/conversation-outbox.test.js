@@ -36,3 +36,18 @@ test('Outbox: storage bloqueado impede iniciar envio sem chave durável; journal
   assert.deepEqual(invalid.load(), {})
   assert.match(invalid.warning(), /retomar/)
 })
+
+test('Outbox: bot flutuante e DM preservam pedidos simultâneos e não ressuscitam pedidos concluídos', () => {
+  const data = new Map()
+  const storage = () => ({ getItem: k => data.get(k), setItem: (k, v) => data.set(k, v), removeItem: k => data.delete(k) })
+  const bot = createConversationOutbox('ana', storage)
+  const direct = createConversationOutbox('ana', storage)
+  const botRequest = { body: 'Consultar', locked: true, pending: { action: 'turn', payload: { conversation_id: 'bot-ana', request_id: 'bot-key', revision: 0 } } }
+  bot.save('bot-ana', botRequest)
+  direct.save('direct', { body: 'Mensagem', key: 'dm-key', locked: true })
+  assert.deepEqual(Object.keys(createConversationOutbox('ana', storage).load()).sort(), ['bot-ana', 'direct'])
+  bot.save('bot-ana', { body: '', locked: false }, 'bot-key')
+  direct.save('direct', { body: '', locked: false }, 'dm-key')
+  bot.save('bot-ana', { ...botRequest, pending: { action: 'turn', payload: { ...botRequest.pending.payload, request_id: 'next-key' } } })
+  assert.deepEqual(Object.keys(createConversationOutbox('ana', storage).load()), ['bot-ana'])
+})

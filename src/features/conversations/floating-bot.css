@@ -1,0 +1,37 @@
+.floating-bot-trigger{position:fixed;z-index:30;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));display:grid;place-items:center;width:68px;height:68px;padding:7px;border:1px solid var(--sage);border-radius:50%;background:#f5f3eb;box-shadow:0 4px 6px -1px #344e4126;cursor:pointer;transition:transform 160ms ease-out}
+.floating-bot-trigger:hover{transform:translateY(-3px)}
+.floating-bot-trigger .provided-art{display:block;width:100%;height:100%}
+.floating-bot-trigger .provided-animation{width:100%;height:100%}
+.floating-bot-panel{position:fixed;inset:auto max(20px,env(safe-area-inset-right)) max(100px,calc(env(safe-area-inset-bottom) + 80px)) auto;z-index:40;margin:0;padding:0;width:min(400px,calc(100vw - 24px));height:min(590px,calc(100dvh - 124px));max-width:none;max-height:none;overflow:hidden;border:1px solid var(--sage);border-radius:20px;background:var(--surface);color:var(--pine);box-shadow:0 20px 25px -5px #344e4126;font-family:var(--font-sans);transform-origin:bottom right;opacity:0;transform:translateY(14px) scale(.96);transition:opacity 180ms ease-out,transform 180ms ease-out,display 180ms allow-discrete,overlay 180ms allow-discrete}
+.floating-bot-panel:popover-open{display:flex;flex-direction:column;opacity:1;transform:translateY(0) scale(1)}
+@starting-style{.floating-bot-panel:popover-open{opacity:0;transform:translateY(14px) scale(.96)}}
+.floating-bot-panel::backdrop{background:transparent;pointer-events:none}
+.floating-bot-panel *{min-width:0;box-sizing:border-box}
+.floating-bot-close{position:absolute;right:10px;top:10px;z-index:10;display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:transparent;color:var(--pine);cursor:pointer}
+.floating-bot-close:hover{background:#a3b18a26}
+.floating-bot-panel .bot-thread{flex:1;min-height:0}
+.floating-bot-panel .conversation-thread-heading{position:relative;flex-wrap:wrap;gap:10px;padding:16px 52px 12px 16px;border-bottom:1px solid var(--line)}
+.floating-bot-panel .conversation-thread-heading h2{font:500 18px/1.4 var(--font-sans);margin:0;text-wrap:balance}
+.floating-bot-panel .conversation-thread-heading p{font-size:10px;text-wrap:pretty}
+.floating-bot-panel .conversation-info{position:static;margin:0 0 0 54px}
+.floating-bot-panel .conversation-info>summary{padding:0;min-height:24px;line-height:24px}
+.floating-bot-panel .conversation-info>div{right:12px;top:100%;width:calc(100% - 24px);max-height:240px}
+.floating-bot-panel .conversation-history{padding:16px 12px;background:#f7f8f4}
+.floating-bot-panel .conversation-date{margin-bottom:16px}
+.floating-bot-panel .conversation-bubble{max-width:100%;padding:12px;background:var(--surface);border:1px solid var(--line)}
+.floating-bot-panel .conversation-bubble.own{max-width:88%;background:#eaf0e6}
+.floating-bot-panel .conversation-bubble p{font-size:12px;text-wrap:pretty}
+.floating-bot-panel .bot-action-menu{padding:10px 12px 0}
+.floating-bot-panel .bot-choices{gap:6px}
+.floating-bot-panel .bot-choices .button{font-size:11px;min-height:36px;padding:8px 10px}
+.floating-bot-panel .conversation-composer{padding:10px 12px 12px}
+.floating-bot-panel .conversation-composer textarea{font-size:16px;min-height:48px;line-height:1.4;padding:10px}
+.floating-bot-panel .conversation-send{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border-radius:50%;flex-shrink:0}
+.floating-bot-panel .conversation-composer>small{font-size:10px}
+.floating-bot-empty{display:grid;place-content:center;gap:12px;height:100%;padding:24px;text-align:center;font-size:14px}
+.floating-bot-notice{padding:12px 50px 0 12px;font-size:12px}
+.floating-bot-panel :focus-visible,.floating-bot-trigger:focus-visible{outline:3px solid var(--leaf);outline-offset:3px}
+body:has(.floating-bot) .tutorial-trigger{right:max(100px,calc(env(safe-area-inset-right) + 80px));bottom:max(28px,calc(env(safe-area-inset-bottom) + 8px))}
+@media(max-width:600px){.floating-bot-trigger{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));width:60px;height:60px}.floating-bot-panel{right:max(12px,env(safe-area-inset-right));bottom:max(84px,calc(env(safe-area-inset-bottom) + 72px));height:min(560px,calc(100dvh - 108px));border-radius:16px}body:has(.floating-bot) .tutorial-trigger{right:max(84px,calc(env(safe-area-inset-right) + 72px));bottom:max(20px,calc(env(safe-area-inset-bottom) + 8px))}}
+@media(prefers-reduced-motion:reduce){.floating-bot-trigger,.floating-bot-panel{transition:none;transform:none}}
+html[data-motion=reduced] .floating-bot-trigger,html[data-motion=reduced] .floating-bot-panel{transition:none;transform:none}

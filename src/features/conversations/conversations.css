@@ -120,3 +120,6 @@
   .conversation-agreement { padding:10px 14px; font-size:10px; }
   .bot-recover { margin-inline:12px; }
 }
+
+.conversation-avatar.bot{background:#f5f3eb;overflow:hidden}
+.conversation-avatar.bot .provided-art,.conversation-avatar.bot .provided-animation{display:block;width:100%;height:100%}

@@ -10,7 +10,7 @@ import { join, resolve } from 'node:path'
 export async function createChatEnvironment(env = {}) {
   const dom = new JSDOM('<!doctype html><html lang="pt-BR"><body><button id="opener">Abrir conversa</button><div id="root"></div></body></html>', { url: 'http://localhost/' })
   const originals = new Map()
-  for (const [name, value] of Object.entries({ window: dom.window, document: dom.window.document, HTMLElement: dom.window.HTMLElement, IS_REACT_ACT_ENVIRONMENT: true })) {
+  for (const [name, value] of Object.entries({ window: dom.window, document: dom.window.document, HTMLElement: dom.window.HTMLElement, AbortController: dom.window.AbortController, matchMedia: () => ({ matches: true, addEventListener() {} }), IntersectionObserver: class { observe() {} disconnect() {} }, IS_REACT_ACT_ENVIRONMENT: true })) {
     originals.set(name, Object.getOwnPropertyDescriptor(globalThis, name))
     Object.defineProperty(globalThis, name, { configurable: true, writable: true, value })
   }
@@ -20,6 +20,24 @@ export async function createChatEnvironment(env = {}) {
     this.querySelector('button')?.focus()
   }
   dom.window.HTMLDialogElement.prototype.close = function () { this.open = false }
+  // jsdom lacks the native Popover API. Browser tests cover dismissal, focus and animation.
+  function togglePopover(element, next) {
+    const event = new dom.window.Event('beforetoggle')
+    event.newState = next
+    element.dispatchEvent(event)
+    element.dataset.testPopover = next
+    const toggled = new dom.window.Event('toggle')
+    toggled.newState = next
+    element.dispatchEvent(toggled)
+  }
+  dom.window.HTMLElement.prototype.showPopover = function () { togglePopover(this, 'open') }
+  dom.window.HTMLElement.prototype.hidePopover = function () { togglePopover(this, 'closed') }
+  dom.window.document.addEventListener('click', event => {
+    const button = event.target.closest('[popovertarget]')
+    if (!button) return
+    const panel = dom.window.document.getElementById(button.getAttribute('popovertarget'))
+    togglePopover(panel, button.getAttribute('popovertargetaction') === 'hide' || panel.dataset.testPopover === 'open' ? 'closed' : 'open')
+  })
   // Separate SSR-test cache: concurrent suites must not replace the running dev server's optimizer metadata.
   const cachePrefix = join(tmpdir(), 'conexa-chat-tests-')
   const cacheDir = await mkdtemp(cachePrefix)

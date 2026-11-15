@@ -17,6 +17,8 @@ import ConversationsPage from './features/conversations/ConversationsPage'
 import SalesDashboard from './features/workspace/SalesDashboard'
 import ProducerOrders from './features/workspace/ProducerOrders'
 import Tutorial from './features/tutorial/Tutorial'
+import FloatingBot from './features/conversations/FloatingBot'
+import { openConexaBot } from './features/conversations/bot-launcher'
 import './App.css'
 import './participant.css'
 const Landing = lazy(() => import('./components/Landing'))
@@ -49,8 +51,8 @@ function AppContent() {
   const role = auth.session.role
   let page
   if (route[0] && route[0] !== role) page = <EmptyState title="Cada perfil tem seu caminho" action={<ActionLink href={homeFor(role)}>Ir para meu espaço</ActionLink>}>Troque de participante para explorar esta página.</EmptyState>
-  else if (path.endsWith('/conversas')) page = <ConversationsPage key={auth.session.id} session={auth.session} initialBot={new URLSearchParams(window.location.search).get('conversa') === 'bot'} />
-  else if (path.endsWith('/ofertas')) page = <OffersPage key={auth.session.id} session={auth.session} />
+  else if (path.endsWith('/conversas')) page = <ConversationsPage key={auth.session.id} session={auth.session} onOpenBot={openConexaBot} />
+  else if (path.endsWith('/ofertas')) page = <OffersPage key={auth.session.id} session={auth.session} onOpenBot={openConexaBot} />
   else if (path === '/produtor/dashboard') page = <SalesDashboard key={auth.session.id} session={auth.session} />
   else if (path === '/produtor/pedidos') page = <ProducerOrders key={auth.session.id} session={auth.session} />
   else if (path.endsWith('/propostas')) page = <ProducerProposals key={auth.session.id} session={auth.session} />
@@ -61,6 +63,6 @@ function AppContent() {
   else if (path === '/transportador/veiculos') page = <TransportPage key={`${auth.session.id}-vehicles`} session={auth.session} vehiclesOnly />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
   else page = <OperationPage role={role} />
-  return <><AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate(auth.session.access === 'developer' ? '/demo' : '/login') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout><Tutorial role={role} /></>
+  return <><AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate(auth.session.access === 'developer' ? '/demo' : '/login') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout>{['producer', 'buyer'].includes(role) && <FloatingBot key={auth.session.id} session={auth.session} path={path} />}<Tutorial role={role} /></>
 }
 export default function App() { return <AppContent /> }
