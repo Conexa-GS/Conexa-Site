@@ -1843,3 +1843,71 @@ Lint, 139 testes e build aprovados; aviso preexistente de bundle acima de 500 kB
 
 ### 5. Análise crítica
 Estilos compartilhados dão unidade aos perfis sem trocar os fluxos por uma tela de configurações fictícia. Verdes preservam a marca na referência clara; nenhum campo de busca ou ação sem função foi acrescentado. Bancada visual não comprova todos os estados de dados reais.
+
+## Interação 097 — Fundo branco no login — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para alteração CSS e verificações locais; skill Computer Use e navegador integrado via cua_repl para inspeção responsiva.
+
+### 2. Prompts e respostas representativos
+Transcrição: “altere o fundo a cor do fundo da sessão login para o mesmo branco utilizado no header”. Resposta real: “Vou localizar o fundo da seção de login e aplicar o mesmo branco usado no header, preservando o restante do visual.”
+
+### 3. Aplicação no código
+src/pages/login.css passa o token local --canvas para #ffffff e usa esse token nos fundos da página, formulário e contêiner mobile. Feature feature/login-fundo-branco criada da dev; fotografia e verdes preservados.
+
+### 4. Verificação, testes e ajustes
+Lint, testes e build executados localmente. Login inspecionado em 1440×900 e 360×800: formulário com fundo computado rgb(255, 255, 255), sem overflow horizontal. Captura desktop retornou recorte limitado; captura mobile mostrou formulário branco. Viewport restaurada. Sem autenticação ou avaliação humana presumida. Integração/publicação pendentes.
+
+### 5. Análise crítica
+O token local alinha o login ao branco compartilhado e elimina fundos fixos antigos sem substituir as cores de texto e da fotografia. Alteração exclusivamente visual; não modifica fluxos de autenticação.
+
+## Interação 098 — Menos subtítulos e textos maiores — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para HTML/CSS e verificações; navegador integrado via cua_repl para revisão responsiva.
+
+### 2. Prompts e respostas representativos
+Transcrição: “tire os subtítulos desnecessários e aumente um pouco o tamanho do texto”, com imagens do rótulo Três caminhos, uma só rede e do parágrafo introdutório. Resposta real: “Vou remover os subtítulos como ‘Três caminhos, uma só rede’ e aumentar um pouco os textos descritivos da página inicial, seguindo os exemplos das imagens.”
+
+### 3. Aplicação no código
+home.html retira o rótulo visual redundante dos perfis, mantendo título acessível Perfis da rede. home.css aumenta parágrafos da introdução de 15 para 17 px no desktop e de 14 para 16 px no celular; descrições passam de 14 para 16 px e de 13 para 15 px, respectivamente. Alteração anterior do login preservada na feature criada da dev.
+
+### 4. Verificação, testes e ajustes
+Lint, testes e build executados localmente. Navegador integrado em 1440×900 e 360×800: tamanhos computados confirmados e sem overflow horizontal; introdução conferida visualmente nas duas larguras. Viewport restaurada. Avaliação humana e publicação/integração pendentes.
+
+### 5. Análise crítica
+A remoção do rótulo reduz repetição e o aumento moderado favorece leitura sem alterar títulos principais, conteúdo funcional ou ações. Título oculto conserva a hierarquia para leitores de tela; revisão não cobre aparelhos físicos.
+
+## Interação 099 — Junção das imagens finais — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl para conferir geometria responsiva.
+
+### 2. Prompts e respostas representativos
+Transcrição: “tire esse espaço em branco entre as duas ultimas imagens”, com captura da faixa entre carregamento e recebimento. Resposta real: “Vou remover a faixa branca entre as duas últimas imagens da página inicial.”
+
+### 3. Aplicação no código
+src/pilot/home.css remove a borda superior de 8 px entre seções home-story consecutivas. Alterações anteriores preservadas na feature atual.
+
+### 4. Verificação, testes e ajustes
+Lint, testes e build executados localmente. Navegador em 360×800 e 1440×900 confirmou borda de 0 px, distância de 0 px entre os blocos e ausência de overflow horizontal. Viewport restaurada. Sem aceite humano ou publicação presumidos.
+
+### 5. Análise crítica
+Remover a borda resolve a faixa identificada sem modificar imagens, textos ou posicionamento interno. Conferência por geometria e estilos computados, sem aparelho físico.
+
+## Interação 100 — Fonte Lexend — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para CSS e verificações; navegador integrado via cua_repl para conferir fonte e responsividade.
+
+### 2. Prompts e respostas representativos
+Resumo do pedido de programação: trocar a fonte de todo o site para Lexend, com import Google Fonts fornecido pelo usuário incluindo Lexend 100–900. Resposta real: “Vou aplicar Lexend em todo o site e conferir o resultado no desktop e no celular.”
+
+### 3. Aplicação no código
+src/index.css importa Lexend com pesos variáveis 100–900. src/theme.css e src/pilot/site.css definem Lexend no token compartilhado --font-sans, herdado por home, login e área de participantes. Fontes antes importadas sem uso removidas da requisição. Marca vetorial e atribuição específica Google Routes preservadas. Trabalho anterior mantido na feature atual.
+
+### 4. Verificação, testes e ajustes
+Lint, testes e build executados localmente. Home/login conferidos em 360×800 e 1440×900: família computada Lexend em títulos e campos, fonte carregada no login e ausência de overflow horizontal. Capturas mobile conferidas; viewport restaurada. Área autenticada e aparelhos físicos não percorridos nesta rodada; sem avaliação humana ou publicação presumidas.
+
+### 5. Análise crítica
+O token compartilhado aplica a tipografia de forma consistente e carregar apenas Lexend evita requisições de famílias sem uso. Dependência do Google Fonts permanece com Arial/sans-serif de reserva; novos formatos de letras podem alterar quebras em telas ainda não percorridas.
