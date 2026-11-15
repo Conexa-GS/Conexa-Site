@@ -1121,3 +1121,38 @@ Implementação na feature/acesso-professores-vercel, criada da dev: vercel.json
 Codex executou npm run lint, npm test e npm run build com sucesso; executou também build com VITE_ENABLE_DEVELOPER_ACCESS=true, com sucesso. Build mantém aviso de chunk superior a 500 kB. git diff --check sem erros. Documentação oficial Vercel consultada para configuração. Sem novas telas ou CSS, portanto sem nova conferência visual em 360 px/desktop. Não houve deploy, teste HTTP dos rewrites na infraestrutura Vercel, login remoto, leitura de segredos ou alteração de Supabase. Variáveis demo precisam estar configuradas no projeto Vercel; aprovação humana, push e integração pendentes.
 
 Autorização posterior D046 — 15/11/2026: após a apresentação da configuração e verificações, o usuário respondeu “pode subir para dev e depois para main”, autorizando publicação da feature, integração na dev e promoção para main. O histórico Git e as referências remotas identificam o resultado da execução. Esta autorização não comprova deploy Vercel ou login no domínio remoto, nem amplia aceites de marcos.
+
+## Tutorial integrado — D047 — 15/11/2026
+
+Implementação pelo Codex em feature/tutorial-guiado, criada da dev 8528991. Botão Como usar em todas as telas; 18 slides com instrução curta, perfil/caminho e alvo indicado dentro do diálogo. Clique no alvo ou Próximo avança; Anterior permite rever; Fechar/Escape encerra. Nenhuma escrita remota ou mudança de sessão foi executada para este tutorial.
+
+Verificação técnica executada pelo Codex:
+
+- npm run lint aprovado.
+- npm test aprovado: 140 testes, sem falhas. O novo teste percorre todas as etapas com os componentes reais em jsdom, verifica a existência e o nome de cada alvo, bloqueio de envio na captura, uma única janela do tutorial, ausência de navegação, voltar/reabrir, encerramento e retorno de foco. jsdom não comprova geometria ou o foco nativo completo.
+- npm run build aprovado. Aviso de bundle principal acima de 500 kB permanece: aproximadamente 786 kB, 223 kB gzip. Não houve erro de compilação.
+- Navegador integrado no Vite local (127.0.0.1:5174), em 1366×900 e 360×800: percurso das 18 etapas; todos os 17 alvos visíveis no viewport interno, sem overflow horizontal do diálogo ou da referência. Capturas dirigidas de cadastro, seleção de veículo e conclusão; título mobile reduzido para evitar desperdício de espaço. Rolagem somente da referência posiciona o alvo, mantendo instrução e navegação na janela.
+- Tab manteve foco no diálogo; Escape fechou e devolveu foco ao botão Como usar. Concluir também devolveu foco. Ao avançar, a instrução recebe foco. Não é auditoria integral de leitor de tela ou de todos os ciclos de teclado.
+- Telas reutilizadas com fixtures locais. Controles de referência são inertes e os formulários têm captura de envio; cliques nos destaques mudaram apenas o tutorial. Sem testes remotos, pagamentos, alterações de Auth/RLS, migrations, Google ou conta nova nesta rodada.
+
+Captura desktop para avaliação: pasta externa de artefatos desta conversa, tutorial-desktop.jpg. Fontes e testes estão versionáveis no repositório; captura não contém credenciais. Avaliação humana, push/integração na dev e qualquer deploy permanecem pendentes. Não amplia os aceites ou a validação de M1–M6.
+
+Conferência final D047: botão e abertura do tutorial também verificados em /login, sem autenticar ou enviar dados. Viewport temporário restaurado e tutorial deixado aberto na prévia local para avaliação.
+
+Revisão D047 — acesso restrito à sessão (15/11/2026): montagem do Tutorial transferida para o retorno autenticado junto ao AppLayout. Navegador no login confirmou ausência do botão (zero ocorrências); sem nova autenticação remota. Lint, 140 testes e build aprovados; aviso de bundle acima de 500 kB permanece. Relatos anteriores sobre disponibilidade pública são históricos e substituídos por este pedido. Integração pendente.
+
+### D047 — Visita guiada personalizada — 15/11/2026
+
+Substituição dos slides centrais por telas de referência em tamanho de página, máscara escura com recorte claro e cartão contextual. Produtor: 6 etapas; comprador: 9; transportadora: 6. As páginas mudam dentro da simulação; a rota e a sessão reais são preservadas. Formulários existentes recebem valores iniciais de exemplo; o resultado do pagamento no tutorial é Aprovado. Respostas dos demais participantes são fictícias. Nenhum registro remoto foi criado.
+
+Codex executou npm run lint (aprovado após corrigir import/export da bancada), npm test (140 aprovados) e npm run build (aprovado com aviso de bundle acima de 500 kB). O teste do tutorial agora percorre os três papéis, confirma alvos, referências inertes, captura de envios, conclusão/reabertura/Escape, foco e ausência de navegação real. Bancada local em /tests/ui/tutorial.html, fora do build de produção, permite conferir os três percursos sem alternar a sessão real.
+
+Navegador: 42 observações de geometria (21 etapas nos três percursos × desktop 1366×900 e mobile 360×800), sem alvos fora da área, cartões cortados, sobreposição cartão/alvo ou overflow horizontal. Perfil comprador da sessão já aberta consultado; visita mostrou pedido fictício em tela inteira, com quantidade destacada. Escape fechou, devolveu foco a Como usar e preservou /comprador/ofertas. Viewport restaurado e bancada fechada. Captura externa: tutorial-visita-guiada.jpg na pasta de artefatos desta conversa. Sem aparelho físico, nova auditoria de leitor de tela, novas escritas no Supabase, teste de Google ou aceite humano. Avaliação e autorização de publicação/integração pendentes; evidências anteriores da janela de 18 slides permanecem históricas.
+
+### D047 — Avanços duplicados no tutorial — 15/11/2026
+
+Pedido do usuário relata etapas puladas no comprador/transportadora. Codex reproduziu em teste antes da correção: dois cliques do mesmo gesto mostraram 3 de 9 após partir de 1. Corrigido Tutorial.jsx: ignora segundo clique duplo e ponteiros repetidos em 350 ms (inclusive entre controles diferentes após reposicionamento); usa índice exibido para não acumular avanços no mesmo ciclo; bloqueia repetição de Enter/Espaço pressionado. Anterior recebe a mesma proteção. Cliques voluntários muito rápidos dentro desse intervalo são considerados um gesto único.
+
+Teste de regressão passou para comprador e transportadora, cobrindo clique duplo, eventos batidos no mesmo ciclo, retorno, destaque, segundo controle e repetição de Enter. No navegador da bancada isolada, dblclick em Próximo levou apenas a 2 de 9 no comprador e 2 de 6 na transportadora, em 1366×900 e 360×800. Não houve escrita remota ou troca de conta real. Viewport restaurado e bancada fechada. npm run lint, npm test (141 testes) e npm run build aprovados; aviso de bundle acima de 500 kB permanece. Sem alteração de conteúdo/layout ou nova auditoria de acessibilidade. Aceite anterior do usuário preservado, com ressalva do defeito relatado; aceite desta correção e autorização de integração/publicação continuam pendentes.
+
+Autorização posterior D047 — 15/11/2026: usuário autorizou explicitamente publicação e integração feature → dev → main. Verificações locais desta entrega: lint, 141 testes e build aprovados, mais regressão de cliques duplos nos dois perfis em desktop/360 px. A autorização não comprova implantação ou novas operações remotas. Commits e referências publicados no relato final da execução Git.

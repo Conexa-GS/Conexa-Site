@@ -16,6 +16,7 @@ import ProducerProposals from './features/demands/ProducerProposals'
 import ConversationsPage from './features/conversations/ConversationsPage'
 import SalesDashboard from './features/workspace/SalesDashboard'
 import ProducerOrders from './features/workspace/ProducerOrders'
+import Tutorial from './features/tutorial/Tutorial'
 import './App.css'
 import './participant.css'
 const Landing = lazy(() => import('./components/Landing'))
@@ -33,7 +34,7 @@ const routes = {
   '/operacoes/exemplo': [null, 'Operação de exemplo'], '/operacoes/exemplo/pagamento': ['buyer', 'Pagamento de exemplo'],
   '/operacoes': [null, 'Transporte e confirmações'],
 }
-export default function App() {
+function AppContent() {
   const path = useRouter(), auth = useDemoSession()
   const compositionId = path.match(/^\/comprador\/demandas\/([0-9a-f-]{36})\/composicao$/)?.[1]
   const route = compositionId ? ['buyer', 'Compor demanda'] : routes[path]
@@ -60,5 +61,6 @@ export default function App() {
   else if (path === '/transportador/veiculos') page = <TransportPage key={`${auth.session.id}-vehicles`} session={auth.session} vehiclesOnly />
   else if (path.endsWith('/pagamento')) page = <PaymentPage />
   else page = <OperationPage role={role} />
-  return <AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate(auth.session.access === 'developer' ? '/demo' : '/login') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout>
+  return <><AppLayout session={auth.session} path={path} leave={async () => { if (await auth.leave()) navigate(auth.session.access === 'developer' ? '/demo' : '/login') }}>{auth.error && <ErrorNotice autoFocus>{auth.error}</ErrorNotice>}{page}</AppLayout><Tutorial role={role} /></>
 }
+export default function App() { return <AppContent /> }

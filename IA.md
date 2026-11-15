@@ -1928,3 +1928,71 @@ Verificações locais e limites registrados em Conexa-specs/validation.md. Sem a
 
 ### 5. Análise crítica
 Reutilizar o seletor existente simplifica a avaliação sem criar contas novas ou remover Auth/RLS. A flag não substitui configuração de credenciais demo no Vercel; contas são compartilhadas e dados fictícios podem ser alterados por avaliadores. Builds fora do Vercel mantêm o padrão anterior.
+
+## Interação 102 — Tutorial integrado ao site — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para mapear telas e implementar o tutorial; terminal para Git, lint, testes e build; navegador integrado via cua_repl para verificar alvos, teclado e visualização em desktop/360 px. Habilidade baseline-ui aplicada à interface e ao reaproveitamento do diálogo existente.
+
+### 2. Prompts e respostas representativos
+Transcrição do pedido de programação: “não foi isso que eu pedi, quero um tutorial, com o que já está pronto no site, ele vai ter um botão para que explique o processo, pode fazer em slides, com o textos explicando somente o necessário, quero indicativos de onde clicar, tudo dentro da janela de tutorial, para que seja o mais simples possível e facil de entender”. Resposta real: “Entendi: você quer um botão no próprio site que abra um tutorial em slides, com textos curtos e indicações visuais de onde clicar. Vou usar as telas e os fluxos que já estão prontos para montar esse passo a passo dentro da janela do tutorial.” A apresentação externa anterior não é o resultado desta implementação.
+
+### 3. Aplicação no código
+src/features/tutorial contém roteiro de 18 slides, fixtures locais, referência de interface e diálogo com alvo indicado. App mantém o botão Como usar disponível em todas as rotas. Modal aceita classe adicional. OfferForm/DemandForm admitem apresentação incorporada; VehicleForm foi extraído e reutilizado em TransportPage; OperationClosure distingue o exemplo do tutorial de uma operação demo persistida. Formulários/cartões existentes reaproveitados em árvore inerte com captura de cliques/envios e adaptadores bloqueados, sem serviços de escrita. README e especificações registram D047 e seus limites.
+
+### 4. Verificação, testes e ajustes
+Lint, 140 testes e build aprovados. Teste novo percorreu todas as etapas em jsdom, verificou alvos, bloqueio de envio, navegação e reabertura/foco. Navegador local percorreu as etapas em 1366×900 e 360×800: todos os alvos visíveis, sem overflow horizontal interno; Tab/Escape, encerramento e retorno ao acionador conferidos. Ajustados tamanho do título mobile, limite nativo de largura e posição da referência de repasses na conclusão. Build tem aviso de tamanho do bundle. Evidências e limites em validation.md. Sem Supabase, Google, aprovação humana, publicação ou integração executados nesta rodada.
+
+### 5. Análise crítica
+Reaproveitar componentes mantém campos e nomes próximos das telas atuais; as indicações ficam dentro da janela e não exigem trocar de perfil para aprender. Fixtures isoladas evitam criar pedidos de teste no banco. Trechos resumidos de composição e aceites precisam acompanhar mudanças futuras dessas telas. O tutorial apresenta o caminho principal; não substitui treinamento de exceções, execução real no demo ou auditoria integral de acessibilidade. Avaliação humana e autorização Git ainda pendentes.
+
+## Interação 103 — Tutorial somente na sessão do usuário — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex e terminal para restringir a montagem do tutorial à área autenticada.
+
+### 2. Prompts e respostas representativos
+Pedido: “deixe o como usar apenas dentro da sessão de usuario”. Resposta: “Vou deixar o botão Como usar disponível apenas quando o usuário estiver conectado.”
+
+### 3. Aplicação no código
+App.jsx monta Tutorial junto ao AppLayout após a validação de sessão. Home, login e seletor de desenvolvedor não montam mais o botão. Documentação de continuidade atualizada.
+
+### 4. Verificação, testes e ajustes
+Verificações locais executadas nesta revisão; resultados no relato da entrega. Sem autenticação remota, publicação ou aceite humano presumidos.
+
+### 5. Análise crítica
+A montagem condicional acompanha a sessão validada e remove também o diálogo quando a sessão termina. A revisão não altera o conteúdo dos slides.
+
+## Interação 104 — Visita guiada com foco e percurso por perfil — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para implementar isolamento, roteiros e aparência; navegador integrado via cua_repl para percurso dos três perfis, geometria, captura e fechamento. Referências visuais anexadas orientaram fundo escuro, recorte claro e cartão contextual.
+
+### 2. Prompts e respostas representativos
+Resumo do pedido de programação: tutorial como as referências, fundo mais escuro e área indicada clara, avanço podendo trocar de página, ações fictícias para simular pedido completo e personalização por tipo de usuário. Resposta real: “Vou transformar o tutorial em uma visita guiada: fundo escuro, destaque na área indicada e instruções ao lado. Cada perfil terá seu próprio percurso, com troca automática de telas e ações fictícias, sem gravar pedidos ou alterar dados reais.”
+
+### 3. Aplicação no código
+Tutorial.jsx usa diálogo nativo em tela inteira, máscara por sombra no recorte do alvo e cartão reposicionado conforme espaço. TutorialScreen reutiliza componentes com dados de exemplo dentro de uma referência de página isolada. stepsForRole seleciona 6/9/6 etapas; App passa o papel validado da sessão. OfferForm, DemandForm, VehicleForm, QuoteForm e OperationClosure aceitam valores iniciais opcionais, sem mudar os padrões das operações normais. Bancada de três perfis adicionada exclusivamente em tests/ui.
+
+### 4. Verificação, testes e ajustes
+Lint, 140 testes e build aprovados; aviso de bundle grande permanece. Teste adaptado para percorrer os três papéis e bloquear envio/navegação real. No navegador, 42 observações em 1366×900/360×800 confirmaram alvos e cartões visíveis, sem sobreposição ou overflow. Captura desktop e Escape/retorno de foco/rota original conferidos na sessão comprador já aberta. Corrigidos import React sem uso e export da bancada apontados pelo lint. Sem escrita remota, conta nova, avaliação humana, push ou merge.
+
+### 5. Análise crítica
+A camada reproduz a área de usuário e muda as telas de exemplo sem expor operações reais aos cliques. Cada perfil aprende suas ações; as demais respostas são simuladas para concluir o cenário. A URL real permanece preservada deliberadamente, e a simulação é identificada no cartão. Trechos resumidos e roteiros precisam acompanhar mudanças futuras da aplicação. Geometria em navegador não equivale a aparelho físico ou auditoria integral de acessibilidade.
+
+## Interação 105 — Correção de etapas puladas no tutorial — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para reproduzir o salto e corrigir a navegação; navegador integrado via cua_repl para cliques duplos reais na bancada dos dois perfis.
+
+### 2. Prompts e respostas representativos
+Resumo do pedido de programação: corrigir números pulados ao avançar no tutorial do comprador e da transportadora, por exemplo de 3 para 5. Resposta real: “Vou investigar o avanço dos passos no comprador e na transportadora e corrigir o que está fazendo o tutorial pular etapas.”
+
+### 3. Aplicação no código
+Tutorial.jsx centraliza avanço/retorno, ignora cliques subsequentes do mesmo clique duplo e cliques de ponteiro dentro de 350 ms, inclusive quando o cartão muda e o segundo clique atinge outro controle. Atualização usa o índice da etapa exibida, evitando acumular dois avanços no mesmo ciclo. Teclas Enter/Espaço mantidas pressionadas não repetem navegação. Conteúdo e quantidades de etapas preservados.
+
+### 4. Verificação, testes e ajustes
+Teste de regressão falhou antes da correção: clique duplo levou de 1 para 3 de 9. Após a correção, passou nos dois perfis, incluindo avanço/retorno, destaque, dois eventos no mesmo ciclo, troca de controle e repetição de Enter. Navegador na bancada local, sem escrita no Supabase: clique duplo resultou em 2 de 9 para comprador e 2 de 6 para transportadora, em 1366×900 e 360×800. Viewport restaurado e bancada fechada. Resultados das verificações completas registrados em validation.md. Sem publicação ou aceite da correção presumidos.
+
+### 5. Análise crítica
+O contador estava ligado ao índice correto, mas eventos repetidos faziam avançar mais de uma etapa. A proteção compartilhada evita também que o reposicionamento converta o segundo clique em outra ação. Cliques de ponteiro separados por menos de 350 ms são tratados como uma única intenção, exigindo uma pequena pausa para avanços voluntários muito rápidos. Interações continuam fictícias e isoladas dos serviços reais.
