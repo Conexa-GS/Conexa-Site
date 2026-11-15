@@ -123,3 +123,17 @@
 
 .conversation-avatar.bot{background:#f5f3eb;overflow:hidden}
 .conversation-avatar.bot .provided-art,.conversation-avatar.bot .provided-animation{display:block;width:100%;height:100%}
+
+/* Cada resultado tem limites próprios, inclusive dentro do balão do bot. */
+.bot-offer-options{gap:16px;width:100%}
+.bot-offer-options>li{border:1px solid var(--sage);border-left:4px solid var(--leaf);background:#fff;padding:16px;border-radius:12px;box-shadow:0 2px 4px #344e410d}
+.bot-offer-label{display:block;font-size:10px;font-weight:600;color:var(--forest);margin-bottom:10px}
+.bot-offer-top{flex-wrap:wrap;gap:6px 12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.bot-offer-top>strong{font-size:16px;text-wrap:balance}
+.bot-offer-top>span{font-size:14px;font-variant-numeric:tabular-nums}
+.bot-offer-facts{display:grid;gap:12px;margin:0}
+.bot-offer-facts dt{font-size:10px;color:var(--forest);margin-bottom:3px}
+.bot-offer-facts dd{margin:0;font-size:12px;line-height:1.6;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.bot-offer-facts dd small{display:block;font-size:10px;color:var(--forest)}
+.bot-offer-options>li>.text-link{display:block;width:100%;margin-top:12px;padding:10px 12px;min-height:40px;border:1px solid var(--sage);border-radius:8px;text-align:center;text-decoration:none;background:#edf3e9}
+.bot-offer-options>li>.bot-record-details{padding-top:10px;border-top:1px solid var(--line);margin-top:12px}
