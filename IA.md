@@ -1911,3 +1911,20 @@ Lint, testes e build executados localmente. Home/login conferidos em 360×800 e 
 
 ### 5. Análise crítica
 O token compartilhado aplica a tipografia de forma consistente e carregar apenas Lexend evita requisições de famílias sem uso. Dependência do Google Fonts permanece com Arial/sans-serif de reserva; novos formatos de letras podem alterar quebras em telas ainda não percorridas.
+
+## Interação 101 — Acesso de professores no Vercel — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex para inspeção e configuração; terminal para verificações locais; pesquisa na documentação oficial Vercel para build e rotas SPA.
+
+### 2. Prompts e respostas representativos
+Transcrição: “deixe possivel acessar a area de desenvolvedor pelo vercel, os professores precisam conseguir testar a aplicação de forma rápida e fácil”. Resposta real: “Vou verificar como a área de desenvolvedor está protegida e ajustar o acesso no Vercel para facilitar os testes dos professores.”
+
+### 3. Aplicação no código
+vercel.json habilita a flag de acesso demo no build Vercel e configura fallback SPA preservando /api/. README documenta link /demo, entrada por perfil e variáveis necessárias. D046 registra a exceção explícita de disponibilidade acadêmica. Branch feature/acesso-professores-vercel criada da dev; sem alteração visual ou nas permissões Supabase.
+
+### 4. Verificação, testes e ajustes
+Verificações locais e limites registrados em Conexa-specs/validation.md. Sem avaliação humana, publicação, configuração remota ou teste de autenticação no Vercel nesta rodada.
+
+### 5. Análise crítica
+Reutilizar o seletor existente simplifica a avaliação sem criar contas novas ou remover Auth/RLS. A flag não substitui configuração de credenciais demo no Vercel; contas são compartilhadas e dados fictícios podem ser alterados por avaliadores. Builds fora do Vercel mantêm o padrão anterior.
