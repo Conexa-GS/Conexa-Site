@@ -458,3 +458,7 @@ Complemento D044 — Exceção do login (14/11/2026): por pedido explícito, a t
 ### Complemento D042 — Área de usuário com superfícies claras — 14/11/2026
 
 Por pedido explícito com imagem de referência, substituir sidebar sálvia e header verde por superfícies brancas, fundo cinza claro e destaque verde suave no item ativo. Reduzir densidade do cabeçalho, acrescentar caminho papel/seção e usar cartões brancos com divisórias discretas. Identidade Conexa, Poppins, menus dos três papéis, responsividade e operações existentes preservados. Referência orienta a apresentação; não implica criar uma tela de configurações ou ações sem função. Home branca e exceção do login em #dad7cd preservadas. Evidências e limites em validation.md; sem publicação/integração ou aceite presumidos.
+
+## D046 — Acesso acadêmico no Vercel — 15/11/2026
+
+Pedido explícito: disponibilizar a área de desenvolvedor pelo Vercel para avaliação rápida dos professores. Complementa D030: o build do Vercel passa a habilitar explicitamente o acesso demo via vercel.json; demais builds conservam a configuração opt-in existente. Link direto /demo e recarga atendidos por rewrite SPA, excluindo /api/. Contas permitidas, Auth e RLS preservados. Credenciais demo e Supabase continuam dependendo do ambiente remoto; não foram versionadas nem alteradas. Sem publicação ou aceite humano presumidos.

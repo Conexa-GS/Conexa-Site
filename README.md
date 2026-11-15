@@ -180,3 +180,11 @@ Fluxo obrigatório `feature/*` criada da `dev` → avaliação → publicação/
 Origin configurado no checkout: [Conexa-GS/Conexa-Site](https://github.com/Conexa-GS/Conexa-Site). Visibilidade e permissões no servidor não foram conferidas nesta preparação; acesso ao link não está garantido pelo ZIP.
 
 **Deploy não comprovado nesta entrega.** `npm run build` produz SPA estática; hospedagem precisa de fallback dos caminhos para `index.html`, variáveis do frontend no build e smoke test com recarga de links diretos. O broker de voz é separado e não fica funcional só por hospedar `dist`. Repositório privado, escrita dos professores, URL pública e envios separados de Web/Front-end precisam de conferência humana; T32 continua parcial. Nenhum push, merge, deploy, mudança de permissões ou aceite M5/M6 é presumido por este pacote.
+
+## Avaliação rápida no Vercel — 15/11/2026
+
+O `vercel.json` habilita `VITE_ENABLE_DEVELOPER_ACCESS=true` no build do Vercel e encaminha rotas da aplicação para `index.html`, preservando `/api/`. Depois da publicação, compartilhe `<origem-do-site>/demo` com os professores: escolher produtor (Ana/João), comprador ou transportador e clicar em Entrar. O login também exibe Entrar como desenvolvedor. Não é necessário cadastrar conta para esse acesso.
+
+Para persistência no Supabase demo, o projeto Vercel precisa das variáveis `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_DEMO_PASSWORD` e dos e-mails fictícios de `.env.example` (se diferentes dos padrões). A senha deve pertencer exclusivamente às contas demo já cadastradas; variáveis VITE_ são públicas. Sem Supabase, a entrada usa a prévia local volátil. Nenhuma credencial foi adicionada ao repositório. A configuração habilita o acesso compartilhado nos deploys deste projeto acadêmico; não usar com dados pessoais reais.
+
+A configuração segue a [documentação oficial de Vite no Vercel](https://vercel.com/docs/frameworks/frontend/vite) e de [build.env](https://vercel.com/docs/project-configuration/vercel-json). Preparação local não comprova publicação ou login no domínio remoto.
