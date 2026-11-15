@@ -488,3 +488,5 @@ Popover nativo não modal conserva a página utilizável e fornece Escape, fecha
 
 
 Autorização Git D048 — 15/11/2026: após a apresentação da feature, usuário declarou “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção para main nem comprova deploy ou novas verificações remotas.
+
+Autorização posterior D048 — 15/11/2026: usuário autorizou explicitamente promover/publicar na main e solicitou o link Vercel. A publicação Git não comprova implantação; endereço e disponibilidade devem ser conferidos separadamente.
