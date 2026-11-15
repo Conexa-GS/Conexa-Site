@@ -1996,3 +1996,21 @@ Teste de regressão falhou antes da correção: clique duplo levou de 1 para 3 d
 
 ### 5. Análise crítica
 O contador estava ligado ao índice correto, mas eventos repetidos faziam avançar mais de uma etapa. A proteção compartilhada evita também que o reposicionamento converta o segundo clique em outra ação. Cliques de ponteiro separados por menos de 350 ms são tratados como uma única intenção, exigindo uma pequena pausa para avanços voluntários muito rápidos. Interações continuam fictícias e isoladas dos serviços reais.
+
+
+## Interação 106 — Bot flutuante com a flor animada — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex e terminal para inspeção, implementação e verificações; navegador integrado via cua_repl para revisão desktop/360 px, foco, recolhimento e movimento reduzido. Habilidades baseline-ui e computer-use consultadas para interface e revisão no navegador.
+
+### 2. Prompts e respostas representativos
+Transcrição do pedido de programação: “quero que o bot conexa apareça como uma bolinha no canto da tela, como um assistente de pagina, vai abrir uma pequena janela de conversa com ele, assim que clicar no icone. quero uma animação da tela abrindo e fechando. quero que o icone do bot seja o gif da flor se mexendo, ela será a personificação do nosso assistente da conexa.” Resposta real: “Vou localizar o bot e o GIF da flor, ler as regras do projeto e transformar o assistente em um botão flutuante com uma janela de conversa animada.”
+
+### 3. Aplicação no código
+FloatingBot/BotAvatar reaproveitam BotThread e MotionArtwork com o GIF local. Popover nativo e CSS de 180 ms abrem/recolhem a conversa sem desmontar seu estado. App monta o assistente nos perfis já atendidos; OffersPage e lista de Conversas acionam o mesmo painel; URL antiga preservada. Tutorial reposicionado para não cobrir a flor. Outbox lê pedidos duráveis antes de gravar novo envio para preservar pedidos simultâneos de bot e DM em instâncias diferentes. D048 e documentos de continuidade registram o comportamento.
+
+### 4. Verificação, testes e ajustes
+Codex executou lint, 142 testes e build aprovados; aviso de bundle grande permanece. Teste App verifica ajuda, rota, texto preservado e instância única; regressão de outbox verifica coexistência de pedidos. Ajustadas APIs simuladas de movimento/popover no jsdom, identificador opcional durante carregamento detectado no navegador e export da bancada apontado pelo lint. Revisão na bancada local em 1366×900/360×800 confirmou limites, histórico rolável, compositor visível, Escape/retorno de foco, minimizar/reabrir, clique fora, GIF e movimento reduzido. Resultados e limites em validation.md. Sem testes remotos, avaliação humana, push ou integração.
+
+### 5. Análise crítica
+Reaproveitar a conversa preserva as validações, prévias e confirmação explícita existentes. O popover mantém a página disponível e as transições não animam dimensões. Permanecer montado conserva texto durante navegação, mas exige sincronizar o journal entre bot e DM, corrigido e coberto por regressão. Texto não enviado continua volátil após F5; testes em memória e navegador desktop não substituem aparelho físico ou Supabase real. Popover e transições discretas dependem de suporte do navegador; a revisão foi feita no navegador integrado. Entrega preparada para avaliação na feature, sem autorização Git presumida.

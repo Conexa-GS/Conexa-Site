@@ -1156,3 +1156,21 @@ Pedido do usuário relata etapas puladas no comprador/transportadora. Codex repr
 Teste de regressão passou para comprador e transportadora, cobrindo clique duplo, eventos batidos no mesmo ciclo, retorno, destaque, segundo controle e repetição de Enter. No navegador da bancada isolada, dblclick em Próximo levou apenas a 2 de 9 no comprador e 2 de 6 na transportadora, em 1366×900 e 360×800. Não houve escrita remota ou troca de conta real. Viewport restaurado e bancada fechada. npm run lint, npm test (141 testes) e npm run build aprovados; aviso de bundle acima de 500 kB permanece. Sem alteração de conteúdo/layout ou nova auditoria de acessibilidade. Aceite anterior do usuário preservado, com ressalva do defeito relatado; aceite desta correção e autorização de integração/publicação continuam pendentes.
 
 Autorização posterior D047 — 15/11/2026: usuário autorizou explicitamente publicação e integração feature → dev → main. Verificações locais desta entrega: lint, 141 testes e build aprovados, mais regressão de cliques duplos nos dois perfis em desktop/360 px. A autorização não comprova implantação ou novas operações remotas. Commits e referências publicados no relato final da execução Git.
+
+
+### D048 — Assistente flutuante — 15/11/2026
+
+Implementado por Codex na feature/bot-flutuante, da dev b08eca8: FloatingBot, BotAvatar, estilos, acionadores em App/OffersPage/ConversationsPage e proteção do journal compartilhado. Bot usa a flor local original com MotionArtwork; o painel preserva o componente e o compositor enquanto minimizado. Mesmas operações e confirmações anteriores. Sem nova autenticação, escrita remota, migrations, voz ou API paga.
+
+- npm run lint aprovado; npm test: 142 testes aprovados; npm run build aprovado, com aviso existente de bundle acima de 500 kB (principal aproximadamente 793 kB, 226 kB gzip). Log local: artifacts/bot-flutuante-tests.local.log.
+- Teste App adaptado ao comportamento solicitado: abre pela ajuda sem mudar de rota nem iniciar pedido, minimiza/reabre preservando texto, navega para Mensagens mantendo o compositor e usa o mesmo bot pela lista, sem duplicar o componente. APIs de movimento e Popover simuladas em jsdom, sem comprovar comportamento nativo ou geometria.
+- Regressão nova de outbox: duas instâncias preservam pedidos de bot/DM simultâneos e não restauram pedidos já concluídos. Ajuste necessário porque o painel permanece montado junto à página de mensagens.
+- Primeira execução encontrou ausência das APIs de movimento no jsdom; bancada de testes atualizada. Navegador detectou acesso prematuro ao identificador da conversa na compilação React durante o carregamento; corrigido usando identificador opcional. Lint detectou export ausente da bancada, corrigido.
+- Navegador integrado no Vite local, bancada isolada /tests/ui/floating-bot.html: 1366×900 e 360×800, sem overflow horizontal; painel e compositor dentro da tela, botão Como usar sem sobreposição à flor. Consulta fictícia com histórico rolável e campo de envio visível no celular.
+- Abertura pela flor, minimizar, reabertura, Escape e clique fora conferidos. Escape devolveu foco à flor; reabrir colocou foco no título. Texto digitado preservado após Escape/reabertura. GIF local observado em execução. Preferência prefers-reduced-motion emulada: quadro flower-still.png e transição 0s; emulação restaurada. CSS normal declara entrada/saída de 180 ms; sem medição quadro a quadro da animação.
+- Capturas locais: artifacts/bot-flutuante-desktop.local.jpg e artifacts/bot-flutuante-mobile.local.jpg. Viewport restaurado e aba de bancada fechada. Sem aparelho físico, teclado virtual mobile, auditoria completa de leitor de tela ou nova comprovação do Supabase real.
+
+Avaliação humana, push, integração na dev e deploy pendentes. Sem promoção para main ou ampliação dos aceites de marcos.
+
+
+Autorização Git D048 — 15/11/2026: após a apresentação da feature, usuário declarou “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção para main nem comprova deploy ou novas verificações remotas.

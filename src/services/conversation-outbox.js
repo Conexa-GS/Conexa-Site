@@ -20,9 +20,9 @@ export function createConversationOutbox(owner, getStorage = () => window.sessio
     load: () => entries,
     warning: () => warning,
     save(id, composer, expectedKey) {
-      if (expectedKey) {
-        // A previous page can finish after navigation created a new outbox.
-        // Compare against the durable journal, not that old instance's cache.
+      if (expectedKey || composer.locked) {
+        // The floating bot and direct messages can send from separate instances.
+        // Merge new requests and compare replies against the durable journal.
         try { entries = JSON.parse(getStorage().getItem(key) || '{}') }
         catch { throw new Error('Não foi possível conferir a chave persistida. Verifique o envio novamente quando o armazenamento estiver disponível.') }
       }
