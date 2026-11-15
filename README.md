@@ -1,5 +1,9 @@
 # Conexa
 
+### Tutorial dentro da sessão
+
+**Como usar**, no canto inferior direito da área autenticada, inicia uma visita guiada personalizada: produtor (6 etapas), comprador (9) e transportadora (6). O fundo escurece e a área indicada fica clara, com instrução curta, Anterior/Próximo e fechamento por botão/Escape. A visita troca automaticamente as telas de exemplo e simula o pedido até a conclusão, sem sair da sessão ou gravar dados. As respostas dos demais participantes são fictícias. Ao fechar, a página original continua aberta. Implementação local em feature/tutorial-guiado, aguardando avaliação e autorização de integração.
+
 Fotos das ofertas (D045, 14/11/2026): criação/edição com câmera ou arquivo, prévia, troca/remoção e foto nos cartões. **Preparado localmente; envio real aguarda autorização para aplicar a migration no Supabase demo.** [Verificações e limites](Conexa-specs/validation.md#fotos-das-ofertas--d045--14112026).
 
 ### Fotos das ofertas

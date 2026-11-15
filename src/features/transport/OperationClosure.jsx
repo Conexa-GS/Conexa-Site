@@ -14,9 +14,9 @@ function ReasonForm({ action, title, button, explanation, pending, onAction }) {
   </form>
 }
 
-export default function OperationClosure({ load, session, reload, request = m5 }) {
+export default function OperationClosure({ load, session, reload, request = m5, preview = false, initialOutcome = 'pending' }) {
   const [pending, setPending] = useState(false), [error, setError] = useState(''), [notice, setNotice] = useState('')
-  const [outcome, setOutcome] = useState('pending')
+  const [outcome, setOutcome] = useState(initialOutcome)
   const retry = useRef(null)
   const busy = useRef(false)
   const buyer = session.role === 'buyer'
@@ -43,7 +43,7 @@ export default function OperationClosure({ load, session, reload, request = m5 }
   }
   return <section className="m5-closure" aria-label="Fechamento simulado da operação">
     <h3>Pagamento e entrega · M5 em avaliação</h3>
-    <p className="inline-note"><strong>Demonstração fictícia persistida.</strong> Não há cobrança, transferência de dinheiro ou transporte físico. Não informe cartão, CPF ou conta bancária.</p>
+    <p className="inline-note"><strong>{preview ? 'Exemplo do tutorial. Nada é salvo.' : 'Demonstração fictícia persistida.'}</strong> Não há cobrança, transferência de dinheiro ou transporte físico. Não informe cartão, CPF ou conta bancária.</p>
     {error && <ErrorNotice autoFocus title="Não foi possível registrar a simulação">{error} Os campos foram preservados. Repetir a mesma ação reutiliza sua chave de tentativa.</ErrorNotice>}
     {notice && <p role="status" className="success-notice">{notice}</p>}
     {load.status === 'awaiting_payment' && (buyer ? <form className="m3-form" onSubmit={e => { e.preventDefault(); act('pay', { outcome }) }}>

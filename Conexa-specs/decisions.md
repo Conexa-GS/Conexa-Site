@@ -462,3 +462,19 @@ Por pedido explícito com imagem de referência, substituir sidebar sálvia e he
 ## D046 — Acesso acadêmico no Vercel — 15/11/2026
 
 Pedido explícito: disponibilizar a área de desenvolvedor pelo Vercel para avaliação rápida dos professores. Complementa D030: o build do Vercel passa a habilitar explicitamente o acesso demo via vercel.json; demais builds conservam a configuração opt-in existente. Link direto /demo e recarga atendidos por rewrite SPA, excluindo /api/. Contas permitidas, Auth e RLS preservados. Credenciais demo e Supabase continuam dependendo do ambiente remoto; não foram versionadas nem alteradas. Sem publicação ou aceite humano presumidos.
+
+## D047 — Tutorial integrado com indicações de clique — 15/11/2026
+
+Pedido explícito do usuário: substituir a apresentação externa por um tutorial no próprio site, aberto por botão, com slides, textos mínimos e indicação de onde clicar, tudo dentro da janela. O vídeo ilustrado anterior não atende à solicitação corrigida e não integra esta entrega.
+
+Botão Como usar disponível nas telas públicas e de participantes, com 18 etapas manuais da oferta até o recebimento. Cabeçalho identifica perfil e caminho no menu. Contorno e mão com Clique aqui apontam para o controle; clicar no destaque avança o slide, com Anterior/Próximo como alternativa. Não há reprodução automática. Diálogo nativo com fechamento por botão/Escape, retorno ao acionador e foco na instrução ao trocar etapas.
+
+OfferForm e DemandForm ganham apresentação incorporada opcional; VehicleForm é compartilhado com a tela real. OfferCard, Loads, QuoteForm e OperationClosure são reutilizados com fixtures locais, sem conta autenticada ou configuração remota necessária. Trechos resumidos da composição e de seleção/aceites preservam os nomes dos controles atuais. Referências têm inert/aria-hidden, captura de cliques/envios e adaptadores que recusam escrita; apenas o destaque e os controles do tutorial são acionáveis. Pagamento/viagem/repasses continuam identificados como simulados. Não cria uma operação, não muda dados de usuário e não comprova novo percurso real no Supabase.
+
+Implementado na feature/tutorial-guiado, criada da dev 8528991. Avaliação humana e autorização de publicação/integração na dev pendentes; sem promoção ou deploy presumidos.
+
+Complemento D047 — 15/11/2026: por pedido explícito, Como usar passa a existir somente dentro da área autenticada, junto ao AppLayout após validação da sessão. Substitui a disponibilidade pública anterior; home, login e acesso de desenvolvedor deixam de mostrar o botão. Publicação/integração pendentes.
+
+Complemento D047 — visita guiada por perfil (15/11/2026): por solicitação com três referências visuais, substituir os slides centrais por uma camada em tela inteira com fundo escuro, recorte claro no alvo e cartão contextual. Cada sessão recebe somente o percurso do seu papel: produtor 6, comprador 9 e transportadora 6 etapas. A navegação troca páginas de referência dentro da camada isolada; não altera a URL, histórico ou a sessão real. Os passos simulam as ações do usuário e as respostas dos demais até o recebimento/repasses, com valores locais preenchidos. Ao sair, a página original está preservada. Formulários existentes aceitam valores iniciais opcionais para essas referências; comportamento normal permanece com padrões anteriores. Esta decisão substitui o formato anterior de 18 slides, sem ampliar aceites ou autorizar Git/deploy.
+
+Autorização Git D047 — 15/11/2026: usuário declarou “pode mandar para dev e depois para main”, após avaliar o tutorial e a correção de etapas puladas. Autoriza publicar feature/tutorial-guiado, integrar/publicar na dev e promover/publicar na main. Substitui as pendências de autorização Git desta entrega; não comprova deploy, teste remoto ou ampliação dos aceites de marcos.

@@ -1,5 +1,10 @@
 # Conexa — Pacote de especificações
 
+**Complemento vigente D047 — visita guiada por perfil (15/11/2026):** Como usar permanece apenas na sessão autenticada e agora apresenta as telas de exemplo em tamanho de página, fundo escuro com recorte claro no controle e cartão de orientação ao lado (abaixo no celular). Produtor: 6 etapas; comprador: 9; transportadora: 6. Troca automática de telas dentro da simulação, formulários preenchidos com exemplos e respostas fictícias dos demais participantes. Sem navegar a sessão real ou escrever nos serviços. Substitui a apresentação anterior de 18 slides em janela central descrita abaixo; avaliação e publicação pendentes.
+
+
+Tutorial em avaliação local, **15/11/2026 (D047)**: botão **Como usar** abre 18 slides dentro do site, com texto curto e controle destacado, percorrendo ofertas, pedido, aceites, veículo/frete, pagamento e recebimento simulados. Componentes existentes e exemplos locais isolados; nenhum cadastro ou operação é gravado pelo tutorial. Branch `feature/tutorial-guiado`, da dev `8528991`; [verificação e limites](validation.md#tutorial-integrado--d047--15112026). Sem autorização de push/integração presumida.
+
 Complemento vigente **D045, 14/11/2026**: alface, cenoura e tomate usam as imagens fornecidas pelo usuário como padrão na criação e nos cartões sem foto própria. Troca posterior e retorno ao padrão disponíveis; referências identificadas como Imagem padrão. Padrões locais independem de Supabase Storage; upload de fotos próprias e integração Git continuam com as pendências abaixo.
 
 Fotos das ofertas em avaliação local, **14/11/2026 (D045)**: foto opcional do lote, câmera/arquivo, prévia, troca/remoção e destaque nos cartões do produtor/comprador. `feature/foto-oferta`, criada da dev `741ba24`. Migration de coluna, bucket privado e RLS preparada; aplicação remota bloqueada pela revisão automática por exigir autorização explícita. Sem upload ou validação de Storage no Supabase real nesta rodada. [Verificações e limites](validation.md#fotos-das-ofertas--d045--14112026). Avaliação humana e autorização remota/push/integração pendentes.
