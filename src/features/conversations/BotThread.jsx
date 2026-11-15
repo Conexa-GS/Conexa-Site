@@ -171,11 +171,14 @@ export default function BotThread({ conversation, session, service = siteBotServ
     return message.body
   }
   const responseControls = context && <>
-      {offerSelection && <ul className="bot-offer-options" aria-label="Ofertas disponíveis">{context.offers.map(offer => <li key={offer.id}>
+      {offerSelection && <ul className="bot-offer-options" aria-label="Ofertas disponíveis">{context.offers.map((offer, index) => <li key={offer.id}>
+        <span className="bot-offer-label">Oferta {index + 1}</span>
         <div className="bot-offer-top"><strong>{offer.products.name}</strong><span>{currency(offer.unit_price_cents)}<small>/kg</small></span></div>
-        <p>{quantity(offer.quantity_free)} kg livres <span>de {quantity(offer.quantity_total)} kg no total</span></p>
-        <p className="bot-offer-meta">Disponível de {offer.available_from.split('-').reverse().join('/')} até {offer.available_until.split('-').reverse().join('/')}</p>
-        <p className="bot-offer-meta">{context.catalog.locations.find(location => location.id === offer.pickup_location_id)?.display_address || 'Local de coleta não informado'}</p>
+        <dl className="bot-offer-facts">
+          <div><dt>Quantidade disponível</dt><dd><strong>{quantity(offer.quantity_free)} kg livres</strong><small>de {quantity(offer.quantity_total)} kg no total</small></dd></div>
+          <div><dt>Disponibilidade</dt><dd>{offer.available_from.split('-').reverse().join('/')} a {offer.available_until.split('-').reverse().join('/')}</dd></div>
+          <div><dt>Local de coleta</dt><dd>{context.catalog.locations.find(location => location.id === offer.pickup_location_id)?.display_address || 'Local de coleta não informado'}</dd></div>
+        </dl>
         <details className="bot-record-details"><summary>Identificação da oferta</summary><p>{offer.id}</p></details>
         {session.role === 'producer' && <button className="text-link" disabled={blocked} onClick={() => prepare(`Escolher oferta de ${offer.products.name}, ${quantity(offer.quantity_total)} kg, disponível até ${offer.available_until.split('-').reverse().join('/')}`, { intent: draft.intent === 'consult' ? 'edit' : draft.intent, fields: offerFields(offer), target_id: offer.id })}>{draft.intent === 'consult' ? 'Editar esta oferta' : 'Escolher esta oferta'}</button>}
       </li>)}{!context.offers.length && <li>Nenhuma oferta disponível por enquanto.</li>}</ul>}

@@ -2014,3 +2014,21 @@ Codex executou lint, 142 testes e build aprovados; aviso de bundle grande perman
 
 ### 5. Análise crítica
 Reaproveitar a conversa preserva as validações, prévias e confirmação explícita existentes. O popover mantém a página disponível e as transições não animam dimensões. Permanecer montado conserva texto durante navegação, mas exige sincronizar o journal entre bot e DM, corrigido e coberto por regressão. Texto não enviado continua volátil após F5; testes em memória e navegador desktop não substituem aparelho físico ou Supabase real. Popover e transições discretas dependem de suporte do navegador; a revisão foi feita no navegador integrado. Entrega preparada para avaliação na feature, sem autorização Git presumida.
+
+
+## Interação 107 — Ofertas em cartões no bot — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para ajustar apresentação; navegador integrado via cua_repl para conferir desktop/360 px.
+
+### 2. Prompts e respostas representativos
+Transcrição: “dentro do chat do bot, deixe as informações da pesquisa como, consultar ofertas, mais blocado, é difícil saber quando uma oferta começa e outra acaba, parece só um bloco de texto gigante”. Resposta real: “Vou separar os resultados da consulta em cartões, com bordas, espaçamento e informações agrupadas para ficar claro onde cada oferta começa e termina.”
+
+### 3. Aplicação no código
+BotThread apresenta número por resultado e lista semântica de campos. conversations.css delimita cartões com bordas, espaço de 16 px, separadores e ação própria. Bancada floating-bot contém duas ofertas fictícias para comparar limites.
+
+### 4. Verificação, testes e ajustes
+Lint, testes e build executados; resultados em validation.md. Navegador em 1366×900 e 360×800 com duas ofertas locais: bordas, espaço e campos conferidos; sem overflow horizontal em 360 px. Capturas em artifacts/bot-cartoes-*.local.jpg. Corrigida substituição inicial de markup que não correspondia às quebras CRLF. Sem escrita remota, avaliação humana ou publicação.
+
+### 5. Análise crítica
+Bordas e numeração distinguem ofertas do mesmo alimento; rótulos permitem localizar cada dado sem ler um parágrafo. Os cartões ficam mais altos e usam a rolagem existente do histórico. Bancada em memória não comprova Supabase ou aparelho físico.

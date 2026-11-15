@@ -11,6 +11,7 @@ import '../../src/participant.css'
 
 const people = createConversationsFixture()
 const bot = createBotFixture()
+bot.offers.push({ ...bot.offers[0], id: 'oferta-exemplo-2', quantity_total: 50, quantity_free: 40, unit_price_cents: 650 })
 const session = { id: 'ana', role: 'producer', display_name: 'Ana · Sítio Boa Semente' }
 export default function Review() {
   return <><AppLayout session={session} path="/produtor/ofertas" leave={() => {}}><h1>Minhas ofertas</h1><p>Bancada isolada · memória local, sem Supabase ou API paga.</p><button className="button button-outline" onClick={openConexaBot}>Cadastrar com ajuda</button></AppLayout><FloatingBot session={session} service={people.service} botService={bot.service} /><Tutorial role="producer" /></>

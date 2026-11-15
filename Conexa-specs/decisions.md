@@ -490,3 +490,10 @@ Popover nativo não modal conserva a página utilizável e fornece Escape, fecha
 Autorização Git D048 — 15/11/2026: após a apresentação da feature, usuário declarou “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção para main nem comprova deploy ou novas verificações remotas.
 
 Autorização posterior D048 — 15/11/2026: usuário autorizou explicitamente promover/publicar na main e solicitou o link Vercel. A publicação Git não comprova implantação; endereço e disponibilidade devem ser conferidos separadamente.
+
+
+## D049 — Resultados do bot em cartões — 15/11/2026
+
+Pedido do usuário: delimitar melhor as ofertas na consulta do chat. Cada resultado recebe número, borda verde, espaçamento, cabeçalho com produto/preço e campos rotulados de quantidade, disponibilidade e coleta. Ação própria no rodapé. Mesmos dados, permissões e confirmações; sem alterações remotas. Feature/bot-cartoes-ofertas criada da dev 4f248f4; avaliação e publicação pendentes.
+
+Autorização Git D049 — 15/11/2026: após apresentação dos cartões e verificações, usuário declarou 'pode mandar para dev e depois para a main'. Autoriza publicação da feature, integração/publicação na dev e promoção/publicação na main. Não comprova deploy ou novos testes remotos.

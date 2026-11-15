@@ -1174,3 +1174,8 @@ Avaliação humana, push, integração na dev e deploy pendentes. Sem promoção
 
 
 Autorização Git D048 — 15/11/2026: após a apresentação da feature, usuário declarou “pode mandar para dev”. Autoriza commit/publicação da feature e integração/publicação na dev. Não autoriza promoção para main nem comprova deploy ou novas verificações remotas.
+
+
+### D049 — Cartões nos resultados do bot — 15/11/2026
+
+Feature/bot-cartoes-ofertas: BotThread e conversations.css passam a separar cada oferta por número, bordas verdes, intervalo de 16 px e campos rotulados; ação de edição no rodapé. Bancada local inclui dois resultados do mesmo alimento para comparar limites. Codex executou npm run lint, npm test (142 aprovados) e npm run build (aprovado, aviso existente de bundle acima de 500 kB). Navegador integrado na bancada isolada em 1366×900 e 360×800: conferidos limites e separação entre cartões, rolagem do histórico e ausência de overflow horizontal no celular. Capturas em artifacts/bot-cartoes-desktop.local.jpg e artifacts/bot-cartoes-mobile.local.jpg. Viewport restaurado e aba fechada. Sem escrita remota, nova validação Supabase ou aparelho físico. Avaliação humana e autorização de publicação/integração pendentes.
