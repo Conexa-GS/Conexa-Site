@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ArrowUpRight } from '@phosphor-icons/react'
 import { accounts } from '../services/offers'
-import { Logo, PageHeading, ErrorNotice, BackLink } from '../components/ui'
+import { Logo, ErrorNotice, BackLink } from '../components/ui'
 import { navigate } from '../hooks/useRouter'
 import { homeFor } from '../domain/profiles'
 import { isRemote } from '../services/supabase'
@@ -21,7 +21,7 @@ export default function Demo({ auth }) {
     if (participant) navigate(homeFor(participant.role))
   }
   return <div className="app-shell demo-page"><a className="skip-link" href="#conteudo">Pular para o conteúdo</a><header className="app-header"><Logo /><BackLink href="/login">Voltar para o login</BackLink></header><main id="conteudo" className="app-content" tabIndex={-1}>
-    <PageHeading title="Acesso de desenvolvedor" />
+    <h1 className="sr-only">Acesso de desenvolvedor</h1>
     {auth.error && <ErrorNotice autoFocus title="Não foi possível entrar na demonstração">{auth.error}</ErrorNotice>}
     <div className="demo-profiles" aria-busy={auth.pending}>{profiles.map(({ role, title, profile }) => <section className={`demo-profile profile-photo home-profile-${profile}${preferred === profile ? ' preferred' : ''}`} key={role} aria-labelledby={`demo-${role}`}>
       <h2 id={`demo-${role}`}>{title}</h2>

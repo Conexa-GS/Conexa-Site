@@ -2032,3 +2032,20 @@ Lint, testes e build executados; resultados em validation.md. Navegador em 1366�
 
 ### 5. Análise crítica
 Bordas e numeração distinguem ofertas do mesmo alimento; rótulos permitem localizar cada dado sem ler um parágrafo. Os cartões ficam mais altos e usam a rolagem existente do histórico. Bancada em memória não comprova Supabase ou aparelho físico.
+
+## Interação 108 — Desenvolvedor com imagens em terços da tela — 15/11/2026
+
+### 1. Ferramentas de IA e finalidades
+Codex/terminal para inspeção, CSS e verificações locais; navegador integrado via cua_repl para revisão desktop/360 px e capturas. Habilidade computer-use consultada para orientar a revisão visual.
+
+### 2. Prompts e respostas representativos
+Transcrição do pedido: “na area de entrar como desenvolvedor, preciso que as imagens ocupem toda a tela dividando cada uma em 1/3 da tela, então ficaria exatamante 1/3 2/3 3/3. deixe apenas o header com a cor branca”. Resposta real: “Vou localizar a tela de entrada como desenvolvedor e ajustar as três imagens para ocuparem partes iguais da tela, mantendo apenas o header branco.”
+
+### 3. Aplicação no código
+Demo.jsx conserva o título para leitores de tela, sem ocupar espaço visual. demo.css remove limites e preenchimento do conteúdo, aplica header branco e distribui as fotos em três colunas iguais que preenchem a área restante. Em celular, três faixas iguais sem intervalos; aviso de simulação fica sobre as imagens. Documentos spec.md, decisions.md e validation.md atualizados para D050.
+
+### 4. Verificação, testes e ajustes
+Lint, 142 testes e build aprovados; aviso existente de bundle grande. Navegador em 1366×900 e 360×800 confirmou divisão igual, fotos cobrindo a área sob o header, controles/aviso visíveis e ausência de overflow. Seleção Ana/João conferida; não houve autenticação nem escrita remota. Capturas locais indicadas em validation.md. Avaliação humana e publicação/integração pendentes.
+
+### 5. Análise crítica
+O grid flexível acompanha a altura disponível e elimina faixas vazias. O celular usa terços na vertical para manter textos e controles utilizáveis; dimensões mínimas permitem rolagem em telas mais baixas. Fotografias de fundo com cover podem sofrer recorte conforme proporção da tela. Revisão em navegador não substitui aparelho físico ou auditoria completa de acessibilidade.

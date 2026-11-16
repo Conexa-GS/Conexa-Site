@@ -497,3 +497,9 @@ Autorização posterior D048 — 15/11/2026: usuário autorizou explicitamente p
 Pedido do usuário: delimitar melhor as ofertas na consulta do chat. Cada resultado recebe número, borda verde, espaçamento, cabeçalho com produto/preço e campos rotulados de quantidade, disponibilidade e coleta. Ação própria no rodapé. Mesmos dados, permissões e confirmações; sem alterações remotas. Feature/bot-cartoes-ofertas criada da dev 4f248f4; avaliação e publicação pendentes.
 
 Autorização Git D049 — 15/11/2026: após apresentação dos cartões e verificações, usuário declarou 'pode mandar para dev e depois para a main'. Autoriza publicação da feature, integração/publicação na dev e promoção/publicação na main. Não comprova deploy ou novos testes remotos.
+
+## D050 — Acesso de desenvolvedor em três partes da tela — 15/11/2026
+
+Pedido explícito: cada imagem ocupar um terço da tela, deixando apenas o header branco. A área abaixo do cabeçalho passa a ocupar toda a largura e altura disponível, com três colunas iguais no desktop e três faixas iguais até 760 px. Sem margens ou espaços entre fotos. Título principal permanece acessível a leitores de tela; aviso de simulação fica sobre as fotos. Dimensões mínimas permitem rolagem em telas muito baixas para preservar os controles. Escolha de contas, fotos, autenticação e operações preservadas. Substitui a composição delimitada de D041. Preparado na feature/desenvolvedor-tela-inteira, criada da dev d9b9fda; avaliação e autorização para publicação/integração pendentes.
+
+Autorização Git D050 — 15/11/2026: após apresentação da prévia e verificações, usuário declarou “pode mandar para dev e depois para a main”. Autoriza publicar a feature, integrar/publicar na dev e promover/publicar na main. Substitui a pendência de autorização Git desta entrega; não comprova deploy ou novos testes remotos.

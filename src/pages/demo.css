@@ -1,6 +1,9 @@
-.demo-page .page-heading { margin-bottom: 32px; }
-.demo-profiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.demo-profile { display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; min-height: 500px; padding: 32px; }
+html:has(.demo-page) { scrollbar-gutter: auto; }
+.app-shell.demo-page { background: var(--green); }
+.app-shell.demo-page .app-header { width: 100%; min-height: 96px; padding: 20px clamp(24px, 4vw, 64px); background: #fff; align-items: center; flex-wrap: nowrap; }
+.app-shell.demo-page .app-content { position: relative; display: flex; width: 100%; padding: 0; }
+.demo-profiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); flex: 1; }
+.demo-profile { display: flex; flex-direction: column; justify-content: flex-end; min-width: 0; min-height: 440px; padding: 40px clamp(24px, 4vw, 64px) 80px; }
 .demo-page .demo-profile h2 { color: inherit; font-size: clamp(28px, 2.8vw, 38px); line-height: 1.15; letter-spacing: -1px; }
 .demo-profile.preferred { outline: 2px solid var(--cream); outline-offset: -8px; }
 .demo-profile .demo-account { width: 100%; min-width: 0; min-height: 48px; margin: 18px 0 22px; padding: 10px 0; font-size: 14px; line-height: 1.8; color: inherit; }
@@ -15,11 +18,15 @@
 .demo-enter:hover:not(:disabled) { background: var(--cream); color: var(--green); }
 .demo-profile button:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
 .demo-profile :disabled { opacity: .65; cursor: wait; }
-.demo-context { margin-top: 22px; font-size: 12px; color: var(--muted); }
-@media (max-width: 1000px) { .demo-profile { padding: 24px; } }
+.app-shell.demo-page .demo-context { position: absolute; inset: auto 24px 14px; margin: 0; font-size: 12px; color: var(--cream); text-align: center; pointer-events: none; }
+.demo-page .error-notice { position: absolute; z-index: 1; top: 20px; left: 24px; right: 24px; max-width: 700px; max-height: 50dvh; overflow: auto; margin: 0 auto; }
 @media (max-width: 760px) {
-  .demo-page .page-heading { margin-bottom: 24px; }
-  .demo-profiles { grid-template-columns: 1fr; gap: 16px; }
-  .demo-profile { min-height: 360px; }
-  .demo-page .demo-profile h2 { font-size: 30px; }
+  .app-shell.demo-page .app-header { min-height: 80px; padding: 16px 24px; gap: 16px; }
+  .app-shell.demo-page .app-header .back-link { font-size: 12px; }
+  .demo-profiles { grid-template-columns: 1fr; grid-template-rows: repeat(3, minmax(224px, 1fr)); gap: 0; }
+  .demo-profile { min-height: 0; padding: 16px 24px; }
+  .demo-profile:last-child { padding-bottom: 56px; }
+  .demo-page .demo-profile h2 { font-size: 26px; }
+  .demo-profile .demo-account { margin: 6px 0 10px; }
+  .app-shell.demo-page .demo-context { font-size: 10px; line-height: 1.5; bottom: 12px; }
 }
