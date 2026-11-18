@@ -34,14 +34,6 @@
   font-size: clamp(42px, 5.3vw, 86px);
   line-height: 1;
 }
-.photo-landing .home-introduction h2::before {
-  content: '';
-  display: block;
-  width: 56px;
-  height: 3px;
-  margin-bottom: clamp(20px, 3vw, 36px);
-  background: #a85a35;
-}
 .photo-landing .home-introduction > p { max-width: 46ch; font-size: 17px; color: var(--ink-soft); }
 .photo-landing .home-audience-heading {
   padding: 0 var(--home-gutter) 14px;

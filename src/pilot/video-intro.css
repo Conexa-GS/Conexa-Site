@@ -49,7 +49,6 @@
 }
 
 .video-intro-copy h1 span { display: block; color: inherit; }
-.video-intro-copy h1 span + span { color: #f0c398; }
 
 .video-intro-copy p {
   max-width: 34ch;
@@ -69,12 +68,17 @@
   padding: 10px;
   border: 1px solid #f7f3e87a;
   border-radius: 50%;
-  background: #152c22df;
+  background: transparent;
   color: var(--home-cream);
 }
 
-.video-intro-toggle:hover { background: var(--home-cream); color: var(--green); }
-.video-intro-toggle svg { width: 22px; height: 22px; fill: currentColor; }
+.video-intro-toggle:hover { border-color: var(--home-cream); }
+.video-intro-toggle svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+  filter: drop-shadow(0 1px 2px #152c22);
+}
 .video-intro-toggle .video-play-icon { display: none; }
 .video-intro-toggle[aria-pressed="true"] .video-pause-icon { display: none; }
 .video-intro-toggle[aria-pressed="true"] .video-play-icon { display: block; }

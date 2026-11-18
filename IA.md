@@ -2071,3 +2071,25 @@ O Codex executou lint, 142 testes e build. No Chrome local em 1366×900 e 360×8
 ### 5. Análise crítica
 
 As timelines CSS associam os efeitos à rolagem nativa e dispensam uma biblioteca de animação. Navegadores sem esse recurso exibem a composição fotográfica e podem executar as revelações por IntersectionObserver. A revisão no Chrome com emulação móvel e fonte de fallback cobre layout e interação local. A fluidez em aparelho físico e a compatibilidade visual em outros navegadores continuam por avaliar.
+
+## Interação 110 — Ajustes visuais na abertura da home — 17/11/2026
+
+### 1. Ferramentas de IA e finalidades
+
+Codex e terminal para comparar os estilos e aplicar o ajuste. Chrome headless para conferir a aparência e o controle de vídeo.
+
+### 2. Prompts e respostas representativos
+
+Trecho de programação transcrito: “tire essa outra cor no titulo, deixe tudo com uma so cor. deixe o botão pause transparente. e tire esse traço anexado.” Resposta real: “Vou deixar o título da abertura em uma só cor, tornar o botão de pausa transparente e remover o traço da seção ‘Uma rede que move a colheita’. Também vou comparar a fonte com a versão anterior.”
+
+### 3. Aplicação no código
+
+`video-intro.css` uniformiza a cor creme do título e deixa transparente o fundo do botão de pausa. `home.css` remove o traço decorativo acima da introdução. A família Lexend e o peso 500 dos títulos são os mesmos da `dev`.
+
+### 4. Verificação, testes e ajustes
+
+O Codex conferiu as duas linhas do título, transparência normal e sob o ponteiro, ausência do traço e pausa/retomada do vídeo no Chrome. Resultados de desktop e mobile em `Conexa-specs/validation.md`. Avaliação humana e integração pendentes.
+
+### 5. Análise crítica
+
+O contorno e a sombra do ícone ajudam a localizar o botão sobre o vídeo com fundo transparente. As capturas locais usaram fallback de fonte, e a família declarada foi comparada com a `dev`.
