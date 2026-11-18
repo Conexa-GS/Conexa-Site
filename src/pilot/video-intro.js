@@ -6,7 +6,8 @@ export function mountVideoIntro() {
   const toggle = intro.querySelector('button')
   const preference = matchMedia('(prefers-reduced-motion: reduce)')
   const lifetime = new AbortController()
-  let visible = false, disposed = false
+  let visible = typeof IntersectionObserver === 'undefined'
+  let disposed = false
 
   // Set the property as well as the attribute before requesting playback.
   video.defaultMuted = true
@@ -27,15 +28,15 @@ export function mountVideoIntro() {
     }).catch(() => { /* Keep the poster/background if autoplay is blocked. */ })
   }
 
-  const observer = new IntersectionObserver(entries => {
-    visible = entries.some(entry => entry.isIntersecting)
+  const observer = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => {
+    visible = entries.some(entry => entry.intersectionRatio >= .01)
     update()
-  })
-  observer.observe(intro)
+  }, { rootMargin: '-40px 0px 0px', threshold: .01 })
+  observer?.observe(intro)
   toggle.addEventListener('click', () => setMotionReduced(!isMotionReduced()), { signal: lifetime.signal })
   preference.addEventListener('change', update, { signal: lifetime.signal })
   document.addEventListener('conexa-motion-preference', update, { signal: lifetime.signal })
   document.addEventListener('visibilitychange', update, { signal: lifetime.signal })
   update()
-  return () => { disposed = true; lifetime.abort(); observer.disconnect(); video.pause() }
+  return () => { disposed = true; lifetime.abort(); observer?.disconnect(); video.pause() }
 }
