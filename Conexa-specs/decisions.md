@@ -507,3 +507,5 @@ Autorização Git D050 — 15/11/2026: após apresentação da prévia e verific
 ## D051 — Animações de rolagem na página inicial — 17/11/2026
 
 O vídeo local passa da tela cheia para um quadro arredondado durante a saída da abertura. A entrada de textos e fotos ocorre uma vez. As fotos ganham deslocamento suave e a linha laranja acompanha o progresso de leitura. A rolagem natural atende roda do mouse, toque e teclado. A amplitude do movimento é menor no celular. Os controles existentes e a preferência do sistema removem os efeitos de movimento e pausam o vídeo. O tratamento de cor e tipografia se limita à página inicial. A feature `feature/home-scroll-cinematografico` partiu da `dev` em `28b27b6`. Avaliação e autorização de publicação ou integração pendentes. Evidências em `validation.md`.
+
+Autorização Git D051 — Após a apresentação da prévia revisada, o usuário declarou “pode mandar para a dev e depois para a main”, autorizando a publicação da feature, a integração na `dev` e a promoção para `main`.
